@@ -1,13 +1,16 @@
 package bo.roman.radio.cover;
 
+import java.net.URL;
+import java.util.List;
+
 public interface ICoverFinder {
 	/**
 	 * Find the art cover of a song.
 	 * 
 	 * @param song
 	 * @param artist
-	 * @return the link with the cover art.
+	 * @return the links with the cover art.
 	 */
-	String getCoverLink(String song, String artist);
+	List<URL> getCoverLinks(String song, String artist);
 
 }

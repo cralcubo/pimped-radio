@@ -1,36 +1,104 @@
 package bo.roman.radio.cover;
 
+import static bo.roman.radio.utilities.LoggerUtility.logDebug;
+
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import org.musicbrainz.controller.Recording;
 import org.musicbrainz.model.searchresult.RecordingResultWs2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import static bo.roman.radio.utilities.LoggerUtility.logDebug;
+
+import bo.roman.radio.cover.model.Album;
 
 public class MusicBrainzAlbumFinder {
 	private final static Logger log = LoggerFactory.getLogger(MusicBrainzAlbumFinder.class);
-	
-	private static final String QUERY_TEMPLATE = "\"%s\" AND artist:\"%s\""; // songName, artistName
-	private Recording recordingController;
-	
-	public MusicBrainzAlbumFinder() {
-		recordingController = new Recording();
-	}
-	
 
-	public List<String> getAlbumIds(String song, String artist){
+	private static final String QUERY_TEMPLATE = "\"%s\" AND artist:\"%s\""; // songName, artistName
+	private static final String COVERARTURL_TEMPLATE = "http://coverartarchive.org/release/%s";
+	
+	private Recording recordingController;
+	private final int limit;
+	private List<Album> allAlbums;
+
+	public MusicBrainzAlbumFinder(int limit) {
+		recordingController = new Recording();
+		this.limit = limit;
+	}
+
+	public List<Album> getAlbums(String song, String artist) {
 		// First generate the query to find an album
 		String query = String.format(QUERY_TEMPLATE, song, artist);
 		logDebug(log, () -> "Query generated=" + query);
-		
+
 		// With the query send a request to MusicBrainz to get the albums
 		recordingController.search(query);
-		List<RecordingResultWs2> results = recordingController.getFullSearchResultList();
+		List<RecordingResultWs2> recordingResults = recordingController.getFullSearchResultList();
+		logDebug(log, () -> "Results returned=" + recordingResults.size());
 		
+		// Sort all the albums from the one that is repeated the most to the least
+		Map<String, Long> albumsMap = getSortedRecordings(recordingResults, artist);
+    	
+    	// Get all Albums
+		List<Album> allAlbums = getAllAlbums(recordingResults);
+    	
+		// Collect in a list all the Releases that are the most relevant
+		List<Album> relevantAlbums = albumsMap.entrySet().stream()
+				.flatMap(es -> allAlbums.stream().filter(a -> a.getTitle().equals(es.getKey())))
+				.limit(limit)
+				.collect(Collectors.toList());
+
+		return relevantAlbums;
+	}
+	
+	private List<Album> getAllAlbums(List<RecordingResultWs2> recordingResults) {
+		if (allAlbums == null) {
+			allAlbums = recordingResults.stream()
+					.map(RecordingResultWs2::getRecording)
+					.flatMap(rec -> rec.getReleases().stream())
+					.map(rel -> new Album.Builder()
+							.title(rel.getTitle())
+							.credits(rel.getArtistCreditString())
+							.status(rel.getStatus())
+							.mbid(rel.getId())
+							.coverUrl(String.format(COVERARTURL_TEMPLATE, rel.getId()))
+							.build())
+					.collect(Collectors.toList());
+		}
 		
-		return null;
+		return allAlbums;
 	}
 
+	/**
+	 * - From the RecordingResultWs2 List, get all the releases available.
+	 * - Filter the Releases that are not Official.
+	 * - Filter the Releases that have a Credits with the name of the artist.
+	 * - Group the Releases title by name and repetitions.
+	 * - Sort from the most repeated to the least one.
+	 * 
+	 * @param recordingResults
+	 * @return
+	 */
+	private Map<String, Long> getSortedRecordings(List<RecordingResultWs2> recordingResults, String artist) {
+		Map<String, Long> releasesMap = getAllAlbums(recordingResults).stream() 
+		    	.filter(a -> "Official".equalsIgnoreCase(a.getStatus()))
+		    	.filter(a -> {
+		    		String artistCredit = a.getCredits();
+		    		if(artistCredit != null && !artistCredit.isEmpty())
+		    		{
+		    			return artistCredit.toLowerCase().contains(artist.toLowerCase());
+		    		}
+		    		return true;
+		    	})
+		    	.collect(Collectors.groupingBy(Album::getTitle, Collectors.counting()))
+		    	.entrySet().stream()
+		    	.sorted((es1, es2) -> Long.compare(es2.getValue(), es1.getValue()))
+		    	.collect(Collectors.toMap(Entry::getKey, Entry::getValue, (k,v) -> {throw new IllegalStateException("Duplicate key:" + k);}, LinkedHashMap::new));
+		return releasesMap;
+	}
 
 }
