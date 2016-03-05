@@ -15,22 +15,31 @@ import org.slf4j.LoggerFactory;
 
 import bo.roman.radio.cover.model.Album;
 
-public class MusicBrainzAlbumFinder {
+/**
+ * Find the cover, sending a request to MusicBrainz based on the song played and
+ * the name of the artist. With this information it will be retrieved first the
+ * Album ID and with this ID another request will be send to coverartachive to
+ * get the link of the cover art picture.
+ * 
+ * @author christian
+ *
+ */
+public class MusicBrainzAlbumFinder implements AlbumFindable {
 	private final static Logger log = LoggerFactory.getLogger(MusicBrainzAlbumFinder.class);
 
 	private static final String QUERY_TEMPLATE = "\"%s\" AND artist:\"%s\""; // songName, artistName
-	private static final String COVERARTURL_TEMPLATE = "http://coverartarchive.org/release/%s";
 	
 	private Recording recordingController;
 	private final int limit;
 	private List<Album> allAlbums;
 
-	public MusicBrainzAlbumFinder(int limit) {
-		recordingController = new Recording();
+	public MusicBrainzAlbumFinder(int limit, Recording recording) {
+		recordingController = recording;
 		this.limit = limit;
 	}
-
-	public List<Album> getAlbums(String song, String artist) {
+	
+	@Override
+	public List<Album> findAlbums(String song, String artist) {
 		// First generate the query to find an album
 		String query = String.format(QUERY_TEMPLATE, song, artist);
 		logDebug(log, () -> "Query generated=" + query);
@@ -38,20 +47,20 @@ public class MusicBrainzAlbumFinder {
 		// With the query send a request to MusicBrainz to get the albums
 		recordingController.search(query);
 		List<RecordingResultWs2> recordingResults = recordingController.getFullSearchResultList();
-		logDebug(log, () -> "Results returned=" + recordingResults.size());
 		
 		// Sort all the albums from the one that is repeated the most to the least
 		Map<String, Long> albumsMap = getSortedRecordings(recordingResults, artist);
     	
     	// Get all Albums
 		List<Album> allAlbums = getAllAlbums(recordingResults);
+		logDebug(log, () -> "All albums found=" + allAlbums.size());
     	
 		// Collect in a list all the Releases that are the most relevant
 		List<Album> relevantAlbums = albumsMap.entrySet().stream()
 				.flatMap(es -> allAlbums.stream().filter(a -> a.getTitle().equals(es.getKey())))
 				.limit(limit)
 				.collect(Collectors.toList());
-
+		logDebug(log, () -> "Relevant albums returned=" + relevantAlbums);
 		return relevantAlbums;
 	}
 	
@@ -65,7 +74,6 @@ public class MusicBrainzAlbumFinder {
 							.credits(rel.getArtistCreditString())
 							.status(rel.getStatus())
 							.mbid(rel.getId())
-							.coverUrl(String.format(COVERARTURL_TEMPLATE, rel.getId()))
 							.build())
 					.collect(Collectors.toList());
 		}
@@ -101,4 +109,5 @@ public class MusicBrainzAlbumFinder {
 		return releasesMap;
 	}
 
+	
 }

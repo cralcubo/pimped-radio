@@ -7,7 +7,7 @@
 			</Pattern>
 		</layout>
 	</appender>
-
+	
 	<logger name="bo.roman.radio" level="debug" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
