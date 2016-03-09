@@ -1,7 +1,8 @@
 package bo.roman.radio.cover;
 
-import static bo.roman.radio.utilities.LoggerUtility.logDebug;
+import static bo.roman.radio.utilities.LoggerUtils.logDebug;
 
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,8 +25,8 @@ import bo.roman.radio.cover.model.Album;
  * @author christian
  *
  */
-public class MusicBrainzAlbumFinder implements AlbumFindable {
-	private final static Logger log = LoggerFactory.getLogger(MusicBrainzAlbumFinder.class);
+public class MusicBrainzFinder implements AlbumFindable {
+	private final static Logger log = LoggerFactory.getLogger(MusicBrainzFinder.class);
 
 	private static final String QUERY_TEMPLATE = "\"%s\" AND artist:\"%s\""; // songName, artistName
 	
@@ -33,7 +34,7 @@ public class MusicBrainzAlbumFinder implements AlbumFindable {
 	private final int limit;
 	private List<Album> allAlbums;
 
-	public MusicBrainzAlbumFinder(int limit, Recording recording) {
+	public MusicBrainzFinder(int limit, Recording recording) {
 		recordingController = recording;
 		this.limit = limit;
 	}
@@ -65,6 +66,10 @@ public class MusicBrainzAlbumFinder implements AlbumFindable {
 	}
 	
 	private List<Album> getAllAlbums(List<RecordingResultWs2> recordingResults) {
+		if(recordingResults == null) {
+			allAlbums = Collections.emptyList();
+		}
+		
 		if (allAlbums == null) {
 			allAlbums = recordingResults.stream()
 					.map(RecordingResultWs2::getRecording)
@@ -92,6 +97,10 @@ public class MusicBrainzAlbumFinder implements AlbumFindable {
 	 * @return
 	 */
 	private Map<String, Long> getSortedRecordings(List<RecordingResultWs2> recordingResults, String artist) {
+		if(recordingResults == null) {
+			return Collections.emptyMap();
+		}
+		
 		Map<String, Long> releasesMap = getAllAlbums(recordingResults).stream() 
 		    	.filter(a -> "Official".equalsIgnoreCase(a.getStatus()))
 		    	.filter(a -> {

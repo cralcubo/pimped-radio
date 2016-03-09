@@ -1,6 +1,9 @@
 package bo.roman.radio.cover;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +13,7 @@ import com.google.gson.Gson;
 import bo.roman.radio.cover.model.Images;
 import bo.roman.radio.cover.model.Images.Image;
 import bo.roman.radio.utilities.HttpUtils;
-import bo.roman.radio.utilities.LoggerUtility;
+import bo.roman.radio.utilities.LoggerUtils;
 
 /**
  * This class will do a request to:
@@ -24,8 +27,8 @@ import bo.roman.radio.utilities.LoggerUtility;
  * @author christian
  *
  */
-public class CoverArtFinder {
-	private final static Logger LOG = LoggerFactory.getLogger(CoverArtFinder.class);
+public class CoverArtArchiveFinder implements CoverArtFindable {
+	private final static Logger LOG = LoggerFactory.getLogger(CoverArtArchiveFinder.class);
 	
 	private static final String RELEASEREQUEST_TEMPLATE = "http://coverartarchive.org/release/%s";
 	
@@ -40,10 +43,10 @@ public class CoverArtFinder {
 	 * @return
 	 * @throws IOException 
 	 */
-	public String fetchAlbumLink(String mbid) throws IOException {
+	public Optional<String> findCoverUrl(String mbid) throws IOException {
 		// First get the link to send the request
 		String requestLink = String.format(RELEASEREQUEST_TEMPLATE, mbid);
-		LoggerUtility.logDebug(LOG, () -> "Fetching album from=" + requestLink);
+		LoggerUtils.logDebug(LOG, () -> "Fetching album from=" + requestLink);
 		
 		// With the link, send a GET request to coverartarchive
 		String jsonObject = HttpUtils.doGet(requestLink);
@@ -51,14 +54,23 @@ public class CoverArtFinder {
 		// Parse the object and find the link of the front cover art
 		Gson gson = new Gson();
 		Images images = gson.fromJson(jsonObject, Images.class);
-		String link = images.getImages().stream()
+		
+		if(images == null) {
+			return Optional.empty();
+		}
+		
+		List<String> links = images.getImages().stream()
 				.filter(Image::isFront)
 				.map(Image::getImage)
-				.reduce("", (i1, i2) -> i1.concat(i2));
+				.collect(Collectors.toList());
 		
+		if(links.isEmpty()) {
+			return Optional.empty();
+		} 
+		
+		String link = links.get(0);
 		LOG.info("Linked to cover art found [{}]", link);
-		
-		return link;
+		return Optional.of(link);
 	}
 	
 	

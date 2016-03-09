@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.hamcrest.collection.IsEmptyCollection;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +28,7 @@ import org.musicbrainz.model.searchresult.RecordingResultWs2;
 import bo.roman.radio.cover.model.Album;
 
 @RunWith(MockitoJUnitRunner.class)
-public class MusicBrainzAlbumFinderTest {
+public class MusicBrainzFinderTest {
 	private static final int LIMIT = 5;
 	private AlbumFindable finder;
 	
@@ -41,7 +42,7 @@ public class MusicBrainzAlbumFinderTest {
 
 	@Before
 	public void setUp() {
-		finder = new MusicBrainzAlbumFinder(LIMIT, recording);
+		finder = new MusicBrainzFinder(LIMIT, recording);
 	}
 	
 	/* ***Tests*** */
@@ -81,15 +82,31 @@ public class MusicBrainzAlbumFinderTest {
 		}		
 	}
 	
+	@Test
+	public void testNoAlbumsFound_NullRecordings() {
+		List<Album> albums = doRunAlbumFinder(null);
+		assertThat(albums, IsEmptyCollection.empty());
+	}
+	
+	@Test
+	public void testNoAlbumsFound_EmptyRecordings() {
+		List<Album> albums = doRunAlbumFinder(new ArrayList<>());
+		assertThat(albums, IsEmptyCollection.empty());
+	}
+	
+	
 	/* ***Utilities*** */
 	
-	private List<Album> doRunAlbumFinder() {
-		List<RecordingResultWs2> recordigs = recordingsFactory();
+	private List<Album> doRunAlbumFinder(List<RecordingResultWs2> recordigs) {
 		when(recording.getFullSearchResultList()).thenReturn(recordigs);
 		List<Album> albums = finder.findAlbums(testSong, testArtist);
 		verify(recording, times(1)).search(testQuery);
 		
 		return albums;
+	}
+	
+	private List<Album> doRunAlbumFinder() {
+		return doRunAlbumFinder(recordingsFactory());
 	}
 
 	private List<RecordingResultWs2> recordingsFactory() {

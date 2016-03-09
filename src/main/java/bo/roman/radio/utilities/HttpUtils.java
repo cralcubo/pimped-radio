@@ -1,6 +1,6 @@
 package bo.roman.radio.utilities;
 
-import static bo.roman.radio.utilities.LoggerUtility.logDebug;
+import static bo.roman.radio.utilities.LoggerUtils.logDebug;
 
 import java.io.IOException;
 

@@ -1,10 +1,12 @@
 package bo.roman.radio.cover.model;
 
+import java.util.Optional;
+
 public class Album {
 	private String title;
 	private String credits;
-	private String mbid;
 	private String status;
+	private Optional<String> mbid;
 
 	private Album(Builder builder) {
 		this.title = builder.title;
@@ -21,7 +23,7 @@ public class Album {
 		return credits;
 	}
 
-	public String getMbid() {
+	public Optional<String> getMbid() {
 		return mbid;
 	}
 
@@ -29,19 +31,17 @@ public class Album {
 		return status;
 	}
 	
+	
 	@Override
 	public String toString() {
-		return "Album [title=" + title + ", credits=" + credits + ", mbid=" + mbid + ", status=" + status + "]";
+		return "Album [title=" + title + ", credits=" + credits + ", status=" + status + ", mbid=" + mbid + "]";
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((credits == null) ? 0 : credits.hashCode());
 		result = prime * result + ((mbid == null) ? 0 : mbid.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
 	}
 
@@ -54,35 +54,19 @@ public class Album {
 		if (getClass() != obj.getClass())
 			return false;
 		Album other = (Album) obj;
-		if (credits == null) {
-			if (other.credits != null)
-				return false;
-		} else if (!credits.equals(other.credits))
-			return false;
 		if (mbid == null) {
 			if (other.mbid != null)
 				return false;
 		} else if (!mbid.equals(other.mbid))
 			return false;
-		if (status == null) {
-			if (other.status != null)
-				return false;
-		} else if (!status.equals(other.status))
-			return false;
-		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
 		return true;
 	}
-
 
 	public static class Builder {
 		private String status;
 		private String title;
 		private String credits;
-		private String mbid;
+		private Optional<String> mbid;
 
 		public Builder title(String val) {
 			title = nullIsEmpty(val);
@@ -95,7 +79,7 @@ public class Album {
 		}
 
 		public Builder mbid(String val) {
-			mbid = nullIsEmpty(val);
+			mbid = Optional.of(nullIsEmpty(val));
 			return this;
 		}
 

@@ -8,6 +8,7 @@ import static org.hamcrest.CoreMatchers.is;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 import org.apache.http.client.ClientProtocolException;
 import org.junit.Before;
@@ -21,7 +22,7 @@ import bo.roman.radio.utilities.HttpUtils;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(HttpUtils.class)
-public class CoverArtFinderTest {
+public class CoverArtArchiverFinderTest {
 
 	// Utilities constants
 	private static final String RELEASEREQUEST_TEMPLATE = "http://coverartarchive.org/release/%s";
@@ -31,13 +32,13 @@ public class CoverArtFinderTest {
 	private static final String MBID = "12345MBID";
 
 	// Test properties
-	private CoverArtFinder finder;
+	private CoverArtArchiveFinder finder;
 	private String coverArtJson;
 	private String coverArtJson_NoFront;
 
 	@Before
 	public void setUp() {
-		finder = new CoverArtFinder();
+		finder = new CoverArtArchiveFinder();
 		PowerMockito.mockStatic(HttpUtils.class);
 		try {
 			coverArtJson = new String(Files.readAllBytes(Paths.get(JSON_SOURCE_OK)));
@@ -50,12 +51,12 @@ public class CoverArtFinderTest {
 
 	@Test
 	public void testRequestToCoverArt() throws IOException {
-		testRequestCover(coverArtJson, "http://coverartarchive.org/release/12345MBID/1357.jpg");
+		testRequestCover(coverArtJson, Optional.of("http://coverartarchive.org/release/12345MBID/1357.jpg"));
 	}
 
 	@Test
 	public void testRequestCA_NoCover() throws IOException {
-		testRequestCover(coverArtJson_NoFront, "");
+		testRequestCover(coverArtJson_NoFront, Optional.empty());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -66,19 +67,29 @@ public class CoverArtFinderTest {
 		// Prepare
 		PowerMockito.when(HttpUtils.doGet(requestLink)).thenThrow(ClientProtocolException.class);
 
-		finder.fetchAlbumLink(MBID);
+		finder.findCoverUrl(MBID);
 	}
-
-	private void testRequestCover(String jsonObject, String expectedLink) throws IOException {
+	
+	@Test
+	public void testRequestCoverArt_NoJSONObject() throws IOException {
+		testRequestCover("", Optional.empty());
+	}
+	
+	/* **Utilities** */
+	private void testRequestCover(String jsonObject, Optional<String> optLinkExpected) throws IOException {
 		String requestLink = String.format(RELEASEREQUEST_TEMPLATE, MBID);
 
 		// Prepare
 		PowerMockito.when(HttpUtils.doGet(requestLink)).thenReturn(jsonObject);
 
 		// Run
-		String coverLink = finder.fetchAlbumLink(MBID);
-
-		assertThat(coverLink, is(equalTo(expectedLink)));
+		Optional<String> coverLink = finder.findCoverUrl(MBID);
+		
+		assertThat(coverLink.isPresent(), is(optLinkExpected.isPresent()));
+		
+		optLinkExpected.ifPresent(expectedLink -> 
+						assertThat(expectedLink, is(equalTo(coverLink.get()))));
+		
 	}
 
 }
