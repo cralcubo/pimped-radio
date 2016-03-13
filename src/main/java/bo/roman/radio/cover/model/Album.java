@@ -1,47 +1,54 @@
 package bo.roman.radio.cover.model;
 
-import java.util.Optional;
+import static bo.roman.radio.utilities.StringUtils.nullIsEmpty;
 
-public class Album {
-	private String title;
-	private String credits;
+public class Album extends MBEntity{
+	private String songName;
+	private String artistName;
+	private String name;
 	private String status;
-	private Optional<String> mbid;
+	private String coverUrl;
 
 	private Album(Builder builder) {
-		this.title = builder.title;
-		this.credits = builder.credits;
-		this.mbid = builder.mbid;
+		super(builder.mbid);
+		this.name = builder.name;
 		this.status = builder.status;
+		this.coverUrl = builder.coverUrl;
+		this.songName = builder.songName;
+		this.artistName = builder.artistName;
 	}
-
-	public String getTitle() {
-		return title;
+	
+	public String getSongName() {
+		return songName;
 	}
-
-	public String getCredits() {
-		return credits;
+	
+	public String getArtistName() {
+		return artistName;
 	}
-
-	public Optional<String> getMbid() {
-		return mbid;
+	
+	public String getName() {
+		return name;
 	}
-
+	
 	public String getStatus() {
 		return status;
 	}
 	
-	
+	public String getCoverUrl() {
+		return coverUrl;
+	}
+
 	@Override
 	public String toString() {
-		return "Album [title=" + title + ", credits=" + credits + ", status=" + status + ", mbid=" + mbid + "]";
+		return "Album [songName=" + songName + ", artistName=" + artistName + ", name=" + name + ", coverUrl="
+				+ coverUrl + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((mbid == null) ? 0 : mbid.hashCode());
+		int result = super.hashCode();
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
@@ -49,37 +56,49 @@ public class Album {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		Album other = (Album) obj;
-		if (mbid == null) {
-			if (other.mbid != null)
+		if (name == null) {
+			if (other.name != null)
 				return false;
-		} else if (!mbid.equals(other.mbid))
+		} else if (!name.equals(other.name))
 			return false;
 		return true;
 	}
 
 	public static class Builder {
+		private String artistName;
+		private String songName;
+		private String coverUrl;
 		private String status;
-		private String title;
-		private String credits;
-		private Optional<String> mbid;
+		private String name;
+		private String mbid;
 
-		public Builder title(String val) {
-			title = nullIsEmpty(val);
+		public Builder name(String val) {
+			name = nullIsEmpty(val);
 			return this;
 		}
-
-		public Builder credits(String val) {
-			credits = nullIsEmpty(val);
+		
+		public Builder coverUrl(String val) {
+			coverUrl = nullIsEmpty(val);
+			return this;
+		}
+		
+		public Builder songName(String val) {
+			songName = nullIsEmpty(val);
+			return this;
+		}
+		
+		public Builder artistName(String val) {
+			artistName = nullIsEmpty(val);
 			return this;
 		}
 
 		public Builder mbid(String val) {
-			mbid = Optional.of(nullIsEmpty(val));
+			mbid = nullIsEmpty(val);
 			return this;
 		}
 
@@ -90,11 +109,6 @@ public class Album {
 
 		public Album build() {
 			return new Album(this);
-		}
-
-		private String nullIsEmpty(String val) {
-			if (val == null) val = "";
-			return val;
 		}
 	}
 }

@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import bo.roman.radio.cover.model.Album;
+import bo.roman.radio.utilities.StringUtils;
 
 /**
  * Find the cover, sending a request to MusicBrainz based on the song played and
@@ -25,8 +26,8 @@ import bo.roman.radio.cover.model.Album;
  * @author christian
  *
  */
-public class MusicBrainzFinder implements AlbumFindable {
-	private final static Logger log = LoggerFactory.getLogger(MusicBrainzFinder.class);
+public class MBAlbumFinder implements AlbumFindable {
+	private final static Logger log = LoggerFactory.getLogger(MBAlbumFinder.class);
 
 	private static final String QUERY_TEMPLATE = "\"%s\" AND artist:\"%s\""; // songName, artistName
 	
@@ -34,7 +35,7 @@ public class MusicBrainzFinder implements AlbumFindable {
 	private final int limit;
 	private List<Album> allAlbums;
 
-	public MusicBrainzFinder(int limit, Recording recording) {
+	public MBAlbumFinder(int limit, Recording recording) {
 		recordingController = recording;
 		this.limit = limit;
 	}
@@ -58,7 +59,7 @@ public class MusicBrainzFinder implements AlbumFindable {
     	
 		// Collect in a list all the Releases that are the most relevant
 		List<Album> relevantAlbums = albumsMap.entrySet().stream()
-				.flatMap(es -> allAlbums.stream().filter(a -> a.getTitle().equals(es.getKey())))
+				.flatMap(es -> allAlbums.stream().filter(a -> a.getName().equals(es.getKey())))
 				.limit(limit)
 				.collect(Collectors.toList());
 		logDebug(log, () -> "Relevant albums returned=" + relevantAlbums);
@@ -75,8 +76,8 @@ public class MusicBrainzFinder implements AlbumFindable {
 					.map(RecordingResultWs2::getRecording)
 					.flatMap(rec -> rec.getReleases().stream())
 					.map(rel -> new Album.Builder()
-							.title(rel.getTitle())
-							.credits(rel.getArtistCreditString())
+							.name(rel.getTitle())
+							.artistName(rel.getArtistCreditString())
 							.status(rel.getStatus())
 							.mbid(rel.getId())
 							.build())
@@ -104,14 +105,14 @@ public class MusicBrainzFinder implements AlbumFindable {
 		Map<String, Long> releasesMap = getAllAlbums(recordingResults).stream() 
 		    	.filter(a -> "Official".equalsIgnoreCase(a.getStatus()))
 		    	.filter(a -> {
-		    		String artistCredit = a.getCredits();
-		    		if(artistCredit != null && !artistCredit.isEmpty())
-		    		{
-		    			return artistCredit.toLowerCase().contains(artist.toLowerCase());
+		    		String artisName = a.getArtistName();
+		    		if(StringUtils.exists(artisName)) {
+		    			return artisName.toLowerCase().contains(artist.toLowerCase());
 		    		}
+		    		
 		    		return true;
 		    	})
-		    	.collect(Collectors.groupingBy(Album::getTitle, Collectors.counting()))
+		    	.collect(Collectors.groupingBy(Album::getName, Collectors.counting()))
 		    	.entrySet().stream()
 		    	.sorted((es1, es2) -> Long.compare(es2.getValue(), es1.getValue()))
 		    	.collect(Collectors.toMap(Entry::getKey, Entry::getValue, (k,v) -> {throw new IllegalStateException("Duplicate key:" + k);}, LinkedHashMap::new));

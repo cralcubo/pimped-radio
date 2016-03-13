@@ -20,6 +20,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import bo.roman.radio.cover.model.Album;
+import bo.roman.radio.cover.model.Radio;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CoverArtManagerTest {
@@ -37,13 +38,13 @@ public class CoverArtManagerTest {
 	}
 	
 	@Test
-	public void testGetCoverLink() throws IOException {
+	public void testGetAlbumWithCover() throws IOException {
 		String song = "In bloom";
 		String artist = "Nirvana";
 		
 		// Mock the albums found 
-		Album a1 = new Album.Builder().title("Nevermind").mbid("1").build();
-		Album a2 = new Album.Builder().title("Nevermind").mbid("2").build();
+		Album a1 = new Album.Builder().name("Nevermind").mbid("1").build();
+		Album a2 = new Album.Builder().name("Nevermind").mbid("2").build();
 		when(albumFinder.findAlbums(song, artist)).thenReturn(Arrays.asList(a1, a2));
 		
 		// Find the cover arts
@@ -51,23 +52,24 @@ public class CoverArtManagerTest {
 		when(coverFinder.findCoverUrl("1")).thenReturn(Optional.of(linkMocked));
 		
 		// Run the method to test
-		Optional<String> coverLink = manager.getCoverUrl(song, artist);
+		Optional<Album> oAlbum = manager.getAlbumWithCover(song, artist);
 		
-		assertThat(coverLink.get(), is(equalTo(linkMocked)));
+		// Assert
+		assertAlbumIsPresent(oAlbum, artist, song, linkMocked);
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Test
-	public void testGetCoverLink_LastMBIDs() throws IOException {
+	public void testGetAlbumWithCover_LastMBIDs() throws IOException {
 		String song = "In bloom";
 		String artist = "Nirvana";
 		
 		// Mock the albums found 
-		Album a1 = new Album.Builder().title("Nevermind").mbid("1").build();
-		Album a2 = new Album.Builder().title("Nevermind").mbid("2").build();
-		Album a3 = new Album.Builder().title("Nevermind").mbid("3").build();
-		Album a4 = new Album.Builder().title("Nevermind").mbid("4").build();
-		Album a5 = new Album.Builder().title("Nirvana Unplugged").mbid("5").build();
+		Album a1 = new Album.Builder().name("Nevermind").mbid("1").build();
+		Album a2 = new Album.Builder().name("Nevermind").mbid("2").build();
+		Album a3 = new Album.Builder().name("Nevermind").mbid("3").build();
+		Album a4 = new Album.Builder().name("Nevermind").mbid("4").build();
+		Album a5 = new Album.Builder().name("Nirvana Unplugged").mbid("5").build();
 		when(albumFinder.findAlbums(song, artist)).thenReturn(Arrays.asList(a1, a2, a3, a4, a5));
 		
 		// Find the cover arts
@@ -81,33 +83,34 @@ public class CoverArtManagerTest {
 		when(coverFinder.findCoverUrl("5")).thenReturn(Optional.of(linkMocked));
 		
 		// Run the method to test
-		Optional<String> coverLink = manager.getCoverUrl(song, artist);
+		Optional<Album> oAlbum = manager.getAlbumWithCover(song, artist);
 		
-		assertThat(coverLink.get(), is(equalTo(linkMocked)));
+		//Assert
+		assertAlbumIsPresent(oAlbum, artist, song, linkMocked);
 	}
 	
 	@Test
-	public void testGetNoCoverLink_NoMBIDs() throws IOException {
+	public void testGetNoAlbumWithCover_NoMBIDs() throws IOException {
 		String song = "In bloom";
 		String artist = "Nirvana";
 		
 		// Mock the albums found (No Albums) 
 		when(albumFinder.findAlbums(song, artist)).thenReturn(Collections.emptyList());
 		
-		// No request sent to find covers
-		Optional<String> coverLink = manager.getCoverUrl(song, artist);
-		
-		assertThat(coverLink.isPresent(), is(false));
+		// Run the method to test
+		Optional<Album> album = manager.getAlbumWithCover(song, artist);
+		// Assertions
+		assertThat(album.isPresent(), is(false));
 	}
 	
 	@Test
-	public void testGetNoCoverLink_NoCoverArt() throws IOException {
+	public void testGetNoAlbumWithCover_NoCoverArt() throws IOException {
 		String song = "In bloom";
 		String artist = "Nirvana";
 		
 		// Mock the albums found 
-		Album a1 = new Album.Builder().title("Nevermind").mbid("1").build();
-		Album a2 = new Album.Builder().title("Nevermind").mbid("2").build();
+		Album a1 = new Album.Builder().name("Nevermind").mbid("1").build();
+		Album a2 = new Album.Builder().name("Nevermind").mbid("2").build();
 		when(albumFinder.findAlbums(song, artist)).thenReturn(Arrays.asList(a1, a2));
 		
 		// Find the cover arts
@@ -115,20 +118,20 @@ public class CoverArtManagerTest {
 		when(coverFinder.findCoverUrl("2")).thenReturn(Optional.ofNullable(null));
 		
 		// Run the method to test
-		Optional<String> coverLink = manager.getCoverUrl(song, artist);
-		
-		assertThat(coverLink.isPresent(), is(false));
+		Optional<Album> album = manager.getAlbumWithCover(song, artist);
+		// Assertions
+		assertThat(album.isPresent(), is(false));
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Test
-	public void testGetNoCoverLink_NoCoverArt404() throws IOException {
+	public void testGetNoAlbumWithCover_NoCoverArt404() throws IOException {
 		String song = "In bloom";
 		String artist = "Nirvana";
 		
 		// Mock the albums found 
-		Album a1 = new Album.Builder().title("Nevermind").mbid("1").build();
-		Album a2 = new Album.Builder().title("Nevermind").mbid("2").build();
+		Album a1 = new Album.Builder().name("Nevermind").mbid("1").build();
+		Album a2 = new Album.Builder().name("Nevermind").mbid("2").build();
 		when(albumFinder.findAlbums(song, artist)).thenReturn(Arrays.asList(a1, a2));
 		
 		// Find the cover arts
@@ -136,19 +139,89 @@ public class CoverArtManagerTest {
 		when(coverFinder.findCoverUrl("2")).thenThrow(ClientProtocolException.class); // 404 from Server
 		
 		// Run the method to test
-		Optional<String> coverLink = manager.getCoverUrl(song, artist);
-		
-		assertThat(coverLink.isPresent(), is(false));
+		Optional<Album> album = manager.getAlbumWithCover(song, artist);
+		// Assertions
+		assertThat(album.isPresent(), is(false));
 	}
 	
 	@Test
-	public void testRadioPlayerIcon() {
-		Optional<String> playerLink = manager.getRadioPlayerPath();
-		assertThat(playerLink.isPresent(), is(true));
+	public void testGetRadio() {
+		String radioName = "aRadio";
 		
-		String link = playerLink.get();
+		Optional<Radio> oRadio = manager.getRadioWithCover(radioName);
+		
+		// Assertions
+		assertThat(oRadio.isPresent(), is(true));
+		assertThat(oRadio.get().getName(), is(equalTo(radioName)));
+		
+		String link = oRadio.get().getCoverUrl();
 		File file = Paths.get(link).toFile();
 		assertThat(file.exists(), is(true));
 	}
+	
+	@Test
+	public void testNoRadio_empty() {
+		Optional<Radio> oRadio = manager.getRadioWithCover("");
+		// Assertions
+		assertThat(oRadio.isPresent(), is(false));
+	}
+	
+	@Test
+	public void testNoRadio_null() {
+		Optional<Radio> oRadio = manager.getRadioWithCover(null);
+		// Assertions
+		assertThat(oRadio.isPresent(), is(false));
+	}
+	
+	@Test
+	public void testNoAlbumReturned_noSong() {
+		Optional<Album> emptyAlbum1 = manager.getAlbumWithCover(null, "anArtist");
+		assertThat(emptyAlbum1.isPresent(), is(false));
+		
+		Optional<Album> emptyAlbum2 = manager.getAlbumWithCover("", "anArtist");
+		assertThat(emptyAlbum2.isPresent(), is(false));
+		
+		Optional<Album> emptyAlbum3 = manager.getAlbumWithCover(" ", "anArtist");
+		assertThat(emptyAlbum3.isPresent(), is(false));
+	}
+	
+	@Test
+	public void testNoAlbumReturned_noArtist() {
+		Optional<Album> emptyAlbum1 = manager.getAlbumWithCover("aSong", null);
+		assertThat(emptyAlbum1.isPresent(), is(false));
+		
+		Optional<Album> emptyAlbum2 = manager.getAlbumWithCover("aSong", "");
+		assertThat(emptyAlbum2.isPresent(), is(false));
+		
+		Optional<Album> emptyAlbum3 = manager.getAlbumWithCover("aSong", " ");
+		assertThat(emptyAlbum3.isPresent(), is(false));
+	}
+	
+	@Test
+	public void testNoAlbumReturned_noArtist_noSong() {
+		Optional<Album> emptyAlbum1 = manager.getAlbumWithCover("", null);
+		assertThat(emptyAlbum1.isPresent(), is(false));
+		
+		Optional<Album> emptyAlbum2 = manager.getAlbumWithCover(null, "");
+		assertThat(emptyAlbum2.isPresent(), is(false));
+		
+		Optional<Album> emptyAlbum3 = manager.getAlbumWithCover(" ", " ");
+		assertThat(emptyAlbum3.isPresent(), is(false));
+		
+		Optional<Album> emptyAlbum4 = manager.getAlbumWithCover(null, null);
+		assertThat(emptyAlbum4.isPresent(), is(false));
+	}
+	
+	/* *** Utilities *** */
+	
+	private void assertAlbumIsPresent(Optional<Album> oAlbum, String artist, String song, String url) {
+		assertThat(oAlbum.isPresent(), is(true));
+		assertThat(oAlbum.get().getArtistName(), is(equalTo(artist)));
+		assertThat(oAlbum.get().getSongName(), is(equalTo(song)));
+		assertThat(oAlbum.get().getCoverUrl(), is(equalTo(url)));
+	}
+	
+	
+	
 
 }

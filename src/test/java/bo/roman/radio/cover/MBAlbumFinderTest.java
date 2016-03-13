@@ -28,7 +28,7 @@ import org.musicbrainz.model.searchresult.RecordingResultWs2;
 import bo.roman.radio.cover.model.Album;
 
 @RunWith(MockitoJUnitRunner.class)
-public class MusicBrainzFinderTest {
+public class MBAlbumFinderTest {
 	private static final int LIMIT = 5;
 	private AlbumFindable finder;
 	
@@ -42,7 +42,7 @@ public class MusicBrainzFinderTest {
 
 	@Before
 	public void setUp() {
-		finder = new MusicBrainzFinder(LIMIT, recording);
+		finder = new MBAlbumFinder(LIMIT, recording);
 	}
 	
 	/* ***Tests*** */
@@ -63,7 +63,7 @@ public class MusicBrainzFinderTest {
 	@Test
 	public void testFilterCredits() {
 		List<Album> albums = doRunAlbumFinder();
-		List<String> credits = albums.stream().map(Album::getCredits).collect(Collectors.toList());
+		List<String> credits = albums.stream().map(Album::getArtistName).collect(Collectors.toList());
 		credits.forEach(c -> assertTrue(c.equals("Nirvana") || c.equals("")));
 	}
 	
@@ -75,7 +75,7 @@ public class MusicBrainzFinderTest {
 		String[] credits = {"Nirvana", "", ""};
 		String[] statuses = {"Official", "Official", "Official"};      
 		String[] ids = {"3", "5", "6"};
-		List<Album> expectedAlbums = entitiesGenerator(titles, credits, statuses, ids, (t,c,s,id) -> new Album.Builder().title(t).credits(c).status(s).mbid(id).build());
+		List<Album> expectedAlbums = entitiesGenerator(titles, credits, statuses, ids, (t,c,s,id) -> new Album.Builder().name(t).artistName(c).status(s).mbid(id).build());
 		
 		for(int i = 0; i < albums.size(); i ++) {
 			assertThat(albums.get(i), equalTo(expectedAlbums.get(i)));

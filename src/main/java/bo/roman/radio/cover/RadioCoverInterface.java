@@ -2,24 +2,26 @@ package bo.roman.radio.cover;
 
 import java.util.Optional;
 
+import bo.roman.radio.cover.model.Album;
+import bo.roman.radio.cover.model.Radio;
+
 public interface RadioCoverInterface {
-	
+		
 	/**
-	 * Get the HTML link of the cover of the album
-	 * based on a song and an artist.
+	 * Get the Album for the song and artist
 	 * 
 	 * @param song
 	 * @param artist
 	 * @return
 	 */
-	Optional<String> getCoverUrl(String song, String artist);
+	Optional<Album> getAlbumWithCover(String song, String artist);
 	
 	/**
-	 * Get the path of the icon of the 
-	 * radio player.
+	 * Get the Radio that is playing.
 	 * 
+	 * @param radioName
 	 * @return
 	 */
-	Optional<String> getRadioPlayerPath();
+	Optional<Radio> getRadioWithCover(String radioName);
 
 }
