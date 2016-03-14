@@ -2,6 +2,8 @@ package bo.roman.radio.utilities;
 
 import java.util.Optional;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import bo.roman.radio.cover.model.Song;
 import uk.co.caprica.vlcj.player.MediaMeta;
 
@@ -50,9 +52,11 @@ public class MediaMetaUtils {
 	}
 	
 	private static Song buildSong(String songName, String artistName) {
+		songName = StringEscapeUtils.unescapeHtml4(songName.trim());
+		artistName = StringEscapeUtils.unescapeHtml4(artistName.trim());
 		return new Song.Builder()
-				.name(songName.trim())
-				.artist(artistName.trim())
+				.name(songName)
+				.artist(artistName)
 				.build();
 	}
 	

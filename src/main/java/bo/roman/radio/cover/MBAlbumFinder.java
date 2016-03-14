@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.musicbrainz.controller.Recording;
@@ -33,7 +34,7 @@ public class MBAlbumFinder implements AlbumFindable {
 	
 	private Recording recordingController;
 	private final int limit;
-	private List<Album> allAlbums;
+	private Set<Album> allAlbums;
 
 	public MBAlbumFinder(int limit, Recording recording) {
 		recordingController = recording;
@@ -54,7 +55,7 @@ public class MBAlbumFinder implements AlbumFindable {
 		Map<String, Long> albumsMap = getSortedRecordings(recordingResults, artist);
     	
     	// Get all Albums
-		List<Album> allAlbums = getAllAlbums(recordingResults);
+		Set<Album> allAlbums = getAllAlbums(recordingResults);
 		logDebug(log, () -> "All albums found=" + allAlbums.size());
     	
 		// Collect in a list all the Releases that are the most relevant
@@ -66,9 +67,9 @@ public class MBAlbumFinder implements AlbumFindable {
 		return relevantAlbums;
 	}
 	
-	private List<Album> getAllAlbums(List<RecordingResultWs2> recordingResults) {
+	private Set<Album> getAllAlbums(List<RecordingResultWs2> recordingResults) {
 		if(recordingResults == null) {
-			allAlbums = Collections.emptyList();
+			allAlbums = Collections.emptySet();
 		}
 		
 		if (allAlbums == null) {
@@ -81,7 +82,7 @@ public class MBAlbumFinder implements AlbumFindable {
 							.status(rel.getStatus())
 							.mbid(rel.getId())
 							.build())
-					.collect(Collectors.toList());
+					.collect(Collectors.toSet());
 		}
 		
 		return allAlbums;

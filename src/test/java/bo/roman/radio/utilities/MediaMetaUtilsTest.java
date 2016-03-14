@@ -59,6 +59,21 @@ public class MediaMetaUtilsTest {
 		doTestSongArtist(song, artist);
 	}
 	
+	@Test public void testSongArtist_htmlEncoded() {
+		String song = "&#35;song";
+		String artist = "&lt;Fran&ccedil;ais&gt;";
+		when(mediaMeta.getTitle()).thenReturn(song);
+		when(mediaMeta.getArtist()).thenReturn(artist);
+		Optional<Song> optSong = MediaMetaUtils.buildSong(mediaMeta);
+		
+		assertThat(optSong.isPresent(), is(true));
+		Song songObj = optSong.get();
+		String songExpected = "#song";
+		String artistExpected = "<Français>";
+		assertThat(songObj.getArtist(), is(equalTo(artistExpected)));
+		assertThat(songObj.getName(), is(equalTo(songExpected)));
+	}
+	
 	/* *** Utilities *** */
 	
 	private void doTestSongArtist(String song, String artist) {

@@ -3,6 +3,7 @@ package bo.roman.radio.cover;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -29,7 +30,7 @@ import bo.roman.radio.cover.model.Album;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MBAlbumFinderTest {
-	private static final int LIMIT = 5;
+	private static final int LIMIT = 6;
 	private AlbumFindable finder;
 	
 	private String testSong = "In Bloom";
@@ -46,6 +47,31 @@ public class MBAlbumFinderTest {
 	}
 	
 	/* ***Tests*** */
+	
+	@Test
+	public void skipRepeatedAlbums() {
+		// Mocked data
+		String[] titles = {"Nevermind", "Nevermind", "Nevermind", "The Best of Nirvana"};      
+		String[] credits = {"Nirvana", "Nirvana", "Nirvana", "Nirvana"};
+		String[] statuses = {"Official", "Official", "Official", "Official"};      
+		String[] ids = {"1", "2", "1", "3"};
+		
+		// Run testing method
+		List<Album> albums = doRunAlbumFinder(recordingsFactory(titles, credits, statuses, ids));
+		
+		// Assertions
+		assertThat(albums.size(), is(equalTo(3)));
+		// Expected
+		String[] eTitles = {"Nevermind", "Nevermind", "The Best of Nirvana"};      
+		String[] eCredits = {"Nirvana", "Nirvana", "Nirvana"};
+		String[] eStatuses = {"Official", "Official", "Official"};      
+		String[] eIds = {"1", "2", "3"};
+		List<Album> expectedAlbums = entitiesGenerator(eTitles, eCredits, eStatuses, eIds, (t,c,s,id) -> new Album.Builder().name(t).artistName(c).status(s).mbid(id).build());
+		
+		for(int i = 0; i < albums.size(); i ++) {
+			assertThat(albums.get(i), is(equalTo(expectedAlbums.get(i))));
+		}
+	}
 
 	@Test
 	public void testAlbumLimitSize() {
@@ -64,7 +90,7 @@ public class MBAlbumFinderTest {
 	public void testFilterCredits() {
 		List<Album> albums = doRunAlbumFinder();
 		List<String> credits = albums.stream().map(Album::getArtistName).collect(Collectors.toList());
-		credits.forEach(c -> assertTrue(c.equals("Nirvana") || c.equals("")));
+		credits.forEach(c -> assertTrue("Credits was supposed to be either: Nirvana or '', but it was:" + c, c.equals("Nirvana") || c.equals("")));
 	}
 	
 	@Test
@@ -106,18 +132,18 @@ public class MBAlbumFinderTest {
 	}
 	
 	private List<Album> doRunAlbumFinder() {
-		return doRunAlbumFinder(recordingsFactory());
+		// Releases info
+		String[] titles = {"The best of Nirvana", "Nevermind Underground", "Nevermind", "Unplugged", "Nevermind", "Nevermind", "The best of the 90s", "GTA soundtrack", "Nevermind", "The best of 90s"};      
+		String[] credits = {"", "Nirvana", "Nirvana", "Nirvana", "", "", "Various artist", "Varios artistas", "Nirvana", "Various Artists"};
+		String[] statuses = {"Official", "Bottleg", "Official", "Official", "Official", "Official", "Official", "", "Official", "Official"};      
+		String[] ids = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+		
+		return doRunAlbumFinder(recordingsFactory(titles, credits, statuses, ids));
 	}
-
-	private List<RecordingResultWs2> recordingsFactory() {
+	
+	private List<RecordingResultWs2> recordingsFactory(String[] titles, String[] credits, String[] statuses, String[] ids) {
 		RecordingResultWs2 r1 = new RecordingResultWs2();
 		RecordingWs2 rec1 = new RecordingWs2();
-		
-		// Releases info
-		String[] titles = {"The best of Nirvana", "Nevermind Underground", "Nevermind", "Unplugged", "Nevermind", "Nevermind", "The best of the 90s", "GTA soundtrack"};      
-		String[] credits = {"", "Nirvana", "Nirvana", "Nirvana", "", "", "Various artist", "Varios artistas"};
-		String[] statuses = {"Official", "Bottleg", "Official", "Official", "Official", "Official", "Official", ""};      
-		String[] ids = {"1", "2", "3", "4", "5", "6", "7", "8"};
 		
 		List<ReleaseWs2> releases = entitiesGenerator(titles, credits, statuses, ids, (t, c, s, id) -> {
 			ReleaseWs2 rel = Mockito.mock(ReleaseWs2.class);
@@ -133,7 +159,6 @@ public class MBAlbumFinderTest {
 
 		return Arrays.asList(r1);
 	}
-	
 	
 	private <E> List<E> entitiesGenerator(String[] titles, String[] credits, String[] statuses, String[] ids, SuperFunction<String, E> f) {
 		List<E> list = new ArrayList<>();

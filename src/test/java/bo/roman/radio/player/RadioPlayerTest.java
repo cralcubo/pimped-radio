@@ -25,8 +25,15 @@ import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
 
 public class RadioPlayerTest {
 	private final static Logger log = LoggerFactory.getLogger(RadioPlayerTest.class);
-	private static final String LOCAL_SONG = "/Users/christian/Desktop/TestMusic/test.mp3";
-	private static final String RADIO_STREAM = "http://stream-tx3.radioparadise.com/aac-128";
+	// http://7609.live.streamtheworld.com:80/977_ALTERN_SC
+	// http://stream-tx3.radioparadise.com/aac-128
+	// http://icecast.omroep.nl:80/3fm-bb-mp3
+	// http://mostpop.servemp3.com:8000
+	// http://72.13.82.82:5100/
+	// http://5.135.223.251:9000
+	// http://streaming.radionomy.com/Classic-Rap
+
+	private static final String RADIO_STREAM = "http://5.135.223.251:9000";
 	private RadioPlayer player;
 
 	@Before
@@ -66,27 +73,29 @@ public class RadioPlayerTest {
 			System.out.println(".:.MediaMeta=" + meta);
 			System.out.println(".:. Album=" + meta.getAlbum() + " - Art=" + meta.getArtworkUrl());
 			
+			// Instantiate the Cover Art Manager
+			AlbumFindable albumFinder = new MBAlbumFinder(20, new Recording());
+			CoverArtFindable coverFinder = new CoverArtArchiveFinder();
+			RadioCoverInterface coverManager = new CoverArtManager(albumFinder, coverFinder);
+			
 			Optional<Song> optSong = MediaMetaUtils.buildSong(meta);
 			if(optSong.isPresent()) {
 				Song song = optSong.get();
 				LoggerUtils.logDebug(log, () -> String.format("Starting a new Thread to retrieve the CoverArt of %s", song));
 				// Create Cover Thread
-				AlbumFindable albumFinder = new MBAlbumFinder(10, new Recording());
-				CoverArtFindable coverFinder = new CoverArtArchiveFinder();
-				RadioCoverInterface coverManager = new CoverArtManager(albumFinder, coverFinder);
 				Thread coverThread = new Thread(() -> {
 					Optional<Album> oRichAlbum = coverManager.getAlbumWithCover(song.getName(), song.getArtist());
-					
 					if(oRichAlbum.isPresent()) {
 						log.info("Album playing {} ", oRichAlbum.get());
-					}
-					else {
+					} else {
 						Optional<Radio> radio = coverManager.getRadioWithCover(meta.getTitle());
 						log.info("Radio playing {}", radio.get());
 					}
-					
 				});
 				coverThread.start();
+			} else {
+				Optional<Radio> radio = coverManager.getRadioWithCover(meta.getTitle());
+				log.info("Radio playing {}", radio.get());
 			}
 			
 			meta.release();
