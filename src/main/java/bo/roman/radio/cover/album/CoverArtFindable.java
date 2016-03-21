@@ -1,4 +1,4 @@
-package bo.roman.radio.cover;
+package bo.roman.radio.cover.album;
 
 import java.io.IOException;
 import java.util.Optional;

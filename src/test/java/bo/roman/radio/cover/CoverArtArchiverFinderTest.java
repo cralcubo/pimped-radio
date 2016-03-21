@@ -18,27 +18,35 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import bo.roman.radio.cover.album.CoverArtArchiveFinder;
 import bo.roman.radio.utilities.HttpUtils;
+import bo.roman.radio.utilities.ReflectionUtils;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(HttpUtils.class)
 public class CoverArtArchiverFinderTest {
 
 	// Utilities constants
-	private static final String RELEASEREQUEST_TEMPLATE = "http://coverartarchive.org/release/%s";
 	private static final String JSONSOURCE_ROOT = "src/test/resources/";
 	private static final String JSON_SOURCE_OK = JSONSOURCE_ROOT + "cover-art.json";
 	private static final String JSON_SOURCE_NOFRONT = JSONSOURCE_ROOT + "cover-art-nofront.json";
 	private static final String MBID = "12345MBID";
+	
+	private final String RELEASEREQUEST_TEMPLATE;
 
 	// Test properties
 	private CoverArtArchiveFinder finder;
 	private String coverArtJson;
 	private String coverArtJson_NoFront;
+	
+	public CoverArtArchiverFinderTest() throws Exception {
+		finder = new CoverArtArchiveFinder();
+		// Get the values of the constants from CoverArtArchiveFinder
+		RELEASEREQUEST_TEMPLATE = (String) ReflectionUtils.getPrivateConstant(finder, "RELEASEREQUEST_TEMPLATE");
+	}
 
 	@Before
 	public void setUp() {
-		finder = new CoverArtArchiveFinder();
 		PowerMockito.mockStatic(HttpUtils.class);
 		try {
 			coverArtJson = new String(Files.readAllBytes(Paths.get(JSON_SOURCE_OK)));

@@ -4,15 +4,10 @@ import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.musicbrainz.controller.Recording;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import bo.roman.radio.cover.AlbumFindable;
-import bo.roman.radio.cover.CoverArtArchiveFinder;
-import bo.roman.radio.cover.CoverArtFindable;
 import bo.roman.radio.cover.CoverArtManager;
-import bo.roman.radio.cover.MBAlbumFinder;
 import bo.roman.radio.cover.RadioCoverInterface;
 import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.cover.model.Radio;
@@ -32,8 +27,9 @@ public class RadioPlayerTest {
 	// http://72.13.82.82:5100/
 	// http://5.135.223.251:9000
 	// http://streaming.radionomy.com/Classic-Rap
+	// http://88.208.218.19:9106/stream
 
-	private static final String RADIO_STREAM = "http://5.135.223.251:9000";
+	private static final String RADIO_STREAM = "http://stream-tx3.radioparadise.com/aac-128";
 	private RadioPlayer player;
 
 	@Before
@@ -41,7 +37,7 @@ public class RadioPlayerTest {
 		player = new RadioPlayer(new RadioPlayerEventListener());
 	}
 
-	@Test
+//	@Test
 	public void testPlayerInStream() {
 		// Create a Thread to play the song
 		Thread playerThread = new Thread(() -> player.play(RADIO_STREAM));
@@ -70,32 +66,30 @@ public class RadioPlayerTest {
 		public void mediaMetaChanged(MediaPlayer mediaPlayer, int metaType) {
 			log.info("Media Meta Changed[metaType={}]", metaType);
 			MediaMeta meta = mediaPlayer.getMediaMeta();
-			System.out.println(".:.MediaMeta=" + meta);
-			System.out.println(".:. Album=" + meta.getAlbum() + " - Art=" + meta.getArtworkUrl());
 			
 			// Instantiate the Cover Art Manager
-			AlbumFindable albumFinder = new MBAlbumFinder(20, new Recording());
-			CoverArtFindable coverFinder = new CoverArtArchiveFinder();
-			RadioCoverInterface coverManager = new CoverArtManager(albumFinder, coverFinder);
+			RadioCoverInterface coverManager = new CoverArtManager();
 			
 			Optional<Song> optSong = MediaMetaUtils.buildSong(meta);
+			// Radio Station
+			String radioName = MediaMetaUtils.parseRadioName(meta.getTitle());
+			Optional<Radio> oRadio = coverManager.getRadioWithLogo(radioName);
+			
 			if(optSong.isPresent()) {
 				Song song = optSong.get();
 				LoggerUtils.logDebug(log, () -> String.format("Starting a new Thread to retrieve the CoverArt of %s", song));
 				// Create Cover Thread
 				Thread coverThread = new Thread(() -> {
 					Optional<Album> oRichAlbum = coverManager.getAlbumWithCover(song.getName(), song.getArtist());
-					if(oRichAlbum.isPresent()) {
-						log.info("Album playing {} ", oRichAlbum.get());
-					} else {
-						Optional<Radio> radio = coverManager.getRadioWithCover(meta.getTitle());
-						log.info("Radio playing {}", radio.get());
-					}
+					log.info("Playing {}", song);
+					oRichAlbum.ifPresent(a -> log.info("From {}", a));
+					oRadio.ifPresent(r -> log.info("In {}", r));
+					
 				});
 				coverThread.start();
 			} else {
-				Optional<Radio> radio = coverManager.getRadioWithCover(meta.getTitle());
-				log.info("Radio playing {}", radio.get());
+				optSong.ifPresent(s -> log.info("Playing {}", s));
+				oRadio.ifPresent(r -> log.info("In {}", r));
 			}
 			
 			meta.release();

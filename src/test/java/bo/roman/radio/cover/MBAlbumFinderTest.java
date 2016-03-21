@@ -26,6 +26,8 @@ import org.musicbrainz.model.entity.RecordingWs2;
 import org.musicbrainz.model.entity.ReleaseWs2;
 import org.musicbrainz.model.searchresult.RecordingResultWs2;
 
+import bo.roman.radio.cover.album.AlbumFindable;
+import bo.roman.radio.cover.album.MBAlbumFinder;
 import bo.roman.radio.cover.model.Album;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -60,7 +62,7 @@ public class MBAlbumFinderTest {
 		List<Album> albums = doRunAlbumFinder(recordingsFactory(titles, credits, statuses, ids));
 		
 		// Assertions
-		assertThat(albums.size(), is(equalTo(3)));
+		assertThat(albums, hasSize(3));
 		// Expected
 		String[] eTitles = {"Nevermind", "Nevermind", "The Best of Nirvana"};      
 		String[] eCredits = {"Nirvana", "Nirvana", "Nirvana"};

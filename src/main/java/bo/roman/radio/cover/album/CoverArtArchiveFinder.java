@@ -1,4 +1,4 @@
-package bo.roman.radio.cover;
+package bo.roman.radio.cover.album;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,6 +32,12 @@ public class CoverArtArchiveFinder implements CoverArtFindable {
 	
 	private static final String RELEASEREQUEST_TEMPLATE = "http://coverartarchive.org/release/%s";
 	
+	private final Gson gsonParser;
+	
+	public CoverArtArchiveFinder() {
+		gsonParser = new Gson();
+	}
+	
 	/**
 	 * Send the following request to coverartarchive:
 	 * 
@@ -52,8 +58,7 @@ public class CoverArtArchiveFinder implements CoverArtFindable {
 		String jsonObject = HttpUtils.doGet(requestLink);
 
 		// Parse the object and find the link of the front cover art
-		Gson gson = new Gson();
-		Images images = gson.fromJson(jsonObject, Images.class);
+		Images images = gsonParser.fromJson(jsonObject, Images.class);
 		
 		if(images == null) {
 			return Optional.empty();

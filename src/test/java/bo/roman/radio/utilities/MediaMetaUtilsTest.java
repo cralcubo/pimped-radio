@@ -30,6 +30,13 @@ public class MediaMetaUtilsTest {
 	}
 	
 	@Test
+	public void testNoArtist() {
+		String song = "a big song title without aritst";
+		String nowPlaying = song;
+		doTestNowPlaying(nowPlaying, song, "");
+	}
+	
+	@Test
 	public void testNowPlaying_spaces() {
 		String song = "aSong";
 		String artist = "anArtist";
@@ -74,7 +81,35 @@ public class MediaMetaUtilsTest {
 		assertThat(songObj.getName(), is(equalTo(songExpected)));
 	}
 	
+	@Test
+	public void testParseRadioName_noDash() {
+		String radioName = "Radio Paradise - DJ-mixed modern & classic rock, world, electronica & more - info: radioparadise.com";
+		doTestParseRadioName(radioName, "Radio Paradise");
+	}
+	
+	@Test
+	public void testParseRadioName_WithAmpersands() {
+		String radioName = "Radio Peace & Love";
+		doTestParseRadioName(radioName, "Radio Peace & Love");
+	}
+	
+	@Test
+	public void testParseRadioName_escapeHtmlEncode() {
+		String radioName = "Best Radio &#35;radio";
+		doTestParseRadioName(radioName, "Best Radio #radio");
+	}
+	
+	
 	/* *** Utilities *** */
+	
+	private void doTestParseRadioName(String radioName, String radioNameExpected) {
+		// Prepare Mock
+		when(mediaMeta.getTitle()).thenReturn(radioName);
+		// Run method to test
+		String nameParsed = MediaMetaUtils.parseRadioName(radioName);
+		// Asserts
+		assertThat(nameParsed, is(equalTo(radioNameExpected)));
+	}
 	
 	private void doTestSongArtist(String song, String artist) {
 		when(mediaMeta.getTitle()).thenReturn(song);

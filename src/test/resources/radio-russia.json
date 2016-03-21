@@ -1,0 +1,43 @@
+{
+   "data": [
+      {
+         "id": "610514639052614",
+         "name": "\u0420\u0443\u0441\u0441\u043a\u0438\u0439 \u0427\u0430\u0441 Russian Radio Brisbane",
+         "category": "Radio Station",
+         "picture": {
+            "data": {
+               "is_silhouette": false,
+               "url": "https://z-1-scontent.xx.fbcdn.net/hprofile-xat1/v/t1.0-1/c9.0.100.100/p100x100/11168073_728703997233677_7218183097374908116_n.jpg?oh=dcb36ca62f6f594d2dcc5b1378c6febb&oe=5786C3D3"
+            }
+         }
+      },
+      {
+         "id": "353300601526548",
+         "name": "Russische Stunde - \u0420\u0443\u0441\u0441\u043a\u0438\u0439 \u0447\u0430\u0441",
+         "category": "Radio Station",
+         "picture": {
+            "data": {
+               "is_silhouette": false,
+               "url": "https://z-1-scontent.xx.fbcdn.net/hprofile-xap1/v/t1.0-1/p100x100/11012065_353302101526398_4324053802657118269_n.jpg?oh=664a15a855647bcf1799de7788c04268&oe=5793D574"
+            }
+         }
+      },
+      {
+         "id": "130575443678987",
+         "name": "Rouski Tchas - \u0420\u0443\u0441\u0441\u043a\u0438\u0439 \u0427\u0430\u0441",
+         "category": "News/Media Website",
+         "picture": {
+            "data": {
+               "is_silhouette": false,
+               "url": "https://z-1-scontent.xx.fbcdn.net/hprofile-xlt1/v/t1.0-1/p100x100/10985391_812549522148239_241094656899374487_n.png?oh=18d5b5fdb20fd998d9ceb9ea127c8990&oe=57512767"
+            }
+         }
+      }
+   ],
+   "paging": {
+      "cursors": {
+         "before": "MAZDZD",
+         "after": "MgZDZD"
+      }
+   }
+}

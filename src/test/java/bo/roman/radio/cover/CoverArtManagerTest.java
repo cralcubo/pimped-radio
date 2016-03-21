@@ -3,11 +3,12 @@ package bo.roman.radio.cover;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
@@ -17,12 +18,21 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
+import bo.roman.radio.cover.album.AlbumFindable;
+import bo.roman.radio.cover.album.CoverArtFindable;
 import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.cover.model.Radio;
+import bo.roman.radio.cover.station.CacheLogoUtil;
+import bo.roman.radio.cover.station.RadioStationFindable;
+import bo.roman.radio.utilities.ReflectionUtils;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(CacheLogoUtil.class)
 public class CoverArtManagerTest {
 	private CoverArtManager manager;
 	
@@ -31,11 +41,19 @@ public class CoverArtManagerTest {
 	private AlbumFindable albumFinder;
 	@Mock
 	private CoverArtFindable coverFinder;
+	@Mock
+	private RadioStationFindable radioFinder;
+	
+	private String testRadioName = "aTestRadio";
+	private String testRadioId = "7777";
+	
 	
 	@Before
-	public void setUp() {
-		manager = new CoverArtManager(albumFinder, coverFinder);
+	public void setUp() throws Exception {
+		manager = new CoverArtManager(albumFinder, coverFinder, radioFinder);
+		PowerMockito.mockStatic(CacheLogoUtil.class);
 	}
+	
 	
 	@Test
 	public void testGetAlbumWithCover() throws IOException {
@@ -120,7 +138,8 @@ public class CoverArtManagerTest {
 		// Run the method to test
 		Optional<Album> album = manager.getAlbumWithCover(song, artist);
 		// Assertions
-		assertThat(album.isPresent(), is(false));
+		assertThat(album.isPresent(), is(true));
+		assertThat(album.get(), is(equalTo(a1)));
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -141,36 +160,8 @@ public class CoverArtManagerTest {
 		// Run the method to test
 		Optional<Album> album = manager.getAlbumWithCover(song, artist);
 		// Assertions
-		assertThat(album.isPresent(), is(false));
-	}
-	
-	@Test
-	public void testGetRadio() {
-		String radioName = "aRadio";
-		
-		Optional<Radio> oRadio = manager.getRadioWithCover(radioName);
-		
-		// Assertions
-		assertThat(oRadio.isPresent(), is(true));
-		assertThat(oRadio.get().getName(), is(equalTo(radioName)));
-		
-		String link = oRadio.get().getCoverUrl();
-		File file = Paths.get(link).toFile();
-		assertThat(file.exists(), is(true));
-	}
-	
-	@Test
-	public void testNoRadio_empty() {
-		Optional<Radio> oRadio = manager.getRadioWithCover("");
-		// Assertions
-		assertThat(oRadio.isPresent(), is(false));
-	}
-	
-	@Test
-	public void testNoRadio_null() {
-		Optional<Radio> oRadio = manager.getRadioWithCover(null);
-		// Assertions
-		assertThat(oRadio.isPresent(), is(false));
+		assertThat(album.isPresent(), is(true));
+		assertThat(album.get(), is(equalTo(a1)));
 	}
 	
 	@Test
@@ -212,6 +203,88 @@ public class CoverArtManagerTest {
 		assertThat(emptyAlbum4.isPresent(), is(false));
 	}
 	
+	@Test
+	public void testGetRadio() throws Exception {
+		// Prepare Mock
+		PowerMockito.when(CacheLogoUtil.isCached(testRadioName)).thenReturn(false);
+
+		Radio radioFound = new Radio.Builder().id(testRadioId).name(testRadioName).build();
+		when(radioFinder.findRadioStation(testRadioName)).thenReturn(Optional.of(radioFound));
+
+		PowerMockito.when(CacheLogoUtil.cacheRadioLogo(testRadioName, radioFound.getLogoUrl())).thenReturn(true);
+		
+		Optional<Radio> oRadio = manager.getRadioWithLogo(testRadioName);
+		
+		// Assertions
+		assertThat(oRadio.isPresent(), is(true));
+		assertThat(oRadio.get().getName(), is(equalTo(testRadioName)));
+		
+		String pageLogoTemplate = (String) ReflectionUtils.getPrivateConstant(radioFound, "PAGELOGO_TEMPLATE");
+		String expectedLogoUrl = String.format(pageLogoTemplate, testRadioId);
+		assertThat(expectedLogoUrl, is(equalTo(oRadio.get().getLogoUrl())));
+	}
+	
+	@Test
+	public void testGetCachedRadio() throws Exception {
+		String testLogoPath = "/a/logo/path";
+		
+		// Prepare Mock
+		PowerMockito.when(CacheLogoUtil.isCached(testRadioName)).thenReturn(true);
+		Path cachedLogoPath = Mockito.mock(Path.class);
+		File logoFile = Mockito.mock(File.class);
+		when(cachedLogoPath.toFile()).thenReturn(logoFile);
+		when(logoFile.getAbsolutePath()).thenReturn(testLogoPath);
+		PowerMockito.when(CacheLogoUtil.getCachedLogoPath(testRadioName)).thenReturn(cachedLogoPath);
+		
+		Optional<Radio> oRadio = manager.getRadioWithLogo(testRadioName);
+		
+		// Asserts
+		assertThat("Radio is present", oRadio.isPresent(), is(true));
+		Radio r = oRadio.get();
+		assertThat(r.getName(), is(equalTo(testRadioName)));
+		
+		assertThat(r.getLogoUrl(), is(equalTo(testLogoPath)));
+	} 
+	
+	@Test
+	public void testGetRadio_notFound() throws Exception {
+		// Prepare Mock
+		PowerMockito.when(CacheLogoUtil.isCached(testRadioName)).thenReturn(false);
+		
+		when(radioFinder.findRadioStation(testRadioName)).thenReturn(Optional.empty());
+		
+		Optional<Radio> oRadio = manager.getRadioWithLogo(testRadioName);
+		
+		// Assert
+		assertThat(oRadio.isPresent(), is(true));
+		
+		String defaultLogoUrl = (String) ReflectionUtils.getPrivateConstant(manager, "DEFAULTLOGO_URL");
+		Radio expectedRadio = new Radio(testRadioName, defaultLogoUrl);
+		Radio radioFound = oRadio.get();
+		
+		assertThat(radioFound, is(equalTo(expectedRadio)));
+		// The default radio has a link to the file with a default
+		// radio logo, this logo file must exist.
+		String radioLog = radioFound.getLogoUrl();
+		File logoFile = new File(radioLog);
+		
+		assertTrue("Logo File Path=" + radioLog + " is supposed to exist.", logoFile.exists());
+	}
+	
+	@Test
+	public void testNoRadio_empty() {
+		Optional<Radio> oRadio = manager.getRadioWithLogo("");
+		// Assertions
+		assertThat(oRadio.isPresent(), is(false));
+	}
+	
+	@Test
+	public void testNoRadio_null() {
+		Optional<Radio> oRadio = manager.getRadioWithLogo(null);
+		// Assertions
+		assertThat(oRadio.isPresent(), is(false));
+	}
+	
 	/* *** Utilities *** */
 	
 	private void assertAlbumIsPresent(Optional<Album> oAlbum, String artist, String song, String url) {
@@ -220,8 +293,5 @@ public class CoverArtManagerTest {
 		assertThat(oAlbum.get().getSongName(), is(equalTo(song)));
 		assertThat(oAlbum.get().getCoverUrl(), is(equalTo(url)));
 	}
-	
-	
-	
 
 }

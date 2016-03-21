@@ -20,6 +20,11 @@ public class Song extends MBEntity {
 		return name;
 	}
 	
+	@Override
+	public String toString() {
+		return "Song [name=" + name + ", artist=" + artist + "]";
+	}
+
 	public static class Builder {
 		private String name;
 		private String artist;

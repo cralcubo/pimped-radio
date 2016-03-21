@@ -17,11 +17,12 @@ public interface RadioCoverInterface {
 	Optional<Album> getAlbumWithCover(String song, String artist);
 	
 	/**
-	 * Get the Radio that is playing.
+	 * Get the Radio that is playing with 
+	 * the logo of it, if it exists. 
 	 * 
 	 * @param radioName
 	 * @return
 	 */
-	Optional<Radio> getRadioWithCover(String radioName);
+	Optional<Radio> getRadioWithLogo(String radioName);
 
 }

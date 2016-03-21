@@ -37,11 +37,11 @@ public class Album extends MBEntity{
 	public String getCoverUrl() {
 		return coverUrl;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Album [songName=" + songName + ", artistName=" + artistName + ", name=" + name + ", coverUrl="
-				+ coverUrl + "]";
+		return "Album [songName=" + songName + ", artistName=" + artistName + ", name=" + name + ", status=" + status
+				+ ", coverUrl=" + coverUrl + "]";
 	}
 	
 	public static class Builder {

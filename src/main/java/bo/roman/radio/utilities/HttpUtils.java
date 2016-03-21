@@ -3,6 +3,11 @@ package bo.roman.radio.utilities;
 import static bo.roman.radio.utilities.LoggerUtils.logDebug;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -19,12 +24,17 @@ public class HttpUtils {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(HttpUtils.class);
 
+	private static final String UTF_8 = "UTF-8";
+	private static final String PARAMETERS_REGEX = "(?<==)('.+?'|[^&]+)";
+
 	public static String doGet(String url) throws IOException {
+		final String encodedUrl = encodeParameters(url);
+		
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		try {
-			logDebug(LOGGER, () -> "Sending request to=" + url);
+			logDebug(LOGGER, () -> "Sending request to=" + encodedUrl);
 			
-			HttpGet get = new HttpGet(url);
+			HttpGet get = new HttpGet(encodedUrl);
 			logDebug(LOGGER, () -> "Excecuting request" + get.getRequestLine());
 			
 			String response = httpClient.execute(get, new MyResponseHandler());
@@ -35,7 +45,7 @@ public class HttpUtils {
 			httpClient.close();
 		}
 	}
-	
+
 	private static class MyResponseHandler implements ResponseHandler<String> {
 		private static final Logger LOGGER = LoggerFactory.getLogger(MyResponseHandler.class);
 		@Override
@@ -51,6 +61,23 @@ public class HttpUtils {
 				throw new ClientProtocolException("Unexpected status=" + status);
 			}
 		}
+	}
+	
+	public static String encodeParameters(String url) {
+		Matcher m = Pattern.compile(PARAMETERS_REGEX).matcher(url);
+		// UTF-8 encoding chartset
+		String utf8 = StandardCharsets.UTF_8.name();
+		while(m.find()) {
+			try {
+				String param = m.group();
+				String encParam = URLEncoder.encode(param, utf8);
+				url = url.replace(param, encParam);
+			} catch (UnsupportedEncodingException e) {
+				throw new RuntimeException(String.format("Totally unexpected, %s is supposed to be an accepted character encoding.", UTF_8));
+			}
+		}
+		
+		return url;
 	}
 
 }

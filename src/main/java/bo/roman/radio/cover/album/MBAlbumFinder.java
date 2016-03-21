@@ -1,4 +1,4 @@
-package bo.roman.radio.cover;
+package bo.roman.radio.cover.album;
 
 import static bo.roman.radio.utilities.LoggerUtils.logDebug;
 
@@ -56,14 +56,16 @@ public class MBAlbumFinder implements AlbumFindable {
     	
     	// Get all Albums
 		Set<Album> allAlbums = getAllAlbums(recordingResults);
-		logDebug(log, () -> "All albums found=" + allAlbums.size());
+		log.info("All albums found for {} - {} are in total={}", song, artist, allAlbums.size());
+		logDebug(log, () -> allAlbums.toString());
     	
 		// Collect in a list all the Releases that are the most relevant
 		List<Album> relevantAlbums = albumsMap.entrySet().stream()
 				.flatMap(es -> allAlbums.stream().filter(a -> a.getName().equals(es.getKey())))
 				.limit(limit)
 				.collect(Collectors.toList());
-		logDebug(log, () -> "Relevant albums returned=" + relevantAlbums);
+		log.info("All the relevant albums found for {} - {} are in total={}", song, artist, relevantAlbums.size());
+		logDebug(log, () -> relevantAlbums.toString());
 		return relevantAlbums;
 	}
 	
