@@ -48,18 +48,9 @@ public class CoverArtManager implements RadioCoverInterface{
 	
 	/**
 	 * {@inheritDoc}}
-	 * 
-	 * <p>
-	 * Because there could be some cases on which
-	 * the request to this method can be done one after
-	 * the other faster than what it takes to find the Album
-	 * of the pair Song - Artist, this method will be syncronized.
-	 * By this way the first request will acquire a lock impeding 
-	 * a race condition between the requests.
-	 * </p>
 	 */
 	@Override
-	public synchronized Optional<Album> getAlbumWithCoverAsync(String song, String artist) {
+	public Optional<Album> getAlbumWithCoverAsync(String song, String artist) {
 		if(!StringUtils.exists(song) || !StringUtils.exists(artist)) {
 			log.info("There is no Song name and/or Artist to find an Album.");
 			return Optional.empty();

@@ -57,7 +57,7 @@ private final Logger log = LoggerFactory.getLogger(CoverArtManagerThreadsTest.cl
 	
 	@SuppressWarnings("unchecked")
 	@Test
-	public void testGetAlbumWithCoverAsync_threeSongsSimultaneously() throws IOException {
+	public void testGetAlbumWithCoverAsync_threeSongsSimultaneously() throws Exception {
 		
 		// First thread mock search
 		String song1 = "In Bloom";
@@ -69,52 +69,77 @@ private final Logger log = LoggerFactory.getLogger(CoverArtManagerThreadsTest.cl
 		when(albumFinder.findAlbums(song1, artist1)).thenAnswer(new AlbumListAnswer(1000, Arrays.asList(a1, a2, a3), song1, artist1));
 		when(coverFinder.findCoverUrl("1")).thenReturn(Optional.empty());
 		when(coverFinder.findCoverUrl("2")).thenThrow(ClientProtocolException.class);
-		String linkMocked = "http://coverartarchive.org/release/12345MBID/1357.jpg";
-		when(coverFinder.findCoverUrl("3")).thenReturn(Optional.of(linkMocked));
+		String link1 = "http://coverartarchive.org/release/12345MBID/1357.jpg";
+		when(coverFinder.findCoverUrl("3")).thenReturn(Optional.of(link1));
 		
 		// Second thread mock search
-		String song2 = "Imagine";
-		String artist2 = "John Lennon";
-		Album a21 = new Album.Builder().name("Imagine").mbid("10").build();
-		Album a22 = new Album.Builder().name("Imagine").mbid("20").build();
-		Album a23 = new Album.Builder().name("Imagine").mbid("30").build();
-		when(albumFinder.findAlbums(song2, artist2)).thenAnswer(new AlbumListAnswer(500, Arrays.asList(a21, a22, a23), song2, artist2));
-		String link1 = "http://link/1";
-		when(coverFinder.findCoverUrl("10")).thenReturn(Optional.of(link1));
+		String song3 = "Imagine";
+		String artist3 = "John Lennon";
+		Album a31 = new Album.Builder().name("Imagine").mbid("10").build();
+		Album a32 = new Album.Builder().name("Imagine").mbid("20").build();
+		Album a33 = new Album.Builder().name("Imagine").mbid("30").build();
+		when(albumFinder.findAlbums(song3, artist3)).thenAnswer(new AlbumListAnswer(500, Arrays.asList(a31, a32, a33), song3, artist3));
+		String link31 = "http://link/1";
+		when(coverFinder.findCoverUrl("10")).thenReturn(Optional.of(link31));
 		when(coverFinder.findCoverUrl("20")).thenThrow(ClientProtocolException.class);
-		String link3 = "http://link/3";
-		when(coverFinder.findCoverUrl("30")).thenReturn(Optional.of(link3));
+		String link33 = "http://link/3";
+		when(coverFinder.findCoverUrl("30")).thenReturn(Optional.of(link33));
 		
 		// Send two threads consecutively to find the albums
 		List<Optional<Album>> albums = new ArrayList<>();
 		
+		Thread t1 = new Thread(() -> albums.add(manager.getAlbumWithCoverAsync(song1, artist1)));
+		Thread t2 = new Thread(() -> albums.add(manager.getAlbumWithCoverAsync(null, null)));
+		Thread t3 = new Thread(() -> albums.add(manager.getAlbumWithCoverAsync(song3, artist3)));
+		
+		t1.start();
+		t1.join();
+		t2.start();
+		t2.join();
+		t3.start();
+		t3.join();
+		
+		// Asserts
+		Optional<Album> oAlbum1 = albums.get(0);
+		assertAlbumIsPresent(oAlbum1, artist1, song1, new URL(link1));
+		Optional<Album> oAlbum2 = albums.get(1);
+		assertThat(oAlbum2.isPresent(), is(false));
+		Optional<Album> oAlbum3 = albums.get(2);
+		assertAlbumIsPresent(oAlbum3, artist3, song3, new URL(link31));
+		
+		/*
 		CompletableFuture<Optional<Album>> futAlb1 = CompletableFuture.supplyAsync(() -> manager.getAlbumWithCoverAsync(song1, artist1));
 		futAlb1.thenAccept(oa -> albums.add(oa));
-		
+		delay(1000);
 		CompletableFuture<Optional<Album>> futAlb2 = CompletableFuture.supplyAsync(() -> manager.getAlbumWithCoverAsync("", null));
 		futAlb2.thenAccept(oa -> albums.add(oa));
-		
-		CompletableFuture<Optional<Album>> futAlb3 = CompletableFuture.supplyAsync(() -> manager.getAlbumWithCoverAsync(song2, artist2));
+		delay(1000);
+		CompletableFuture<Optional<Album>> futAlb3 = CompletableFuture.supplyAsync(() -> manager.getAlbumWithCoverAsync(song3, artist3));
 		futAlb3.thenAccept(oa -> albums.add(oa));
-		
-		
 		
 		// Assertions
 		Optional<Album> oAlbum1 = futAlb1.join();
-		assertAlbumIsPresent(oAlbum1, artist1, song1, new URL(linkMocked));
+		assertAlbumIsPresent(oAlbum1, artist1, song1, new URL(link1));
 		Optional<Album> oAlbum2 = futAlb2.join();
 		assertThat(oAlbum2.isPresent(), is(false));
 		Optional<Album> oAlbum3 = futAlb3.join();
-		assertAlbumIsPresent(oAlbum3, artist2, song2, new URL(link1));
+		assertAlbumIsPresent(oAlbum3, artist3, song3, new URL(link31));
 		
 		// Assert the order expected
 		assertThat("Order unexpected.", albums.get(0), is(equalTo(oAlbum1)));
-		assertThat("Order unexpected.", albums.get(2), is(equalTo(oAlbum2)));
-		assertThat("Order unexpected.", albums.get(1), is(equalTo(oAlbum3)));
+		assertThat("Order unexpected.", albums.get(1), is(equalTo(oAlbum2)));
+		assertThat("Order unexpected.", albums.get(2), is(equalTo(oAlbum3)));*/
 	}
 	
+	/* *** Utilities *** */
 	
-    /* *** Utilities *** */
+    private void delay(int i) {
+		try {
+			Thread.sleep(i);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private void assertAlbumIsPresent(Optional<Album> oAlbum, String artist, String song, URL url) throws MalformedURLException {
 		assertThat(oAlbum.isPresent(), is(true));
