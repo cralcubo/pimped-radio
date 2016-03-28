@@ -32,22 +32,15 @@ public class MBAlbumFinder implements AlbumFindable {
 
 	private static final String QUERY_TEMPLATE = "\"%s\" AND artist:\"%s\""; // songName, artistName
 	
-	private Recording recordingController;
-	
 	private final int limit;
 	
 	public MBAlbumFinder(int limit) {
-		this(limit, new Recording());
-	}
-	
-	public MBAlbumFinder(int limit, Recording recording) {
-		recordingController = recording;
 		this.limit = limit;
 	}
 	
-	
 	@Override
 	public List<Album> findAlbums(String song, String artist) {
+		Recording recordingController = RecordingFactory.createRecording();
 		// First generate the query to find an album
 		String query = String.format(QUERY_TEMPLATE, song, artist);
 		logDebug(log, () -> "Query generated=" + query);
@@ -75,8 +68,6 @@ public class MBAlbumFinder implements AlbumFindable {
 	}
 	
 	private Set<Album> getAllAlbums(List<RecordingResultWs2> recordingResults) {
-		logDebug(log, () -> String.format("Getting all albums found [%s]", recordingResults));
-		
 		if(recordingResults == null) {
 			return Collections.emptySet();
 		}
@@ -124,6 +115,19 @@ public class MBAlbumFinder implements AlbumFindable {
 		    	.collect(Collectors.toMap(Entry::getKey, Entry::getValue, (k,v) -> {throw new IllegalStateException("Duplicate key:" + k);}, LinkedHashMap::new));
 		return releasesMap;
 	}
-
 	
+	/**
+	 * Helper factory that will create a new
+	 * instance of Recording.
+	 * This to mock the class Recording and 
+	 * Unit test it.
+	 * 
+	 * @author christian
+	 *
+	 */
+	public static class RecordingFactory {
+		public static Recording createRecording() {
+			return new Recording();
+		}
+	} 
 }

@@ -20,17 +20,20 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.musicbrainz.controller.Recording;
 import org.musicbrainz.model.entity.RecordingWs2;
 import org.musicbrainz.model.entity.ReleaseWs2;
 import org.musicbrainz.model.searchresult.RecordingResultWs2;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import bo.roman.radio.cover.album.AlbumFindable;
 import bo.roman.radio.cover.album.MBAlbumFinder;
 import bo.roman.radio.cover.model.Album;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(MBAlbumFinder.RecordingFactory.class)
 public class MBAlbumFinderTest {
 	private static final int LIMIT = 6;
 	private AlbumFindable finder;
@@ -45,13 +48,14 @@ public class MBAlbumFinderTest {
 
 	@Before
 	public void setUp() {
-		finder = new MBAlbumFinder(LIMIT, recording);
+		finder = new MBAlbumFinder(LIMIT);
+		PowerMockito.mockStatic(MBAlbumFinder.RecordingFactory.class);
 	}
 	
 	/* ***Tests*** */
 	
 	@Test
-	public void skipRepeatedAlbums() {
+	public void testSkipRepeatedAlbums() {
 		// Mocked data
 		String[] titles = {"Nevermind", "Nevermind", "Nevermind", "The Best of Nirvana"};      
 		String[] credits = {"Nirvana", "Nirvana", "Nirvana", "Nirvana"};
@@ -126,6 +130,7 @@ public class MBAlbumFinderTest {
 	/* ***Utilities*** */
 	
 	private List<Album> doRunAlbumFinder(List<RecordingResultWs2> recordigs) {
+		PowerMockito.when(MBAlbumFinder.RecordingFactory.createRecording()).thenReturn(recording);
 		when(recording.getFullSearchResultList()).thenReturn(recordigs);
 		List<Album> albums = finder.findAlbums(testSong, testArtist);
 		verify(recording, times(1)).search(testQuery);

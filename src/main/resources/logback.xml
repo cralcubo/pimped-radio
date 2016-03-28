@@ -12,12 +12,12 @@
 		<appender-ref ref="STDOUT" />
 	</logger>
 	
-	<logger name="org.musicbrainz.controller.Recording" level="debug" additivity="false">
+	<!-- <logger name="org.musicbrainz.controller.Recording" level="debug" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
 	<logger name="bo.roman.radio.cover.album" level="debug" additivity="false">
 		<appender-ref ref="STDOUT" />
-	</logger>
+	</logger> -->
 
 	<root level="error">
 		<appender-ref ref="STDOUT" />
