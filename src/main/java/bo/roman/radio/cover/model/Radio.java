@@ -2,8 +2,11 @@ package bo.roman.radio.cover.model;
 
 import static bo.roman.radio.utilities.StringUtils.nullIsEmpty;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import bo.roman.radio.utilities.StringUtils;
 
@@ -15,11 +18,11 @@ public class Radio {
 	private String id;
 	private String category;
 	private Picture picture;
-	private String logoUrl;
+	private Optional<URI> logoUri;
 	
-	public Radio(String name, String logoUrl){
+	public Radio(String name, URI logoUri){
 		this.name = name;
-		this.logoUrl = logoUrl;
+		this.logoUri = Optional.of(logoUri);
 	}
 	
 	private Radio(Builder b) {
@@ -61,14 +64,21 @@ public class Radio {
 	 * <li>small</li>
 	 * <li>large</li>
 	 * </ul> 
-	 * @return the URL of the Page Logo.
+	 * 
+	 * In case any exception is thrown, the logoUri will be empty.
+	 * 
+	 * @return the URI of the Page Logo.
 	 */
-	public String getLogoUrl() {
-		if(StringUtils.exists(id)) {
-			logoUrl = String.format(PAGELOGO_TEMPLATE, id);
+	public Optional<URI> getLogoUri() {
+		if (StringUtils.exists(id)) {
+			try {
+				logoUri = Optional.of(new URI(String.format(PAGELOGO_TEMPLATE, id)));
+			} catch (URISyntaxException e) {
+				logoUri = Optional.empty();
+			}
 		}
-		
-		return logoUrl;
+
+		return logoUri;
 	}
 	
 	/**
@@ -86,7 +96,7 @@ public class Radio {
 
 	@Override
 	public String toString() {
-		return "Radio [name=" + name + ", id=" + id + ", category=" + category + ", logoUrl=" + getLogoUrl() + "]";
+		return "Radio [name=" + name + ", id=" + id + ", category=" + category + ", logoUrl=" + getLogoUri() + "]";
 	}
 		
 	@Override

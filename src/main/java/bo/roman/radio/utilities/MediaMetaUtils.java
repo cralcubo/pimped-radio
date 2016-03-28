@@ -79,7 +79,12 @@ public class MediaMetaUtils {
 	 * @param meta
 	 * @return
 	 */
-	public static String parseRadioName(String radioName) {
+	public static Optional<String> findRadioName(MediaMeta meta) {
+		String radioName = meta.getTitle();
+		if(!StringUtils.exists(radioName)) {
+			return Optional.empty();
+		}
+		
 		// First ecape html encoding
 		String parsedRadioName = StringEscapeUtils.unescapeHtml4(radioName.trim());
 		
@@ -89,7 +94,7 @@ public class MediaMetaUtils {
 			parsedRadioName = radioName.substring(0, index).trim();
 		}
 		
-		return parsedRadioName;
+		return Optional.of(parsedRadioName);
 	}
 	
 }

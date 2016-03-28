@@ -1,11 +1,14 @@
 package bo.roman.radio.cover;
 
-import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
-import org.musicbrainz.controller.Recording;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +21,7 @@ import bo.roman.radio.cover.model.Radio;
 import bo.roman.radio.cover.station.CacheLogoUtil;
 import bo.roman.radio.cover.station.FacebookRadioStationFinder;
 import bo.roman.radio.cover.station.RadioStationFindable;
+import bo.roman.radio.utilities.ExecutorUtils;
 import bo.roman.radio.utilities.LoggerUtils;
 import bo.roman.radio.utilities.StringUtils;
 
@@ -26,16 +30,14 @@ public class CoverArtManager implements RadioCoverInterface{
 	
 	private static final int MAXALBUMS_FETCHED = 10;
 	
-	private static final String DEFAULTLOGO_URL = "src/main/resources/radio-player.jpg";
+	private static final String DEFAULTLOGO_PATH = "src/main/resources/radio-player.jpg";
 	
 	private final AlbumFindable albumFinder;
 	private final CoverArtFindable coverFinder;
 	private final RadioStationFindable radioFinder;
 	
 	public CoverArtManager() {
-		this.albumFinder = new MBAlbumFinder(MAXALBUMS_FETCHED, new Recording());
-		this.coverFinder = new CoverArtArchiveFinder();
-		this.radioFinder = new FacebookRadioStationFinder();
+		this(new MBAlbumFinder(MAXALBUMS_FETCHED), new CoverArtArchiveFinder(), new FacebookRadioStationFinder());
 	}
 
 	CoverArtManager(AlbumFindable albumFinder, CoverArtFindable coverFinder, RadioStationFindable radioFinder) {
@@ -43,70 +45,110 @@ public class CoverArtManager implements RadioCoverInterface{
 		this.coverFinder = coverFinder;
 		this.radioFinder = radioFinder;
 	}
-
+	
+	/**
+	 * {@inheritDoc}}
+	 * 
+	 * <p>
+	 * Because there could be some cases on which
+	 * the request to this method can be done one after
+	 * the other faster than what it takes to find the Album
+	 * of the pair Song - Artist, this method will be syncronized.
+	 * By this way the first request will acquire a lock impeding 
+	 * a race condition between the requests.
+	 * </p>
+	 */
 	@Override
-	public Optional<Album> getAlbumWithCover(String song, String artist) {
+	public synchronized Optional<Album> getAlbumWithCoverAsync(String song, String artist) {
 		if(!StringUtils.exists(song) || !StringUtils.exists(artist)) {
+			log.info("There is no Song name and/or Artist to find an Album.");
 			return Optional.empty();
 		}
 		
 		// First find the albums that match the song and artist
 		List<Album> albums = albumFinder.findAlbums(song, artist);
 		
-		for(int i = 0; i < albums.size(); i++) {
-			// Get the MBID first
-			Album album = albums.get(i);
-			log.debug("[{}] Fetching CoverArt for {}", i, album);
-			Optional<String> oMbid = album.getMbid();
-			if(StringUtils.exists(oMbid)) {
-				try {
-					// Find the CoverArt URL
-					Optional<String> oUrl = coverFinder.findCoverUrl(oMbid.get());
-					// If it exists:
-					if(StringUtils.exists(oUrl)) {
-						Album richAlbum = new Album.Builder()
-								.artistName(artist)
-								.songName(song)
-								.name(album.getName())
-								.coverUrl(oUrl.get())
-								.mbid(oMbid.get())
-								.build();
-						return Optional.of(richAlbum);
-					}
-				} catch (IOException e) {
-					LoggerUtils.logDebug(log, () -> "Cover not found for " + album, e);
-				}
-			}
-		}
-		
-		// No cover art album found, return the first album
-		// retrieved from MusicBrains
-		return albums.stream().findFirst();
-	}
-
-	@Override
-	public Optional<Radio> getRadioWithLogo(String radioName) {
-		if (!StringUtils.exists(radioName)) {
+		// No albums to retrieve their cover art
+		if(albums.isEmpty()) {
 			return Optional.empty();
 		}
 		
-		// Check if the radio log is already cached
-		if(CacheLogoUtil.isCached(radioName)) {
-			Path cachedLogoPath = CacheLogoUtil.getCachedLogoPath(radioName);
-			return Optional.of(new Radio(radioName, cachedLogoPath.toFile().getAbsolutePath()));
+		// Build an Executor with all the threads needed to find
+		// the Album covers.
+		final Executor executor = ExecutorUtils.fixedThreadPoolFactory(albums.size());
+		
+		// Find asynchronously all the covers available
+		List<CompletableFuture<Optional<Album>>> asyncAlbums = albums.stream()
+				.filter(a -> StringUtils.exists(a.getMbid()))
+				.map(album -> CompletableFuture.supplyAsync(albumWithCoverSupplier(album, song, artist), executor))
+				.collect(Collectors.toList());
+		
+		// Get the first Abum with cover
+		Optional<Album> albumWithCover = asyncAlbums.stream()
+				.map(CompletableFuture::join)
+				.filter(Optional::isPresent)
+				.map(Optional::get)
+				.findFirst();
+		
+		if(albumWithCover.isPresent()) {
+			return albumWithCover;
 		}
 		
-		// Logo is not cached, send a query to retrieve it
-		Optional<Radio> oRadio = radioFinder.findRadioStation(radioName);
-		if(oRadio.isPresent()) {
-			// If the logo of the radio was found cache it
-			CacheLogoUtil.cacheRadioLogo(radioName, oRadio.get().getLogoUrl());
-			return oRadio;
-		}
-		
-		// Radio logo is not cached and was not found on internet
-		// return default app logo.
-		return Optional.of(new Radio(radioName, DEFAULTLOGO_URL));
+		// No cover art album found, return the first cover-less album
+		// retrieved from MusicBrains
+		return albums.stream().findFirst();
 	}
 	
+	private Supplier<Optional<Album>> albumWithCoverSupplier(Album album, String song, String artist) {
+		log.info("Fetching CoverArt for [{}]", album);
+		return () -> {
+			try {
+				String mbid = album.getMbid().get();
+				Optional<String> oUrl = coverFinder.findCoverUrl(mbid);
+				// If it exists:
+				if(StringUtils.exists(oUrl)) {
+					Album richAlbum = new Album.Builder()
+							.artistName(artist)
+							.songName(song)
+							.name(album.getName())
+							.coverUri(oUrl.get())
+							.mbid(mbid)
+							.build();
+					log.info("Album with Cover found [{}]", richAlbum);
+					return Optional.of(richAlbum);
+				}
+			} catch (Exception e) {
+				log.info("Cover not found for [{}]. Error={}", album, e.getMessage());
+				LoggerUtils.logDebug(log, () -> "Cover not found for " + album, e);
+			}
+			
+			return Optional.empty();
+		};
+	}
+	
+	@Override
+	public Optional<Radio> getRadioWithLogo(String radioName) {
+		if (!StringUtils.exists(radioName)) {
+			log.info("There is no radioName to find a Radio.");
+			return Optional.empty();
+		}
+		// Check if the radio log is already cached
+		if (CacheLogoUtil.isCached(radioName)) {
+			log.info("Returning Cached Radio Logo.");
+			Path cachedLogoPath = CacheLogoUtil.getCachedLogoPath(radioName);
+			return Optional.of(new Radio(radioName, cachedLogoPath.toUri()));
+		}
+
+		// Logo is not cached, send a query to retrieve it
+		Optional<Radio> oRadio = radioFinder.findRadioStation(radioName);
+		if (oRadio.isPresent()) {
+			// If the logo of the radio was found cache it
+			CacheLogoUtil.cacheRadioLogo(radioName, oRadio.flatMap(Radio::getLogoUri));
+			return oRadio;
+		}
+
+		// Radio logo is not cached and was not found on internet
+		// return default app logo.
+		return Optional.of(new Radio(radioName, Paths.get(DEFAULTLOGO_PATH).toUri()));
+	}
 }

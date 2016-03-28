@@ -84,29 +84,38 @@ public class MediaMetaUtilsTest {
 	@Test
 	public void testParseRadioName_noDash() {
 		String radioName = "Radio Paradise - DJ-mixed modern & classic rock, world, electronica & more - info: radioparadise.com";
-		doTestParseRadioName(radioName, "Radio Paradise");
+		doTestParseRadioName(radioName, Optional.of("Radio Paradise"));
 	}
 	
 	@Test
 	public void testParseRadioName_WithAmpersands() {
 		String radioName = "Radio Peace & Love";
-		doTestParseRadioName(radioName, "Radio Peace & Love");
+		doTestParseRadioName(radioName, Optional.of("Radio Peace & Love"));
 	}
 	
 	@Test
 	public void testParseRadioName_escapeHtmlEncode() {
 		String radioName = "Best Radio &#35;radio";
-		doTestParseRadioName(radioName, "Best Radio #radio");
+		doTestParseRadioName(radioName, Optional.of("Best Radio #radio"));
 	}
 	
+	@Test
+	public void testParseRadioName_noMetaTitle() {
+		doTestParseRadioName("", Optional.empty());
+	}
+	
+	@Test 
+	public void testParseRadioName_nullMetaTitle() {
+		doTestParseRadioName(null, Optional.empty());
+	}
 	
 	/* *** Utilities *** */
 	
-	private void doTestParseRadioName(String radioName, String radioNameExpected) {
+	private void doTestParseRadioName(String radioName, Optional<String> radioNameExpected) {
 		// Prepare Mock
 		when(mediaMeta.getTitle()).thenReturn(radioName);
 		// Run method to test
-		String nameParsed = MediaMetaUtils.parseRadioName(radioName);
+		Optional<String> nameParsed = MediaMetaUtils.findRadioName(mediaMeta);
 		// Asserts
 		assertThat(nameParsed, is(equalTo(radioNameExpected)));
 	}

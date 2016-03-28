@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -65,7 +66,9 @@ public class FacebookStationFinderTest {
 		assertThat(radioFound, is(equalTo(expectedRadio)));
 		assertThat(radioFound.getName(), is(radioName));
 		assertThat(radioFound.getCategory(), is("Radio Station"));
-		assertThat(radioFound.getLogoUrl(), is(String.format(PAGELOGO_TEMPLATE, expectedId)));
+		URL logoUrl = radioFound.getLogoUri().get().toURL();
+		URL expectedUrl = new URL(String.format(PAGELOGO_TEMPLATE, expectedId));
+		assertThat(logoUrl, is(equalTo(expectedUrl)));
 	}
 	
 	@Test

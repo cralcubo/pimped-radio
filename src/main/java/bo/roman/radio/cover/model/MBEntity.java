@@ -19,6 +19,11 @@ public abstract class MBEntity {
 	public void setMbid(Optional<String> mbid) {
 		this.mbid = mbid;
 	}
+	
+	@Override
+	public String toString() {
+		return "MBEntity [mbid=" + mbid + "]";
+	}
 
 	@Override
 	public int hashCode() {

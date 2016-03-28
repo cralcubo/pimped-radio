@@ -2,18 +2,22 @@ package bo.roman.radio.cover.model;
 
 import static bo.roman.radio.utilities.StringUtils.nullIsEmpty;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Optional;
+
 public class Album extends MBEntity{
 	private String songName;
 	private String artistName;
 	private String name;
 	private String status;
-	private String coverUrl;
+	private Optional<URI> coverUri;
 
 	private Album(Builder builder) {
 		super(builder.mbid);
 		this.name = builder.name;
 		this.status = builder.status;
-		this.coverUrl = builder.coverUrl;
+		this.coverUri = builder.coverUri;
 		this.songName = builder.songName;
 		this.artistName = builder.artistName;
 	}
@@ -34,20 +38,22 @@ public class Album extends MBEntity{
 		return status;
 	}
 	
-	public String getCoverUrl() {
-		return coverUrl;
+	public Optional<URI> getCoverUri() {
+		return coverUri;
 	}
+	
 	
 	@Override
 	public String toString() {
 		return "Album [songName=" + songName + ", artistName=" + artistName + ", name=" + name + ", status=" + status
-				+ ", coverUrl=" + coverUrl + "]";
+				+ ", coverUri=" + coverUri + "] " + super.toString();
 	}
-	
+
+
 	public static class Builder {
 		private String artistName;
 		private String songName;
-		private String coverUrl;
+		private Optional<URI> coverUri;
 		private String status;
 		private String name;
 		private String mbid;
@@ -57,8 +63,12 @@ public class Album extends MBEntity{
 			return this;
 		}
 		
-		public Builder coverUrl(String val) {
-			coverUrl = nullIsEmpty(val);
+		public Builder coverUri(String val) {
+			try {
+				coverUri = Optional.of(new URI(val));
+			} catch (URISyntaxException e) {
+				coverUri = Optional.empty();
+			}
 			return this;
 		}
 		

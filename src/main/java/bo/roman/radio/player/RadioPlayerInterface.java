@@ -1,5 +1,7 @@
 package bo.roman.radio.player;
 
+import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
+
 public interface RadioPlayerInterface {
 	
 	/**
@@ -13,5 +15,14 @@ public interface RadioPlayerInterface {
 	 * Stop playing a stream.
 	 */
 	void stop();
+	
+	/**
+	 * Add events listener to 
+	 * decide what to do when the RadioPlayer is playing
+	 * is stopped, MediaMeta changed, errors, etc.
+	 * 
+	 * @param eventsAdapter
+	 */
+	void addEventsListener(MediaPlayerEventAdapter eventsAdapter);
 
 }

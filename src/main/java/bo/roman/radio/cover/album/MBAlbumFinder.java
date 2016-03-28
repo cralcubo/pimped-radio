@@ -33,13 +33,18 @@ public class MBAlbumFinder implements AlbumFindable {
 	private static final String QUERY_TEMPLATE = "\"%s\" AND artist:\"%s\""; // songName, artistName
 	
 	private Recording recordingController;
+	
 	private final int limit;
-	private Set<Album> allAlbums;
-
+	
+	public MBAlbumFinder(int limit) {
+		this(limit, new Recording());
+	}
+	
 	public MBAlbumFinder(int limit, Recording recording) {
 		recordingController = recording;
 		this.limit = limit;
 	}
+	
 	
 	@Override
 	public List<Album> findAlbums(String song, String artist) {
@@ -51,13 +56,13 @@ public class MBAlbumFinder implements AlbumFindable {
 		recordingController.search(query);
 		List<RecordingResultWs2> recordingResults = recordingController.getFullSearchResultList();
 		
-		// Sort all the albums from the one that is repeated the most to the least
-		Map<String, Long> albumsMap = getSortedRecordings(recordingResults, artist);
-    	
-    	// Get all Albums
+		// Get all Albums
 		Set<Album> allAlbums = getAllAlbums(recordingResults);
 		log.info("All albums found for {} - {} are in total={}", song, artist, allAlbums.size());
 		logDebug(log, () -> allAlbums.toString());
+		
+		// Sort all the albums from the one that is repeated the most to the least
+		Map<String, Long> albumsMap = getSortedRecordings(allAlbums, artist);
     	
 		// Collect in a list all the Releases that are the most relevant
 		List<Album> relevantAlbums = albumsMap.entrySet().stream()
@@ -70,12 +75,13 @@ public class MBAlbumFinder implements AlbumFindable {
 	}
 	
 	private Set<Album> getAllAlbums(List<RecordingResultWs2> recordingResults) {
+		logDebug(log, () -> String.format("Getting all albums found [%s]", recordingResults));
+		
 		if(recordingResults == null) {
-			allAlbums = Collections.emptySet();
+			return Collections.emptySet();
 		}
 		
-		if (allAlbums == null) {
-			allAlbums = recordingResults.stream()
+		return recordingResults.stream()
 					.map(RecordingResultWs2::getRecording)
 					.flatMap(rec -> rec.getReleases().stream())
 					.map(rel -> new Album.Builder()
@@ -85,9 +91,6 @@ public class MBAlbumFinder implements AlbumFindable {
 							.mbid(rel.getId())
 							.build())
 					.collect(Collectors.toSet());
-		}
-		
-		return allAlbums;
 	}
 
 	/**
@@ -100,12 +103,12 @@ public class MBAlbumFinder implements AlbumFindable {
 	 * @param recordingResults
 	 * @return
 	 */
-	private Map<String, Long> getSortedRecordings(List<RecordingResultWs2> recordingResults, String artist) {
-		if(recordingResults == null) {
+	private Map<String, Long> getSortedRecordings(Set<Album> allAlbums, String artist) {
+		if(allAlbums == null || allAlbums.isEmpty()) {
 			return Collections.emptyMap();
 		}
 		
-		Map<String, Long> releasesMap = getAllAlbums(recordingResults).stream() 
+		Map<String, Long> releasesMap = allAlbums.stream() 
 		    	.filter(a -> "Official".equalsIgnoreCase(a.getStatus()))
 		    	.filter(a -> {
 		    		String artisName = a.getArtistName();

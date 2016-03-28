@@ -6,7 +6,7 @@ public class Song extends MBEntity {
 	private final String name;
 	private final String artist;
 	
-	public Song(Builder builder) {
+	private Song(Builder builder) {
 		super(builder.mbid);
 		this.name = builder.name;
 		this.artist = builder.artist;
