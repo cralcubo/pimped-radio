@@ -5,10 +5,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import bo.roman.radio.player.listener.MediaMetaNotifier;
-import bo.roman.radio.player.listener.PrintRadioPlayerObserver;
 import bo.roman.radio.player.listener.RadioPlayerEventListener;
-import uk.co.caprica.vlcj.player.MediaMeta;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
 
@@ -23,8 +20,10 @@ public class RadioPlayerTest {
 	// http://5.135.223.251:9000
 	// http://streaming.radionomy.com/Classic-Rap
 	// http://88.208.218.19:9106/stream
+	// http://icecast.omroep.nl:80/radio4-bb-mp3
+	// http://stream2.friskyradio.com/frisky_mp3_hi
 
-	private static final String RADIO_STREAM = "http://stream-tx3.radioparadise.com/aac-64";
+	private static final String RADIO_STREAM = "http://stream2.friskyradio.com/frisky_mp3_hi";
 	private RadioPlayer player;
 
 	@Before
@@ -54,38 +53,4 @@ public class RadioPlayerTest {
 		// Stop player
 		player.stop();
 	}
-
-	private static class TestRadioPlayerEventListener extends MediaPlayerEventAdapter {
-		private final static Logger log = LoggerFactory.getLogger(TestRadioPlayerEventListener.class);
-
-		@Override
-		public void mediaMetaChanged(MediaPlayer mediaPlayer, int metaType) {
-			log.info("Media Meta Changed[metaType={}]", metaType);
-			
-//			MediaMeta meta = mediaPlayer.getMediaMeta();
-//			MediaMetaNotifier notifier = new MediaMetaNotifier(meta);
-//			notifier.registerObserver(new PrintRadioPlayerObserver());
-//			notifier.notifyObservers();
-//					
-//			meta.release();
-		}
-		
-		@Override
-		public void error(MediaPlayer mediaPlayer) {
-			System.out.println(".:. ERROR! Stop player");
-			mediaPlayer.release();
-			System.exit(1);
-		}
-		
-		@Override
-		public void playing(MediaPlayer mediaPlayer) {
-			System.out.println(".:. >: PLAYING");
-		}
-		
-		@Override
-		public void stopped(MediaPlayer mediaPlayer) {
-			System.out.println(".:. .:. PLayer Stopped!");
-		}
-	}
-
 }

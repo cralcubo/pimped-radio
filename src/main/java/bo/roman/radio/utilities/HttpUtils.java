@@ -71,6 +71,7 @@ public class HttpUtils {
 			try {
 				String param = m.group();
 				String encParam = URLEncoder.encode(param, utf8);
+				LoggerUtils.logDebug(LOGGER, () -> String.format("Encoding param: [%s] to [%s]", param, encParam));
 				url = url.replace(param, encParam);
 			} catch (UnsupportedEncodingException e) {
 				throw new RuntimeException(String.format("Totally unexpected, %s is supposed to be an accepted character encoding.", UTF_8));

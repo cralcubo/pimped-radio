@@ -100,6 +100,21 @@ public class MBAlbumFinderTest {
 	}
 	
 	@Test
+	public void testMaxPrioritySongName() {
+		String[] titles = {"In Bloom", "The best of Nirvana", "Nevermind Underground", "Nevermind", "Unplugged", "Nevermind", "Nevermind", "The best of the 90s", "GTA soundtrack", "Nevermind", "The best of 90s", "IN BLOOM", "In Bloom"};      
+		String[] credits = {"Nirvana", "", "Nirvana", "Nirvana", "Nirvana", "", "", "Various artist", "Varios artistas", "Nirvana", "Various Artists", "", "Nirvana"};
+		String[] statuses = {"Official", "Official", "Bottleg", "Official", "Official", "Official", "Official", "Official", "", "Official", "Official", "Official", "Official"};      
+		String[] ids = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+		List<Album> albums = doRunAlbumFinder(recordingsFactory(titles, credits, statuses, ids));
+		
+		// Assert that the first album is (In Bloom:"":"":11)
+		// The first three albums expected are expected to have the same name of the testSong
+		assertTrue("Album with same song name expected.", albums.get(0).getName().equalsIgnoreCase(testSong));
+		assertTrue("Album with same song name expected.", albums.get(1).getName().equalsIgnoreCase(testSong));
+		assertTrue("Album with same song name expected.", albums.get(2).getName().equalsIgnoreCase(testSong));
+	}
+	
+	@Test
 	public void testAlbumPriority() {
 		List<Album> albums = doRunAlbumFinder().stream().limit(3).collect(Collectors.toList());
 		

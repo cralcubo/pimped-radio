@@ -28,6 +28,8 @@ import bo.roman.radio.utilities.StringUtils;
  *
  */
 public class MBAlbumFinder implements AlbumFindable {
+	private static final String OFFICIAL_RELEASE = "Official";
+
 	private final static Logger log = LoggerFactory.getLogger(MBAlbumFinder.class);
 
 	private static final String QUERY_TEMPLATE = "\"%s\" AND artist:\"%s\""; // songName, artistName
@@ -55,7 +57,7 @@ public class MBAlbumFinder implements AlbumFindable {
 		logDebug(log, () -> allAlbums.toString());
 		
 		// Sort all the albums from the one that is repeated the most to the least
-		Map<String, Long> albumsMap = getSortedRecordings(allAlbums, artist);
+		Map<String, Long> albumsMap = getSortedRecordings(allAlbums, artist, song);
     	
 		// Collect in a list all the Releases that are the most relevant
 		List<Album> relevantAlbums = albumsMap.entrySet().stream()
@@ -85,22 +87,25 @@ public class MBAlbumFinder implements AlbumFindable {
 	}
 
 	/**
-	 * - From the RecordingResultWs2 List, get all the releases available.
+	 * 
+	 * - From the all the albums found, get all the releases available.
 	 * - Filter the Releases that are not Official.
 	 * - Filter the Releases that have a Credits with the name of the artist.
-	 * - Group the Releases title by name and repetitions.
+	 * - Group the Releases title by the number of times the same name is repeated.
 	 * - Sort from the most repeated to the least one.
+	 * - If there is found a name of an album equal to the name of the song that is playing, put it on
+	 *   first priority. 
 	 * 
 	 * @param recordingResults
 	 * @return
 	 */
-	private Map<String, Long> getSortedRecordings(Set<Album> allAlbums, String artist) {
+	private Map<String, Long> getSortedRecordings(Set<Album> allAlbums, String artist, String songName) {
 		if(allAlbums == null || allAlbums.isEmpty()) {
 			return Collections.emptyMap();
 		}
 		
 		Map<String, Long> releasesMap = allAlbums.stream() 
-		    	.filter(a -> "Official".equalsIgnoreCase(a.getStatus()))
+		    	.filter(a -> OFFICIAL_RELEASE.equalsIgnoreCase(a.getStatus()))
 		    	.filter(a -> {
 		    		String artisName = a.getArtistName();
 		    		if(StringUtils.exists(artisName)) {
@@ -111,6 +116,11 @@ public class MBAlbumFinder implements AlbumFindable {
 		    	})
 		    	.collect(Collectors.groupingBy(Album::getName, Collectors.counting()))
 		    	.entrySet().stream()
+		    	.peek(es -> {
+		    		if(es.getKey().equalsIgnoreCase(songName)) {
+		    			es.setValue(1000_000L);
+		    		}
+		    	})
 		    	.sorted((es1, es2) -> Long.compare(es2.getValue(), es1.getValue()))
 		    	.collect(Collectors.toMap(Entry::getKey, Entry::getValue, (k,v) -> {throw new IllegalStateException("Duplicate key:" + k);}, LinkedHashMap::new));
 		return releasesMap;
