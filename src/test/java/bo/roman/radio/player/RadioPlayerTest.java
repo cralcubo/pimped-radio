@@ -23,7 +23,7 @@ public class RadioPlayerTest {
 	// http://icecast.omroep.nl:80/radio4-bb-mp3
 	// http://stream2.friskyradio.com/frisky_mp3_hi
 
-	private static final String RADIO_STREAM = "http://stream2.friskyradio.com/frisky_mp3_hi";
+	private static final String RADIO_STREAM = "http://icecast.omroep.nl:80/3fm-bb-mp3";
 	private RadioPlayer player;
 
 	@Before

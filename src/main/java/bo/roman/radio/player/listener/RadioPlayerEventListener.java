@@ -43,6 +43,7 @@ public class RadioPlayerEventListener extends MediaPlayerEventAdapter{
 		log.error("There was an error trying to play the stream [{}]", streamName);
 		
 		radioPlayer.stop();
+		System.exit(0);
 	}
 
 }

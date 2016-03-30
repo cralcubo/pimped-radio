@@ -36,7 +36,7 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 		// Sort and select the most relevant radio
 		Optional<Radio> oRadio = findBestRadio(radios, radioName);
 		
-		oRadio.ifPresent(r -> logDebug(log, () -> "Best radio page found in Facebook : " + r));
+		log.info("Best radio page found in Facebook: {}", oRadio);
 		
 		return oRadio;
 	}
@@ -75,12 +75,6 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 		return Collections.emptyList();
 	}
 	
-	public static void main(String[] args) {
-		FacebookRadioStationFinder f = new FacebookRadioStationFinder();
-		f.findAllRadioPages("la x estereo");
-		
-	}
-	
 	/**
 	 * From all the Radio Pages, filter them by exact name
 	 * and return it.
@@ -115,7 +109,7 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 				.filter(r -> r.getName().toLowerCase()
 						     .matches(String.format("^%s\\s+.*$", radioName.toLowerCase())))
 				.findAny();
-		oMatchRadio.ifPresent( r -> log.info("Closely radio found for {} is: {}", radioName, r));
+		log.info("Closely radio found for {} is: {}", radioName, oMatchRadio);
 		
 		return oMatchRadio;
 	}

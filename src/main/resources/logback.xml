@@ -8,11 +8,11 @@
 		</layout>
 	</appender>
 	
-	<logger name="bo.roman.radio" level="debug" additivity="false">
+	<logger name="bo.roman.radio" level="info" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
 	
-	<logger name="bo.roman.radio.player.listener" level="debug" additivity="false">
+	<logger name="bo.roman.radio.cover.station" level="debug" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
 

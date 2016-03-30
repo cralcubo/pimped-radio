@@ -25,7 +25,7 @@ public class HttpUtils {
 	private static final Logger LOGGER = LoggerFactory.getLogger(HttpUtils.class);
 
 	private static final String UTF_8 = "UTF-8";
-	private static final String PARAMETERS_REGEX = "(?<==)('.+?'|[^&]+)";
+	private static final String PARAMETERS_REGEX = "(?<==)('.+?'|[^&]+)(?=&)";
 
 	public static String doGet(String url) throws IOException {
 		final String encodedUrl = encodeParameters(url);
@@ -64,7 +64,7 @@ public class HttpUtils {
 	}
 	
 	public static String encodeParameters(String url) {
-		Matcher m = Pattern.compile(PARAMETERS_REGEX).matcher(url);
+		Matcher m = Pattern.compile(PARAMETERS_REGEX).matcher(url + '&');
 		// UTF-8 encoding chartset
 		String utf8 = StandardCharsets.UTF_8.name();
 		while(m.find()) {
