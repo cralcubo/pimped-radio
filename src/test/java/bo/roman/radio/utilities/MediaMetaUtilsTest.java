@@ -82,9 +82,15 @@ public class MediaMetaUtilsTest {
 	}
 	
 	@Test
-	public void testParseRadioName_noDash() {
+	public void testParseRadioName_dash() {
 		String radioName = "Radio Paradise - DJ-mixed modern & classic rock, world, electronica & more - info: radioparadise.com";
 		doTestParseRadioName(radioName, Optional.of("Radio Paradise"));
+	}
+	
+	@Test
+	public void testParseRadioName_dashPartOfName() {
+		String radioName = "ai-radio.org   -   video game music and many other more...flac 44.KB airadio";
+		doTestParseRadioName(radioName, Optional.of("ai-radio.org"));
 	}
 	
 	@Test

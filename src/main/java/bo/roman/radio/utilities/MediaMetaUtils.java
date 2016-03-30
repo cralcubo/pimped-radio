@@ -1,6 +1,8 @@
 package bo.roman.radio.utilities;
 
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -8,6 +10,7 @@ import bo.roman.radio.cover.model.Song;
 import uk.co.caprica.vlcj.player.MediaMeta;
 
 public class MediaMetaUtils {
+	private static final String TILSPACEDASH_REGEX = ".*?(?=\\s+-)";
 	
 	/**
 	 * Get the information from the MetaData
@@ -88,10 +91,10 @@ public class MediaMetaUtils {
 		// First ecape html encoding
 		String parsedRadioName = StringEscapeUtils.unescapeHtml4(radioName.trim());
 		
-		// Check if there is a '-' and get everything that is before it
-		int index = radioName.indexOf('-');
-		if(index > 0) {
-			parsedRadioName = radioName.substring(0, index).trim();
+		// Separate the radio name if there is in the middle a '-'
+		Matcher m = Pattern.compile(TILSPACEDASH_REGEX).matcher(parsedRadioName);
+		if(m.find()) {
+			parsedRadioName = m.group(0).trim();
 		}
 		
 		return Optional.of(parsedRadioName);
