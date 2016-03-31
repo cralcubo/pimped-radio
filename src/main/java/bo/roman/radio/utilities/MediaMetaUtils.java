@@ -68,10 +68,6 @@ public class MediaMetaUtils {
 	 * extra information that is not needed to find
 	 * the logo of the Radio Station.
 	 * 
-	 * Because '&' is used as a delimiter when sending
-	 * a GET request, we will URL encode the 
-	 * radio name to avoid errors.
-	 * 
 	 * @param meta
 	 * @return
 	 */
