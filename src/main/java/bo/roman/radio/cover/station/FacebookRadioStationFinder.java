@@ -16,11 +16,14 @@ import com.google.gson.Gson;
 import bo.roman.radio.cover.model.Radio;
 
 public class FacebookRadioStationFinder implements RadioStationFindable {
+
 	private static final Logger log = LoggerFactory.getLogger(FacebookRadioStationFinder.class);
 	
 	private static final String SEARCHPAGE_TEMPLATE = "q='%s'&type=page&fields=id,name,category,picture";
+	private static final String STARTWORDREGEX_TEMPL = "^%s.*";
 	
 	private static final String RADIOSTATION_CATEGORY = "Radio Station";
+	private static final String RADIOWORD = "radio";
 	
 	private final Gson gsonParser;
 	
@@ -107,13 +110,27 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 		// related to the radio expected.
 		Optional<Radio> oMatchRadio = radios.stream()
 				.filter(r -> r.getName().toLowerCase()
-						     .matches(String.format("^%s\\s+.*$", radioName.toLowerCase())))
-				.findAny();
-		log.info("Closely radio found for {} is: {}", radioName, oMatchRadio);
+						     .matches(String.format(STARTWORDREGEX_TEMPL, radioName.toLowerCase())))
+				.findFirst();
 		
-		return oMatchRadio;
+		if(oMatchRadio.isPresent()) {
+			log.info("Closely radio found for {} is: {}", radioName, oMatchRadio);
+			return oMatchRadio;
+		}
+		
+		// One last try to find the log of the radio. Remove the Radio word
+		// of the name of the radio looked for and see if there is any match.
+		Optional<Radio> oLastMatchRadio = radios.stream()
+				.filter(r -> removeRadioWord(r.getName())
+						     .matches(String.format(STARTWORDREGEX_TEMPL, removeRadioWord(radioName))))
+				.findFirst();
+		
+		log.info("[Last try]Closely radio found for {} is: {}", radioName, oMatchRadio);
+		return oLastMatchRadio;
 	}
-	
-	
+
+	private String removeRadioWord(String name) {
+		return name.toLowerCase().replace(RADIOWORD, "").trim();
+	}
 
 }
