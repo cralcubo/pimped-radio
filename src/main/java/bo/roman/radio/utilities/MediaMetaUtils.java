@@ -10,7 +10,8 @@ import bo.roman.radio.cover.model.Song;
 import uk.co.caprica.vlcj.player.MediaMeta;
 
 public class MediaMetaUtils {
-	private static final String TILSPACEDASH_REGEX = ".*?(?=\\s+-)";
+	private static final String FROMSPACEDASH_REGEX = "(?<=-)\\s+.+$";
+	private static final String TILSPACEDASH_REGEX = "^.+?\\s+(?=-)";
 	
 	/**
 	 * Get the information from the MetaData
@@ -43,13 +44,15 @@ public class MediaMetaUtils {
 	}
 
 	private static Optional<Song> parseNowPlaying(String nowPlaying) {
-		int index = nowPlaying.indexOf('-');
-		// We expect artist - song
-		if(index > 0) {
-			String artistName = nowPlaying.substring(0, index).trim();
-			String songName = nowPlaying.substring(index + 1).trim();
+		// Using regex to get the song and artist name
+		Matcher songMatcher = Pattern.compile(TILSPACEDASH_REGEX).matcher(nowPlaying);
+		Matcher artistMatcher = Pattern.compile(FROMSPACEDASH_REGEX).matcher(nowPlaying);
+		if(songMatcher.find() && artistMatcher.find()) {
+			String artistName = songMatcher.group().trim();
+			String songName = artistMatcher.group().trim();
 			return Optional.of(buildSong(songName, artistName));
 		}
+		
 		// There is no artist - song pair, just return the full nowPlaying String
 		return Optional.of(buildSong(nowPlaying));
 	}
@@ -94,7 +97,7 @@ public class MediaMetaUtils {
 		// Separate the radio name if there is in the middle a '-'
 		Matcher m = Pattern.compile(TILSPACEDASH_REGEX).matcher(parsedRadioName);
 		if(m.find()) {
-			parsedRadioName = m.group(0).trim();
+			parsedRadioName = m.group().trim();
 		}
 		
 		return Optional.of(parsedRadioName);

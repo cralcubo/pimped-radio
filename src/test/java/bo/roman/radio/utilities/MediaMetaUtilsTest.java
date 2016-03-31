@@ -45,6 +45,14 @@ public class MediaMetaUtilsTest {
 	}
 	
 	@Test
+	public void testNowPlaying_dashInNames() {
+		String song = "aSong-with-dash";
+		String artist = "anArtist-name";
+		String nowPlaying = String.format("%s - %s", artist, song);
+		doTestNowPlaying(nowPlaying, song, artist);
+	}
+	
+	@Test
 	public void testNowPlaying_strangeCharacters() {
 		String song = "sSong-with-strange #characters";
 		String artist = "anArtist";
