@@ -31,12 +31,15 @@ public class MediaMetaUtils {
 		String songName = meta.getTitle();
 		String artistName = meta.getArtist();
 		if(StringUtils.exists(songName) && StringUtils.exists(artistName)) {
-			return Optional.of(buildSong(songName, artistName));
+			songName = StringEscapeUtils.unescapeHtml4(songName).trim();
+			artistName = StringEscapeUtils.unescapeHtml4(artistName).trim();
+			return Optional.of(new Song(songName, artistName));
 		}
 		
 		// Check NowPlaying
 		String nowPlaying = meta.getNowPlaying();
 		if(StringUtils.exists(nowPlaying)){
+			nowPlaying = StringEscapeUtils.unescapeHtml4(nowPlaying);
 			return parseNowPlaying(nowPlaying);
 		}
 		
@@ -50,24 +53,11 @@ public class MediaMetaUtils {
 		if(songMatcher.find() && artistMatcher.find()) {
 			String artistName = songMatcher.group().trim();
 			String songName = artistMatcher.group().trim();
-			return Optional.of(buildSong(songName, artistName));
+			return Optional.of(new Song(songName, artistName));
 		}
 		
 		// There is no artist - song pair, just return the full nowPlaying String
-		return Optional.of(buildSong(nowPlaying));
-	}
-	
-	private static Song buildSong(String songName) {
-		return buildSong(songName, "");
-	}
-	
-	private static Song buildSong(String songName, String artistName) {
-		songName = StringEscapeUtils.unescapeHtml4(songName.trim());
-		artistName = StringEscapeUtils.unescapeHtml4(artistName.trim());
-		return new Song.Builder()
-				.name(songName)
-				.artist(artistName)
-				.build();
+		return Optional.of(new Song(nowPlaying.trim(), ""));
 	}
 	
 	/**

@@ -12,6 +12,12 @@ public class Song extends MBEntity {
 		this.artist = builder.artist;
 	}
 	
+	public Song(String name, String artist) {
+		super("");
+		this.name = name;
+		this.artist = artist;
+	}
+	
 	public String getArtist() {
 		return artist;
 	}
