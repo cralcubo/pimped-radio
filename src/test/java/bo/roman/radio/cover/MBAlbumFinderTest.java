@@ -155,10 +155,10 @@ public class MBAlbumFinderTest {
 	
 	private List<Album> doRunAlbumFinder() {
 		// Releases info
-		String[] titles = {"The best of Nirvana", "Nevermind Underground", "Nevermind", "Unplugged", "Nevermind", "Nevermind", "The best of the 90s", "GTA soundtrack", "Nevermind", "The best of 90s"};      
-		String[] credits = {"", "Nirvana", "Nirvana", "Nirvana", "", "", "Various artist", "Varios artistas", "Nirvana", "Various Artists"};
-		String[] statuses = {"Official", "Bottleg", "Official", "Official", "Official", "Official", "Official", "", "Official", "Official"};      
-		String[] ids = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+		String[] titles = {"The best of Nirvana", "Nevermind Underground", "Nevermind", "Unplugged", "Nevermind", "Nevermind", "The best of the 90s", "GTA soundtrack", "Nevermind", "The best of 90s", "Nevermind"};      
+		String[] credits = {"", "Nirvana", "Nirvana", "Nirvana", "", "", "Various artist", "Varios artistas", "Nirvana", "Various Artists", ""};
+		String[] statuses = {"Official", "Bottleg", "Official", "Official", "Official", "Official", "Official", "Promotion", "Official", "Official", "Promotion"};      
+		String[] ids = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"};
 		
 		return doRunAlbumFinder(recordingsFactory(titles, credits, statuses, ids));
 	}

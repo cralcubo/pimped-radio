@@ -61,7 +61,9 @@ public class MBAlbumFinder implements AlbumFindable {
     	
 		// Collect in a list all the Releases that are the most relevant
 		List<Album> relevantAlbums = albumsMap.entrySet().stream()
-				.flatMap(es -> allAlbums.stream().filter(a -> a.getName().equals(es.getKey())))
+				.flatMap(es -> allAlbums.stream()
+										.filter(a -> isRelevantAlbum(a, artist))
+										.filter(a -> a.getName().equals(es.getKey())))
 				.limit(limit)
 				.collect(Collectors.toList());
 		log.info("All the relevant albums found for {} - {} are in total={}", song, artist, relevantAlbums.size());
@@ -105,15 +107,7 @@ public class MBAlbumFinder implements AlbumFindable {
 		}
 		
 		Map<String, Long> releasesMap = allAlbums.stream() 
-		    	.filter(a -> OFFICIAL_RELEASE.equalsIgnoreCase(a.getStatus()))
-		    	.filter(a -> {
-		    		String artisName = a.getArtistName();
-		    		if(StringUtils.exists(artisName)) {
-		    			return artisName.toLowerCase().contains(artist.toLowerCase());
-		    		}
-		    		
-		    		return true;
-		    	})
+				.filter(a -> isRelevantAlbum(a, artist))
 		    	.collect(Collectors.groupingBy(Album::getName, Collectors.counting()))
 		    	.entrySet().stream()
 		    	.peek(es -> {
@@ -124,6 +118,26 @@ public class MBAlbumFinder implements AlbumFindable {
 		    	.sorted((es1, es2) -> Long.compare(es2.getValue(), es1.getValue()))
 		    	.collect(Collectors.toMap(Entry::getKey, Entry::getValue, (k,v) -> {throw new IllegalStateException("Duplicate key:" + k);}, LinkedHashMap::new));
 		return releasesMap;
+	}
+	
+	/**
+	 * An album is considered relevant if:
+	 * - The album is Official.
+	 * - The artist is the same artist used to search for the album. This to filter out albums that have various artists in it.
+	 * @param a
+	 * @param artist
+	 * @return
+	 */
+	private boolean isRelevantAlbum(Album a, String artist) {
+		boolean isOfficial = OFFICIAL_RELEASE.equalsIgnoreCase(a.getStatus());
+		
+		boolean isExpectedArtist = true;
+		String artisName = a.getArtistName();
+		if(StringUtils.exists(artisName)) {
+			isExpectedArtist = artisName.toLowerCase().contains(artist.toLowerCase());
+		}
+		
+		return isOfficial && isExpectedArtist;
 	}
 	
 	/**
