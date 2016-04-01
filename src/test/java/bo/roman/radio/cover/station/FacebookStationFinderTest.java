@@ -32,6 +32,7 @@ public class FacebookStationFinderTest {
 	private static final String RADIOPASION_PATH = RESOURCES_PATH + "radio-pasion.json";
 	private static final String RADIORUSSIA_PATH = RESOURCES_PATH + "radio-russia.json";
 	private static final String RADIOSTEREO_PATH = RESOURCES_PATH + "radio-stereo97.json";
+	private static final String RADIOCLASSICRAP_PATH = RESOURCES_PATH + "radio-classicRap.json";
 
 	private final String SEARCHPAGE_TEMPLATE;
 	private final String PAGELOGO_TEMPLATE;
@@ -133,6 +134,19 @@ public class FacebookStationFinderTest {
 		Radio expectedRadio = new Radio.Builder().id("610514639052614").build();
 		assertThat(radioFound, is(equalTo(expectedRadio)));
 
+	}
+	
+	@Test
+	public void testFindRadio_noCamelCase() throws IOException {
+		String radioName = "ClassicRap";
+		Optional<Radio> oRadioFound = doFindRadioPage(radioName, Paths.get(RADIOCLASSICRAP_PATH));
+
+		// Assert
+		assertThat(oRadioFound.isPresent(), is(true));
+
+		Radio radioFound = oRadioFound.get();
+		Radio expectedRadio = new Radio.Builder().id("119749068044268").build();
+		assertThat(radioFound, is(equalTo(expectedRadio)));
 	}
 	
 	/* *** Utils *** */

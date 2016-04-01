@@ -107,7 +107,6 @@ public class MBAlbumFinder implements AlbumFindable {
 		}
 		
 		Map<String, Long> releasesMap = allAlbums.stream() 
-				.filter(a -> isRelevantAlbum(a, artist))
 		    	.collect(Collectors.groupingBy(Album::getName, Collectors.counting()))
 		    	.entrySet().stream()
 		    	.peek(es -> {

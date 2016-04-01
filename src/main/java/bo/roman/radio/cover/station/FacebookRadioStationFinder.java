@@ -21,6 +21,7 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 	
 	private static final String SEARCHPAGE_TEMPLATE = "q='%s'&type=page&fields=id,name,category,picture";
 	private static final String STARTWORDREGEX_TEMPL = "^%s.*";
+	private static final String NOCAMELCASE_REGEX = "(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])";
 	
 	private static final String RADIOSTATION_CATEGORY = "Radio Station";
 	private static final String RADIOWORD = "radio";
@@ -106,11 +107,12 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 		}
 		
 		// There is no exact match with the name of the radio
-		// expected, then find the radio which name is closely
-		// related to the radio expected.
+		// expected, then find the radio which name starts with 
+		// the name of the radio expected and split if there is a camel case present.
+		String noCamelradioName = noCamelCase(radioName);
 		Optional<Radio> oMatchRadio = radios.stream()
-				.filter(r -> r.getName().toLowerCase()
-						     .matches(String.format(STARTWORDREGEX_TEMPL, radioName.toLowerCase())))
+				.filter(r -> noCamelCase(r.getName()).toLowerCase()
+						     .matches(String.format(STARTWORDREGEX_TEMPL, noCamelradioName.toLowerCase())))
 				.findFirst();
 		
 		if(oMatchRadio.isPresent()) {
@@ -120,13 +122,23 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 		
 		// One last try to find the log of the radio. Remove the Radio word
 		// of the name of the radio looked for and see if there is any match.
+		String noRadioWordName = removeRadioWord(noCamelCase(radioName)); 
 		Optional<Radio> oLastMatchRadio = radios.stream()
-				.filter(r -> removeRadioWord(r.getName())
-						     .matches(String.format(STARTWORDREGEX_TEMPL, removeRadioWord(radioName))))
+				.filter(r -> removeRadioWord(noCamelCase(r.getName()))
+						     .matches(String.format(STARTWORDREGEX_TEMPL, noRadioWordName)))
 				.findFirst();
 		
 		log.info("[Last try]Closely radio found for {} is: {}", radioName, oMatchRadio);
 		return oLastMatchRadio;
+	}
+	
+	private String noCamelCase(String name) {
+		// Split the name if is camelCase
+		StringBuilder noCamelName = new StringBuilder();
+		for (String v : name.split(NOCAMELCASE_REGEX)) {
+			noCamelName.append(v).append(" ");
+		}
+		return noCamelName.toString();
 	}
 
 	private String removeRadioWord(String name) {
