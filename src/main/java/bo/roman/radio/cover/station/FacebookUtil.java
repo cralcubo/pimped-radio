@@ -24,7 +24,7 @@ import static bo.roman.radio.utilities.LoggerUtils.*;
 public class FacebookUtil {
 	private final static Logger log = LoggerFactory.getLogger(FacebookUtil.class);
 	
-	private static final String ACCESSTOKEN_PATH = "src/main/resources/token.secret";
+	private static final String ACCESSTOKEN_PATH = "secure/token.secret";
 	private static final String ACCESS_TOKEN = getAccessToken();
 	
 	

@@ -30,7 +30,7 @@ public class CoverArtManager implements RadioCoverInterface{
 	
 	private static final int MAXALBUMS_FETCHED = 10;
 	
-	private static final String DEFAULTLOGO_PATH = "src/main/resources/radio-player.jpg";
+	private static final String DEFAULTLOGO_PATH = "src/main/resources/pimped-radio-flat.jpg";
 	
 	private final AlbumFindable albumFinder;
 	private final CoverArtFindable coverFinder;
