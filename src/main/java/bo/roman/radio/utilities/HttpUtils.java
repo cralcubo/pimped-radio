@@ -24,7 +24,6 @@ public class HttpUtils {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(HttpUtils.class);
 
-	private static final String UTF_8 = "UTF-8";
 	private static final String PARAMETERS_REGEX = "(?<==)('.+?'|[^&]+)(?=&)";
 
 	public static String doGet(String url) throws IOException {
@@ -70,11 +69,17 @@ public class HttpUtils {
 		while(m.find()) {
 			try {
 				String param = m.group();
-				String encParam = URLEncoder.encode(param, utf8);
+				/* Percent-encode values according the RFC 3986. The built-in Java
+			     * URLEncoder does not encode according to the RFC, so we make the
+			     * extra replacements. */
+				String encParam = URLEncoder.encode(param, utf8)
+						.replace("+", "%20")
+		                .replace("*", "%2A")
+		                .replace("%7E", "~");
 				LoggerUtils.logDebug(LOGGER, () -> String.format("Encoding param: [%s] to [%s]", param, encParam));
 				url = url.replace(param, encParam);
 			} catch (UnsupportedEncodingException e) {
-				throw new RuntimeException(String.format("Totally unexpected, %s is supposed to be an accepted character encoding.", UTF_8));
+				throw new RuntimeException(String.format("Totally unexpected, %s is supposed to be an accepted character encoding.", utf8));
 			}
 		}
 		
