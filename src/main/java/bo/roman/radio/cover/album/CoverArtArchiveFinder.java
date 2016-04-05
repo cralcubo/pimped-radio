@@ -1,17 +1,17 @@
 package bo.roman.radio.cover.album;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 
-import bo.roman.radio.cover.model.Images;
-import bo.roman.radio.cover.model.Images.Image;
+import bo.roman.radio.cover.model.Album;
+import bo.roman.radio.cover.model.CoverArt;
+import bo.roman.radio.cover.model.mapping.CoverArtArchiveImages;
+import bo.roman.radio.cover.model.mapping.CoverArtArchiveImages.Image;
 import bo.roman.radio.utilities.HttpUtils;
 import bo.roman.radio.utilities.LoggerUtils;
 
@@ -49,33 +49,35 @@ public class CoverArtArchiveFinder implements CoverArtFindable {
 	 * @return
 	 * @throws IOException 
 	 */
-	public Optional<String> findCoverUrl(String mbid) throws IOException {
+	public Optional<CoverArt> findCoverUrl(Album album) throws IOException {
+		if(album == null || !album.getMbid().isPresent()) {
+			LoggerUtils.logDebug(LOG, () -> String.format("There is no Album or Album MBID to find the cover art [%s]", album));
+			return Optional.empty();
+		}
 		// First get the link to send the request
-		String requestLink = String.format(RELEASEREQUEST_TEMPLATE, mbid);
+		String requestLink = String.format(RELEASEREQUEST_TEMPLATE, album.getMbid().get());
 		LoggerUtils.logDebug(LOG, () -> "Fetching album from=" + requestLink);
 		
 		// With the link, send a GET request to coverartarchive
 		String jsonObject = HttpUtils.doGet(requestLink);
 
 		// Parse the object and find the link of the front cover art
-		Images images = gsonParser.fromJson(jsonObject, Images.class);
+		CoverArtArchiveImages images = gsonParser.fromJson(jsonObject, CoverArtArchiveImages.class);
 		
 		if(images == null) {
 			return Optional.empty();
 		}
 		
-		List<String> links = images.getImages().stream()
+		Optional<CoverArt> coverArt = images.getImages().stream()
 				.filter(Image::isFront)
-				.map(Image::getImage)
-				.collect(Collectors.toList());
+				.map(i -> new CoverArt.Builder()
+						.largeUri(i.getImage())
+						.mediumUri(i.getThumbnails().get("large"))
+						.smallUri(i.getThumbnails().get("small"))
+						.build())
+				.findFirst();
 		
-		if(links.isEmpty()) {
-			return Optional.empty();
-		} 
-		
-		String link = links.get(0);
-		LOG.info("Linked to cover art found [{}]", link);
-		return Optional.of(link);
+		return coverArt;
 	}
 	
 	

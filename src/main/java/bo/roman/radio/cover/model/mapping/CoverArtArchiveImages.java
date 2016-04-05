@@ -1,6 +1,7 @@
-package bo.roman.radio.cover.model;
+package bo.roman.radio.cover.model.mapping;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class that maps the response JSON object
@@ -9,11 +10,11 @@ import java.util.List;
  * @author christian
  *
  */
-public class Images {
+public class CoverArtArchiveImages {
 
 	private List<Image> images;
 	
-	public Images(List<Image> images) {
+	public CoverArtArchiveImages(List<Image> images) {
 		this.images = images;
 	}
 
@@ -29,6 +30,7 @@ public class Images {
 
 		private boolean front;
 		private String image;
+		private Map<String, String> thumbnails;
 
 		public Image(boolean front, String image) {
 			this.front = front;
@@ -50,10 +52,19 @@ public class Images {
 		public void setImage(String image) {
 			this.image = image;
 		}
+		
+		public Map<String, String> getThumbnails() {
+			return thumbnails;
+		}
+		
+		public void setThumbnails(Map<String, String> thumbnails) {
+			this.thumbnails = thumbnails;
+		}
 
 		@Override
 		public String toString() {
-			return "Image [front=" + front + ", image=" + image + "]";
+			return "Image [front=" + front + ", image=" + image + ", thumbnails=" + thumbnails + "]";
 		}
+
 	}
 }

@@ -19,6 +19,8 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import bo.roman.radio.cover.album.CoverArtArchiveFinder;
+import bo.roman.radio.cover.model.Album;
+import bo.roman.radio.cover.model.CoverArt;
 import bo.roman.radio.utilities.HttpUtils;
 import bo.roman.radio.utilities.ReflectionUtils;
 
@@ -59,7 +61,11 @@ public class CoverArtArchiverFinderTest {
 
 	@Test
 	public void testRequestToCoverArt() throws IOException {
-		testRequestCover(coverArtJson, Optional.of("http://coverartarchive.org/release/12345MBID/1357.jpg"));
+		testRequestCover(coverArtJson, Optional.of(new CoverArt.Builder()
+				.largeUri("http://coverartarchive.org/release/12345MBID/1357.jpg")
+				.mediumUri("http://coverartarchive.org/release/12345MBID/1357-500.jpg")
+				.smallUri("http://coverartarchive.org/release/12345MBID/1357-250.jpg")
+				.build()));
 	}
 
 	@Test
@@ -75,7 +81,7 @@ public class CoverArtArchiverFinderTest {
 		// Prepare
 		PowerMockito.when(HttpUtils.doGet(requestLink)).thenThrow(ClientProtocolException.class);
 
-		finder.findCoverUrl(MBID);
+		finder.findCoverUrl(new Album.Builder().mbid(MBID).build());
 	}
 	
 	@Test
@@ -84,19 +90,19 @@ public class CoverArtArchiverFinderTest {
 	}
 	
 	/* **Utilities** */
-	private void testRequestCover(String jsonObject, Optional<String> optLinkExpected) throws IOException {
+	private void testRequestCover(String jsonObject, Optional<CoverArt> optCoverExpected) throws IOException {
 		String requestLink = String.format(RELEASEREQUEST_TEMPLATE, MBID);
 
 		// Prepare
 		PowerMockito.when(HttpUtils.doGet(requestLink)).thenReturn(jsonObject);
 
 		// Run
-		Optional<String> coverLink = finder.findCoverUrl(MBID);
+		Optional<CoverArt> coverArt = finder.findCoverUrl(new Album.Builder().mbid(MBID).build());
 		
-		assertThat(coverLink.isPresent(), is(optLinkExpected.isPresent()));
+		assertThat(coverArt.isPresent(), is(optCoverExpected.isPresent()));
 		
-		optLinkExpected.ifPresent(expectedLink -> 
-						assertThat(expectedLink, is(equalTo(coverLink.get()))));
+		optCoverExpected.ifPresent(ca -> 
+						assertThat(ca, is(equalTo(coverArt.get()))));
 		
 	}
 

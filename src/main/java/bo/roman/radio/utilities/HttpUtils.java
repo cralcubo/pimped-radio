@@ -5,7 +5,6 @@ import static bo.roman.radio.utilities.LoggerUtils.logDebug;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,7 +22,9 @@ import org.slf4j.LoggerFactory;;
 public class HttpUtils {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(HttpUtils.class);
-
+	
+	public static final String UTF_8 = "UTF-8";
+	
 	private static final String PARAMETERS_REGEX = "(?<==)('.+?'|[^&]+)(?=&)";
 
 	public static String doGet(String url) throws IOException {
@@ -65,21 +66,20 @@ public class HttpUtils {
 	public static String encodeParameters(String url) {
 		Matcher m = Pattern.compile(PARAMETERS_REGEX).matcher(url + '&');
 		// UTF-8 encoding chartset
-		String utf8 = StandardCharsets.UTF_8.name();
 		while(m.find()) {
 			try {
 				String param = m.group();
 				/* Percent-encode values according the RFC 3986. The built-in Java
 			     * URLEncoder does not encode according to the RFC, so we make the
 			     * extra replacements. */
-				String encParam = URLEncoder.encode(param, utf8)
+				String encParam = URLEncoder.encode(param, UTF_8)
 						.replace("+", "%20")
 		                .replace("*", "%2A")
 		                .replace("%7E", "~");
 				LoggerUtils.logDebug(LOGGER, () -> String.format("Encoding param: [%s] to [%s]", param, encParam));
 				url = url.replace(param, encParam);
 			} catch (UnsupportedEncodingException e) {
-				throw new RuntimeException(String.format("Totally unexpected, %s is supposed to be an accepted character encoding.", utf8));
+				throw new RuntimeException(String.format("Totally unexpected, %s is supposed to be an accepted character encoding.", UTF_8), e);
 			}
 		}
 		

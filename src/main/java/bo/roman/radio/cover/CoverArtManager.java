@@ -17,6 +17,7 @@ import bo.roman.radio.cover.album.CoverArtArchiveFinder;
 import bo.roman.radio.cover.album.CoverArtFindable;
 import bo.roman.radio.cover.album.MBAlbumFinder;
 import bo.roman.radio.cover.model.Album;
+import bo.roman.radio.cover.model.CoverArt;
 import bo.roman.radio.cover.model.Radio;
 import bo.roman.radio.cover.station.CacheLogoUtil;
 import bo.roman.radio.cover.station.FacebookRadioStationFinder;
@@ -30,7 +31,7 @@ public class CoverArtManager implements RadioCoverInterface{
 	
 	private static final int MAXALBUMS_FETCHED = 10;
 	
-	private static final String DEFAULTLOGO_PATH = "src/main/resources/pimped-radio-flat.jpg";
+	private static final String DEFAULTLOGO_PATH = "src/main/resources/pimped-radio-flat.png";
 	
 	private final AlbumFindable albumFinder;
 	private final CoverArtFindable coverFinder;
@@ -94,16 +95,16 @@ public class CoverArtManager implements RadioCoverInterface{
 		log.info("Fetching CoverArt for [{}]", album);
 		return () -> {
 			try {
-				String mbid = album.getMbid().get();
-				Optional<String> oUrl = coverFinder.findCoverUrl(mbid);
+				Optional<CoverArt> oArt = coverFinder.findCoverUrl(album);
 				// If it exists:
-				if(StringUtils.exists(oUrl)) {
+				if(oArt.isPresent()) {
 					Album richAlbum = new Album.Builder()
 							.artistName(artist)
 							.songName(song)
 							.name(album.getName())
-							.coverUri(oUrl.get())
-							.mbid(mbid)
+							.coverArt(oArt)
+							.mbid(album.getMbid().get())
+							.status(album.getStatus())
 							.build();
 					log.info("Album with Cover found [{}]", richAlbum);
 					return Optional.of(richAlbum);
