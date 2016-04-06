@@ -95,7 +95,7 @@ public class CoverArtManager implements RadioCoverInterface{
 		log.info("Fetching CoverArt for [{}]", album);
 		return () -> {
 			try {
-				Optional<CoverArt> oArt = coverFinder.findCoverUrl(album);
+				Optional<CoverArt> oArt = coverFinder.findCoverArt(album);
 				// If it exists:
 				if(oArt.isPresent()) {
 					Album richAlbum = new Album.Builder()

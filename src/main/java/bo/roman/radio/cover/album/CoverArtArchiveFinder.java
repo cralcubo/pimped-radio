@@ -49,7 +49,7 @@ public class CoverArtArchiveFinder implements CoverArtFindable {
 	 * @return
 	 * @throws IOException 
 	 */
-	public Optional<CoverArt> findCoverUrl(Album album) throws IOException {
+	public Optional<CoverArt> findCoverArt(Album album) throws IOException {
 		if(album == null || !album.getMbid().isPresent()) {
 			LoggerUtils.logDebug(LOG, () -> String.format("There is no Album or Album MBID to find the cover art [%s]", album));
 			return Optional.empty();

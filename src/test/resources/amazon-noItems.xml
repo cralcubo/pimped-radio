@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<ItemSearchResponse
+	xmlns="http://webservices.amazon.com/AWSECommerceService/2011-08-01">
+	<OperationRequest>
+		<HTTPHeaders>
+			<Header Name="UserAgent" Value="Apache-HttpClient/4.5.2 (Java/1.8.0_20)"></Header>
+		</HTTPHeaders>
+		<RequestId>c98daf66-d36a-46eb-b23e-e4a0274d8d48</RequestId>
+		<Arguments>
+			<Argument Name="AWSAccessKeyId" Value="AKIAIL5VGOSTTL6ZVC6A"></Argument>
+			<Argument Name="Artist" Value="'Nirvana'"></Argument>
+			<Argument Name="AssociateTag" Value="2615-2750-3759"></Argument>
+			<Argument Name="Operation" Value="ItemSearch"></Argument>
+			<Argument Name="ResponseGroup" Value="Images,ItemAttributes"></Argument>
+			<Argument Name="SearchIndex" Value="Music"></Argument>
+			<Argument Name="Service" Value="AWSECommerceService"></Argument>
+			<Argument Name="Timestamp" Value="2016-04-06T09:55:00Z"></Argument>
+			<Argument Name="Title" Value="'Territorial Pissings'"></Argument>
+			<Argument Name="Signature"
+				Value="ssoOjMlMrMC1AMYLYf6FD+IMlJ81ANZmi19joDle+ac="></Argument>
+		</Arguments>
+		<RequestProcessingTime>0.0371410000000000</RequestProcessingTime>
+	</OperationRequest>
+	<Items>
+		<Request>
+			<IsValid>True</IsValid>
+			<ItemSearchRequest>
+				<Artist>'Nirvana'</Artist>
+				<ResponseGroup>Images</ResponseGroup>
+				<ResponseGroup>ItemAttributes</ResponseGroup>
+				<SearchIndex>Music</SearchIndex>
+				<Title>'Territorial Pissings'</Title>
+			</ItemSearchRequest>
+			<Errors>
+				<Error>
+					<Code>AWS.ECommerceService.NoExactMatches</Code>
+					<Message>We did not find any matches for your request.</Message>
+				</Error>
+			</Errors>
+		</Request>
+		<TotalResults>0</TotalResults>
+		<TotalPages>0</TotalPages>
+		<MoreSearchResultsUrl>http://www.amazon.com/gp/redirect.html?linkCode=xm2&amp;SubscriptionId=AKIAIL5VGOSTTL6ZVC6A&amp;location=http%3A%2F%2Fwww.amazon.com%2Fgp%2Fsearch%3Fkeywords%3D%2527Nirvana%2527%2B%2527Territorial%2BPissings%2527%26url%3Dsearch-alias%253Dpopular&amp;tag=2615-2750-3759&amp;creative=386001&amp;camp=2025
+		</MoreSearchResultsUrl>
+	</Items>
+</ItemSearchResponse>

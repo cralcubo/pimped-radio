@@ -26,9 +26,9 @@ public class AmazonCoverFinder implements CoverArtFindable {
 	private final static Logger log = LoggerFactory.getLogger(AmazonCoverFinder.class);
 
 	@Override
-	public Optional<CoverArt> findCoverUrl(Album album) throws IOException {
+	public Optional<CoverArt> findCoverArt(Album album) throws IOException {
 		if(album == null) {
-			LoggerUtils.logDebug(log, () -> "There is no Album to search its Cover Art in Amazon.");
+			log.info("There is no Album to search its Cover Art in Amazon.");
 			return Optional.empty();
 		}
 		
@@ -36,7 +36,7 @@ public class AmazonCoverFinder implements CoverArtFindable {
 		String albumName = album.getName();
 		
 		if(!StringUtils.exists(artistName) || !StringUtils.exists(albumName)) {
-			LoggerUtils.logDebug(log, () -> "There is no artistName or albumName to search a Cover Art in Amazon.");
+			log.info("There is no artistName or albumName to search a Cover Art in Amazon.");
 			return Optional.empty();
 		}
 		

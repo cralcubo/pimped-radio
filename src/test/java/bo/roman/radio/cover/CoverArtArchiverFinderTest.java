@@ -81,7 +81,7 @@ public class CoverArtArchiverFinderTest {
 		// Prepare
 		PowerMockito.when(HttpUtils.doGet(requestLink)).thenThrow(ClientProtocolException.class);
 
-		finder.findCoverUrl(new Album.Builder().mbid(MBID).build());
+		finder.findCoverArt(new Album.Builder().mbid(MBID).build());
 	}
 	
 	@Test
@@ -97,7 +97,7 @@ public class CoverArtArchiverFinderTest {
 		PowerMockito.when(HttpUtils.doGet(requestLink)).thenReturn(jsonObject);
 
 		// Run
-		Optional<CoverArt> coverArt = finder.findCoverUrl(new Album.Builder().mbid(MBID).build());
+		Optional<CoverArt> coverArt = finder.findCoverArt(new Album.Builder().mbid(MBID).build());
 		
 		assertThat(coverArt.isPresent(), is(optCoverExpected.isPresent()));
 		
