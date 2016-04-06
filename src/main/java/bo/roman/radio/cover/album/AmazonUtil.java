@@ -13,13 +13,24 @@ import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.utilities.HttpUtils;
 
 public class AmazonUtil {
 	private final static Logger log = LoggerFactory.getLogger(AmazonUtil.class);
 	
-	// Query template
-	private final static String REQUESTQUERY_TEMPLATE = "AWSAccessKeyId=%s"
+	// This is the type of request method to send to Amazon
+	private final static String REQUEST_METHOD = "GET";
+	
+	// This is the store where the covers will be retrieved from
+	private final static String AMAZONSTORE_SITE = "ecs.amazonaws.com";
+	
+	// This is the path that accepts REST request
+	private final static String REST_PATH = "/onca/xml";
+	
+	// Query templates
+	// Search Album by name
+	private final static String SEARCHQUERY_TEMPLATE = "AWSAccessKeyId=%s"
 			+ "&Artist='%s'"
 			+ "&AssociateTag=%s"
 			+ "&Operation=ItemSearch"
@@ -29,20 +40,38 @@ public class AmazonUtil {
 			+ "&Timestamp=%s"
 			+ "&Title='%s'";
 	
-	// This is the type of request method to send to Amazon
-	private final static String REQUEST_METHOD = "GET";
-	
-	// This is the store where the covers will be retrieved from
-	private final static String AMAZONSTORE_SITE = "ecs.amazonaws.com";
-	
-	// This is the path that accepts REST requets
-	private final static String REST_PATH = "/onca/xml";
+	// Search Album by keyword
+	private final static String SEARCHALLQUERY_TEMPLATE = "AWSAccessKeyId=%s"
+			+ "&AssociateTag=%s"
+			+ "&Keywords=%s"
+			+ "&Operation=ItemSearch"
+			+ "&ResponseGroup=Images,ItemAttributes"
+			+ "&SearchIndex=All"
+			+ "&Service=AWSECommerceService"
+			+ "&Timestamp=%s";
 	
 	// Date pattern accepted by Amazon
 	private static final String DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 	
 	// Algorithm used to generate the encripted signature
 	private static final String HMAC_SHA256_ALGORITHM = "HmacSHA256";
+	
+	/**
+	 * 
+	 * @param keyword
+	 * @return
+	 */
+	public static String generateSearchAllRequestUrl(Album album) {
+		String keyword = String.format("%s,%s", album.getSongName(), album.getArtistName());
+		String requestQuery = String.format(SEARCHALLQUERY_TEMPLATE
+				, getAwsAccessKeyId()
+				, getAwsAssociateTag()
+				, keyword
+				, getTimeStamp());
+		
+		// Generate the URL to send the REST request
+		return  "http://" + AMAZONSTORE_SITE + REST_PATH + "?" + requestQuery + "&Signature=" + generateSignature(requestQuery);
+	}
 		
 	/**
 	 * Method used to generate the URL to which 
@@ -52,13 +81,13 @@ public class AmazonUtil {
 	 * @param albumName
 	 * @return
 	 */
-	public static String generateGetRequestUrl(String artistName, String albumName) {
-		String requestQuery = String.format(REQUESTQUERY_TEMPLATE
+	public static String generateSearchAlbumRequestUrl(Album album) {
+		String requestQuery = String.format(SEARCHQUERY_TEMPLATE
 				, getAwsAccessKeyId()
-				, artistName
+				, album.getArtistName()
 				, getAwsAssociateTag()
 				, getTimeStamp()
-				, albumName);
+				, album.getName());
 		
 		// Generate the URL to send the REST request
 		return  "http://" + AMAZONSTORE_SITE + REST_PATH + "?" + requestQuery + "&Signature=" + generateSignature(requestQuery);

@@ -2,8 +2,10 @@ package bo.roman.radio.cover.model.mapping;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlValue;
 
 import bo.roman.radio.utilities.StringUtils;
 
@@ -121,6 +123,7 @@ public class AmazonItems {
 			@XmlRootElement(name="ItemAttributes")
 			public static class ItemAttributes {
 				private String title;
+				private Creator creator;
 				
 				public void setTitle(String title) {
 					this.title = title;
@@ -130,10 +133,45 @@ public class AmazonItems {
 				public String getTitle() {
 					return title;
 				}
+				@XmlElement(name="Creator")
+				public void setCreator(Creator creator) {
+					this.creator = creator;
+				}
+				
+				public Creator getCreator() {
+					return creator;
+				}
 
 				@Override
 				public String toString() {
-					return "ItemAttributes [title=" + title + "]";
+					return "ItemAttributes [title=" + title + ", creator=" + creator + "]";
+				}
+				
+				public static class Creator {
+					private String role;
+					private String value;
+					
+					public String getRole() {
+						return role;
+					}
+					@XmlAttribute(name="Role")
+					public void setRole(String role) {
+						this.role = role;
+					}
+					
+					public String getValue() {
+						return value;
+					}
+					@XmlValue
+					public void setValue(String value) {
+						this.value = value;
+					}
+					
+					@Override
+					public String toString() {
+						return "Creator [role=" + role + ", value=" + value + "]";
+					}
+					
 				}
 				
 			}

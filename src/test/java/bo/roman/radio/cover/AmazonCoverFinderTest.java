@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Optional;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +14,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import bo.roman.radio.cover.album.AmazonCoverFinder;
+import bo.roman.radio.cover.album.AmazonCoverFinder.SearchType;
 import bo.roman.radio.cover.album.AmazonUtil;
 import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.cover.model.CoverArt;
@@ -28,8 +30,10 @@ public class AmazonCoverFinderTest {
 	
 	private AmazonCoverFinder finder;
 	
-	private final static String NIRVANAXML_PATH = "src/test/resources/amazon-nirvana.xml";
-	private final static String NOITEMSXML_PATH = "src/test/resources/amazon-noItems.xml";
+	private final static String ROOTH_PATH = "src/test/resources/";
+	private final static String NIRVANAXML_PATH = ROOTH_PATH + "amazon-nirvana.xml";
+	private final static String NOITEMSXML_PATH = ROOTH_PATH + "amazon-noItems.xml";
+	private static final String SEARCHKEYWORDXML_PATH = ROOTH_PATH + "amazon-nirvanaKeyword.xml";
 	
 	
 	@Before
@@ -42,8 +46,9 @@ public class AmazonCoverFinderTest {
 	@Test
 	public void testFindCoverArt() throws IOException {
 		String testArtist = "Nirvana";
-		String testAlbum = "Nevermind";
-		Optional<CoverArt> coverArt = doFindCoverArt(testArtist, testAlbum, NIRVANAXML_PATH);
+		String testAlbumName = "Nevermind";
+		Album testAlbum = new Album.Builder().name(testAlbumName).artistName(testArtist).build();
+		Optional<CoverArt> coverArt = doFindCoverArtByAlbum(testAlbum, NIRVANAXML_PATH);
 		
 		// Assertions
 		assertThat(coverArt.isPresent(), is(true));
@@ -58,11 +63,30 @@ public class AmazonCoverFinderTest {
 	@Test
 	public void testFindCoverArt_noAlbumFound() throws IOException {
 		String testArtist = "Nirvana";
-		String testAlbum = "Lithium";
-		Optional<CoverArt> ca = doFindCoverArt(testArtist, testAlbum, NOITEMSXML_PATH);
+		String testAlbumName = "Lithium";
+		Album testAlbum = new Album.Builder().name(testAlbumName).artistName(testArtist).build();
+		Optional<CoverArt> ca = doFindCoverArtByAlbum(testAlbum, NOITEMSXML_PATH);
 		
 		// Assert
 		assertThat("No CoverArt was expected", ca.isPresent(), is(false));
+	}
+	
+	@Test
+	public void testFindCoverArtByKeyWord() throws IOException {
+		String songName = "Territorial Pissings";
+		String artistName = "Nirvana";
+		Album album = new Album.Builder().songName(songName).artistName(artistName).build();
+		Optional<CoverArt> coverArt = doFindCoverArtByKeyword(album, SEARCHKEYWORDXML_PATH);
+		
+		// Assertions
+		assertThat(coverArt.isPresent(), is(true));
+		CoverArt coverExpected = new CoverArt.Builder()
+				.largeUri("http://ecx.images-amazon.com/images/I/51okp3JbucL.jpg")
+				.mediumUri("http://ecx.images-amazon.com/images/I/51okp3JbucL._SL160_.jpg")
+				.smallUri("http://ecx.images-amazon.com/images/I/51okp3JbucL._SL75_.jpg")
+				.build();
+		assertThat(coverArt.get(), is(equalTo(coverExpected)));
+		
 	}
 	
 	@Test
@@ -88,17 +112,33 @@ public class AmazonCoverFinderTest {
 	}
 	
 	/* *** Utilities *** */
-	private Optional<CoverArt> doFindCoverArt(String testArtist, String testAlbum, String xmlFilePath) throws IOException {
+	
+	private Optional<CoverArt> doFindCoverArtByAlbum(Album testAlbum, String xmlFilePath) throws IOException {
+		return doFindCoverArtBySearchType(testAlbum, xmlFilePath, SearchType.SEARCHBY_ALBUM);
+	}
+	
+	private Optional<CoverArt> doFindCoverArtByKeyword(Album testAlbum, String xmlFilePath) throws IOException {
+		return doFindCoverArtBySearchType(testAlbum, xmlFilePath, SearchType.SEARCHBY_KEYWORD);
+	}
+	
+	private Optional<CoverArt> doFindCoverArtBySearchType(Album testAlbum, String xmlFilePath, SearchType searchType) throws IOException {
 		// Prepare Mock
 		String url = "aURL";
-		PowerMockito.when(AmazonUtil.generateGetRequestUrl(testArtist, testAlbum)).thenReturn(url);
-
+		switch (searchType) {
+		case SEARCHBY_ALBUM:
+			PowerMockito.when(AmazonUtil.generateSearchAlbumRequestUrl(testAlbum)).thenReturn(url);
+			break;
+		case SEARCHBY_KEYWORD:
+			PowerMockito.when(AmazonUtil.generateSearchAllRequestUrl(testAlbum)).thenReturn(url);
+			break;
+		default:
+			Assert.fail("Unexpected searchType to run a test.");
+		}
 		String xmlResponse = new String(Files.readAllBytes(Paths.get(xmlFilePath)));
 		PowerMockito.when(HttpUtils.doGet(url)).thenReturn(xmlResponse);
 
 		// Run Method
-		Album album = new Album.Builder().artistName(testArtist).name(testAlbum).build();
-		return finder.findCoverArt(album);
+		return finder.findCoverArt(testAlbum);
 	}
 
 }

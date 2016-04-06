@@ -1,5 +1,7 @@
 package bo.roman.radio.cover.album;
 
+import static bo.roman.radio.utilities.StringUtils.exists;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -20,10 +22,11 @@ import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper;
 import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item;
 import bo.roman.radio.utilities.HttpUtils;
 import bo.roman.radio.utilities.LoggerUtils;
-import bo.roman.radio.utilities.StringUtils;
 
 public class AmazonCoverFinder implements CoverArtFindable {
 	private final static Logger log = LoggerFactory.getLogger(AmazonCoverFinder.class);
+	
+	public enum SearchType {SEARCHBY_ALBUM, SEARCHBY_KEYWORD, UNKNOWN}
 
 	@Override
 	public Optional<CoverArt> findCoverArt(Album album) throws IOException {
@@ -32,21 +35,26 @@ public class AmazonCoverFinder implements CoverArtFindable {
 			return Optional.empty();
 		}
 		
-		String artistName = album.getArtistName();
-		String albumName = album.getName();
-		
-		if(!StringUtils.exists(artistName) || !StringUtils.exists(albumName)) {
-			log.info("There is no artistName or albumName to search a Cover Art in Amazon.");
+		// What kind of search will be done in Amazon?
+		SearchType searchType = determineSearchType(album);
+		// Generate the URL to send the REST request
+		final String url;
+		switch (searchType) {
+		case SEARCHBY_ALBUM:
+			url = AmazonUtil.generateSearchAlbumRequestUrl(album);
+			break;
+		case SEARCHBY_KEYWORD:
+			url = AmazonUtil.generateSearchAllRequestUrl(album);
+			break;
+		default:
+			log.info("There is no artistName or albumName or songName to search a Cover Art in Amazon.");
 			return Optional.empty();
 		}
-		
-		// Generate the URL to send the REST request
-		String url = AmazonUtil.generateGetRequestUrl(artistName, albumName);
 		
 		LoggerUtils.logDebug(log, () -> String.format("Sending Product information request to Amazon. URL[%s]", url));
 		String xmlResponse = HttpUtils.doGet(url);
 		
-		// Convert XML the Object
+		// Convert XML response to an AmazonItem object
 		Optional<AmazonItems> oItems = unmarshalXml(xmlResponse);
 		
 		if(!oItems.isPresent() 
@@ -57,26 +65,61 @@ public class AmazonCoverFinder implements CoverArtFindable {
 			return Optional.empty();
 		}
 		
-		List<Item> allItems = oItems.map(AmazonItems::getItemsWrapper).map(ItemsWrapper::getItems).get();
+		List<Item> allItems = oItems
+				.map(AmazonItems::getItemsWrapper)
+				.map(ItemsWrapper::getItems)
+				.get();
 		
-		// Find if there is an Amazon Item that matches the name of the album. 
+		// Find if there is an Amazon Item that matches the name of the album
+		// or the name of the artist if the search was made keyword.
 		Optional<Item> bestItem = allItems.stream()
-				.filter(i -> i.getItemAttributes() != null)
-				.filter(i -> i.getItemAttributes().getTitle().equalsIgnoreCase(albumName))
+				.filter(i -> isItemTitleEqualsTo(i, album.getName()) || isItemCreatorEqualsTo(i, album.getArtistName())) 
 				.findFirst();
 		
 		if(bestItem.isPresent()) {
-			Optional<CoverArt> ca = bestItem.map(AmazonCoverFinder::buildCoverArt);
-			log.info("The best Amazon CoverArt for [{}] is {}", album, ca);
-			return ca;
+			Optional<CoverArt> coverArt = bestItem.map(AmazonCoverFinder::buildCoverArt);
+			LoggerUtils.logDebug(log, () -> String.format("The best Amazon CoverArt for [%s] is from %s", album, bestItem));
+			log.info("The best Amazon CoverArt for [{}] is {}", album, coverArt);
+			return coverArt;
 		}
 		
 		// In case there was no match found to the name of the album, return the first Amazon Item.
-		Optional<CoverArt> coverArt = allItems.stream()
-				.findFirst()
-				.map(AmazonCoverFinder::buildCoverArt);
-		log.info("CoverArt found for {} in Amazon. {}", album, coverArt);
+		Optional<Item> firstItem = allItems.stream().findFirst();
+		Optional<CoverArt> coverArt = firstItem.map(AmazonCoverFinder::buildCoverArt);
+		
+		LoggerUtils.logDebug(log, () -> String.format("CoverArt found for %s in Amazon from Item %s", album, firstItem));
+		log.info("CoverArt found for {} in Amazon is {}", album, coverArt);
+
 		return coverArt;
+	}
+
+	/**
+	 * Determine, depending on the information contained
+	 * in the Album object the type of search to be requested
+	 * to Amazon.
+	 * 
+	 * If album has: name and artistName => searchByAlbum
+	 * If album has only: songName and artistName => searchByKeyword
+	 * If none of the above => unknown.
+	 * 
+	 * @param album
+	 * @return
+	 */
+	private SearchType determineSearchType(Album album) {
+		String songName = album.getSongName();
+		String artistName = album.getArtistName();
+		String albumName = album.getName();
+		
+		// Giving priority to search by Album
+		if(exists(albumName) && exists(artistName)) {
+			return SearchType.SEARCHBY_ALBUM;
+		}
+		
+		if(exists(songName)) {
+			return SearchType.SEARCHBY_KEYWORD;
+		}
+		
+		return SearchType.UNKNOWN;
 	}
 
 	private Optional<AmazonItems> unmarshalXml(String xmlResponse) {
@@ -107,6 +150,16 @@ public class AmazonCoverFinder implements CoverArtFindable {
 			LoggerUtils.logDebug(log, () -> "Couldn't unmarshal XML Response.", e);
 			return Optional.empty();
 		}
+	}
+	
+	private boolean isItemCreatorEqualsTo(Item i, String artistName) {
+		return i.getItemAttributes() != null 
+				&& i.getItemAttributes().getCreator() != null 
+				&& i.getItemAttributes().getCreator().getRole().equals("Primary Contributor") && i.getItemAttributes().getCreator().getValue().equalsIgnoreCase(artistName);
+	}
+
+	private boolean isItemTitleEqualsTo(Item item, String name) {
+		return item.getItemAttributes() != null && item.getItemAttributes().getTitle().equalsIgnoreCase(name);
 	}
 	
 	private static CoverArt buildCoverArt(Item i) {
