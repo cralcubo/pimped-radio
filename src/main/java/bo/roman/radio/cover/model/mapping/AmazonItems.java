@@ -5,108 +5,173 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="ItemSearchResponse")
+import bo.roman.radio.utilities.StringUtils;
+
+@XmlRootElement(name="ItemSearchResponse", namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")
 public class AmazonItems {
+	
+	private ItemsWrapper itemsWrapper;
+	
+	public ItemsWrapper getItemsWrapper() {
+		return itemsWrapper;
+	}
+	
 	@XmlElement(name="Items")
-	private List<Item> items;
-
-	public List<Item> getItems() {
-		return items;
+	public void setItemsWrapper(ItemsWrapper items) {
+		this.itemsWrapper = items;
 	}
+	
+	@XmlRootElement(name="Items")
+	public static class ItemsWrapper {
+		private List<Item> items;
 
-	public void setItems(List<Item> items) {
-		this.items = items;
-	}
-
-	public static class Item {
-		@XmlElement(name="ASIN")
-		private String asin;
-		
-		@XmlElement(name="Title")
-		private String title;
-		
-		@XmlElement(name="LargeImage")
-		private Image largeImage;
-		
-		@XmlElement(name="MediumImage")
-		private Image mediumImage;
-		
-		@XmlElement(name="SmallImage")
-		private Image smallImage;
-
-		public String getAsin() {
-			return asin;
-		}
-
-		public void setAsin(String asin) {
-			this.asin = asin;
-		}
-
-		public String getTitle() {
-			return title;
-		}
-
-		public void setTitle(String title) {
-			this.title = title;
+		public List<Item> getItems() {
+			return items;
 		}
 		
-		public Image getLargeImage() {
-			return largeImage;
+		@XmlElement(name="Item")
+		public void setItems(List<Item> items) {
+			this.items = items;
 		}
-
-		public void setLargeImage(Image largeImage) {
-			this.largeImage = largeImage;
-		}
-
-		public Image getMediumImage() {
-			return mediumImage;
-		}
-
-		public void setMediumImage(Image mediumImage) {
-			this.mediumImage = mediumImage;
-		}
-
-		public Image getSmallImage() {
-			return smallImage;
-		}
-
-		public void setSmallImage(Image smallImage) {
-			this.smallImage = smallImage;
-		}
-
-
-		public static class Image {
-			@XmlElement(name="URL")
-			String url;
-			@XmlElement(name="Height")
-			int height;
-			@XmlElement(name="Width")
-			int width;
-			public String getUrl() {
-				return url;
+		
+		@XmlRootElement(name="Item")
+		public static class Item {
+			private ItemAttributes itemAttributes;
+			
+			private String asin;
+			
+			private Image largeImage;
+			
+			private Image mediumImage;
+			
+			private Image smallImage;
+			
+			public ItemAttributes getItemAttributes() {
+				return itemAttributes;
 			}
-			public void setUrl(String url) {
-				this.url = url;
+			
+			@XmlElement(name="ItemAttributes")
+			public void setItemAttributes(ItemAttributes itemAttributes) {
+				this.itemAttributes = itemAttributes;
 			}
-			public int getHeight() {
-				return height;
+
+			public String getAsin() {
+				return asin;
 			}
-			public void setHeight(int height) {
-				this.height = height;
+			@XmlElement(name="ASIN")
+			public void setAsin(String asin) {
+				this.asin = asin;
 			}
-			public int getWidth() {
-				return width;
+			
+			public Image getLargeImage() {
+				return largeImage;
 			}
-			public void setWidth(int width) {
-				this.width = width;
+			
+			public String getLargeImageUrl() {
+				if(largeImage != null) {
+					return largeImage.getUrl().trim();
+				}
+				
+				return "";
+			}
+			@XmlElement(name="LargeImage")
+			public void setLargeImage(Image largeImage) {
+				this.largeImage = largeImage;
+			}
+
+			public Image getMediumImage() {
+				return mediumImage;
+			}
+			
+			public String getMediumImageUrl() {
+				if(mediumImage != null) {
+					return mediumImage.getUrl();
+				}
+				
+				return "";
+			}
+			@XmlElement(name="MediumImage")
+			public void setMediumImage(Image mediumImage) {
+				this.mediumImage = mediumImage;
+			}
+
+			public Image getSmallImage() {
+				return smallImage;
+			}
+			
+			public String getSmallImageUrl() {
+				if(smallImage != null) {
+					return smallImage.getUrl();
+				}
+				
+				return "";
+			}
+			
+			@XmlElement(name="SmallImage")
+			public void setSmallImage(Image smallImage) {
+				this.smallImage = smallImage;
 			}
 			
 			@Override
 			public String toString() {
-				return "Image [url=" + url + ", height=" + height + ", width=" + width + "]";
+				return "Item [itemAttributes=" + itemAttributes + ", asin=" + asin + ", largeImage=" + largeImage
+						+ ", mediumImage=" + mediumImage + ", smallImage=" + smallImage + "]";
+			}
+			
+			@XmlRootElement(name="ItemAttributes")
+			public static class ItemAttributes {
+				private String title;
+				
+				public void setTitle(String title) {
+					this.title = title;
+				}
+				
+				@XmlElement(name="Title")
+				public String getTitle() {
+					return title;
+				}
+
+				@Override
+				public String toString() {
+					return "ItemAttributes [title=" + title + "]";
+				}
+				
+			}
+
+			public static class Image {
+				
+				String url;
+				int height;
+				int width;
+				
+				public String getUrl() {
+					return url;
+				}
+				@XmlElement(name="URL")
+				public void setUrl(String url) {
+					this.url = StringUtils.nullIsEmpty(url).trim();
+				}
+				public int getHeight() {
+					return height;
+				}
+				@XmlElement(name="Height")
+				public void setHeight(int height) {
+					this.height = height;
+				}
+				public int getWidth() {
+					return width;
+				}
+				@XmlElement(name="Width")
+				public void setWidth(int width) {
+					this.width = width;
+				}
+				
+				@Override
+				public String toString() {
+					return "Image [url=" + url + ", height=" + height + ", width=" + width + "]";
+				}
 			}
 		}
-
 	}
 
 }
