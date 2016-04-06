@@ -3,6 +3,8 @@ package bo.roman.radio.cover.model.mapping;
 import java.util.List;
 import java.util.Map;
 
+import bo.roman.radio.utilities.StringUtils;
+
 /**
  * Class that maps the response JSON object
  * gotten from 'coverartarchive'
@@ -50,7 +52,7 @@ public class CoverArtArchiveImages {
 		}
 
 		public void setImage(String image) {
-			this.image = image;
+			this.image = StringUtils.cleanIt(image);
 		}
 		
 		public Map<String, String> getThumbnails() {

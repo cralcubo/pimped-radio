@@ -18,5 +18,9 @@ public interface StringUtils {
 		}
 		return val;
 	}
+	
+	static String cleanIt(String val) {
+		return nullIsEmpty(val).trim();
+	}
 
 }

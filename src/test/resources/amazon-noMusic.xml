@@ -1,0 +1,160 @@
+<?xml version="1.0" ?>
+<ItemSearchResponse
+	xmlns="http://webservices.amazon.com/AWSECommerceService/2011-08-01">
+	<OperationRequest>
+		<HTTPHeaders>
+			<Header Name="UserAgent" Value="Apache-HttpClient/4.5.2 (Java/1.8.0_20)"></Header>
+		</HTTPHeaders>
+		<RequestId>d3700c83-0a4e-4737-baf3-e88cc40b30b2</RequestId>
+		<Arguments>
+			<Argument Name="AWSAccessKeyId" Value="AKIAIL5VGOSTTL6ZVC6A"></Argument>
+			<Argument Name="AssociateTag" Value="2615-2750-3759"></Argument>
+			<Argument Name="Keywords"
+				Value="achtste-groepers huilen niet, jacques vriens"></Argument>
+			<Argument Name="Operation" Value="ItemSearch"></Argument>
+			<Argument Name="ResponseGroup" Value="Images,ItemAttributes"></Argument>
+			<Argument Name="SearchIndex" Value="All"></Argument>
+			<Argument Name="Service" Value="AWSECommerceService"></Argument>
+			<Argument Name="Timestamp" Value="2016-04-06T15:40:47Z"></Argument>
+			<Argument Name="Signature"
+				Value="Z90awuzCQ5pegL/5xpKGnANDLKD/ikH8OsR/V4Pj4EM="></Argument>
+		</Arguments>
+		<RequestProcessingTime>0.1255190000000000</RequestProcessingTime>
+	</OperationRequest>
+	<Items>
+		<Request>
+			<IsValid>True</IsValid>
+			<ItemSearchRequest>
+				<Keywords>achtste-groepers huilen niet, jacques vriens</Keywords>
+				<ResponseGroup>Images</ResponseGroup>
+				<ResponseGroup>ItemAttributes</ResponseGroup>
+				<SearchIndex>All</SearchIndex>
+			</ItemSearchRequest>
+		</Request>
+		<TotalResults>1</TotalResults>
+		<TotalPages>1</TotalPages>
+		<MoreSearchResultsUrl>http://www.amazon.com/gp/redirect.html?linkCode=xm2&amp;SubscriptionId=AKIAIL5VGOSTTL6ZVC6A&amp;location=http%3A%2F%2Fwww.amazon.com%2Fgp%2Fsearch%3Fkeywords%3Dachtste-groepers%2Bhuilen%2Bniet%252C%2Bjacques%2Bvriens%26url%3Dsearch-alias%253Daws-amazon-aps&amp;tag=2615-2750-3759&amp;creative=386001&amp;camp=2025
+		</MoreSearchResultsUrl>
+		<Item>
+			<ASIN>B00B6PD9EC</ASIN>
+			<DetailPageURL>http://www.amazon.com/F%C3%BCr-Akkie-Roman-German-Edition-ebook/dp/B00B6PD9EC%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00B6PD9EC
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/F%C3%BCr-Akkie-Roman-German-Edition-ebook/dp/tech-data/B00B6PD9EC%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00B6PD9EC
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB00B6PD9EC%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00B6PD9EC
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB00B6PD9EC%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00B6PD9EC
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB00B6PD9EC%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00B6PD9EC
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B00B6PD9EC%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00B6PD9EC
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B00B6PD9EC%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00B6PD9EC
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B00B6PD9EC%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00B6PD9EC
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/511nXsh6sgL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">75</Height>
+				<Width Units="pixels">49</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/511nXsh6sgL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">160</Height>
+				<Width Units="pixels">105</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/511nXsh6sgL.jpg</URL>
+				<Height Units="pixels">500</Height>
+				<Width Units="pixels">328</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/511nXsh6sgL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">30</Height>
+						<Width Units="pixels">20</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/511nXsh6sgL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">49</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/511nXsh6sgL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">49</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/511nXsh6sgL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">110</Height>
+						<Width Units="pixels">72</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/511nXsh6sgL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">160</Height>
+						<Width Units="pixels">105</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/511nXsh6sgL.jpg</URL>
+						<Height Units="pixels">500</Height>
+						<Width Units="pixels">328</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Author>Jacques Vriens</Author>
+				<Binding>Kindle Edition</Binding>
+				<Creator Role="Translator">Verena Kiefer</Creator>
+				<EISBN>9783641095185</EISBN>
+				<Format>Kindle eBook</Format>
+				<Label>Heyne Verlag</Label>
+				<Languages>
+					<Language>
+						<Name>German</Name>
+						<Type>Published</Type>
+					</Language>
+				</Languages>
+				<Manufacturer>Heyne Verlag</Manufacturer>
+				<NumberOfPages>192</NumberOfPages>
+				<ProductGroup>eBooks</ProductGroup>
+				<ProductTypeName>ABIS_EBOOKS</ProductTypeName>
+				<PublicationDate>2013-04-09</PublicationDate>
+				<Publisher>Heyne Verlag</Publisher>
+				<ReleaseDate>2013-04-09</ReleaseDate>
+				<Studio>Heyne Verlag</Studio>
+				<Title>Für Akkie!: Roman (German Edition)</Title>
+			</ItemAttributes>
+		</Item>
+	</Items>
+</ItemSearchResponse>

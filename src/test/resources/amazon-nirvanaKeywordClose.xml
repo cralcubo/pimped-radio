@@ -1,0 +1,343 @@
+<?xml version="1.0" ?>
+<ItemSearchResponse
+	xmlns="http://webservices.amazon.com/AWSECommerceService/2011-08-01">
+	<OperationRequest>
+		<HTTPHeaders>
+			<Header Name="UserAgent" Value="Apache-HttpClient/4.5.2 (Java/1.8.0_20)"></Header>
+		</HTTPHeaders>
+		<RequestId>7b1a47eb-a1dd-4a5f-ad09-c506be67e148</RequestId>
+		<Arguments>
+			<Argument Name="AWSAccessKeyId" Value="AKIAIL5VGOSTTL6ZVC6A"></Argument>
+			<Argument Name="AssociateTag" Value="2615-2750-3759"></Argument>
+			<Argument Name="Keywords" Value="Territorial Pissings, Nirvana"></Argument>
+			<Argument Name="Operation" Value="ItemSearch"></Argument>
+			<Argument Name="ResponseGroup" Value="Images,ItemAttributes"></Argument>
+			<Argument Name="SearchIndex" Value="All"></Argument>
+			<Argument Name="Service" Value="AWSECommerceService"></Argument>
+			<Argument Name="Timestamp" Value="2016-04-06T12:44:06Z"></Argument>
+			<Argument Name="Signature"
+				Value="xnnEnpIlgBwnCxkJV53d28DnuGPR94rvbn/aMZwbJ0E="></Argument>
+		</Arguments>
+		<RequestProcessingTime>0.4362420000000000</RequestProcessingTime>
+	</OperationRequest>
+	<Items>
+		<Request>
+			<IsValid>True</IsValid>
+			<ItemSearchRequest>
+				<Keywords>Territorial Pissings, Nirvana</Keywords>
+				<ResponseGroup>Images</ResponseGroup>
+				<ResponseGroup>ItemAttributes</ResponseGroup>
+				<SearchIndex>All</SearchIndex>
+			</ItemSearchRequest>
+		</Request>
+		<TotalResults>21</TotalResults>
+		<TotalPages>3</TotalPages>
+		<MoreSearchResultsUrl>http://www.amazon.com/gp/redirect.html?linkCode=xm2&amp;SubscriptionId=AKIAIL5VGOSTTL6ZVC6A&amp;location=http%3A%2F%2Fwww.amazon.com%2Fgp%2Fsearch%3Fkeywords%3DTerritorial%2BPissings%252C%2BNirvana%26url%3Dsearch-alias%253Daws-amazon-aps&amp;tag=2615-2750-3759&amp;creative=386001&amp;camp=2025
+		</MoreSearchResultsUrl>
+		
+		<Item>
+			<ASIN>B005MVLKC4</ASIN>
+			<DetailPageURL>http://www.amazon.com/Territorial-Pissings/dp/B005MVLKC4%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB005MVLKC4
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Territorial-Pissings/dp/tech-data/B005MVLKC4%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB005MVLKC4
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB005MVLKC4%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB005MVLKC4
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB005MVLKC4%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB005MVLKC4
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB005MVLKC4%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB005MVLKC4
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B005MVLKC4%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB005MVLKC4
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B005MVLKC4%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB005MVLKC4
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B005MVLKC4%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB005MVLKC4
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/51okp3JbucL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">75</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/51okp3JbucL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">160</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/51okp3JbucL.jpg</URL>
+				<Height Units="pixels">500</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/51okp3JbucL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">30</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/51okp3JbucL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/51okp3JbucL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/51okp3JbucL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">110</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/51okp3JbucL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">160</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/51okp3JbucL.jpg</URL>
+						<Height Units="pixels">500</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Binding>MP3 Music</Binding>
+				<Creator Role="Primary Contributor">Nirvana Band</Creator>
+				<Genre>rock-music</Genre>
+				<Label>Geffen</Label>
+				<Manufacturer>Geffen</Manufacturer>
+				<ProductGroup>Digital Music Track</ProductGroup>
+				<ProductTypeName>DOWNLOADABLE_MUSIC_TRACK</ProductTypeName>
+				<PublicationDate>2011-09-27</PublicationDate>
+				<Publisher>Geffen</Publisher>
+				<ReleaseDate>2011-09-27</ReleaseDate>
+				<RunningTime Units="seconds">142</RunningTime>
+				<Studio>Geffen</Studio>
+				<Title>Territorial Pissings</Title>
+				<TrackSequence>7</TrackSequence>
+			</ItemAttributes>
+		</Item>
+		
+		<Item>
+			<ASIN>B0006OUCQC</ASIN>
+			<DetailPageURL>http://www.amazon.com/Nirvana-Smells-territorial-pissings-comics/dp/B0006OUCQC%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB0006OUCQC
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Nirvana-Smells-territorial-pissings-comics/dp/tech-data/B0006OUCQC%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0006OUCQC
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB0006OUCQC%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0006OUCQC
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB0006OUCQC%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0006OUCQC
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB0006OUCQC%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0006OUCQC
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B0006OUCQC%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0006OUCQC
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B0006OUCQC%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0006OUCQC
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B0006OUCQC%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0006OUCQC
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<ItemAttributes>
+				<Author>Spike Steffenhagen</Author>
+				<Binding>Unknown Binding</Binding>
+				<CatalogNumberList>
+					<CatalogNumberListElement>B0006OUCQC</CatalogNumberListElement>
+				</CatalogNumberList>
+				<Label>Revolutionary Comics</Label>
+				<Languages>
+					<Language>
+						<Name>English</Name>
+						<Type>Published</Type>
+					</Language>
+					<Language>
+						<Name>English</Name>
+						<Type>Unknown</Type>
+					</Language>
+				</Languages>
+				<Manufacturer>Revolutionary Comics</Manufacturer>
+				<NumberOfPages>30</NumberOfPages>
+				<ProductGroup>Book</ProductGroup>
+				<ProductTypeName>ABIS_BOOK</ProductTypeName>
+				<PublicationDate>1992</PublicationDate>
+				<Publisher>Revolutionary Comics</Publisher>
+				<Studio>Revolutionary Comics</Studio>
+				<Title>Nirvana: Smells like territorial pissings (Hard rock comics)
+				</Title>
+			</ItemAttributes>
+		</Item>
+		<Item>
+			<ASIN>B00DK3S6OQ</ASIN>
+			<DetailPageURL>http://www.amazon.com/Territorial-Pissings-Chet-Powers-ebook/dp/B00DK3S6OQ%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00DK3S6OQ
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Territorial-Pissings-Chet-Powers-ebook/dp/tech-data/B00DK3S6OQ%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00DK3S6OQ
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB00DK3S6OQ%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00DK3S6OQ
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB00DK3S6OQ%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00DK3S6OQ
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB00DK3S6OQ%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00DK3S6OQ
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B00DK3S6OQ%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00DK3S6OQ
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B00DK3S6OQ%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00DK3S6OQ
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B00DK3S6OQ%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00DK3S6OQ
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/41oloVyquiL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">75</Height>
+				<Width Units="pixels">56</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/41oloVyquiL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">160</Height>
+				<Width Units="pixels">120</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/41oloVyquiL.jpg</URL>
+				<Height Units="pixels">500</Height>
+				<Width Units="pixels">375</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/41oloVyquiL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">30</Height>
+						<Width Units="pixels">22</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/41oloVyquiL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">56</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/41oloVyquiL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">56</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/41oloVyquiL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">110</Height>
+						<Width Units="pixels">82</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/41oloVyquiL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">160</Height>
+						<Width Units="pixels">120</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/41oloVyquiL.jpg</URL>
+						<Height Units="pixels">500</Height>
+						<Width Units="pixels">375</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Author>Chet Powers</Author>
+				<Author>Kurt Donald Cobain</Author>
+				<Author>Nirvana</Author>
+				<Binding>Kindle Edition</Binding>
+				<Format>Kindle eBook</Format>
+				<Label>OnlineSheetMusic.com</Label>
+				<Languages>
+					<Language>
+						<Name>English</Name>
+						<Type>Published</Type>
+					</Language>
+				</Languages>
+				<Manufacturer>OnlineSheetMusic.com</Manufacturer>
+				<ProductGroup>eBooks</ProductGroup>
+				<ProductTypeName>ABIS_EBOOKS</ProductTypeName>
+				<Publisher>OnlineSheetMusic.com</Publisher>
+				<ReleaseDate>2013-04-25</ReleaseDate>
+				<Studio>OnlineSheetMusic.com</Studio>
+				<Title>Territorial Pissings</Title>
+			</ItemAttributes>
+		</Item>
+	
+	</Items>
+</ItemSearchResponse>

@@ -34,6 +34,9 @@ public class AmazonCoverFinderTest {
 	private final static String NIRVANAXML_PATH = ROOTH_PATH + "amazon-nirvana.xml";
 	private final static String NOITEMSXML_PATH = ROOTH_PATH + "amazon-noItems.xml";
 	private static final String SEARCHKEYWORDXML_PATH = ROOTH_PATH + "amazon-nirvanaKeyword.xml";
+	private static final String NOALBUMSXML_PATH = ROOTH_PATH + "amazon-noMusic.xml";
+	private static final String SEARCHKEYWORDCLOSEXML_PATH = ROOTH_PATH + "amazon-nirvanaKeywordClose.xml";
+	private static final String NIRVANACLOSEXML_PATH = ROOTH_PATH + "amazon-nirvanaClose.xml";
 	
 	
 	@Before
@@ -49,6 +52,23 @@ public class AmazonCoverFinderTest {
 		String testAlbumName = "Nevermind";
 		Album testAlbum = new Album.Builder().name(testAlbumName).artistName(testArtist).build();
 		Optional<CoverArt> coverArt = doFindCoverArtByAlbum(testAlbum, NIRVANAXML_PATH);
+		
+		// Assertions
+		assertThat(coverArt.isPresent(), is(true));
+		CoverArt coverExpected = new CoverArt.Builder()
+				.largeUri("http://ecx.images-amazon.com/images/I/51NyD8CUNIL.jpg")
+				.mediumUri("http://ecx.images-amazon.com/images/I/51NyD8CUNIL._SL160_.jpg")
+				.smallUri("http://ecx.images-amazon.com/images/I/51NyD8CUNIL._SL75_.jpg")
+				.build();
+		assertThat(coverArt.get(), is(equalTo(coverExpected)));
+	}
+	
+	@Test
+	public void testFindCoverByAlbum_noExact() throws IOException {
+		String testArtist = "Nirvana";
+		String testAlbumName = "Nevermind";
+		Album testAlbum = new Album.Builder().name(testAlbumName).artistName(testArtist).build();
+		Optional<CoverArt> coverArt = doFindCoverArtByAlbum(testAlbum, NIRVANACLOSEXML_PATH);
 		
 		// Assertions
 		assertThat(coverArt.isPresent(), is(true));
@@ -87,6 +107,34 @@ public class AmazonCoverFinderTest {
 				.build();
 		assertThat(coverArt.get(), is(equalTo(coverExpected)));
 		
+	}
+	
+	@Test
+	public void testFindCoverByKeyword_notFound() throws IOException {
+		String testArtist = "Nirvana";
+		String testAlbumName = "Lithium";
+		Album testAlbum = new Album.Builder().name(testAlbumName).artistName(testArtist).build();
+		Optional<CoverArt> ca = doFindCoverArtByAlbum(testAlbum, NOALBUMSXML_PATH);
+		
+		// Assert
+		assertThat("No CoverArt was expected", ca.isPresent(), is(false));
+	}
+	
+	@Test
+	public void testFindCoverByKeyword_noExact() throws IOException {
+		String songName = "Territorial Pissings";
+		String artistName = "Nirvana";
+		Album album = new Album.Builder().songName(songName).artistName(artistName).build();
+		Optional<CoverArt> coverArt = doFindCoverArtByKeyword(album, SEARCHKEYWORDCLOSEXML_PATH);
+		
+		// Assertions
+		assertThat(coverArt.isPresent(), is(true));
+		CoverArt coverExpected = new CoverArt.Builder()
+				.largeUri("http://ecx.images-amazon.com/images/I/51okp3JbucL.jpg")
+				.mediumUri("http://ecx.images-amazon.com/images/I/51okp3JbucL._SL160_.jpg")
+				.smallUri("http://ecx.images-amazon.com/images/I/51okp3JbucL._SL75_.jpg")
+				.build();
+		assertThat(coverArt.get(), is(equalTo(coverExpected)));
 	}
 	
 	@Test

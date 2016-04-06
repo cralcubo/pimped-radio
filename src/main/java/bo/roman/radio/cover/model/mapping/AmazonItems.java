@@ -8,7 +8,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
 import bo.roman.radio.utilities.StringUtils;
-
+/**
+ * Class that maps the XML response
+ * from Amazon Items. 
+ * 
+ * @author christian
+ *
+ */
 @XmlRootElement(name="ItemSearchResponse", namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")
 public class AmazonItems {
 	
@@ -40,12 +46,8 @@ public class AmazonItems {
 		public static class Item {
 			private ItemAttributes itemAttributes;
 			
-			private String asin;
-			
 			private Image largeImage;
-			
 			private Image mediumImage;
-			
 			private Image smallImage;
 			
 			public ItemAttributes getItemAttributes() {
@@ -57,14 +59,6 @@ public class AmazonItems {
 				this.itemAttributes = itemAttributes;
 			}
 
-			public String getAsin() {
-				return asin;
-			}
-			@XmlElement(name="ASIN")
-			public void setAsin(String asin) {
-				this.asin = asin;
-			}
-			
 			public Image getLargeImage() {
 				return largeImage;
 			}
@@ -116,20 +110,23 @@ public class AmazonItems {
 			
 			@Override
 			public String toString() {
-				return "Item [itemAttributes=" + itemAttributes + ", asin=" + asin + ", largeImage=" + largeImage
+				return "Item [itemAttributes=" + itemAttributes + ", largeImage=" + largeImage
 						+ ", mediumImage=" + mediumImage + ", smallImage=" + smallImage + "]";
 			}
 			
 			@XmlRootElement(name="ItemAttributes")
 			public static class ItemAttributes {
 				private String title;
+				
 				private Creator creator;
 				
-				public void setTitle(String title) {
-					this.title = title;
-				}
+				private String productGroup;
 				
 				@XmlElement(name="Title")
+				public void setTitle(String title) {
+					this.title = StringUtils.cleanIt(title);
+				}
+				
 				public String getTitle() {
 					return title;
 				}
@@ -141,10 +138,19 @@ public class AmazonItems {
 				public Creator getCreator() {
 					return creator;
 				}
-
+				@XmlElement(name="ProductGroup")
+				public void setProductGroup(String productGroup) {
+					this.productGroup = StringUtils.cleanIt(productGroup);
+				}
+				
+				public String getProductGroup() {
+					return productGroup;
+				}
+				
 				@Override
 				public String toString() {
-					return "ItemAttributes [title=" + title + ", creator=" + creator + "]";
+					return "ItemAttributes [title=" + title + ", creator=" + creator + ", productGroup=" + productGroup
+							+ "]";
 				}
 				
 				public static class Creator {
@@ -177,36 +183,19 @@ public class AmazonItems {
 			}
 
 			public static class Image {
-				
 				String url;
-				int height;
-				int width;
 				
 				public String getUrl() {
 					return url;
 				}
 				@XmlElement(name="URL")
 				public void setUrl(String url) {
-					this.url = StringUtils.nullIsEmpty(url).trim();
-				}
-				public int getHeight() {
-					return height;
-				}
-				@XmlElement(name="Height")
-				public void setHeight(int height) {
-					this.height = height;
-				}
-				public int getWidth() {
-					return width;
-				}
-				@XmlElement(name="Width")
-				public void setWidth(int width) {
-					this.width = width;
+					this.url = StringUtils.cleanIt(url);
 				}
 				
 				@Override
 				public String toString() {
-					return "Image [url=" + url + ", height=" + height + ", width=" + width + "]";
+					return "Image [url=" + url + "]";
 				}
 			}
 		}

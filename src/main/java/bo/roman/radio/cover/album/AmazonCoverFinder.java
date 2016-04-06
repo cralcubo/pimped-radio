@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -20,14 +22,20 @@ import bo.roman.radio.cover.model.CoverArt;
 import bo.roman.radio.cover.model.mapping.AmazonItems;
 import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper;
 import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item;
+import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.ItemAttributes;
 import bo.roman.radio.utilities.HttpUtils;
 import bo.roman.radio.utilities.LoggerUtils;
+import bo.roman.radio.utilities.StringUtils;
 
 public class AmazonCoverFinder implements CoverArtFindable {
-	private final static Logger log = LoggerFactory.getLogger(AmazonCoverFinder.class);
-	
-	public enum SearchType {SEARCHBY_ALBUM, SEARCHBY_KEYWORD, UNKNOWN}
 
+	public enum SearchType {SEARCHBY_ALBUM, SEARCHBY_KEYWORD, UNKNOWN}
+	
+	private final static Logger log = LoggerFactory.getLogger(AmazonCoverFinder.class);
+
+	private static final String MUSICWORD_REGEX = "(?i)\\bmusic\\b";
+	
+	private static final String PRIMARYCONTRIBUTOR_ROLE = "Primary Contributor";
 	@Override
 	public Optional<CoverArt> findCoverArt(Album album) throws IOException {
 		if(album == null) {
@@ -84,7 +92,9 @@ public class AmazonCoverFinder implements CoverArtFindable {
 		}
 		
 		// In case there was no match found to the name of the album, return the first Amazon Item.
-		Optional<Item> firstItem = allItems.stream().findFirst();
+		Optional<Item> firstItem = allItems.stream()
+				.filter(AmazonCoverFinder::isMusicItem)
+				.findFirst();
 		Optional<CoverArt> coverArt = firstItem.map(AmazonCoverFinder::buildCoverArt);
 		
 		LoggerUtils.logDebug(log, () -> String.format("CoverArt found for %s in Amazon from Item %s", album, firstItem));
@@ -153,13 +163,27 @@ public class AmazonCoverFinder implements CoverArtFindable {
 	}
 	
 	private boolean isItemCreatorEqualsTo(Item i, String artistName) {
+		artistName = StringUtils.nullIsEmpty(artistName);
 		return i.getItemAttributes() != null 
 				&& i.getItemAttributes().getCreator() != null 
-				&& i.getItemAttributes().getCreator().getRole().equals("Primary Contributor") && i.getItemAttributes().getCreator().getValue().equalsIgnoreCase(artistName);
+				&& PRIMARYCONTRIBUTOR_ROLE.equals(i.getItemAttributes().getCreator().getRole())
+				&& artistName.equalsIgnoreCase(i.getItemAttributes().getCreator().getValue());
 	}
 
 	private boolean isItemTitleEqualsTo(Item item, String name) {
-		return item.getItemAttributes() != null && item.getItemAttributes().getTitle().equalsIgnoreCase(name);
+		name = StringUtils.nullIsEmpty(name);
+		return item.getItemAttributes() != null && name.equalsIgnoreCase(item.getItemAttributes().getTitle());
+	}
+	
+	private static boolean isMusicItem(Item i) {
+		ItemAttributes ia = i.getItemAttributes();
+		if(ia == null) {
+			return false;
+		}
+		
+		String productGroup = StringUtils.nullIsEmpty(ia.getProductGroup());
+		Matcher m = Pattern.compile(MUSICWORD_REGEX).matcher(productGroup);
+		return m.find();
 	}
 	
 	private static CoverArt buildCoverArt(Item i) {
@@ -170,4 +194,6 @@ public class AmazonCoverFinder implements CoverArtFindable {
 				.smallUri(i.getSmallImageUrl())
 				.build();
 	}
+	
+	
 }
