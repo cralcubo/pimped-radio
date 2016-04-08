@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.cover.model.Radio;
 import bo.roman.radio.cover.model.Song;
 import bo.roman.radio.player.model.RadioPlayerEntity;
+import bo.roman.radio.utilities.ExecutorUtils;
 import bo.roman.radio.utilities.LoggerUtils;
 import bo.roman.radio.utilities.MediaMetaUtils;
 import uk.co.caprica.vlcj.player.MediaMeta;
@@ -51,14 +53,16 @@ public class MediaMetaNotifier implements MediaMetaSubject {
 		final Optional<Song> oSong = MediaMetaUtils.buildSong(changedMeta);
 		log.info("Changed MediaMeta. Radio[{}] and Song[{}]", oRadioName, oSong);
 		
+		Executor executor = ExecutorUtils.fixedThreadPoolFactory(2);
+		
 		/* Do an async call to find information about the Radio and the Song */
 		// Find the radio
 		String radioName = oRadioName.orElse("");
-		final CompletableFuture<Optional<Radio>> futureRadio = CompletableFuture.supplyAsync(() -> radioCover.getRadioWithLogo(radioName));
+		final CompletableFuture<Optional<Radio>> futureRadio = CompletableFuture.supplyAsync(() -> radioCover.getRadioWithLogo(radioName), executor);
 		
 		// Find the Album of the Song
 		Song song = oSong.orElse(new Song.Builder().build());
-		final CompletableFuture<Optional<Album>> futureAlbum = CompletableFuture.supplyAsync(() -> radioCover.getAlbumWithCoverAsync(song.getName(), song.getArtist()));
+		final CompletableFuture<Optional<Album>> futureAlbum = CompletableFuture.supplyAsync(() -> radioCover.getAlbumWithCoverAsync(song.getName(), song.getArtist()), executor);
 		
 		// Get the info found
 		final Optional<Radio> oRadio = futureRadio.join();

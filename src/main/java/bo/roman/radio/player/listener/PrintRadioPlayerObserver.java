@@ -8,9 +8,9 @@ public class PrintRadioPlayerObserver implements MediaMetaObserver {
 	public void update(RadioPlayerEntity rpe) {
 		System.out.println("****************************");
 		System.out.println("****************************");
-		rpe.getRadio().ifPresent(r -> System.out.println("Radio: " + r));
-		rpe.getSong().ifPresent(s -> System.out.println("Song: " + s));
-		rpe.getAlbum().ifPresent(a -> System.out.println("Album: " + a));
+		rpe.getRadio().ifPresent(r -> System.out.println(r));
+		rpe.getSong().ifPresent(s -> System.out.println(s));
+		rpe.getAlbum().ifPresent(a -> System.out.println(a));
 		System.out.println("****************************");
 		System.out.println("****************************");
 	}
