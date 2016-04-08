@@ -4,7 +4,11 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
-public interface ExecutorUtils {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class ExecutorUtils {
+	private static final Logger log = LoggerFactory.getLogger(ExecutorUtils.class);
 	
 	/**
 	 * Get an executor that is optimized
@@ -20,12 +24,15 @@ public interface ExecutorUtils {
 	 * @param threadsNeeded
 	 * @return the Executor with a fixed Thread pool.
 	 */
-	static Executor fixedThreadPoolFactory(int threadsNeeded) {
+	public static Executor fixedThreadPoolFactory(int threadsNeeded) {
 		if(threadsNeeded <= 0) {
 			throw new IllegalArgumentException(String.format("This method creates a ThreadPool of at least 1 Thread. [Arg: threadsNeeded=%d]", threadsNeeded));
 		}
+		int numThreads = Math.min(threadsNeeded, getMaxThreadsAllowed());
 		
-		return Executors.newFixedThreadPool(Math.min(threadsNeeded, getMaxThreadsAllowed()), 
+		LoggerUtils.logDebug(log, () -> String.format("Generating [%s] threads.", numThreads));
+		
+		return Executors.newFixedThreadPool(numThreads, 
 				new ThreadFactory() {
 					@Override
 					public Thread newThread(Runnable r) {

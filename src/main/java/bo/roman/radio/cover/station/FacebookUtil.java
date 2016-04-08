@@ -1,18 +1,15 @@
 package bo.roman.radio.cover.station;
 
+import static bo.roman.radio.utilities.LoggerUtils.logDebug;
+
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import bo.roman.radio.utilities.HttpUtils;
-import bo.roman.radio.utilities.StringUtils;
-
-import static bo.roman.radio.utilities.LoggerUtils.*;
+import bo.roman.radio.utilities.SecretFileProperties;
 
 /**
  * Class that will use the Facebook Graph API
@@ -24,17 +21,9 @@ import static bo.roman.radio.utilities.LoggerUtils.*;
 public class FacebookUtil {
 	private final static Logger log = LoggerFactory.getLogger(FacebookUtil.class);
 	
-	private static final String ACCESSTOKEN_PATH = "secure/token.secret";
 	private static final String ACCESS_TOKEN = getAccessToken();
 	
-	
 	private static final String GETQUERY_TEMPLATE = "https://graph.facebook.com/%s&access_token=%s";
-	
-	public static void main(String[] args) {
-		String searchQuery = String.format("q='%s'&type=page&fields=id,name,category&limit=%s", "radio paradise", 10);
-		Optional<String> response = FacebookUtil.doSearch(searchQuery);
-		System.out.println(response);
-	}
 
 	/** 
 	 * Method that will send an HTTP GET
@@ -88,21 +77,6 @@ public class FacebookUtil {
 	}
 	
 	static String getAccessToken() {
-		if(StringUtils.exists(ACCESS_TOKEN)) {
-			return ACCESS_TOKEN;
-		}
-		// Read the Access Token
-		try {
-			List<String> lines = Files.readAllLines(Paths.get(ACCESSTOKEN_PATH));
-			if(lines.isEmpty() || lines.size() > 1){
-				log.error("The file in {}, does not have an expected token. The token needs to be in the first line of the file.", ACCESSTOKEN_PATH);
-				return "";
-			}
-			
-			return lines.get(0);
-		} catch (IOException e) {
-			log.error("There is no token in {}", ACCESSTOKEN_PATH);
-			return "";
-		}
+		return SecretFileProperties.get("facebook.token");
 	}
 }

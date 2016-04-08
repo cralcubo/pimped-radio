@@ -32,7 +32,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import bo.roman.radio.cover.album.AlbumFindable;
-import bo.roman.radio.cover.album.CoverArtFindable;
+import bo.roman.radio.cover.album.AmazonCoverFinder;
+import bo.roman.radio.cover.album.CoverArtArchiveFinder;
 import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.cover.model.CoverArt;
 import bo.roman.radio.cover.model.Radio;
@@ -51,7 +52,9 @@ public class CoverArtManagerTest {
 	@Mock
 	private AlbumFindable albumFinder;
 	@Mock
-	private CoverArtFindable coverFinder;
+	private CoverArtArchiveFinder coverArchiveFinder;
+	@Mock
+	private AmazonCoverFinder amazonFinder;
 	@Mock
 	private RadioStationFindable radioFinder;
 	
@@ -61,7 +64,7 @@ public class CoverArtManagerTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		manager = new CoverArtManager(albumFinder, coverFinder, radioFinder);
+		manager = new CoverArtManager(albumFinder, coverArchiveFinder, amazonFinder, radioFinder);
 		PowerMockito.mockStatic(CacheLogoUtil.class);
 	}
 	
@@ -86,25 +89,25 @@ public class CoverArtManagerTest {
 		// Find the cover arts
 		Random rnd = new Random(System.currentTimeMillis());
 		String linkMocked1 = "http://coverartarchive.org/release/12345MBID/1357.jpg";
-		when(coverFinder.findCoverArt(new Album.Builder().mbid("1").build())).thenAnswer(new CoverUrlAnswer(linkMocked1, rnd));
+		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("1").build())).thenAnswer(new CoverUrlAnswer(linkMocked1, rnd));
 		String linkMocked2 = "http://another.mocked/link2.jpg";
-		when(coverFinder.findCoverArt(new Album.Builder().mbid("2").build())).thenAnswer(new CoverUrlAnswer(linkMocked2, rnd));
+		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("2").build())).thenAnswer(new CoverUrlAnswer(linkMocked2, rnd));
 		String linkMocked3 = "http://another.mocked/link3.jpg";
-		when(coverFinder.findCoverArt(new Album.Builder().mbid("3").build())).thenAnswer(new CoverUrlAnswer(linkMocked3, rnd));
+		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("3").build())).thenAnswer(new CoverUrlAnswer(linkMocked3, rnd));
 		String linkMocked4 = "http://another.mocked/link4.jpg";
-		when(coverFinder.findCoverArt(new Album.Builder().mbid("4").build())).thenAnswer(new CoverUrlAnswer(linkMocked4, rnd));
+		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("4").build())).thenAnswer(new CoverUrlAnswer(linkMocked4, rnd));
 		String linkMocked5 = "http://another.mocked/link5.jpg";
-		when(coverFinder.findCoverArt(new Album.Builder().mbid("5").build())).thenAnswer(new CoverUrlAnswer(linkMocked5, rnd));
+		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("5").build())).thenAnswer(new CoverUrlAnswer(linkMocked5, rnd));
 		String linkMocked6 = "http://another.mocked/link6.jpg";
-		when(coverFinder.findCoverArt(new Album.Builder().mbid("6").build())).thenAnswer(new CoverUrlAnswer(linkMocked6, rnd));
+		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("6").build())).thenAnswer(new CoverUrlAnswer(linkMocked6, rnd));
 		String linkMocked7 = "http://another.mocked/link7.jpg";
-		when(coverFinder.findCoverArt(new Album.Builder().mbid("7").build())).thenAnswer(new CoverUrlAnswer(linkMocked7, rnd));
+		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("7").build())).thenAnswer(new CoverUrlAnswer(linkMocked7, rnd));
 		String linkMocked8 = "http://another.mocked/link8.jpg";
-		when(coverFinder.findCoverArt(new Album.Builder().mbid("8").build())).thenAnswer(new CoverUrlAnswer(linkMocked8, rnd));
+		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("8").build())).thenAnswer(new CoverUrlAnswer(linkMocked8, rnd));
 		String linkMocked9 = "http://another.mocked/link9.jpg";
-		when(coverFinder.findCoverArt(new Album.Builder().mbid("9").build())).thenAnswer(new CoverUrlAnswer(linkMocked9, rnd));
+		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("9").build())).thenAnswer(new CoverUrlAnswer(linkMocked9, rnd));
 		String linkMocked10 = "http://another.mocked/link10.jpg";
-		when(coverFinder.findCoverArt(new Album.Builder().mbid("10").build())).thenAnswer(new CoverUrlAnswer(linkMocked10, rnd));
+		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("10").build())).thenAnswer(new CoverUrlAnswer(linkMocked10, rnd));
 		
 		// Run the method to test
 		Optional<Album> oAlbum = manager.getAlbumWithCoverAsync(song, artist);
@@ -129,13 +132,13 @@ public class CoverArtManagerTest {
 		
 		// Find the cover arts
 		// The first 04 cover albums MBID does not have a cover link, just the 05th one. 
-		when(coverFinder.findCoverArt(new Album.Builder().mbid("1").build())).thenReturn(Optional.empty());
-		when(coverFinder.findCoverArt(new Album.Builder().mbid("2").build())).thenThrow(ClientProtocolException.class);
-		when(coverFinder.findCoverArt(new Album.Builder().mbid("3").build())).thenReturn(Optional.empty());
-		when(coverFinder.findCoverArt(new Album.Builder().mbid("4").build())).thenThrow(ClientProtocolException.class);
+		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("1").build())).thenReturn(Optional.empty());
+		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("2").build())).thenThrow(ClientProtocolException.class);
+		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("3").build())).thenReturn(Optional.empty());
+		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("4").build())).thenThrow(ClientProtocolException.class);
 		
 		String linkMocked = "http://coverartarchive.org/release/12345MBID/1357.jpg";
-		when(coverFinder.findCoverArt(new Album.Builder().mbid("5").build())).thenReturn(Optional.of(new CoverArt.Builder().largeUri(linkMocked).build()));
+		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("5").build())).thenReturn(Optional.of(new CoverArt.Builder().largeUri(linkMocked).build()));
 		
 		// Run the method to test
 		Optional<Album> oAlbum = manager.getAlbumWithCoverAsync(song, artist);
@@ -169,8 +172,8 @@ public class CoverArtManagerTest {
 		when(albumFinder.findAlbums(song, artist)).thenReturn(Arrays.asList(a1, a2));
 		
 		// Find the cover arts
-		when(coverFinder.findCoverArt(new Album.Builder().mbid("1").build())).thenReturn(Optional.empty());
-		when(coverFinder.findCoverArt(new Album.Builder().mbid("2").build())).thenReturn(Optional.ofNullable(null));
+		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("1").build())).thenReturn(Optional.empty());
+		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("2").build())).thenReturn(Optional.ofNullable(null));
 		
 		// Run the method to test
 		Optional<Album> album = manager.getAlbumWithCoverAsync(song, artist);
@@ -190,8 +193,8 @@ public class CoverArtManagerTest {
 		when(albumFinder.findAlbums(song, artist)).thenReturn(Arrays.asList(a1, a2));
 		
 		// Find the cover arts
-		when(coverFinder.findCoverArt(new Album.Builder().mbid("1").build())).thenReturn(Optional.empty());
-		when(coverFinder.findCoverArt(new Album.Builder().mbid("2").build())).thenReturn(Optional.ofNullable(null));
+		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("1").build())).thenReturn(Optional.empty());
+		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("2").build())).thenReturn(Optional.ofNullable(null));
 		
 		// Run the method to test
 		Optional<Album> album = manager.getAlbumWithCoverAsync(song, artist);
@@ -212,8 +215,8 @@ public class CoverArtManagerTest {
 		when(albumFinder.findAlbums(song, artist)).thenReturn(Arrays.asList(a1, a2));
 		
 		// Find the cover arts
-		when(coverFinder.findCoverArt(new Album.Builder().mbid("1").build())).thenThrow(ClientProtocolException.class); // 404 from Server
-		when(coverFinder.findCoverArt(new Album.Builder().mbid("2").build())).thenThrow(ClientProtocolException.class); // 404 from Server
+		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("1").build())).thenThrow(ClientProtocolException.class); // 404 from Server
+		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("2").build())).thenThrow(ClientProtocolException.class); // 404 from Server
 		
 		// Run the method to test
 		Optional<Album> album = manager.getAlbumWithCoverAsync(song, artist);

@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 
 import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.utilities.HttpUtils;
+import bo.roman.radio.utilities.LoggerUtils;
+import bo.roman.radio.utilities.SecretFileProperties;
 
 public class AmazonUtil {
 	private final static Logger log = LoggerFactory.getLogger(AmazonUtil.class);
@@ -43,7 +45,7 @@ public class AmazonUtil {
 	// Search Album by keyword
 	private final static String SEARCHALLQUERY_TEMPLATE = "AWSAccessKeyId=%s"
 			+ "&AssociateTag=%s"
-			+ "&Keywords=%s"
+			+ "&Keywords='%s'"
 			+ "&Operation=ItemSearch"
 			+ "&ResponseGroup=Images,ItemAttributes"
 			+ "&SearchIndex=All"
@@ -69,8 +71,12 @@ public class AmazonUtil {
 				, keyword
 				, getTimeStamp());
 		
+		
 		// Generate the URL to send the REST request
-		return  "http://" + AMAZONSTORE_SITE + REST_PATH + "?" + requestQuery + "&Signature=" + generateSignature(requestQuery);
+		String url = generateUrl(requestQuery); 
+		LoggerUtils.logDebug(log, () -> "SearchAll Amazon URL=" + url);
+		
+		return  url;
 	}
 		
 	/**
@@ -90,7 +96,14 @@ public class AmazonUtil {
 				, album.getName());
 		
 		// Generate the URL to send the REST request
-		return  "http://" + AMAZONSTORE_SITE + REST_PATH + "?" + requestQuery + "&Signature=" + generateSignature(requestQuery);
+		String url = generateUrl(requestQuery);
+		LoggerUtils.logDebug(log, () -> "SearchMusic Amazon URL=" + url);
+		return  url;
+	}
+	
+	private static String generateUrl(String requestQuery) {
+		LoggerUtils.logDebug(log, () -> "Generating URL for the requestQuery=" + requestQuery);
+		return "http://" + AMAZONSTORE_SITE + REST_PATH + "?" + requestQuery + "&Signature=" + generateSignature(requestQuery);
 	}
 	
 	private static String generateSignature(String reqQuery){
@@ -99,6 +112,9 @@ public class AmazonUtil {
 				+ AMAZONSTORE_SITE + "\n"
 				+ REST_PATH + "\n"
 				+ HttpUtils.encodeParameters(reqQuery);
+		
+		LoggerUtils.logDebug(log, () -> String.format("Generating Amazon Signature for [%s]", toSign));
+		
 		byte[] secretKeyBytes;
 		byte[] data;
 		try {
@@ -108,7 +124,7 @@ public class AmazonUtil {
 			throw new RuntimeException(String.format("Totally unexpected, %s is supposed to be an accepted character encoding.", HttpUtils.UTF_8), e);
 		}
 		
-		SecretKeySpec sks = new SecretKeySpec(secretKeyBytes,HMAC_SHA256_ALGORITHM);
+		SecretKeySpec sks = new SecretKeySpec(secretKeyBytes, HMAC_SHA256_ALGORITHM);
 		
 		Mac mac;
 		try {
@@ -131,18 +147,15 @@ public class AmazonUtil {
 	}
 
 	private static String getAwsSecretKey() {
-		// TODO Auto-generated method stub
-		return null;
+		return SecretFileProperties.get("amazon.awsSecretKey");
 	}
 	
 	private static String getAwsAssociateTag() {
-		// TODO Auto-generated method stub
-		return null;
+		return SecretFileProperties.get("amazon.associateTag");
 	}
 
 	private static String getAwsAccessKeyId() {
-		// TODO Auto-generated method stub
-		return null;
+		return SecretFileProperties.get("amazon.awsAccessKeyId");
 	}
 
 	private static String getTimeStamp () {

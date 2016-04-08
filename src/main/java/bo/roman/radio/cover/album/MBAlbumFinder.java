@@ -42,22 +42,13 @@ public class MBAlbumFinder implements AlbumFindable {
 	
 	@Override
 	public List<Album> findAlbums(String song, String artist) {
-		Recording recordingController = RecordingFactory.createRecording();
-		// First generate the query to find an album
-		String query = String.format(QUERY_TEMPLATE, song, artist);
-		logDebug(log, () -> "Query generated=" + query);
-
-		// With the query send a request to MusicBrainz to get the albums
-		recordingController.search(query);
-		List<RecordingResultWs2> recordingResults = recordingController.getFullSearchResultList();
-		
-		// Get all Albums
-		Set<Album> allAlbums = getAllAlbums(recordingResults);
-		log.info("All albums found for {} - {} are in total={}", song, artist, allAlbums.size());
+		// Find all Albums
+		Set<Album> allAlbums = findAllAlbums(song, artist);
+		log.info("All albums found in MusicBrainz for {} - {} are in total={}", song, artist, allAlbums.size());
 		logDebug(log, () -> allAlbums.toString());
 		
 		// Sort all the albums from the one that is repeated the most to the least
-		Map<String, Long> albumsMap = getSortedRecordings(allAlbums, artist, song);
+		Map<String, Long> albumsMap = getSortedAlbums(allAlbums, artist, song);
     	
 		// Collect in a list all the Releases that are the most relevant
 		List<Album> relevantAlbums = albumsMap.entrySet().stream()
@@ -66,13 +57,23 @@ public class MBAlbumFinder implements AlbumFindable {
 										.filter(a -> a.getName().equals(es.getKey())))
 				.limit(limit)
 				.collect(Collectors.toList());
-		log.info("All the relevant albums found for {} - {} are in total={}", song, artist, relevantAlbums.size());
+		log.info("All the relevant albums found in MusicBrainz for {} - {} are in total={}", song, artist, relevantAlbums.size());
 		logDebug(log, () -> relevantAlbums.toString());
 		return relevantAlbums;
 	}
 	
-	private Set<Album> getAllAlbums(List<RecordingResultWs2> recordingResults) {
+	private Set<Album> findAllAlbums(String songName, String artistName) {
+		Recording recordingController = RecordingFactory.createRecording();
+		// First generate the query to find an album
+		String query = String.format(QUERY_TEMPLATE, songName, artistName);
+		logDebug(log, () -> "Query generated=" + query);
+
+		// With the query send a request to MusicBrainz to get the albums
+		recordingController.search(query);
+		List<RecordingResultWs2> recordingResults = recordingController.getFullSearchResultList();
+		
 		if(recordingResults == null) {
+			log.info("No RecordingResultWs2 found in MusicBrainz");
 			return Collections.emptySet();
 		}
 		
@@ -81,7 +82,8 @@ public class MBAlbumFinder implements AlbumFindable {
 					.flatMap(rec -> rec.getReleases().stream())
 					.map(rel -> new Album.Builder()
 							.name(rel.getTitle())
-							.artistName(rel.getArtistCreditString())
+							.songName(songName)
+							.artistName(StringUtils.exists(rel.getArtistCreditString()) ? rel.getArtistCreditString().trim() : artistName)
 							.status(rel.getStatus())
 							.mbid(rel.getId())
 							.build())
@@ -101,7 +103,7 @@ public class MBAlbumFinder implements AlbumFindable {
 	 * @param recordingResults
 	 * @return
 	 */
-	private Map<String, Long> getSortedRecordings(Set<Album> allAlbums, String artist, String songName) {
+	private Map<String, Long> getSortedAlbums(Set<Album> allAlbums, String artist, String songName) {
 		if(allAlbums == null || allAlbums.isEmpty()) {
 			return Collections.emptyMap();
 		}

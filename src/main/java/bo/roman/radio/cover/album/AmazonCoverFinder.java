@@ -45,6 +45,7 @@ public class AmazonCoverFinder implements CoverArtFindable {
 		
 		// What kind of search will be done in Amazon?
 		SearchType searchType = determineSearchType(album);
+		LoggerUtils.logDebug(log, () -> "Search type to be executed in Amazon :" + searchType);
 		// Generate the URL to send the REST request
 		final String url;
 		switch (searchType) {
@@ -77,6 +78,7 @@ public class AmazonCoverFinder implements CoverArtFindable {
 				.map(AmazonItems::getItemsWrapper)
 				.map(ItemsWrapper::getItems)
 				.get();
+		log.info("[{}] Items found in Amazon.", allItems.size());
 		
 		// Find if there is an Amazon Item that matches the name of the album
 		// or the name of the artist if the search was made keyword.
@@ -133,7 +135,7 @@ public class AmazonCoverFinder implements CoverArtFindable {
 	}
 
 	private Optional<AmazonItems> unmarshalXml(String xmlResponse) {
-		LoggerUtils.logDebug(log, () -> "Unmarshalling XML=" + xmlResponse);
+		LoggerUtils.logDebug(log, () -> "Unmarshalling XML Response");
 		try {
 			JAXBContext context = JAXBContext.newInstance(AmazonItems.class);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
@@ -146,7 +148,8 @@ public class AmazonCoverFinder implements CoverArtFindable {
 			
 			LoggerUtils.logDebug(log, () -> {
 				if(ai.getItemsWrapper() != null && ai.getItemsWrapper().getItems() != null) {
-					return "Items retrieved from Amazon=" + ai.getItemsWrapper().getItems(); 
+					List<Item> items = ai.getItemsWrapper().getItems();
+					return String.format("[%d] Items retrieved from Amazon [%s]", items.size(), items); 
 				}
 				return "No items retrieved from Amazon.";
 			});
