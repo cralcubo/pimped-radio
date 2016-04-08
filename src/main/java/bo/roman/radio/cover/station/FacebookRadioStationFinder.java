@@ -40,7 +40,7 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 		// Sort and select the most relevant radio
 		Optional<Radio> oRadio = findBestRadio(radios, radioName);
 		
-		log.info("Best radio page found in Facebook: {}", oRadio);
+		log.info("Radio page found in Facebook: {}", oRadio);
 		
 		return oRadio;
 	}
@@ -128,7 +128,7 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 						     .matches(String.format(STARTWORDREGEX_TEMPL, noRadioWordName)))
 				.findFirst();
 		
-		log.info("[Last try]Closely radio found for {} is: {}", radioName, oMatchRadio);
+		log.info("[Last try]Closely radio found for {} is: {}", radioName, oLastMatchRadio);
 		return oLastMatchRadio;
 	}
 	

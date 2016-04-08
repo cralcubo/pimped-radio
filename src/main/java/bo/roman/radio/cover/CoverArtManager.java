@@ -1,5 +1,6 @@
 package bo.roman.radio.cover;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -71,19 +72,22 @@ public class CoverArtManager implements RadioCoverInterface{
 					.songName(song)
 					.name("")
 					.build();
-			
-			return findAmazonAlbum(Arrays.asList(album));
+			Optional<Album> richAlbum = findAmazonAlbum(Arrays.asList(album));
+			LoggerUtils.logDebug(log, () -> String.format("RichAlbum built after searching in Amazon by [%s - %s] =%s", artist, song, richAlbum));
+			return richAlbum;
 		}
 		
 		// Find the covers first in Amazon
 		Optional<Album> amazonAlbum = findAmazonAlbum(albums);
 		if(amazonAlbum.isPresent()) {
+			log.info("RichAlbum build after Amazon search=" + amazonAlbum);
 			return amazonAlbum;
 		}
 		
 		// No Album with Cover found in Amazon, try CoverArtArchive
 		Optional<Album> coverArchiveAlbum = findCoverArchiveAlbum(albums);
 		if(coverArchiveAlbum.isPresent()) {
+			log.info("RichAlbum build after CoverArtArchive search=" + coverArchiveAlbum);
 			return coverArchiveAlbum;
 		}
 		
@@ -187,7 +191,7 @@ public class CoverArtManager implements RadioCoverInterface{
 					log.info("Album with Cover found [{}]", richAlbum);
 					return Optional.of(richAlbum);
 				}
-			} catch (Exception e) {
+			} catch (IOException e) {
 				log.info("Cover not found for [{}]. Error={}", album, e.getMessage());
 				LoggerUtils.logDebug(log, () -> "Cover not found for " + album, e);
 			}

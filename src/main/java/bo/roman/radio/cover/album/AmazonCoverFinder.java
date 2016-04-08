@@ -36,6 +36,7 @@ public class AmazonCoverFinder implements CoverArtFindable {
 	private static final String MUSICWORD_REGEX = "(?i)\\bmusic\\b";
 	
 	private static final String PRIMARYCONTRIBUTOR_ROLE = "Primary Contributor";
+	
 	@Override
 	public Optional<CoverArt> findCoverArt(Album album) throws IOException {
 		if(album == null) {
@@ -89,7 +90,7 @@ public class AmazonCoverFinder implements CoverArtFindable {
 		if(bestItem.isPresent()) {
 			Optional<CoverArt> coverArt = bestItem.map(AmazonCoverFinder::buildCoverArt);
 			LoggerUtils.logDebug(log, () -> String.format("The best Amazon CoverArt for [%s] is from %s", album, bestItem));
-			log.info("The best Amazon CoverArt for [{}] is {}", album, coverArt);
+			log.info("The best Amazon CoverArt for [{} - {} - {}] is {}", album.getSongName(), album.getArtistName(), album.getName(), coverArt);
 			return coverArt;
 		}
 		
@@ -100,7 +101,7 @@ public class AmazonCoverFinder implements CoverArtFindable {
 		Optional<CoverArt> coverArt = firstItem.map(AmazonCoverFinder::buildCoverArt);
 		
 		LoggerUtils.logDebug(log, () -> String.format("CoverArt found for %s in Amazon from Item %s", album, firstItem));
-		log.info("CoverArt found for {} in Amazon is {}", album, coverArt);
+		log.info("CoverArt found for [{} - {} - {}] is {}", album.getSongName(), album.getArtistName(), album.getName(), coverArt);
 
 		return coverArt;
 	}
@@ -165,6 +166,15 @@ public class AmazonCoverFinder implements CoverArtFindable {
 		}
 	}
 	
+	/**
+	 * Encapsulating the check if the creator of the Item is equals to the artistName.
+	 * to remove all the Null checkings from the 
+	 * stream filter.
+	 * 
+	 * @param i
+	 * @param artistName
+	 * @return
+	 */
 	private boolean isItemCreatorEqualsTo(Item i, String artistName) {
 		artistName = StringUtils.nullIsEmpty(artistName);
 		return i.getItemAttributes() != null 
@@ -172,12 +182,27 @@ public class AmazonCoverFinder implements CoverArtFindable {
 				&& PRIMARYCONTRIBUTOR_ROLE.equals(i.getItemAttributes().getCreator().getRole())
 				&& artistName.equalsIgnoreCase(i.getItemAttributes().getCreator().getValue());
 	}
-
+	
+	/**
+	 * Encapsulating  the check if the Item title is equal to the expected name.
+	 * 
+	 * @param item
+	 * @param name
+	 * @return
+	 */
 	private boolean isItemTitleEqualsTo(Item item, String name) {
 		name = StringUtils.nullIsEmpty(name);
 		return item.getItemAttributes() != null && name.equalsIgnoreCase(item.getItemAttributes().getTitle());
 	}
 	
+	/**
+	 * Check if the Item ProductGroup is Music.
+	 * This checking is used when an Item is searched in all the amazon store,
+	 * so by this checking we can filter just the Music Items.
+	 *  
+	 * @param i
+	 * @return
+	 */
 	private static boolean isMusicItem(Item i) {
 		ItemAttributes ia = i.getItemAttributes();
 		if(ia == null) {
@@ -197,6 +222,4 @@ public class AmazonCoverFinder implements CoverArtFindable {
 				.smallUri(i.getSmallImageUrl())
 				.build();
 	}
-	
-	
 }

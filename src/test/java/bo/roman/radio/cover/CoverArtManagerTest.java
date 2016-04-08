@@ -69,45 +69,49 @@ public class CoverArtManagerTest {
 	}
 	
 	@Test
-	public void testGetAlbumWithCoverAsync() throws IOException {
+	public void testGetAlbumWithCoverAsync() throws IOException{
 		String song = "In bloom";
 		String artist = "Nirvana";
-		
 		// Mock the albums found 
-		Album a1 = new Album.Builder().name("Nevermind").mbid("1").build();
-		Album a2 = new Album.Builder().name("Nevermind").mbid("2").build();
-		Album a3 = new Album.Builder().name("Nevermind").mbid("3").build();
-		Album a4 = new Album.Builder().name("Nevermind").mbid("4").build();
-		Album a5 = new Album.Builder().name("Nevermind").mbid("5").build();
-		Album a6 = new Album.Builder().name("Nevermind").mbid("6").build();
-		Album a7 = new Album.Builder().name("Nirvana Unplugged").mbid("7").build();
-		Album a8 = new Album.Builder().name("Nirvana Unplugged").mbid("8").build();
-		Album a9 = new Album.Builder().name("Nirvana Unplugged").mbid("9").build();
-		Album a10 = new Album.Builder().name("Nirvana Unplugged").mbid("10").build();
+		Album a1 = new Album.Builder().name("Nevermind").artistName(artist).songName(song).mbid("1").build();
+		Album a2 = new Album.Builder().name("Nevermind").artistName(artist).songName(song).mbid("2").build();
+		Album a3 = new Album.Builder().name("Nevermind").artistName(artist).songName(song).mbid("3").build();
+		Album a4 = new Album.Builder().name("Nevermind").artistName(artist).songName(song).mbid("4").build();
+		Album a5 = new Album.Builder().name("Nevermind").artistName(artist).songName(song).mbid("5").build();
+		Album a6 = new Album.Builder().name("Nevermind").artistName(artist).songName(song).mbid("6").build();
+		Album a7 = new Album.Builder().name("Nirvana Unplugged").artistName(artist).songName(song).mbid("7").build();
+		Album a8 = new Album.Builder().name("Nirvana Unplugged").artistName(artist).songName(song).mbid("8").build();
+		Album a9 = new Album.Builder().name("Nirvana Unplugged").artistName(artist).songName(song).mbid("9").build();
+		Album a10 = new Album.Builder().name("Nirvana Unplugged").artistName(artist).songName(song).mbid("10").build();
 		when(albumFinder.findAlbums(song, artist)).thenReturn(Arrays.asList(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10));
 		
-		// Find the cover arts
+		// No cover arts found in Amazon Mock
+		// Albums expected by Amazon
 		Random rnd = new Random(System.currentTimeMillis());
+		when(amazonFinder.findCoverArt(a1)).thenAnswer(new CoverUrlAnswer(Optional.empty(), rnd));
+		when(amazonFinder.findCoverArt(a7)).thenAnswer(new CoverUrlAnswer(Optional.empty(), rnd));
+		
+		// Find the cover arts
 		String linkMocked1 = "http://coverartarchive.org/release/12345MBID/1357.jpg";
-		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("1").build())).thenAnswer(new CoverUrlAnswer(linkMocked1, rnd));
+		when(coverArchiveFinder.findCoverArt(a1)).thenAnswer(new CoverUrlAnswer(linkMocked1, rnd));
 		String linkMocked2 = "http://another.mocked/link2.jpg";
-		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("2").build())).thenAnswer(new CoverUrlAnswer(linkMocked2, rnd));
+		when(coverArchiveFinder.findCoverArt(a2)).thenAnswer(new CoverUrlAnswer(linkMocked2, rnd));
 		String linkMocked3 = "http://another.mocked/link3.jpg";
-		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("3").build())).thenAnswer(new CoverUrlAnswer(linkMocked3, rnd));
+		when(coverArchiveFinder.findCoverArt(a3)).thenAnswer(new CoverUrlAnswer(linkMocked3, rnd));
 		String linkMocked4 = "http://another.mocked/link4.jpg";
-		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("4").build())).thenAnswer(new CoverUrlAnswer(linkMocked4, rnd));
+		when(coverArchiveFinder.findCoverArt(a4)).thenAnswer(new CoverUrlAnswer(linkMocked4, rnd));
 		String linkMocked5 = "http://another.mocked/link5.jpg";
-		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("5").build())).thenAnswer(new CoverUrlAnswer(linkMocked5, rnd));
+		when(coverArchiveFinder.findCoverArt(a5)).thenAnswer(new CoverUrlAnswer(linkMocked5, rnd));
 		String linkMocked6 = "http://another.mocked/link6.jpg";
-		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("6").build())).thenAnswer(new CoverUrlAnswer(linkMocked6, rnd));
+		when(coverArchiveFinder.findCoverArt(a6)).thenAnswer(new CoverUrlAnswer(linkMocked6, rnd));
 		String linkMocked7 = "http://another.mocked/link7.jpg";
-		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("7").build())).thenAnswer(new CoverUrlAnswer(linkMocked7, rnd));
+		when(coverArchiveFinder.findCoverArt(a7)).thenAnswer(new CoverUrlAnswer(linkMocked7, rnd));
 		String linkMocked8 = "http://another.mocked/link8.jpg";
-		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("8").build())).thenAnswer(new CoverUrlAnswer(linkMocked8, rnd));
+		when(coverArchiveFinder.findCoverArt(a8)).thenAnswer(new CoverUrlAnswer(linkMocked8, rnd));
 		String linkMocked9 = "http://another.mocked/link9.jpg";
-		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("9").build())).thenAnswer(new CoverUrlAnswer(linkMocked9, rnd));
+		when(coverArchiveFinder.findCoverArt(a9)).thenAnswer(new CoverUrlAnswer(linkMocked9, rnd));
 		String linkMocked10 = "http://another.mocked/link10.jpg";
-		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("10").build())).thenAnswer(new CoverUrlAnswer(linkMocked10, rnd));
+		when(coverArchiveFinder.findCoverArt(a10)).thenAnswer(new CoverUrlAnswer(linkMocked10, rnd));
 		
 		// Run the method to test
 		Optional<Album> oAlbum = manager.getAlbumWithCoverAsync(song, artist);
@@ -115,7 +119,7 @@ public class CoverArtManagerTest {
 		// Assert
 		assertAlbumIsPresent(oAlbum, artist, song, new URL(linkMocked1));
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testGetAlbumWithCover_LastMBIDsAsync() throws IOException {
@@ -123,22 +127,26 @@ public class CoverArtManagerTest {
 		String artist = "Nirvana";
 		
 		// Mock the albums found 
-		Album a1 = new Album.Builder().name("Nevermind").mbid("1").build();
-		Album a2 = new Album.Builder().name("Nevermind").mbid("2").build();
-		Album a3 = new Album.Builder().name("Nevermind").mbid("3").build();
-		Album a4 = new Album.Builder().name("Nevermind").mbid("4").build();
-		Album a5 = new Album.Builder().name("Nirvana Unplugged").mbid("5").build();
+		Album a1 = new Album.Builder().name("Nevermind").songName(song).artistName(artist).mbid("1").build();
+		Album a2 = new Album.Builder().name("Nevermind").songName(song).artistName(artist).mbid("2").build();
+		Album a3 = new Album.Builder().name("Nevermind").songName(song).artistName(artist).mbid("3").build();
+		Album a4 = new Album.Builder().name("Nevermind").songName(song).artistName(artist).mbid("4").build();
+		Album a5 = new Album.Builder().name("Nirvana Unplugged").songName(song).artistName(artist).mbid("5").build();
 		when(albumFinder.findAlbums(song, artist)).thenReturn(Arrays.asList(a1, a2, a3, a4, a5));
+		
+		// Amazon Finder Mock
+		when(amazonFinder.findCoverArt(a1)).thenReturn(Optional.empty());
+		when(amazonFinder.findCoverArt(a5)).thenReturn(Optional.empty());
 		
 		// Find the cover arts
 		// The first 04 cover albums MBID does not have a cover link, just the 05th one. 
-		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("1").build())).thenReturn(Optional.empty());
-		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("2").build())).thenThrow(ClientProtocolException.class);
-		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("3").build())).thenReturn(Optional.empty());
-		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("4").build())).thenThrow(ClientProtocolException.class);
+		when(coverArchiveFinder.findCoverArt(a1)).thenReturn(Optional.empty());
+		when(coverArchiveFinder.findCoverArt(a2)).thenThrow(ClientProtocolException.class);
+		when(coverArchiveFinder.findCoverArt(a3)).thenReturn(Optional.empty());
+		when(coverArchiveFinder.findCoverArt(a4)).thenThrow(ClientProtocolException.class);
 		
 		String linkMocked = "http://coverartarchive.org/release/12345MBID/1357.jpg";
-		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("5").build())).thenReturn(Optional.of(new CoverArt.Builder().largeUri(linkMocked).build()));
+		when(coverArchiveFinder.findCoverArt(a5)).thenReturn(Optional.of(new CoverArt.Builder().largeUri(linkMocked).build()));
 		
 		// Run the method to test
 		Optional<Album> oAlbum = manager.getAlbumWithCoverAsync(song, artist);
@@ -155,6 +163,9 @@ public class CoverArtManagerTest {
 		// Mock the albums found (No Albums) 
 		when(albumFinder.findAlbums(song, artist)).thenReturn(Collections.emptyList());
 		
+		// Mock Amazon Finder
+		when(amazonFinder.findCoverArt(new Album.Builder().songName(song).artistName(artist).name("").build())).thenReturn(Optional.empty());
+		
 		// Run the method to test
 		Optional<Album> album = manager.getAlbumWithCoverAsync(song, artist);
 		// Assertions
@@ -167,13 +178,16 @@ public class CoverArtManagerTest {
 		String artist = "Nirvana";
 		
 		// Mock the albums found 
-		Album a1 = new Album.Builder().name("Nevermind").mbid("1").build();
-		Album a2 = new Album.Builder().name("Nevermind").mbid("2").build();
+		Album a1 = new Album.Builder().name("Nevermind").artistName(artist).songName(song).mbid("1").build();
+		Album a2 = new Album.Builder().name("Nevermind").artistName(artist).songName(song).mbid("2").build();
 		when(albumFinder.findAlbums(song, artist)).thenReturn(Arrays.asList(a1, a2));
 		
+		// Mock Amazon
+		when(amazonFinder.findCoverArt(a1)).thenReturn(Optional.empty());
+		
 		// Find the cover arts
-		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("1").build())).thenReturn(Optional.empty());
-		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("2").build())).thenReturn(Optional.ofNullable(null));
+		when(coverArchiveFinder.findCoverArt(a1)).thenReturn(Optional.empty());
+		when(coverArchiveFinder.findCoverArt(a2)).thenReturn(Optional.ofNullable(null));
 		
 		// Run the method to test
 		Optional<Album> album = manager.getAlbumWithCoverAsync(song, artist);
@@ -188,9 +202,12 @@ public class CoverArtManagerTest {
 		String artist = "Nirvana";
 		
 		// Mock the albums found 
-		Album a1 = new Album.Builder().name("Nevermind").mbid("1").build();
-		Album a2 = new Album.Builder().name("Nevermind").mbid("2").build();
+		Album a1 = new Album.Builder().name("Nevermind").artistName(artist).songName(song).mbid("1").build();
+		Album a2 = new Album.Builder().name("Nevermind").artistName(artist).songName(song).mbid("2").build();
 		when(albumFinder.findAlbums(song, artist)).thenReturn(Arrays.asList(a1, a2));
+		
+		// Mock Amazon
+		when(amazonFinder.findCoverArt(a1)).thenReturn(Optional.empty());
 		
 		// Find the cover arts
 		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("1").build())).thenReturn(Optional.empty());
@@ -210,13 +227,16 @@ public class CoverArtManagerTest {
 		String artist = "Nirvana";
 		
 		// Mock the albums found 
-		Album a1 = new Album.Builder().name("Nevermind").mbid("1").build();
-		Album a2 = new Album.Builder().name("Nevermind").mbid("2").build();
+		Album a1 = new Album.Builder().name("Nevermind").artistName(artist).songName(song).mbid("1").build();
+		Album a2 = new Album.Builder().name("Nevermind").artistName(artist).songName(song).mbid("2").build();
 		when(albumFinder.findAlbums(song, artist)).thenReturn(Arrays.asList(a1, a2));
 		
+		// Mock Amazon
+		when(amazonFinder.findCoverArt(a1)).thenReturn(Optional.empty());
+		
 		// Find the cover arts
-		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("1").build())).thenThrow(ClientProtocolException.class); // 404 from Server
-		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("2").build())).thenThrow(ClientProtocolException.class); // 404 from Server
+		when(coverArchiveFinder.findCoverArt(a1)).thenThrow(ClientProtocolException.class); // 404 from Server
+		when(coverArchiveFinder.findCoverArt(a2)).thenThrow(ClientProtocolException.class); // 404 from Server
 		
 		// Run the method to test
 		Optional<Album> album = manager.getAlbumWithCoverAsync(song, artist);
@@ -362,12 +382,16 @@ public class CoverArtManagerTest {
 	 *
 	 */
 	private class CoverUrlAnswer implements Answer<Optional<CoverArt>> {
-		
-		private final String expectedLink;
 		private final Random rnd;
+		private final Optional<CoverArt> opArt;
 		
-		public CoverUrlAnswer(String link, Random rnd) {
-			this.expectedLink = link;
+		public CoverUrlAnswer(String expLink, Random rnd) {
+			this.opArt = Optional.of(new CoverArt.Builder().largeUri(expLink).build());
+			this.rnd = rnd;
+		}
+		
+		public CoverUrlAnswer(Optional<CoverArt> expCovArt, Random rnd) {
+			this.opArt = expCovArt;
 			this.rnd = rnd;
 		}
 
@@ -375,9 +399,9 @@ public class CoverArtManagerTest {
 		public Optional<CoverArt> answer(InvocationOnMock invocation) throws Throwable {
 			// Set a delay between 1 and 3 secs
 			long duration = Math.abs(rnd.nextLong() % 2000) + 1000;
-			log.info("Setting a delay to emulate the time spent on retrieveing the URL[{}]. Duration {} ms.", expectedLink, duration);
+			log.info("Setting a delay to emulate the time spent on retrieveing the URL[{}]. Duration {} ms.", opArt, duration);
 			
-			return Optional.of(new CoverArt.Builder().largeUri(expectedLink).build());
+			return opArt;
 		}
 		
 	}
