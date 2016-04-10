@@ -1,0 +1,1343 @@
+<?xml version="1.0" ?>
+<ItemSearchResponse
+	xmlns="http://webservices.amazon.com/AWSECommerceService/2011-08-01">
+	<OperationRequest>
+		<HTTPHeaders>
+			<Header Name="UserAgent" Value="Apache-HttpClient/4.5.2 (Java/1.8.0_77)"></Header>
+		</HTTPHeaders>
+		<RequestId>6ccab48a-4911-47b6-8641-87c363f919a9</RequestId>
+		<Arguments>
+			<Argument Name="AWSAccessKeyId" Value="AKIAIL5VGOSTTL6ZVC6A"></Argument>
+			<Argument Name="Artist" Value="'Cesária Évora'"></Argument>
+			<Argument Name="AssociateTag" Value="2615-2750-3759"></Argument>
+			<Argument Name="Operation" Value="ItemSearch"></Argument>
+			<Argument Name="ResponseGroup" Value="Images,ItemAttributes"></Argument>
+			<Argument Name="SearchIndex" Value="Music"></Argument>
+			<Argument Name="Service" Value="AWSECommerceService"></Argument>
+			<Argument Name="Timestamp" Value="2016-04-10T10:24:11Z"></Argument>
+			<Argument Name="Title" Value="'Sodade'"></Argument>
+			<Argument Name="Signature"
+				Value="mTn5Hz4FmlUdX0w59HHjcEsx7TxR9fbtT3i/mfgIoL8="></Argument>
+		</Arguments>
+		<RequestProcessingTime>0.3383700000000000</RequestProcessingTime>
+	</OperationRequest>
+	<Items>
+		<Request>
+			<IsValid>True</IsValid>
+			<ItemSearchRequest>
+				<Artist>'Cesária Évora'</Artist>
+				<ResponseGroup>Images</ResponseGroup>
+				<ResponseGroup>ItemAttributes</ResponseGroup>
+				<SearchIndex>Music</SearchIndex>
+				<Title>'Sodade'</Title>
+			</ItemSearchRequest>
+		</Request>
+		<TotalResults>12</TotalResults>
+		<TotalPages>2</TotalPages>
+		<MoreSearchResultsUrl>http://www.amazon.com/gp/redirect.html?linkCode=xm2&amp;SubscriptionId=AKIAIL5VGOSTTL6ZVC6A&amp;location=http%3A%2F%2Fwww.amazon.com%2Fgp%2Fsearch%3Fkeywords%3D%2527Ces%25C3%25A1ria%2B%25C3%2589vora%2527%2B%2527Sodade%2527%26url%3Dsearch-alias%253Dpopular&amp;tag=2615-2750-3759&amp;creative=386001&amp;camp=2025
+		</MoreSearchResultsUrl>
+		<Item>
+			<ASIN>B00009YH0Z</ASIN>
+			<DetailPageURL>http://www.amazon.com/Club-Sodade-Cesaria-Evora/dp/B00009YH0Z%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00009YH0Z
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Club-Sodade-Cesaria-Evora/dp/tech-data/B00009YH0Z%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00009YH0Z
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB00009YH0Z%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00009YH0Z
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB00009YH0Z%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00009YH0Z
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB00009YH0Z%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00009YH0Z
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B00009YH0Z%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00009YH0Z
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B00009YH0Z%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00009YH0Z
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B00009YH0Z%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00009YH0Z
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/51xF9uNf0lL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">75</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/51xF9uNf0lL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">160</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/51xF9uNf0lL.jpg</URL>
+				<Height Units="pixels">500</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="variant">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/41c5tr0R7hL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">26</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/41c5tr0R7hL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">65</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/41c5tr0R7hL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">65</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/41c5tr0R7hL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">95</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/41c5tr0R7hL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">139</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/41c5tr0R7hL.jpg</URL>
+						<Height Units="pixels">260</Height>
+						<Width Units="pixels">300</Width>
+					</LargeImage>
+				</ImageSet>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/51xF9uNf0lL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">30</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/51xF9uNf0lL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/51xF9uNf0lL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/51xF9uNf0lL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">110</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/51xF9uNf0lL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">160</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/51xF9uNf0lL.jpg</URL>
+						<Height Units="pixels">500</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Artist>Cesaria Evora</Artist>
+				<AudienceRating>NR (Not Rated)</AudienceRating>
+				<Binding>Audio CD</Binding>
+				<EAN>0828765295727</EAN>
+				<EANList>
+					<EANListElement>0828765295727</EANListElement>
+				</EANList>
+				<Feature>World Music / World</Feature>
+				<Format>Import</Format>
+				<ItemDimensions>
+					<Height Units="hundredths-inches">25</Height>
+					<Length Units="hundredths-inches">550</Length>
+					<Weight Units="hundredths-pounds">16</Weight>
+					<Width Units="hundredths-inches">550</Width>
+				</ItemDimensions>
+				<Label>Bmg</Label>
+				<Languages>
+					<Language>
+						<Name>English</Name>
+						<Type>Published</Type>
+					</Language>
+					<Language>
+						<Name>English</Name>
+						<Type>Unknown</Type>
+					</Language>
+				</Languages>
+				<ListPrice>
+					<Amount>1198</Amount>
+					<CurrencyCode>USD</CurrencyCode>
+					<FormattedPrice>$11.98</FormattedPrice>
+				</ListPrice>
+				<Manufacturer>Bmg</Manufacturer>
+				<MPN>8.28765E+11</MPN>
+				<NumberOfDiscs>1</NumberOfDiscs>
+				<NumberOfItems>1</NumberOfItems>
+				<PackageDimensions>
+					<Height Units="hundredths-inches">54</Height>
+					<Length Units="hundredths-inches">555</Length>
+					<Weight Units="hundredths-pounds">18</Weight>
+					<Width Units="hundredths-inches">497</Width>
+				</PackageDimensions>
+				<PackageQuantity>1</PackageQuantity>
+				<PartNumber>8.28765E+11</PartNumber>
+				<ProductGroup>Music</ProductGroup>
+				<ProductTypeName>ABIS_MUSIC</ProductTypeName>
+				<PublicationDate>2004</PublicationDate>
+				<Publisher>Bmg</Publisher>
+				<ReleaseDate>2011-08-17</ReleaseDate>
+				<RunningTime Units="minutes">70</RunningTime>
+				<Studio>Bmg</Studio>
+				<Title>Club Sodade</Title>
+				<UPC>828765295727</UPC>
+				<UPCList>
+					<UPCListElement>828765295727</UPCListElement>
+				</UPCList>
+			</ItemAttributes>
+		</Item>
+		<Item>
+			<ASIN>B000007UX3</ASIN>
+			<DetailPageURL>http://www.amazon.com/Sodade-plus-belles-mornas-Cesaria/dp/B000007UX3%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB000007UX3
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Sodade-plus-belles-mornas-Cesaria/dp/tech-data/B000007UX3%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB000007UX3
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB000007UX3%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB000007UX3
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB000007UX3%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB000007UX3
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB000007UX3%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB000007UX3
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B000007UX3%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB000007UX3
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B000007UX3%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB000007UX3
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B000007UX3%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB000007UX3
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/51d7WdfFDPL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">74</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/51d7WdfFDPL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">159</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/51d7WdfFDPL.jpg</URL>
+				<Height Units="pixels">496</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/51d7WdfFDPL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">30</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/51d7WdfFDPL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">74</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/51d7WdfFDPL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">74</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/51d7WdfFDPL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">109</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/51d7WdfFDPL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">159</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/51d7WdfFDPL.jpg</URL>
+						<Height Units="pixels">496</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Artist>Cesaria Evora</Artist>
+				<Binding>Audio CD</Binding>
+				<EAN>0743212335323</EAN>
+				<EANList>
+					<EANListElement>0743212335323</EANListElement>
+				</EANList>
+				<Feature>EVORA CESARIA SODADE, LES PLUS BELLES NORMAS DE CESARI
+				</Feature>
+				<Format>Import</Format>
+				<ItemDimensions>
+					<Weight Units="hundredths-pounds">37</Weight>
+				</ItemDimensions>
+				<Label>Bmg Int'l</Label>
+				<Languages>
+					<Language>
+						<Name>Portuguese</Name>
+						<Type>Unknown</Type>
+					</Language>
+				</Languages>
+				<ListPrice>
+					<Amount>2599</Amount>
+					<CurrencyCode>USD</CurrencyCode>
+					<FormattedPrice>$25.99</FormattedPrice>
+				</ListPrice>
+				<Manufacturer>Bmg Int'l</Manufacturer>
+				<MPN>8 3 00023353</MPN>
+				<NumberOfDiscs>1</NumberOfDiscs>
+				<NumberOfItems>1</NumberOfItems>
+				<PackageDimensions>
+					<Height Units="hundredths-inches">54</Height>
+					<Length Units="hundredths-inches">555</Length>
+					<Weight Units="hundredths-pounds">18</Weight>
+					<Width Units="hundredths-inches">497</Width>
+				</PackageDimensions>
+				<PartNumber>8 3 00023353</PartNumber>
+				<ProductGroup>Music</ProductGroup>
+				<ProductTypeName>ABIS_MUSIC</ProductTypeName>
+				<PublicationDate>1998-02-11</PublicationDate>
+				<Publisher>Bmg Int'l</Publisher>
+				<ReleaseDate>1999-08-10</ReleaseDate>
+				<Studio>Bmg Int'l</Studio>
+				<Title>Sodade: les plus belles mornas de Cesaria</Title>
+				<UPC>743212335323</UPC>
+				<UPCList>
+					<UPCListElement>743212335323</UPCListElement>
+				</UPCList>
+			</ItemAttributes>
+		</Item>
+		<Item>
+			<ASIN>B0172VX4HK</ASIN>
+			<DetailPageURL>http://www.amazon.com/Cesaria-Evora-Club-Sodade-2003/dp/B0172VX4HK%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB0172VX4HK
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Cesaria-Evora-Club-Sodade-2003/dp/tech-data/B0172VX4HK%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0172VX4HK
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB0172VX4HK%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0172VX4HK
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB0172VX4HK%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0172VX4HK
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB0172VX4HK%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0172VX4HK
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B0172VX4HK%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0172VX4HK
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B0172VX4HK%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0172VX4HK
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B0172VX4HK%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0172VX4HK
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/61PzYbphLoL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">67</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/61PzYbphLoL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">143</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/61PzYbphLoL.jpg</URL>
+				<Height Units="pixels">448</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="variant">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/51q9xBJq2RL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">27</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/51q9xBJq2RL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">67</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/51q9xBJq2RL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">67</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/51q9xBJq2RL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">99</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/51q9xBJq2RL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">143</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/51q9xBJq2RL.jpg</URL>
+						<Height Units="pixels">448</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/61PzYbphLoL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">27</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/61PzYbphLoL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">67</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/61PzYbphLoL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">67</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/61PzYbphLoL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">99</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/61PzYbphLoL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">143</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/61PzYbphLoL.jpg</URL>
+						<Height Units="pixels">448</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Artist>Cesaria Evora</Artist>
+				<Binding>Audio CD</Binding>
+				<CatalogNumberList>
+					<CatalogNumberListElement>5604762019178</CatalogNumberListElement>
+				</CatalogNumberList>
+				<EAN>5604762019178</EAN>
+				<EANList>
+					<EANListElement>5604762019178</EANListElement>
+				</EANList>
+				<IsAdultProduct>0</IsAdultProduct>
+				<Label>Lusafrica</Label>
+				<Manufacturer>Lusafrica</Manufacturer>
+				<ProductGroup>Music</ProductGroup>
+				<ProductTypeName>MUSIC_POPULAR</ProductTypeName>
+				<Publisher>Lusafrica</Publisher>
+				<Studio>Lusafrica</Studio>
+				<Title>Cesaria Evora - Club Sodade : Cesaria Evora By... [CD] 2003
+				</Title>
+			</ItemAttributes>
+		</Item>
+		<Item>
+			<ASIN>B0000A1MA4</ASIN>
+			<DetailPageURL>http://www.amazon.com/Cesaria-Evora-Sodade-EVORA-CESARIA/dp/B0000A1MA4%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB0000A1MA4
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Cesaria-Evora-Sodade-EVORA-CESARIA/dp/tech-data/B0000A1MA4%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0000A1MA4
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB0000A1MA4%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0000A1MA4
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB0000A1MA4%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0000A1MA4
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB0000A1MA4%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0000A1MA4
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B0000A1MA4%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0000A1MA4
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B0000A1MA4%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0000A1MA4
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B0000A1MA4%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0000A1MA4
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/51EuWNpFEML._SL75_.jpg
+				</URL>
+				<Height Units="pixels">74</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/51EuWNpFEML._SL160_.jpg
+				</URL>
+				<Height Units="pixels">159</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/51EuWNpFEML.jpg</URL>
+				<Height Units="pixels">496</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="variant">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/515ndk9%2B8TL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">26</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/515ndk9%2B8TL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">66</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/515ndk9%2B8TL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">66</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/515ndk9%2B8TL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">97</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/515ndk9%2B8TL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">141</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/515ndk9%2B8TL.jpg</URL>
+						<Height Units="pixels">441</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/51EuWNpFEML._SL30_.jpg
+						</URL>
+						<Height Units="pixels">30</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/51EuWNpFEML._SL75_.jpg
+						</URL>
+						<Height Units="pixels">74</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/51EuWNpFEML._SL75_.jpg
+						</URL>
+						<Height Units="pixels">74</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/51EuWNpFEML._SL110_.jpg
+						</URL>
+						<Height Units="pixels">109</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/51EuWNpFEML._SL160_.jpg
+						</URL>
+						<Height Units="pixels">159</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/51EuWNpFEML.jpg</URL>
+						<Height Units="pixels">496</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Artist>EVORA CESARIA</Artist>
+				<Binding>Audio CD</Binding>
+				<CatalogNumberList>
+					<CatalogNumberListElement>PM1581828765275422
+					</CatalogNumberListElement>
+					<CatalogNumberListElement>828765275422</CatalogNumberListElement>
+					<CatalogNumberListElement>82876527542</CatalogNumberListElement>
+					<CatalogNumberListElement>82876529572, 82876 529 572
+					</CatalogNumberListElement>
+				</CatalogNumberList>
+				<EAN>0828765275422</EAN>
+				<EANList>
+					<EANListElement>0828765275422</EANListElement>
+				</EANList>
+				<Feature>EVORA CESARIA CLUB SODADE</Feature>
+				<IsAdultProduct>0</IsAdultProduct>
+				<Label>BMG</Label>
+				<Manufacturer>BMG</Manufacturer>
+				<MPN>8 3 00652754</MPN>
+				<NumberOfDiscs>1</NumberOfDiscs>
+				<PackageDimensions>
+					<Height Units="hundredths-inches">54</Height>
+					<Length Units="hundredths-inches">555</Length>
+					<Weight Units="hundredths-pounds">18</Weight>
+					<Width Units="hundredths-inches">497</Width>
+				</PackageDimensions>
+				<PartNumber>8 3 00652754</PartNumber>
+				<ProductGroup>Music</ProductGroup>
+				<ProductTypeName>ABIS_MUSIC</ProductTypeName>
+				<PublicationDate>2003-09-29</PublicationDate>
+				<Publisher>BMG</Publisher>
+				<Studio>BMG</Studio>
+				<Title>Cesaria Evora: Club Sodade</Title>
+				<UPC>828765275422</UPC>
+				<UPCList>
+					<UPCListElement>828765275422</UPCListElement>
+				</UPCList>
+			</ItemAttributes>
+		</Item>
+		<Item>
+			<ASIN>B000A2PA4Y</ASIN>
+			<DetailPageURL>http://www.amazon.com/Club-Sodade-Cesaria-Evora/dp/B000A2PA4Y%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB000A2PA4Y
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Club-Sodade-Cesaria-Evora/dp/tech-data/B000A2PA4Y%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB000A2PA4Y
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB000A2PA4Y%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB000A2PA4Y
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB000A2PA4Y%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB000A2PA4Y
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB000A2PA4Y%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB000A2PA4Y
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B000A2PA4Y%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB000A2PA4Y
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B000A2PA4Y%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB000A2PA4Y
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B000A2PA4Y%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB000A2PA4Y
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/51g2coHAdFL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">75</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/51g2coHAdFL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">160</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/51g2coHAdFL.jpg</URL>
+				<Height Units="pixels">500</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/51g2coHAdFL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">30</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/51g2coHAdFL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/51g2coHAdFL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/51g2coHAdFL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">110</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/51g2coHAdFL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">160</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/51g2coHAdFL.jpg</URL>
+						<Height Units="pixels">500</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Artist>Cesaria Evora</Artist>
+				<Binding>Audio CD</Binding>
+				<EAN>0766482405046</EAN>
+				<EANList>
+					<EANListElement>0766482405046</EANListElement>
+				</EANList>
+				<Format>Import</Format>
+				<Label>Bmg Int'l</Label>
+				<ListPrice>
+					<Amount>1899</Amount>
+					<CurrencyCode>USD</CurrencyCode>
+					<FormattedPrice>$18.99</FormattedPrice>
+				</ListPrice>
+				<Manufacturer>Bmg Int'l</Manufacturer>
+				<ProductGroup>Music</ProductGroup>
+				<ProductTypeName>ABIS_MUSIC</ProductTypeName>
+				<PublicationDate>2003-06-17</PublicationDate>
+				<Publisher>Bmg Int'l</Publisher>
+				<ReleaseDate>2003-06-17</ReleaseDate>
+				<Studio>Bmg Int'l</Studio>
+				<Title>Club Sodade</Title>
+				<UPC>766482405046</UPC>
+				<UPCList>
+					<UPCListElement>766482405046</UPCListElement>
+				</UPCList>
+			</ItemAttributes>
+		</Item>
+		<Item>
+			<ASIN>B014I6ZOJ8</ASIN>
+			<DetailPageURL>http://www.amazon.com/Club-Sodade-Cesaria-Evora-2004-02-10/dp/B014I6ZOJ8%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB014I6ZOJ8
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Club-Sodade-Cesaria-Evora-2004-02-10/dp/tech-data/B014I6ZOJ8%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB014I6ZOJ8
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB014I6ZOJ8%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB014I6ZOJ8
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB014I6ZOJ8%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB014I6ZOJ8
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB014I6ZOJ8%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB014I6ZOJ8
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B014I6ZOJ8%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB014I6ZOJ8
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B014I6ZOJ8%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB014I6ZOJ8
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B014I6ZOJ8%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB014I6ZOJ8
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/51JQHESc-7L._SL75_.jpg
+				</URL>
+				<Height Units="pixels">75</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/51JQHESc-7L._SL160_.jpg
+				</URL>
+				<Height Units="pixels">160</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/51JQHESc-7L.jpg</URL>
+				<Height Units="pixels">500</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/51JQHESc-7L._SL30_.jpg
+						</URL>
+						<Height Units="pixels">30</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/51JQHESc-7L._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/51JQHESc-7L._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/51JQHESc-7L._SL110_.jpg
+						</URL>
+						<Height Units="pixels">110</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/51JQHESc-7L._SL160_.jpg
+						</URL>
+						<Height Units="pixels">160</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/51JQHESc-7L.jpg</URL>
+						<Height Units="pixels">500</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Artist>Cesaria Evora</Artist>
+				<Binding>Audio CD</Binding>
+				<EAN>0795871986484</EAN>
+				<EANList>
+					<EANListElement>0795871986484</EANListElement>
+				</EANList>
+				<Label>RCA</Label>
+				<Manufacturer>RCA</Manufacturer>
+				<MPN>na</MPN>
+				<PartNumber>na</PartNumber>
+				<ProductGroup>Music</ProductGroup>
+				<ProductTypeName>MUSIC_POPULAR</ProductTypeName>
+				<PublicationDate>2004-02-10</PublicationDate>
+				<Publisher>RCA</Publisher>
+				<Studio>RCA</Studio>
+				<Title>Club Sodade By Cesaria Evora (2004-02-10)</Title>
+				<UPC>795871986484</UPC>
+				<UPCList>
+					<UPCListElement>795871986484</UPCListElement>
+				</UPCList>
+			</ItemAttributes>
+		</Item>
+		<Item>
+			<ASIN>B01A9KFPAK</ASIN>
+			<DetailPageURL>http://www.amazon.com/EVORA-CESARIA-CLUB-SODADE-2003-09-29/dp/B01A9KFPAK%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB01A9KFPAK
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/EVORA-CESARIA-CLUB-SODADE-2003-09-29/dp/tech-data/B01A9KFPAK%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01A9KFPAK
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB01A9KFPAK%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01A9KFPAK
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB01A9KFPAK%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01A9KFPAK
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB01A9KFPAK%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01A9KFPAK
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B01A9KFPAK%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01A9KFPAK
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B01A9KFPAK%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01A9KFPAK
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B01A9KFPAK%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01A9KFPAK
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/51lJY3ddghL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">74</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/51lJY3ddghL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">159</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/51lJY3ddghL.jpg</URL>
+				<Height Units="pixels">496</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/51lJY3ddghL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">30</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/51lJY3ddghL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">74</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/51lJY3ddghL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">74</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/51lJY3ddghL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">109</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/51lJY3ddghL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">159</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/51lJY3ddghL.jpg</URL>
+						<Height Units="pixels">496</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Artist>EVORA CESARIA</Artist>
+				<Binding>Audio CD</Binding>
+				<EAN>0785571062953</EAN>
+				<EANList>
+					<EANListElement>0785571062953</EANListElement>
+				</EANList>
+				<Feature>EVORA CESARIA CLUB SODADE by EVORA CESARIA (2003-09-29)
+				</Feature>
+				<Label>BMG</Label>
+				<Manufacturer>BMG</Manufacturer>
+				<MPN>na</MPN>
+				<PartNumber>na</PartNumber>
+				<ProductGroup>Music</ProductGroup>
+				<ProductTypeName>MUSIC_POPULAR</ProductTypeName>
+				<PublicationDate>2003-09-29</PublicationDate>
+				<Publisher>BMG</Publisher>
+				<Studio>BMG</Studio>
+				<Title>EVORA CESARIA CLUB SODADE by EVORA CESARIA (2003-09-29)
+				</Title>
+				<UPC>785571062953</UPC>
+				<UPCList>
+					<UPCListElement>785571062953</UPCListElement>
+				</UPCList>
+			</ItemAttributes>
+		</Item>
+		<Item>
+			<ASIN>B01A3CFQN0</ASIN>
+			<DetailPageURL>http://www.amazon.com/Sodade-Cesaria-Evora/dp/B01A3CFQN0%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB01A3CFQN0
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Sodade-Cesaria-Evora/dp/tech-data/B01A3CFQN0%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01A3CFQN0
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB01A3CFQN0%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01A3CFQN0
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB01A3CFQN0%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01A3CFQN0
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB01A3CFQN0%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01A3CFQN0
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B01A3CFQN0%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01A3CFQN0
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B01A3CFQN0%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01A3CFQN0
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B01A3CFQN0%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01A3CFQN0
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<ItemAttributes>
+				<Artist>Cesaria Evora</Artist>
+				<Binding>Audio CD</Binding>
+				<EAN>0743211975629</EAN>
+				<EANList>
+					<EANListElement>0743211975629</EANListElement>
+				</EANList>
+				<IsAdultProduct>0</IsAdultProduct>
+				<Label>RCA/BMG</Label>
+				<Manufacturer>RCA/BMG</Manufacturer>
+				<ProductGroup>Music</ProductGroup>
+				<ProductTypeName>MUSIC_POPULAR</ProductTypeName>
+				<Publisher>RCA/BMG</Publisher>
+				<Studio>RCA/BMG</Studio>
+				<Title>Sodade</Title>
+				<UPC>743211975629</UPC>
+				<UPCList>
+					<UPCListElement>743211975629</UPCListElement>
+				</UPCList>
+			</ItemAttributes>
+		</Item>
+		<Item>
+			<ASIN>B0042FQVZM</ASIN>
+			<DetailPageURL>http://www.amazon.com/Sodade-Melhor-Musica-Cabo-Verde/dp/B0042FQVZM%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB0042FQVZM
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Sodade-Melhor-Musica-Cabo-Verde/dp/tech-data/B0042FQVZM%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0042FQVZM
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB0042FQVZM%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0042FQVZM
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB0042FQVZM%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0042FQVZM
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB0042FQVZM%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0042FQVZM
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B0042FQVZM%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0042FQVZM
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B0042FQVZM%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0042FQVZM
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B0042FQVZM%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0042FQVZM
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/31wgDSuXqVL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">75</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/31wgDSuXqVL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">160</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/31wgDSuXqVL.jpg</URL>
+				<Height Units="pixels">200</Height>
+				<Width Units="pixels">200</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/31wgDSuXqVL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">30</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/31wgDSuXqVL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/31wgDSuXqVL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/31wgDSuXqVL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">110</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/31wgDSuXqVL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">160</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/31wgDSuXqVL.jpg</URL>
+						<Height Units="pixels">200</Height>
+						<Width Units="pixels">200</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Artist>Mayra Andrade, Tito Paris, Ildo Lobo, Djurumani, Lura,
+					Teofilo Chantre, Boy Ge Mendes, Cordas Do Sol, Constantino Cardoso
+					Cesaria Evora</Artist>
+				<Binding>Audio CD</Binding>
+				<CatalogNumberList>
+					<CatalogNumberListElement>5603850102211</CatalogNumberListElement>
+				</CatalogNumberList>
+				<EAN>5603850102211</EAN>
+				<EANList>
+					<EANListElement>5603850102211</EANListElement>
+				</EANList>
+				<Label>Farol</Label>
+				<Languages>
+					<Language>
+						<Name>Portuguese</Name>
+						<Type>Original Language</Type>
+					</Language>
+					<Language>
+						<Name>Portuguese</Name>
+						<Type>Unknown</Type>
+					</Language>
+				</Languages>
+				<Manufacturer>Farol</Manufacturer>
+				<NumberOfDiscs>2</NumberOfDiscs>
+				<PackageQuantity>2</PackageQuantity>
+				<ProductGroup>Music</ProductGroup>
+				<ProductTypeName>MUSIC_POPULAR</ProductTypeName>
+				<Publisher>Farol</Publisher>
+				<Studio>Farol</Studio>
+				<Title>Sodade A Melhor Musica De Cabo Verde [2CD]</Title>
+			</ItemAttributes>
+		</Item>
+		<Item>
+			<ASIN>B0031TSPAY</ASIN>
+			<DetailPageURL>http://www.amazon.com/Sodade-Les-Plus-Belles-Chan/dp/B0031TSPAY%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB0031TSPAY
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Sodade-Les-Plus-Belles-Chan/dp/tech-data/B0031TSPAY%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0031TSPAY
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB0031TSPAY%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0031TSPAY
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB0031TSPAY%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0031TSPAY
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB0031TSPAY%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0031TSPAY
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B0031TSPAY%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0031TSPAY
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B0031TSPAY%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0031TSPAY
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B0031TSPAY%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB0031TSPAY
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<ItemAttributes>
+				<Artist>Cesaria Evora</Artist>
+				<Binding>Audio CD</Binding>
+				<EAN>0766485993526</EAN>
+				<EANList>
+					<EANListElement>0766485993526</EANListElement>
+				</EANList>
+				<Format>Import</Format>
+				<ItemDimensions>
+					<Weight Units="hundredths-pounds">18</Weight>
+				</ItemDimensions>
+				<Label>PID</Label>
+				<ListPrice>
+					<Amount>1799</Amount>
+					<CurrencyCode>USD</CurrencyCode>
+					<FormattedPrice>$17.99</FormattedPrice>
+				</ListPrice>
+				<Manufacturer>PID</Manufacturer>
+				<NumberOfDiscs>1</NumberOfDiscs>
+				<PackageDimensions>
+					<Weight Units="hundredths-pounds">18</Weight>
+				</PackageDimensions>
+				<PackageQuantity>1</PackageQuantity>
+				<ProductGroup>Music</ProductGroup>
+				<ProductTypeName>ABIS_MUSIC</ProductTypeName>
+				<Publisher>PID</Publisher>
+				<ReleaseDate>2002-11-26</ReleaseDate>
+				<Studio>PID</Studio>
+				<Title>Sodade Les Plus Belles Chan..</Title>
+				<UPC>766485993526</UPC>
+				<UPCList>
+					<UPCListElement>766485993526</UPCListElement>
+				</UPCList>
+			</ItemAttributes>
+		</Item>
+	</Items>
+</ItemSearchResponse>

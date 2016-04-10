@@ -85,6 +85,7 @@ public class AmazonCoverFinder implements CoverArtFindable {
 		// or the name of the artist if the search was made keyword.
 		Optional<Item> bestItem = allItems.stream()
 				.filter(i -> isItemTitleEqualsTo(i, album.getName()) || isItemCreatorEqualsTo(i, album.getArtistName())) 
+				.filter(AmazonCoverFinder::isRelevantItem)
 				.findFirst();
 		
 		if(bestItem.isPresent()) {
@@ -97,6 +98,7 @@ public class AmazonCoverFinder implements CoverArtFindable {
 		// In case there was no match found to the name of the album, return the first Amazon Item.
 		Optional<Item> firstItem = allItems.stream()
 				.filter(AmazonCoverFinder::isMusicItem)
+				.filter(AmazonCoverFinder::isRelevantItem)
 				.findFirst();
 		Optional<CoverArt> coverArt = firstItem.map(AmazonCoverFinder::buildCoverArt);
 		
@@ -212,6 +214,16 @@ public class AmazonCoverFinder implements CoverArtFindable {
 		String productGroup = StringUtils.nullIsEmpty(ia.getProductGroup());
 		Matcher m = Pattern.compile(MUSICWORD_REGEX).matcher(productGroup);
 		return m.find();
+	}
+	
+	/**
+	 * Check that the Amazon Item contains the 
+	 * Item Images.
+	 */
+	private static boolean isRelevantItem(Item i) {
+		return StringUtils.exists(i.getLargeImageUrl()) 
+				&& StringUtils.exists(i.getMediumImageUrl())
+				&& StringUtils.exists(i.getSmallImageUrl());
 	}
 	
 	private static CoverArt buildCoverArt(Item i) {

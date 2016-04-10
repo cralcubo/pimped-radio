@@ -1,4 +1,4 @@
-package bo.roman.radio.cover;
+package bo.roman.radio.cover.album;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;

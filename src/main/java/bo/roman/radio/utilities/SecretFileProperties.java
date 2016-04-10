@@ -19,11 +19,25 @@ public class SecretFileProperties {
 			properties.load(new FileInputStream(secretFilePath));
 		} catch (IOException e) {
 			log.error("The property file in {} could not be loaded. Double check the Path.", secretFilePath, e);
+			throw new RuntimeException("There is no file to read secret tokens.");
 		}
 	}
 	
+	/** 
+	 * Returns the value of the token 
+	 * requested.
+	 * 
+	 * If the token does not exists, a 
+	 * runtime exception is thrown.
+	 * 
+	 * @param key
+	 * @return
+	 */
 	public static String get(String key) {
-		return properties.getProperty(key);
+		String val = properties.getProperty(key);
+		if(!StringUtils.exists(val)) {
+			throw new RuntimeException(String.format("To fetch Amazon information %s is needed.", key));
+		}
+		return val;
 	}
-
 }

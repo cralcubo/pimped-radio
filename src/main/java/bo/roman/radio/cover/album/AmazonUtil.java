@@ -59,7 +59,10 @@ public class AmazonUtil {
 	private static final String HMAC_SHA256_ALGORITHM = "HmacSHA256";
 	
 	/**
-	 * 
+	 * Generates the URL to send a REST request to get all
+	 * the Items available in Amazon that matches a keyword
+	 * formed by a song name and an artist name.
+	 *  
 	 * @param keyword
 	 * @return
 	 */

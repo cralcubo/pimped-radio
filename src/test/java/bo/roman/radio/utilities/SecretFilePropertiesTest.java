@@ -36,7 +36,13 @@ public class SecretFilePropertiesTest {
 		String key = "amazon.awsSecretKey";
 		String val = SecretFileProperties.get(key);
 		
-		assertThat(val, is(notNullValue()));
+		assertThat(val, not(isEmptyOrNullString()));
+	}
+	
+	@Test(expected=RuntimeException.class)
+	public void testInvalidToken() {
+		String key = "aRadnom.key.that.does.not.exists";
+		SecretFileProperties.get(key);
 	}
 
 }

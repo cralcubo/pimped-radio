@@ -1,4 +1,4 @@
-package bo.roman.radio.cover;
+package bo.roman.radio.cover.album;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -37,6 +37,7 @@ public class AmazonCoverFinderTest {
 	private static final String NOALBUMSXML_PATH = ROOTH_PATH + "amazon-noMusic.xml";
 	private static final String SEARCHKEYWORDCLOSEXML_PATH = ROOTH_PATH + "amazon-nirvanaKeywordClose.xml";
 	private static final String NIRVANACLOSEXML_PATH = ROOTH_PATH + "amazon-nirvanaClose.xml";
+	private static final String CESAREAXML_PATH = ROOTH_PATH + "amazon-cesarea.xml";
 	
 	
 	@Before
@@ -44,6 +45,24 @@ public class AmazonCoverFinderTest {
 		finder = new AmazonCoverFinder();
 		PowerMockito.mockStatic(HttpUtils.class);
 		PowerMockito.mockStatic(AmazonUtil.class);
+	}
+	
+	@Test
+	public void testFindCesareaCover() throws IOException {
+		String artist = "Cesária Évora";
+		String albumName = "Sodade";
+		Album album = new Album.Builder().name(albumName).artistName(artist).build();
+		Optional<CoverArt> coverArt = doFindCoverArtByAlbum(album, CESAREAXML_PATH);
+		
+		// Assertions
+		assertThat(coverArt.isPresent(), is(true));
+		CoverArt coverExpected = new CoverArt.Builder()
+				.largeUri("http://ecx.images-amazon.com/images/I/51xF9uNf0lL.jpg")
+				.mediumUri("http://ecx.images-amazon.com/images/I/51xF9uNf0lL._SL160_.jpg")
+				.smallUri("http://ecx.images-amazon.com/images/I/51xF9uNf0lL._SL75_.jpg")
+				.build();
+		assertThat(coverArt.get(), is(equalTo(coverExpected)));
+		
 	}
 	
 	@Test
