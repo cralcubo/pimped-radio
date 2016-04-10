@@ -119,6 +119,38 @@ public class CoverArtManagerTest {
 		// Assert
 		assertAlbumIsPresent(oAlbum, artist, song, new URL(linkMocked1));
 	}
+	
+	@Test
+	public void testGetAlbumWithCoverAmazonAsync() throws IOException{
+		String song = "In bloom";
+		String artist = "Nirvana";
+		// Mock the albums found 
+		Album a1 = new Album.Builder().name("Nevermind").artistName(artist).songName(song).mbid("1").build();
+		Album a2 = new Album.Builder().name("Nevermind").artistName(artist).songName(song).mbid("2").build();
+		Album a3 = new Album.Builder().name("Nevermind").artistName(artist).songName(song).mbid("3").build();
+		Album a4 = new Album.Builder().name("Nevermind").artistName(artist).songName(song).mbid("4").build();
+		Album a5 = new Album.Builder().name("Nevermind").artistName(artist).songName(song).mbid("5").build();
+		Album a6 = new Album.Builder().name("Nevermind").artistName(artist).songName(song).mbid("6").build();
+		Album a7 = new Album.Builder().name("Nirvana Unplugged").artistName(artist).songName(song).mbid("7").build();
+		Album a8 = new Album.Builder().name("Nirvana Unplugged").artistName(artist).songName(song).mbid("8").build();
+		Album a9 = new Album.Builder().name("Nirvana Unplugged").artistName(artist).songName(song).mbid("9").build();
+		Album a10 = new Album.Builder().name("Nirvana Unplugged").artistName(artist).songName(song).mbid("10").build();
+		when(albumFinder.findAlbums(song, artist)).thenReturn(Arrays.asList(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10));
+		
+		// No cover arts found in Amazon Mock
+		// Albums expected by Amazon
+		Random rnd = new Random(System.currentTimeMillis());
+		String linkMocked1 = "http://coverartarchive.org/release/12345MBID/1357.jpg";
+		when(amazonFinder.findCoverArt(a1)).thenAnswer(new CoverUrlAnswer(linkMocked1, rnd));
+		String linkMocked7 = "http://another.mocked/link7.jpg";
+		when(amazonFinder.findCoverArt(a7)).thenAnswer(new CoverUrlAnswer(linkMocked7, rnd));
+		
+		// Run the method to test
+		Optional<Album> oAlbum = manager.getAlbumWithCoverAsync(song, artist);
+		
+		// Assert
+		assertAlbumIsPresent(oAlbum, artist, song, new URL(linkMocked1));
+	}
 
 	@SuppressWarnings("unchecked")
 	@Test
@@ -155,6 +187,35 @@ public class CoverArtManagerTest {
 		assertAlbumIsPresent(oAlbum, artist, song, new URL(linkMocked));
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testGetAlbumWithCoverAmazon_LastMBIDsAsync() throws IOException {
+		String song = "In bloom";
+		String artist = "Nirvana";
+		
+		// Mock the albums found 
+		Album a1 = new Album.Builder().name("Nevermind").songName(song).artistName(artist).mbid("1").build();
+		Album a2 = new Album.Builder().name("Nevermind").songName(song).artistName(artist).mbid("2").build();
+		Album a3 = new Album.Builder().name("Nevermind").songName(song).artistName(artist).mbid("3").build();
+		Album a4 = new Album.Builder().name("Nevermind").songName(song).artistName(artist).mbid("4").build();
+		Album a5 = new Album.Builder().name("Nirvana Unplugged").songName(song).artistName(artist).mbid("5").build();
+		Album a6 = new Album.Builder().name("Nirvana Ultimate").songName(song).artistName(artist).mbid("6").build();
+				
+		when(albumFinder.findAlbums(song, artist)).thenReturn(Arrays.asList(a1, a2, a3, a4, a5, a6));
+		
+		// Amazon Finder Mock
+		when(amazonFinder.findCoverArt(a1)).thenThrow(ClientProtocolException.class);
+		when(amazonFinder.findCoverArt(a5)).thenReturn(Optional.empty());
+		String linkMocked = "http://coverartarchive.org/release/12345MBID/1357.jpg";
+		when(amazonFinder.findCoverArt(a6)).thenReturn(Optional.of(new CoverArt.Builder().largeUri(linkMocked).build()));
+		
+		// Run the method to test
+		Optional<Album> oAlbum = manager.getAlbumWithCoverAsync(song, artist);
+		
+		//Assert
+		assertAlbumIsPresent(oAlbum, artist, song, new URL(linkMocked));
+	}
+	
 	@Test
 	public void testGetNoAlbumWithCover_NoMBIDsAsync() throws IOException {
 		String song = "In bloom";
@@ -170,6 +231,26 @@ public class CoverArtManagerTest {
 		Optional<Album> album = manager.getAlbumWithCoverAsync(song, artist);
 		// Assertions
 		assertThat(album.isPresent(), is(false));
+	}
+	
+	@Test
+	public void testGetNoAlbumWithCover_NoMBIDsAsyncAmazon() throws IOException {
+		String song = "In bloom";
+		String artist = "Nirvana";
+		
+		// Mock the albums found (No Albums) 
+		when(albumFinder.findAlbums(song, artist)).thenReturn(Collections.emptyList());
+		
+		String linkMocked = "http://coverartarchive.org/release/12345MBID/1357.jpg";
+		CoverArt cover = new CoverArt.Builder().largeUri(linkMocked).build();
+		// Mock Amazon Finder
+		when(amazonFinder.findCoverArt(new Album.Builder().songName(song).artistName(artist).name("").build())).thenReturn(Optional.of(cover ));
+		
+		// Run the method to test
+		Optional<Album> album = manager.getAlbumWithCoverAsync(song, artist);
+		
+		// Assertions
+		assertAlbumIsPresent(album, artist, song, new URL(linkMocked));
 	}
 	
 	@Test
@@ -196,30 +277,6 @@ public class CoverArtManagerTest {
 		assertThat(album.get(), is(equalTo(a1)));
 	}
 	
-	@Test
-	public void testGetNoAlbumWithCover_NoCoverArtAsunc() throws IOException {
-		String song = "In bloom";
-		String artist = "Nirvana";
-		
-		// Mock the albums found 
-		Album a1 = new Album.Builder().name("Nevermind").artistName(artist).songName(song).mbid("1").build();
-		Album a2 = new Album.Builder().name("Nevermind").artistName(artist).songName(song).mbid("2").build();
-		when(albumFinder.findAlbums(song, artist)).thenReturn(Arrays.asList(a1, a2));
-		
-		// Mock Amazon
-		when(amazonFinder.findCoverArt(a1)).thenReturn(Optional.empty());
-		
-		// Find the cover arts
-		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("1").build())).thenReturn(Optional.empty());
-		when(coverArchiveFinder.findCoverArt(new Album.Builder().mbid("2").build())).thenReturn(Optional.ofNullable(null));
-		
-		// Run the method to test
-		Optional<Album> album = manager.getAlbumWithCoverAsync(song, artist);
-		// Assertions
-		assertThat(album.isPresent(), is(true));
-		assertThat(album.get(), is(equalTo(a1)));
-	}
-	
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testGetNoAlbumWithCover_NoCoverArt404Async() throws IOException {
@@ -232,7 +289,7 @@ public class CoverArtManagerTest {
 		when(albumFinder.findAlbums(song, artist)).thenReturn(Arrays.asList(a1, a2));
 		
 		// Mock Amazon
-		when(amazonFinder.findCoverArt(a1)).thenReturn(Optional.empty());
+		when(amazonFinder.findCoverArt(a1)).thenThrow(ClientProtocolException.class);
 		
 		// Find the cover arts
 		when(coverArchiveFinder.findCoverArt(a1)).thenThrow(ClientProtocolException.class); // 404 from Server
