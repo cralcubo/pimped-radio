@@ -24,5 +24,13 @@ public interface RadioPlayerInterface {
 	 * @param eventsAdapter
 	 */
 	void addEventsListener(MediaPlayerEventAdapter eventsAdapter);
+	
+	/**
+	 * Set the audio volume of the 
+	 * Media Player.
+	 * 
+	 * @param vol must be a number between 0 and 100
+	 */
+	void setVolume(int vol);
 
 }

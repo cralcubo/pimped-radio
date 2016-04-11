@@ -5,6 +5,7 @@ import static bo.roman.radio.utilities.LoggerUtils.logDebug;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import bo.roman.radio.utilities.LoggerUtils;
 import uk.co.caprica.vlcj.binding.LibVlc;
 import uk.co.caprica.vlcj.component.AudioMediaPlayerComponent;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
@@ -47,6 +48,17 @@ public class RadioPlayer implements RadioPlayerInterface {
 	public void stop() {
 		log.info("Stopping player..."); 
 		mediaPlayer.release();
+	}
+
+	@Override
+	public void setVolume(int vol) {
+		LoggerUtils.logDebug(log, () -> "Current volume is " + mediaPlayer.getVolume());
+		if(vol < 0 || vol > 100) {
+			throw new IllegalArgumentException("The volume to set to the MediaPlayer must be between 0 - 100");
+		}
+		
+		LoggerUtils.logDebug(log, () -> "Setting new volume to " + vol);
+		mediaPlayer.setVolume(vol);
 	}
 
 }
