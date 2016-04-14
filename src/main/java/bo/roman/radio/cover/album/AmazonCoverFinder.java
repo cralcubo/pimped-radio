@@ -219,19 +219,21 @@ public class AmazonCoverFinder implements CoverArtFindable {
 	/**
 	 * Check that the Amazon Item contains the 
 	 * Item Images.
+	 * The large or medium size image retrieved from
+	 * Amazon is big enough to display in the media player.
 	 */
 	private static boolean isRelevantItem(Item i) {
 		return StringUtils.exists(i.getLargeImageUrl()) 
-				&& StringUtils.exists(i.getMediumImageUrl())
-				&& StringUtils.exists(i.getSmallImageUrl());
+				|| StringUtils.exists(i.getMediumImageUrl());
 	}
 	
 	private static CoverArt buildCoverArt(Item i) {
 		LoggerUtils.logDebug(log, () -> "Building CoverArt from Amazon Item=" + i);
 		return new CoverArt.Builder()
-				.largeUri(i.getLargeImageUrl())
-				.mediumUri(i.getMediumImageUrl())
-				.smallUri(i.getSmallImageUrl())
+				.largeUri("")
+				.mediumUri(i.getLargeImageUrl())
+				.smallUri(i.getMediumImageUrl())
+				.tinyUri(i.getSmallImageUrl())
 				.build();
 	}
 }

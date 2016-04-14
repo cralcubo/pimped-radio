@@ -13,11 +13,13 @@ public class CoverArt {
 	private Optional<URI> largeUri;
 	private Optional<URI> mediumUri;
 	private Optional<URI> smallUri;
+	private Optional<URI> tinyUri;
 	
 	private CoverArt(Builder b) {
 		largeUri = b.largeUri;
 		mediumUri = b.mediumUri;
 		smallUri = b.smallUri;
+		tinyUri = b.tinyUri;
 	}
 	
 	public Optional<URI> getLargeUri() {
@@ -34,7 +36,7 @@ public class CoverArt {
 	
 	@Override
 	public String toString() {
-		return "CoverArt [largeUri=" + largeUri + ", mediumUri=" + mediumUri + ", smallUri=" + smallUri + "]";
+		return "CoverArt [largeUri=" + largeUri + ", mediumUri=" + mediumUri + ", smallUri=" + smallUri + ", tinyUri=" + tinyUri + "]";
 	}
 
 	@Override
@@ -78,6 +80,7 @@ public class CoverArt {
 		private Optional<URI> largeUri;
 		private Optional<URI> mediumUri;
 		private Optional<URI> smallUri;
+		private Optional<URI> tinyUri;
 		
 		public Builder largeUri(String val) {
 			largeUri = buildUri(val);
@@ -91,6 +94,11 @@ public class CoverArt {
 		
 		public Builder smallUri(String val) {
 			smallUri = buildUri(val);
+			return this;
+		}
+		
+		public Builder tinyUri(String val) {
+			tinyUri = buildUri(val);
 			return this;
 		}
 		

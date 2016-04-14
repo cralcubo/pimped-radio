@@ -16,12 +16,11 @@ public class RadioPlayerEventListener extends MediaPlayerEventAdapter{
 	private static final Logger log = LoggerFactory.getLogger(RadioPlayerEventListener.class);
 	
 	private final RadioPlayer radioPlayer;
-	private final MediaMetaNotifier notifier;
+	private final MediaMetaSubject notifier;
 	
-	public RadioPlayerEventListener(RadioPlayer radioPlayer) {
+	public RadioPlayerEventListener(RadioPlayer radioPlayer, MediaMetaSubject notifier) {
 		this.radioPlayer = radioPlayer;
-		notifier = new MediaMetaNotifier();
-		notifier.registerObserver(new PrintRadioPlayerObserver());
+		this.notifier = notifier;
 	}
 	
 	@Override
@@ -33,7 +32,7 @@ public class RadioPlayerEventListener extends MediaPlayerEventAdapter{
 			meta.release();
 		}
 	}
-	
+
 	@Override
 	public void error(MediaPlayer mediaPlayer) {
 		String streamName = "";

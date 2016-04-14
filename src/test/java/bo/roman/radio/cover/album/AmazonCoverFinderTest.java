@@ -57,9 +57,10 @@ public class AmazonCoverFinderTest {
 		// Assertions
 		assertThat(coverArt.isPresent(), is(true));
 		CoverArt coverExpected = new CoverArt.Builder()
-				.largeUri("http://ecx.images-amazon.com/images/I/51xF9uNf0lL.jpg")
-				.mediumUri("http://ecx.images-amazon.com/images/I/51xF9uNf0lL._SL160_.jpg")
-				.smallUri("http://ecx.images-amazon.com/images/I/51xF9uNf0lL._SL75_.jpg")
+				.largeUri("")
+				.mediumUri("http://ecx.images-amazon.com/images/I/51xF9uNf0lL.jpg")
+				.smallUri("http://ecx.images-amazon.com/images/I/51xF9uNf0lL._SL160_.jpg")
+				.tinyUri("http://ecx.images-amazon.com/images/I/51xF9uNf0lL._SL75_.jpg")
 				.build();
 		assertThat(coverArt.get(), is(equalTo(coverExpected)));
 		
@@ -75,9 +76,10 @@ public class AmazonCoverFinderTest {
 		// Assertions
 		assertThat(coverArt.isPresent(), is(true));
 		CoverArt coverExpected = new CoverArt.Builder()
-				.largeUri("http://ecx.images-amazon.com/images/I/51NyD8CUNIL.jpg")
-				.mediumUri("http://ecx.images-amazon.com/images/I/51NyD8CUNIL._SL160_.jpg")
-				.smallUri("http://ecx.images-amazon.com/images/I/51NyD8CUNIL._SL75_.jpg")
+				.largeUri("")
+				.mediumUri("http://ecx.images-amazon.com/images/I/51NyD8CUNIL.jpg")
+				.smallUri("http://ecx.images-amazon.com/images/I/51NyD8CUNIL._SL160_.jpg")
+				.tinyUri("http://ecx.images-amazon.com/images/I/51NyD8CUNIL._SL75_.jpg")
 				.build();
 		assertThat(coverArt.get(), is(equalTo(coverExpected)));
 	}
@@ -92,9 +94,10 @@ public class AmazonCoverFinderTest {
 		// Assertions
 		assertThat(coverArt.isPresent(), is(true));
 		CoverArt coverExpected = new CoverArt.Builder()
-				.largeUri("http://ecx.images-amazon.com/images/I/51NyD8CUNIL.jpg")
-				.mediumUri("http://ecx.images-amazon.com/images/I/51NyD8CUNIL._SL160_.jpg")
-				.smallUri("http://ecx.images-amazon.com/images/I/51NyD8CUNIL._SL75_.jpg")
+				.largeUri("")
+				.mediumUri("http://ecx.images-amazon.com/images/I/51NyD8CUNIL.jpg")
+				.smallUri("http://ecx.images-amazon.com/images/I/51NyD8CUNIL._SL160_.jpg")
+				.tinyUri("http://ecx.images-amazon.com/images/I/51NyD8CUNIL._SL75_.jpg")
 				.build();
 		assertThat(coverArt.get(), is(equalTo(coverExpected)));
 	}
@@ -120,9 +123,10 @@ public class AmazonCoverFinderTest {
 		// Assertions
 		assertThat(coverArt.isPresent(), is(true));
 		CoverArt coverExpected = new CoverArt.Builder()
-				.largeUri("http://ecx.images-amazon.com/images/I/51okp3JbucL.jpg")
-				.mediumUri("http://ecx.images-amazon.com/images/I/51okp3JbucL._SL160_.jpg")
-				.smallUri("http://ecx.images-amazon.com/images/I/51okp3JbucL._SL75_.jpg")
+				.largeUri("")
+				.mediumUri("http://ecx.images-amazon.com/images/I/51okp3JbucL.jpg")
+				.smallUri("http://ecx.images-amazon.com/images/I/51okp3JbucL._SL160_.jpg")
+				.tinyUri("http://ecx.images-amazon.com/images/I/51okp3JbucL._SL75_.jpg")
 				.build();
 		assertThat(coverArt.get(), is(equalTo(coverExpected)));
 		
@@ -149,9 +153,10 @@ public class AmazonCoverFinderTest {
 		// Assertions
 		assertThat(coverArt.isPresent(), is(true));
 		CoverArt coverExpected = new CoverArt.Builder()
-				.largeUri("http://ecx.images-amazon.com/images/I/51okp3JbucL.jpg")
-				.mediumUri("http://ecx.images-amazon.com/images/I/51okp3JbucL._SL160_.jpg")
-				.smallUri("http://ecx.images-amazon.com/images/I/51okp3JbucL._SL75_.jpg")
+				.largeUri("")
+				.mediumUri("http://ecx.images-amazon.com/images/I/51okp3JbucL.jpg")
+				.smallUri("http://ecx.images-amazon.com/images/I/51okp3JbucL._SL160_.jpg")
+				.tinyUri("http://ecx.images-amazon.com/images/I/51okp3JbucL._SL75_.jpg")
 				.build();
 		assertThat(coverArt.get(), is(equalTo(coverExpected)));
 	}
