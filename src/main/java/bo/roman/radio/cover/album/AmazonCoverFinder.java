@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -78,14 +79,17 @@ public class AmazonCoverFinder implements CoverArtFindable {
 		List<Item> allItems = oItems
 				.map(AmazonItems::getItemsWrapper)
 				.map(ItemsWrapper::getItems)
-				.get();
+				.get().stream()
+				.filter(AmazonCoverFinder::isMusicItem)
+				.filter(AmazonCoverFinder::hasCoverArt)
+				.collect(Collectors.toList());
+		
 		log.info("[{}] Items found in Amazon.", allItems.size());
 		
 		// Find if there is an Amazon Item that matches the name of the album
 		// or the name of the artist if the search was made keyword.
 		Optional<Item> bestItem = allItems.stream()
 				.filter(i -> isItemTitleEqualsTo(i, album.getName()) || isItemCreatorEqualsTo(i, album.getArtistName())) 
-				.filter(AmazonCoverFinder::isRelevantItem)
 				.findFirst();
 		
 		if(bestItem.isPresent()) {
@@ -96,10 +100,7 @@ public class AmazonCoverFinder implements CoverArtFindable {
 		}
 		
 		// In case there was no match found to the name of the album, return the first Amazon Item.
-		Optional<Item> firstItem = allItems.stream()
-				.filter(AmazonCoverFinder::isMusicItem)
-				.filter(AmazonCoverFinder::isRelevantItem)
-				.findFirst();
+		Optional<Item> firstItem = allItems.stream().findFirst();
 		Optional<CoverArt> coverArt = firstItem.map(AmazonCoverFinder::buildCoverArt);
 		
 		LoggerUtils.logDebug(log, () -> String.format("CoverArt found for %s in Amazon from Item %s", album, firstItem));
@@ -222,7 +223,7 @@ public class AmazonCoverFinder implements CoverArtFindable {
 	 * The large or medium size image retrieved from
 	 * Amazon is big enough to display in the media player.
 	 */
-	private static boolean isRelevantItem(Item i) {
+	private static boolean hasCoverArt(Item i) {
 		return StringUtils.exists(i.getLargeImageUrl()) 
 				|| StringUtils.exists(i.getMediumImageUrl());
 	}

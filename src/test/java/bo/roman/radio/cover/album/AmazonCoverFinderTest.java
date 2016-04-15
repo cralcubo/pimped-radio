@@ -38,6 +38,7 @@ public class AmazonCoverFinderTest {
 	private static final String SEARCHKEYWORDCLOSEXML_PATH = ROOTH_PATH + "amazon-nirvanaKeywordClose.xml";
 	private static final String NIRVANACLOSEXML_PATH = ROOTH_PATH + "amazon-nirvanaClose.xml";
 	private static final String CESAREAXML_PATH = ROOTH_PATH + "amazon-cesarea.xml";
+	private static final String WHITESNAKEXML_PATH = ROOTH_PATH + "amazon-whitesnake.xml";
 	
 	
 	@Before
@@ -61,6 +62,25 @@ public class AmazonCoverFinderTest {
 				.mediumUri("http://ecx.images-amazon.com/images/I/51xF9uNf0lL.jpg")
 				.smallUri("http://ecx.images-amazon.com/images/I/51xF9uNf0lL._SL160_.jpg")
 				.tinyUri("http://ecx.images-amazon.com/images/I/51xF9uNf0lL._SL75_.jpg")
+				.build();
+		assertThat(coverArt.get(), is(equalTo(coverExpected)));
+		
+	}
+	
+	@Test
+	public void testFindWhitesnakeCover() throws IOException {
+		String artist = "Whitesnake";
+		String albumName = "Live at Donington 1990";
+		Album album = new Album.Builder().name(albumName).artistName(artist).build();
+		Optional<CoverArt> coverArt = doFindCoverArtByAlbum(album, WHITESNAKEXML_PATH);
+		
+		// Assertions
+		assertThat(coverArt.isPresent(), is(true));
+		CoverArt coverExpected = new CoverArt.Builder()
+				.largeUri("")
+				.mediumUri("http://ecx.images-amazon.com/images/I/61RBPBS9qcL.jpg")
+				.smallUri("http://ecx.images-amazon.com/images/I/61RBPBS9qcL._SL160_.jpg")
+				.tinyUri("http://ecx.images-amazon.com/images/I/61RBPBS9qcL._SL75_.jpg")
 				.build();
 		assertThat(coverArt.get(), is(equalTo(coverExpected)));
 		
