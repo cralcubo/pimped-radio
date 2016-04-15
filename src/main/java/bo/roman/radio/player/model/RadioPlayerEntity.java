@@ -8,9 +8,9 @@ import bo.roman.radio.cover.model.Song;
 
 public class RadioPlayerEntity {
 	
-	private Optional<Radio> radio;
-	private Optional<Song> song;
-	private Optional<Album> album;
+	private Optional<Radio> radio = Optional.empty();
+	private Optional<Song> song = Optional.empty();
+	private Optional<Album> album = Optional.empty();
 	
 	public RadioPlayerEntity(Optional<Radio> radio, Optional<Song> song, Optional<Album> album) {
 		this.radio = radio;

@@ -6,7 +6,7 @@ import bo.roman.radio.utilities.StringUtils;
 
 public abstract class MBEntity {
 	
-	private Optional<String> mbid;
+	private Optional<String> mbid = Optional.empty();
 	
 	protected MBEntity(String mbid) {
 		this.mbid = Optional.of(StringUtils.nullIsEmpty(mbid));

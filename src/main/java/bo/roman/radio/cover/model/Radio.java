@@ -18,7 +18,7 @@ public class Radio {
 	private String id;
 	private String category;
 	private Picture picture;
-	private Optional<URI> logoUri;
+	private Optional<URI> logoUri = Optional.empty();
 	
 	public Radio(String name, URI logoUri){
 		this.name = name;
