@@ -12,10 +12,6 @@
 		<appender-ref ref="STDOUT" />
 	</logger>
 	
-	<logger name="bo.roman.radio.cover.station" level="debug" additivity="false">
-		<appender-ref ref="STDOUT" />
-	</logger>
-
 	<root level="error">
 		<appender-ref ref="STDOUT" />
 	</root>

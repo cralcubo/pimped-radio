@@ -231,7 +231,6 @@ public class AmazonCoverFinder implements CoverArtFindable {
 	private static CoverArt buildCoverArt(Item i) {
 		LoggerUtils.logDebug(log, () -> "Building CoverArt from Amazon Item=" + i);
 		return new CoverArt.Builder()
-				.largeUri("")
 				.mediumUri(i.getLargeImageUrl())
 				.smallUri(i.getMediumImageUrl())
 				.tinyUri(i.getSmallImageUrl())

@@ -10,10 +10,10 @@ import org.slf4j.LoggerFactory;
 public class CoverArt {
 	private final static Logger log = LoggerFactory.getLogger(CoverArt.class);
 	
-	private Optional<URI> largeUri = Optional.empty();
-	private Optional<URI> mediumUri = Optional.empty();
-	private Optional<URI> smallUri = Optional.empty();
-	private Optional<URI> tinyUri = Optional.empty();
+	private Optional<URI> largeUri;
+	private Optional<URI> mediumUri;
+	private Optional<URI> smallUri;
+	private Optional<URI> tinyUri;
 	
 	private CoverArt(Builder b) {
 		largeUri = b.largeUri;
@@ -77,10 +77,10 @@ public class CoverArt {
 	}
 	
 	public static class Builder {
-		private Optional<URI> largeUri;
-		private Optional<URI> mediumUri;
-		private Optional<URI> smallUri;
-		private Optional<URI> tinyUri;
+		private Optional<URI> largeUri = Optional.empty();
+		private Optional<URI> mediumUri = Optional.empty();
+		private Optional<URI> smallUri = Optional.empty();
+		private Optional<URI> tinyUri = Optional.empty();
 		
 		public Builder largeUri(String val) {
 			largeUri = buildUri(val);

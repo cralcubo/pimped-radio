@@ -9,7 +9,7 @@ public class Album extends MBEntity{
 	private String artistName;
 	private String name;
 	private String status;
-	private Optional<CoverArt> coverArt = Optional.empty();
+	private Optional<CoverArt> coverArt;
 
 	private Album(Builder builder) {
 		super(builder.mbid);
@@ -51,10 +51,10 @@ public class Album extends MBEntity{
 	public static class Builder {
 		private String artistName;
 		private String songName;
-		private Optional<CoverArt> coverArt;
 		private String status;
 		private String name;
 		private String mbid;
+		private Optional<CoverArt> coverArt = Optional.empty();
 
 		public Builder name(String val) {
 			name = nullIsEmpty(val);

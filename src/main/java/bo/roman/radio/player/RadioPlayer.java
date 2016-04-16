@@ -28,6 +28,10 @@ public class RadioPlayer implements RadioPlayerInterface {
 		mediaPlayer = playerComponent.getMediaPlayer();
 	}
 	
+	protected RadioPlayer(MediaPlayer mp) {
+		mediaPlayer = mp;
+	}
+	
 	@Override
 	public void addEventsListener(MediaPlayerEventAdapter eventsAdapter) {
 		mediaPlayer.addMediaPlayerEventListener(eventsAdapter);

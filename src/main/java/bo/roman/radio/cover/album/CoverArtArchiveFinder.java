@@ -74,7 +74,6 @@ public class CoverArtArchiveFinder implements CoverArtFindable {
 						.largeUri(i.getImage())
 						.mediumUri(i.getThumbnails().get("large"))
 						.smallUri(i.getThumbnails().get("small"))
-						.tinyUri("")
 						.build())
 				.findFirst();
 		
