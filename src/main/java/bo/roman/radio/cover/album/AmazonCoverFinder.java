@@ -5,6 +5,7 @@ import static bo.roman.radio.utilities.StringUtils.exists;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -23,20 +24,23 @@ import bo.roman.radio.cover.model.CoverArt;
 import bo.roman.radio.cover.model.mapping.AmazonItems;
 import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper;
 import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item;
+import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.Image;
 import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.ItemAttributes;
 import bo.roman.radio.utilities.HttpUtils;
 import bo.roman.radio.utilities.LoggerUtils;
 import bo.roman.radio.utilities.StringUtils;
 
 public class AmazonCoverFinder implements CoverArtFindable {
-
-	public enum SearchType {SEARCHBY_ALBUM, SEARCHBY_KEYWORD, UNKNOWN}
 	
 	private final static Logger log = LoggerFactory.getLogger(AmazonCoverFinder.class);
 
+	public enum SearchType {SEARCHBY_ALBUM, SEARCHBY_KEYWORD, UNKNOWN}
+
 	private static final String MUSICWORD_REGEX = "(?i)\\bmusic\\b";
-	
 	private static final String PRIMARYCONTRIBUTOR_ROLE = "Primary Contributor";
+	
+	private static final int MINIMAGE_HEIGHT = 200;
+	private static final int MINIMAGE_WIDTH = 200;
 	
 	@Override
 	public Optional<CoverArt> findCoverArt(Album album) throws IOException {
@@ -89,8 +93,8 @@ public class AmazonCoverFinder implements CoverArtFindable {
 		// Find if there is an Amazon Item that matches the name of the album
 		// or the name of the artist if the search was made keyword.
 		Optional<Item> bestItem = allItems.stream()
-				.filter(i -> isItemTitleEqualsTo(i, album.getName()) || isItemCreatorEqualsTo(i, album.getArtistName())) 
-				.findFirst();
+				.filter(i -> isItemTitleEqualsTo(i, album.getName()) || isItemCreatorEqualsTo(i, album.getArtistName()))
+				.max(new ImageComparator());
 		
 		if(bestItem.isPresent()) {
 			Optional<CoverArt> coverArt = bestItem.map(AmazonCoverFinder::buildCoverArt);
@@ -99,8 +103,9 @@ public class AmazonCoverFinder implements CoverArtFindable {
 			return coverArt;
 		}
 		
-		// In case there was no match found to the name of the album, return the first Amazon Item.
-		Optional<Item> firstItem = allItems.stream().findFirst();
+		// In case there was no match found to the name of the album, return the Amazon Item with the biggest Image.
+		Optional<Item> firstItem = allItems.stream()
+				.max(new ImageComparator());
 		Optional<CoverArt> coverArt = firstItem.map(AmazonCoverFinder::buildCoverArt);
 		
 		LoggerUtils.logDebug(log, () -> String.format("CoverArt found for %s in Amazon from Item %s", album, firstItem));
@@ -220,12 +225,17 @@ public class AmazonCoverFinder implements CoverArtFindable {
 	/**
 	 * Check that the Amazon Item contains the 
 	 * Item Images.
-	 * The large or medium size image retrieved from
-	 * Amazon is big enough to display in the media player.
+	 * Conditions:
+	 * - The item must have the large size image retrieved from
+	 * Amazon.
+	 * - The Size must be at least: 200 x 200 pixels.
 	 */
 	private static boolean hasCoverArt(Item i) {
-		return StringUtils.exists(i.getLargeImageUrl()) 
-				|| StringUtils.exists(i.getMediumImageUrl());
+		Image largeImage = i.getLargeImage();
+		
+		return largeImage != null && StringUtils.exists(largeImage.getUrl()) 
+				&& 
+				largeImage.getWidth() > MINIMAGE_WIDTH && largeImage.getHeight() > MINIMAGE_HEIGHT;
 	}
 	
 	private static CoverArt buildCoverArt(Item i) {
@@ -235,5 +245,16 @@ public class AmazonCoverFinder implements CoverArtFindable {
 				.smallUri(i.getMediumImageUrl())
 				.tinyUri(i.getSmallImageUrl())
 				.build();
+	}
+	
+	private static class ImageComparator implements Comparator<Item> {
+		@Override
+		public int compare(Item it1, Item it2) {
+			Image i1 = it1.getLargeImage();
+			Image i2 = it2.getLargeImage();
+			int a1 = i1.getWidth() * i1.getHeight();
+			int a2 = i2.getWidth() * i2.getHeight();
+			return Integer.compare(a1, a2);
+		}
 	}
 }

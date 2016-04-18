@@ -183,7 +183,9 @@ public class AmazonItems {
 			}
 
 			public static class Image {
-				String url;
+				private String url;
+				private int height;
+				private int width;
 				
 				public String getUrl() {
 					return url;
@@ -193,9 +195,24 @@ public class AmazonItems {
 					this.url = StringUtils.cleanIt(url);
 				}
 				
+				public int getHeight() {
+					return height;
+				}
+				@XmlElement(name="Height")
+				public void setHeight(int height) {
+					this.height = height;
+				}
+				
+				public int getWidth() {
+					return width;
+				}
+				@XmlElement(name="Width")
+				public void setWidth(int width) {
+					this.width = width;
+				}
 				@Override
 				public String toString() {
-					return "Image [url=" + url + "]";
+					return "Image [url=" + url + ", height=" + height + ", width=" + width + "]";
 				}
 			}
 		}

@@ -39,7 +39,8 @@ public class AmazonCoverFinderTest {
 	private static final String NIRVANACLOSEXML_PATH = ROOTH_PATH + "amazon-nirvanaClose.xml";
 	private static final String CESAREAXML_PATH = ROOTH_PATH + "amazon-cesarea.xml";
 	private static final String WHITESNAKEXML_PATH = ROOTH_PATH + "amazon-whitesnake.xml";
-	
+	private static final String NOBIGIMAGEXML_PATH = ROOTH_PATH + "amazon-noBigImages.xml";
+	private static final String MAXSIZEXML_PATH = ROOTH_PATH + "amazon-maxSize.xml";
 	
 	@Before
 	public void setUp() {
@@ -76,12 +77,39 @@ public class AmazonCoverFinderTest {
 		// Assertions
 		assertThat(coverArt.isPresent(), is(true));
 		CoverArt coverExpected = new CoverArt.Builder()
-				.mediumUri("http://ecx.images-amazon.com/images/I/61RBPBS9qcL.jpg")
-				.smallUri("http://ecx.images-amazon.com/images/I/61RBPBS9qcL._SL160_.jpg")
-				.tinyUri("http://ecx.images-amazon.com/images/I/61RBPBS9qcL._SL75_.jpg")
+				.mediumUri("http://ecx.images-amazon.com/images/I/61wHk0XqESL.jpg")
+				.smallUri("http://ecx.images-amazon.com/images/I/61wHk0XqESL._SL160_.jpg")
+				.tinyUri("http://ecx.images-amazon.com/images/I/61wHk0XqESL._SL75_.jpg")
 				.build();
 		assertThat(coverArt.get(), is(equalTo(coverExpected)));
+	}
+	
+	@Test
+	public void testFindCover_maxSize() throws IOException {
+		String artist = "Whitesnake";
+		String albumName = "Live at Donington 1990";
+		Album album = new Album.Builder().name(albumName).artistName(artist).build();
+		Optional<CoverArt> coverArt = doFindCoverArtByAlbum(album, MAXSIZEXML_PATH);
 		
+		// Assertions
+		assertThat(coverArt.isPresent(), is(true));
+		CoverArt coverExpected = new CoverArt.Builder()
+				.mediumUri("http://ecx.images-amazon.com/images/I/61wHk0XqESL.jpg")
+				.smallUri("http://ecx.images-amazon.com/images/I/61wHk0XqESL._SL160_.jpg")
+				.tinyUri("http://ecx.images-amazon.com/images/I/61wHk0XqESL._SL75_.jpg")
+				.build();
+		assertThat(coverArt.get(), is(equalTo(coverExpected)));
+	}
+	
+	@Test
+	public void testFindCover_notBigEnoughImage() throws IOException {
+		String artist = "Whitesnake";
+		String albumName = "Live at Donington 1990";
+		Album album = new Album.Builder().name(albumName).artistName(artist).build();
+		Optional<CoverArt> coverArt = doFindCoverArtByAlbum(album, NOBIGIMAGEXML_PATH);
+		
+		// Assertions
+		assertThat(coverArt.isPresent(), is(false));
 	}
 	
 	@Test
