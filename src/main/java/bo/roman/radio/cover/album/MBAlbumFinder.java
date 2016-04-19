@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -30,6 +34,8 @@ import bo.roman.radio.utilities.StringUtils;
  *
  */
 public class MBAlbumFinder implements AlbumFindable {
+	private static final int TIMEOUT_SECS = 3;
+
 	private static final String OFFICIAL_RELEASE = "Official";
 
 	private final static Logger log = LoggerFactory.getLogger(MBAlbumFinder.class);
@@ -48,8 +54,16 @@ public class MBAlbumFinder implements AlbumFindable {
 	
 	@Override
 	public List<Album> findAlbums(String song, String artist) {
+		CompletableFuture<Set<Album>> allFutureAlbums = CompletableFuture.supplyAsync(() -> findAllAlbums(song, artist));
+		final Set<Album> allAlbums;
+		try {
+			allAlbums = allFutureAlbums.get(TIMEOUT_SECS, TimeUnit.SECONDS);
+		} catch (InterruptedException | ExecutionException | TimeoutException e) {
+			log.error("No Albums could be retrieved from MusicBrains.", e);
+			return Collections.emptyList();
+		}
+		
 		// Find all Albums
-		Set<Album> allAlbums = findAllAlbums(song, artist);
 		log.info("All albums found in MusicBrainz for {} - {} are in total={}", song, artist, allAlbums.size());
 		logDebug(log, () -> allAlbums.toString());
 		
