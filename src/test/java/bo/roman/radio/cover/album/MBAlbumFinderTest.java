@@ -3,7 +3,7 @@ package bo.roman.radio.cover.album;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -101,17 +101,20 @@ public class MBAlbumFinderTest {
 	
 	@Test
 	public void testMaxPrioritySongName() {
-		String[] titles = {"In Bloom", "The best of Nirvana", "Nevermind Underground", "Nevermind", "Unplugged", "Nevermind", "Nevermind", "The best of the 90s", "GTA soundtrack", "Nevermind", "The best of 90s", "IN BLOOM", "In Bloom"};      
-		String[] credits = {"Nirvana", "", "Nirvana", "Nirvana", "Nirvana", "", "", "Various artist", "Varios artistas", "Nirvana", "Various Artists", "", "Nirvana"};
-		String[] statuses = {"Official", "Official", "Bottleg", "Official", "Official", "Official", "Official", "Official", "", "Official", "Official", "Official", "Official"};      
-		String[] ids = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+		String[] titles = {"In Bloom", "The best of Nirvana", "Nevermind Underground", "Nevermind", "Unplugged", "Nevermind", "Nevermind", "The best of the 90s", "GTA soundtrack", "Nevermind", "The best of 90s", "IN BLOOM", "IN Bloom", "In Bloom (Remix)", "In Bloom and Nevermind", "In Bloom 2000 (Remix)"};      
+		String[] credits = {"Nirvana", "", "Nirvana", "Nirvana", "Nirvana", "", "", "Various artist", "Varios artistas", "Nirvana", "Various Artists", "", "Nirvana", "Nirvana", "Nirvana", "Nirvana"};
+		String[] statuses = {"Official", "Official", "Bottleg", "Official", "Official", "Official", "Official", "Official", "", "Official", "Official", "Official", "Official", "Official", "Official", "Official"};      
+		String[] ids = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"};
 		List<Album> albums = doRunAlbumFinder(recordingsFactory(titles, credits, statuses, ids));
-		
-		// Assert that the first album is (In Bloom:"":"":11)
-		// The first three albums expected are expected to have the same name of the testSong
-		assertTrue("Album with same song name expected.", albums.get(0).getName().equalsIgnoreCase(testSong));
-		assertTrue("Album with same song name expected.", albums.get(1).getName().equalsIgnoreCase(testSong));
-		assertTrue("Album with same song name expected.", albums.get(2).getName().equalsIgnoreCase(testSong));
+		List<String> albumNames = albums.stream().map(Album::getName).collect(Collectors.toList());
+		// Assert that the albums with the same name as the song are given priority
+		assertThat("Album with same song name expected.", albumNames, hasItems("In Bloom", "IN BLOOM", "IN Bloom", "In Bloom (Remix)"));
+		assertThat("Unexpected albums present", albumNames, not(hasItems("In Bloom and Nevermind", "In Bloom 2000 (Remix)")));
+		// Assert that the In Bloom albums are given first priority
+		for(int i = 0 ; i < 4; i++) {
+			Album a = albums.get(i);
+			assertTrue(String.format("Album [%s] in position %d is unexpected", a.getName(), i), a.getName().toLowerCase().contains("in bloom"));
+		}
 	}
 	
 	@Test

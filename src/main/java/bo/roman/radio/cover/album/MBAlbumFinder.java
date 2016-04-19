@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.musicbrainz.controller.Recording;
@@ -33,6 +35,10 @@ public class MBAlbumFinder implements AlbumFindable {
 	private final static Logger log = LoggerFactory.getLogger(MBAlbumFinder.class);
 
 	private static final String QUERY_TEMPLATE = "\"%s\" AND artist:\"%s\""; // songName, artistName
+	
+	private static final String SAMENAMEREGEX_TMPL = "(?i)^\\b%s\\b($|\\s+\\(.+\\)$)";
+
+	private static final long HIGHPRIORITY = 1000_000L;
 	
 	private final int limit;
 	
@@ -112,8 +118,9 @@ public class MBAlbumFinder implements AlbumFindable {
 		    	.collect(Collectors.groupingBy(Album::getName, Collectors.counting()))
 		    	.entrySet().stream()
 		    	.peek(es -> {
-		    		if(es.getKey().equalsIgnoreCase(songName)) {
-		    			es.setValue(1000_000L);
+		    		Matcher m = Pattern.compile(String.format(SAMENAMEREGEX_TMPL, songName)).matcher(es.getKey());
+		    		if(m.find()) {
+		    			es.setValue(HIGHPRIORITY);
 		    		}
 		    	})
 		    	.sorted((es1, es2) -> Long.compare(es2.getValue(), es1.getValue()))
