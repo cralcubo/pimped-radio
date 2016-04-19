@@ -12,6 +12,7 @@ import uk.co.caprica.vlcj.player.MediaMeta;
 public class MediaMetaUtils {
 	private static final String FROMSPACEDASH_REGEX = "(?<=-)\\s+.+$";
 	private static final String TILSPACEDASH_REGEX = "^.+?\\s+(?=-)";
+	private static final String SONGINFO_REGEX = "(?<=.)\\(.*\\).*";
 	
 	/**
 	 * Get the information from the MetaData
@@ -23,6 +24,10 @@ public class MediaMetaUtils {
 	 * If not, check the nowPlaying and parse to 
 	 * find the Song and Artist.
 	 * 
+	 * When finding the songName, if there are braces next to it '()', this is extra information that will be removed.
+	 * The reason is that generally this extra information make the finding of the Album and therefore the CoverArt
+	 * much complicated, so to help on this search this information is removed.
+	 * 
 	 * @param meta
 	 * @return
 	 */
@@ -31,9 +36,9 @@ public class MediaMetaUtils {
 		String songName = meta.getTitle();
 		String artistName = meta.getArtist();
 		if(StringUtils.exists(songName) && StringUtils.exists(artistName)) {
-			songName = StringEscapeUtils.unescapeHtml4(songName).trim();
-			artistName = StringEscapeUtils.unescapeHtml4(artistName).trim();
-			return Optional.of(new Song(songName, artistName));
+			songName = StringEscapeUtils.unescapeHtml4(songName);
+			artistName = StringEscapeUtils.unescapeHtml4(artistName);
+			return buildCleanSong(songName, artistName);
 		}
 		
 		// Check NowPlaying
@@ -51,13 +56,39 @@ public class MediaMetaUtils {
 		Matcher songMatcher = Pattern.compile(TILSPACEDASH_REGEX).matcher(nowPlaying);
 		Matcher artistMatcher = Pattern.compile(FROMSPACEDASH_REGEX).matcher(nowPlaying);
 		if(songMatcher.find() && artistMatcher.find()) {
-			String artistName = songMatcher.group().trim();
-			String songName = artistMatcher.group().trim();
-			return Optional.of(new Song(songName, artistName));
+			String artistName = songMatcher.group();
+			String songName = artistMatcher.group();
+			return buildCleanSong(songName, artistName);
 		}
 		
 		// There is no artist - song pair, just return the full nowPlaying String
-		return Optional.of(new Song(nowPlaying.trim(), ""));
+		return buildCleanSong(nowPlaying);
+	}
+	
+	private static Optional<Song> buildCleanSong(String nowPlaying) {
+		return buildCleanSong(nowPlaying, null);
+	}
+	
+	/**
+	 * - Trim the songName and artist name.
+	 * - Remove the extra info attached to a song.
+	 * 
+	 * @param songName
+	 * @param artist
+	 * @return
+	 */
+	private static Optional<Song> buildCleanSong(String songName, String artist) {
+		if(!StringUtils.exists(songName)) {
+			return Optional.empty();
+		}
+		
+		songName = songName.replaceAll(SONGINFO_REGEX, "").trim();
+		if(StringUtils.exists(songName) && !StringUtils.exists(artist)) {
+			return Optional.of(new Song(songName, ""));
+		}
+		
+		artist = artist.trim();
+		return Optional.of(new Song(songName, artist));
 	}
 	
 	/**

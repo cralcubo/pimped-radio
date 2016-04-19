@@ -33,7 +33,7 @@ import bo.roman.radio.utilities.StringUtils;
 public class CoverArtManager implements RadioCoverInterface{
 	private final static Logger log = LoggerFactory.getLogger(CoverArtManager.class);
 	
-	private static final int MAXALBUMS_FETCHED = 10;
+	private static final int MAXALBUMS_FETCHED = 5;
 	
 	private static final String DEFAULTLOGO_PATH = "src/main/resources/pimped-radio-flat.png";
 	
@@ -77,18 +77,18 @@ public class CoverArtManager implements RadioCoverInterface{
 			return richAlbum;
 		}
 		
-		// Find the covers first in Amazon
-		Optional<Album> amazonAlbum = findAmazonAlbum(albums);
-		if(amazonAlbum.isPresent()) {
-			log.info("RichAlbum build after Amazon search=" + amazonAlbum);
-			return amazonAlbum;
-		}
-		
-		// No Album with Cover found in Amazon, try CoverArtArchive
+		// Find the covers first in CoverArtArchive
 		Optional<Album> coverArchiveAlbum = findCoverArchiveAlbum(albums);
 		if(coverArchiveAlbum.isPresent()) {
 			log.info("RichAlbum build after CoverArtArchive search=" + coverArchiveAlbum);
 			return coverArchiveAlbum;
+		}
+		
+		// No Album with Cover found in CoverArtArchive, try Amazon
+		Optional<Album> amazonAlbum = findAmazonAlbum(albums);
+		if(amazonAlbum.isPresent()) {
+			log.info("RichAlbum build after Amazon search=" + amazonAlbum);
+			return amazonAlbum;
 		}
 		
 		// No cover art album found, return the first cover-less album
