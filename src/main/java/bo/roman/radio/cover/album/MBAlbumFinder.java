@@ -59,7 +59,7 @@ public class MBAlbumFinder implements AlbumFindable {
 		try {
 			allAlbums = allFutureAlbums.get(TIMEOUT_SECS, TimeUnit.SECONDS);
 		} catch (InterruptedException | ExecutionException | TimeoutException e) {
-			log.error("No Albums could be retrieved from MusicBrains.", e);
+			log.error("Error finding Albums in MusicBrains.", e);
 			return Collections.emptyList();
 		}
 		

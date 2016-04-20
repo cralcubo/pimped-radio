@@ -20,6 +20,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.musicbrainz.controller.Recording;
 import org.musicbrainz.model.entity.RecordingWs2;
 import org.musicbrainz.model.entity.ReleaseWs2;
@@ -53,6 +55,32 @@ public class MBAlbumFinderTest {
 	}
 	
 	/* ***Tests*** */
+	
+	@Test
+	public void testFindAlbums_TimeOut() {
+		PowerMockito.when(MBAlbumFinder.RecordingFactory.createRecording()).thenReturn(recording);
+		when(recording.getFullSearchResultList()).thenAnswer(new Answer<List<RecordingResultWs2>>() {
+			@Override
+			public List<RecordingResultWs2> answer(InvocationOnMock invocation) throws Throwable {
+				// Emulate a delay of 4 seconds.
+				Thread.sleep(4000);
+				return null;
+			}
+		});
+		
+		List<Album> albums = finder.findAlbums(testSong, testArtist);
+		
+		assertThat(albums, is(empty()));
+	}
+	
+	@Test
+	public void testFindAlbums_MBException() {
+		PowerMockito.when(MBAlbumFinder.RecordingFactory.createRecording()).thenReturn(recording);
+		when(recording.getFullReleaseList()).thenThrow(new RuntimeException());
+		List<Album> albums = finder.findAlbums(testSong, testArtist);
+		
+		assertThat(albums, is(empty()));
+	}
 	
 	@Test
 	public void testSkipRepeatedAlbums() {
