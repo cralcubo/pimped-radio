@@ -17,7 +17,7 @@ import org.junit.After;
 import org.junit.Test;
 
 public class CacheLogoUtilTest {
-	private static final String RESOURCES_FOLDER = "src/test/resources/";
+	private static final String RESOURCES_FOLDER = "src/test/resources/images/";
 	private static final String RADIOPARADISE_JPG = RESOURCES_FOLDER + "radio-paradise.jpg";
 	private static final String JSON_FILE = RESOURCES_FOLDER + "radio-paradise.json";
 	private final String radioName = "aTestRadio";

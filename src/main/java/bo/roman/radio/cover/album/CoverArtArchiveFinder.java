@@ -13,7 +13,9 @@ import bo.roman.radio.cover.model.CoverArt;
 import bo.roman.radio.cover.model.mapping.CoverArtArchiveImages;
 import bo.roman.radio.cover.model.mapping.CoverArtArchiveImages.Image;
 import bo.roman.radio.utilities.HttpUtils;
+import bo.roman.radio.utilities.ImageUtil;
 import bo.roman.radio.utilities.LoggerUtils;
+import bo.roman.radio.utilities.StringUtils;
 
 /**
  * This class will do a request to:
@@ -70,6 +72,7 @@ public class CoverArtArchiveFinder implements CoverArtFindable {
 		
 		Optional<CoverArt> coverArt = images.getImages().stream()
 				.filter(Image::isFront)
+				.filter(this::isLargeImageBigEnough)
 				.map(i -> new CoverArt.Builder()
 						.largeUri(i.getImage())
 						.mediumUri(i.getThumbnails().get("large"))
@@ -80,6 +83,14 @@ public class CoverArtArchiveFinder implements CoverArtFindable {
 		return coverArt;
 	}
 	
+	private boolean isLargeImageBigEnough(Image i) {
+		if(i.getThumbnails() != null && StringUtils.exists(i.getThumbnails().get("large"))) 
+		{
+			return ImageUtil.isBigEnough(i.getThumbnails().get("large"));
+		}
+		
+		return false;
+	}
 	
 
 }

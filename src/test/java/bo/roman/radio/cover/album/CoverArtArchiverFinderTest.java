@@ -22,14 +22,15 @@ import bo.roman.radio.cover.album.CoverArtArchiveFinder;
 import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.cover.model.CoverArt;
 import bo.roman.radio.utilities.HttpUtils;
+import bo.roman.radio.utilities.ImageUtil;
 import bo.roman.radio.utilities.ReflectionUtils;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(HttpUtils.class)
+@PrepareForTest({HttpUtils.class, ImageUtil.class})
 public class CoverArtArchiverFinderTest {
 
 	// Utilities constants
-	private static final String JSONSOURCE_ROOT = "src/test/resources/";
+	private static final String JSONSOURCE_ROOT = "src/test/resources/coverart/";
 	private static final String JSON_SOURCE_OK = JSONSOURCE_ROOT + "cover-art.json";
 	private static final String JSON_SOURCE_NOFRONT = JSONSOURCE_ROOT + "cover-art-nofront.json";
 	private static final String MBID = "12345MBID";
@@ -50,6 +51,7 @@ public class CoverArtArchiverFinderTest {
 	@Before
 	public void setUp() {
 		PowerMockito.mockStatic(HttpUtils.class);
+		PowerMockito.mockStatic(ImageUtil.class);
 		try {
 			coverArtJson = new String(Files.readAllBytes(Paths.get(JSON_SOURCE_OK)));
 			coverArtJson_NoFront = new String(Files.readAllBytes(Paths.get(JSON_SOURCE_NOFRONT)));
@@ -61,11 +63,22 @@ public class CoverArtArchiverFinderTest {
 
 	@Test
 	public void testRequestToCoverArt() throws IOException {
+		String imageUri = "http://coverartarchive.org/release/12345MBID/1357-500.jpg";
+		PowerMockito.when(ImageUtil.isBigEnough(imageUri)).thenReturn(true);
+		
 		testRequestCover(coverArtJson, Optional.of(new CoverArt.Builder()
 				.largeUri("http://coverartarchive.org/release/12345MBID/1357.jpg")
-				.mediumUri("http://coverartarchive.org/release/12345MBID/1357-500.jpg")
+				.mediumUri(imageUri)
 				.smallUri("http://coverartarchive.org/release/12345MBID/1357-250.jpg")
 				.build()));
+	}
+	
+	@Test
+	public void testRequestToCoverArt_SmallImage() throws IOException {
+		String imageUri = "http://coverartarchive.org/release/12345MBID/1357-500.jpg";
+		PowerMockito.when(ImageUtil.isBigEnough(imageUri)).thenReturn(false);
+		
+		testRequestCover(coverArtJson, Optional.empty());
 	}
 
 	@Test

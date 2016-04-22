@@ -27,6 +27,7 @@ import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item;
 import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.Image;
 import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.ItemAttributes;
 import bo.roman.radio.utilities.HttpUtils;
+import bo.roman.radio.utilities.ImageUtil;
 import bo.roman.radio.utilities.LoggerUtils;
 import bo.roman.radio.utilities.StringUtils;
 
@@ -38,9 +39,6 @@ public class AmazonCoverFinder implements CoverArtFindable {
 
 	private static final String MUSICWORD_REGEX = "(?i)\\bmusic\\b";
 	private static final String PRIMARYCONTRIBUTOR_ROLE = "Primary Contributor";
-	
-	private static final int MINIMAGE_HEIGHT = 200;
-	private static final int MINIMAGE_WIDTH = 200;
 	
 	@Override
 	public Optional<CoverArt> findCoverArt(Album album) throws IOException {
@@ -86,6 +84,7 @@ public class AmazonCoverFinder implements CoverArtFindable {
 				.get().stream()
 				.filter(AmazonCoverFinder::isMusicItem)
 				.filter(AmazonCoverFinder::hasCoverArt)
+				.filter(AmazonCoverFinder::isBigEnough)
 				.collect(Collectors.toList());
 		
 		log.info("[{}] Items found in Amazon.", allItems.size());
@@ -223,19 +222,17 @@ public class AmazonCoverFinder implements CoverArtFindable {
 	}
 	
 	/**
-	 * Check that the Amazon Item contains the 
-	 * Item Images.
-	 * Conditions:
-	 * - The item must have the large size image retrieved from
-	 * Amazon.
-	 * - The Size must be at least: 200 x 200 pixels.
+	 * Check that the Amazon Item contains the largest
+	 * Item Image.
 	 */
 	private static boolean hasCoverArt(Item i) {
 		Image largeImage = i.getLargeImage();
-		
-		return largeImage != null && StringUtils.exists(largeImage.getUrl()) 
-				&& 
-				largeImage.getWidth() > MINIMAGE_WIDTH && largeImage.getHeight() > MINIMAGE_HEIGHT;
+		return largeImage != null && StringUtils.exists(largeImage.getUrl()); 
+	}
+	
+	private static boolean isBigEnough(Item i) {
+		Image largeImage = i.getLargeImage();
+		return ImageUtil.isBigEnough(largeImage.getWidth(), largeImage.getHeight());
 	}
 	
 	private static CoverArt buildCoverArt(Item i) {

@@ -26,7 +26,7 @@ import bo.roman.radio.utilities.ReflectionUtils;
 @PrepareForTest(FacebookUtil.class)
 public class FacebookStationFinderTest {
 	/* Pages JSON Mock */
-	private static final String RESOURCES_PATH = "src/test/resources/";
+	private static final String RESOURCES_PATH = "src/test/resources/radio/";
 	private static final String RADIOPARADISE_PATH = RESOURCES_PATH + "radio-paradise.json";
 	private static final String RADIOXESTEREO_PATH = RESOURCES_PATH + "radio-xestereo.json";
 	private static final String RADIOPASION_PATH = RESOURCES_PATH + "radio-pasion.json";
