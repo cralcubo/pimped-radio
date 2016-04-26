@@ -232,7 +232,7 @@ public class AmazonCoverFinder implements CoverArtFindable {
 	
 	private static boolean isBigEnough(Item i) {
 		Image largeImage = i.getLargeImage();
-		return ImageUtil.isBigEnough(largeImage.getWidth(), largeImage.getHeight());
+		return ImageUtil.isBigEnough(largeImage.getWidth(), largeImage.getHeight(), largeImage.getUrl());
 	}
 	
 	private static CoverArt buildCoverArt(Item i) {

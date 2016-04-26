@@ -1,9 +1,12 @@
 package bo.roman.radio.cover.album;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -30,8 +33,6 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import bo.roman.radio.cover.album.AlbumFindable;
-import bo.roman.radio.cover.album.MBAlbumFinder;
 import bo.roman.radio.cover.model.Album;
 
 @RunWith(PowerMockRunner.class)
@@ -55,6 +56,45 @@ public class MBAlbumFinderTest {
 	}
 	
 	/* ***Tests*** */
+	
+	@Test
+	public void testNoAlbumReturned_noSongAsync() {
+		List<Album> albums1 = finder.findAlbums(null, "anArtist");
+		assertThat(albums1, is(empty()));
+		
+		List<Album> albums2 = finder.findAlbums("", "anArtist");
+		assertThat(albums2, is(empty()));
+		
+		List<Album> albums3 = finder.findAlbums(" ", "anArtist");
+		assertThat(albums3, is(empty()));
+	}
+	
+	@Test
+	public void testNoAlbumReturned_noArtistAsync() {
+		List<Album> albums1 = finder.findAlbums("aSong", null);
+		assertThat(albums1, is(empty()));
+		
+		List<Album> albums2 = finder.findAlbums("aSong", "");
+		assertThat(albums2, is(empty()));
+		
+		List<Album> albums3 = finder.findAlbums("aSong", " ");
+		assertThat(albums3, is(empty()));
+	}
+	
+	@Test
+	public void testNoAlbumReturned_noArtist_noSongAsync() {
+		List<Album> albums1 = finder.findAlbums("", null);
+		assertThat(albums1, is(empty()));
+		
+		List<Album> albums2 = finder.findAlbums(null, "");
+		assertThat(albums2, is(empty()));
+		
+		List<Album> albums3 = finder.findAlbums(" ", " ");
+		assertThat(albums3, is(empty()));
+		
+		List<Album> albums4 = finder.findAlbums(null, null);
+		assertThat(albums4, is(empty()));
+	}
 	
 	@Test
 	public void testFindAlbums_TimeOut() {

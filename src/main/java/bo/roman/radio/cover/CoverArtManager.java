@@ -16,8 +16,8 @@ import org.slf4j.LoggerFactory;
 
 import bo.roman.radio.cover.album.AlbumFindable;
 import bo.roman.radio.cover.album.AmazonCoverFinder;
-import bo.roman.radio.cover.album.CoverArtArchiveFinder;
 import bo.roman.radio.cover.album.CoverArtFindable;
+import bo.roman.radio.cover.album.CoverArchiveFinder;
 import bo.roman.radio.cover.album.MBAlbumFinder;
 import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.cover.model.CoverArt;
@@ -25,8 +25,8 @@ import bo.roman.radio.cover.model.Radio;
 import bo.roman.radio.cover.station.CacheLogoUtil;
 import bo.roman.radio.cover.station.FacebookRadioStationFinder;
 import bo.roman.radio.cover.station.RadioStationFindable;
-import bo.roman.radio.utilities.FiltersUtil;
 import bo.roman.radio.utilities.ExecutorUtils;
+import bo.roman.radio.utilities.FiltersUtil;
 import bo.roman.radio.utilities.LoggerUtils;
 import bo.roman.radio.utilities.StringUtils;
 
@@ -43,7 +43,7 @@ public class CoverArtManager implements RadioCoverInterface{
 	private final RadioStationFindable radioFinder;
 	
 	public CoverArtManager() {
-		this(new MBAlbumFinder(MAXALBUMS_FETCHED), new CoverArtArchiveFinder(), new AmazonCoverFinder(), new FacebookRadioStationFinder());
+		this(new MBAlbumFinder(MAXALBUMS_FETCHED), new CoverArchiveFinder(), new AmazonCoverFinder(), new FacebookRadioStationFinder());
 	}
 
 	CoverArtManager(AlbumFindable albumFinder, CoverArtFindable coverArchiveFinder, CoverArtFindable amazonFinder, RadioStationFindable radioFinder) {
@@ -55,11 +55,6 @@ public class CoverArtManager implements RadioCoverInterface{
 	
 	@Override
 	public Optional<Album> getAlbumWithCoverAsync(String song, String artist) {
-		if(!StringUtils.exists(song) || !StringUtils.exists(artist)) {
-			log.info("There is no Song name and/or Artist to find an Album.");
-			return Optional.empty();
-		}
-		
 		// First find the albums that match the song and artist
 		List<Album> albums = albumFinder.findAlbums(song, artist);
 		

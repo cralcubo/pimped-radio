@@ -54,6 +54,11 @@ public class MBAlbumFinder implements AlbumFindable {
 	
 	@Override
 	public List<Album> findAlbums(String song, String artist) {
+		if(!StringUtils.exists(song) || !StringUtils.exists(artist)) {
+			log.info("There is no Song name and/or Artist to find an Album.");
+			return Collections.emptyList();
+		}
+		
 		CompletableFuture<Set<Album>> allFutureAlbums = CompletableFuture.supplyAsync(() -> findAllAlbums(song, artist));
 		final Set<Album> allAlbums;
 		try {

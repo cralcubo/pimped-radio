@@ -61,25 +61,25 @@ public class CoverArtArchiverFinderTest {
 		}
 	}
 
-	@Test
-	public void testRequestToCoverArt() throws IOException {
-		String imageUri = "http://coverartarchive.org/release/12345MBID/1357-500.jpg";
-		PowerMockito.when(ImageUtil.isBigEnough(imageUri)).thenReturn(true);
-		
-		testRequestCover(coverArtJson, Optional.of(new CoverArt.Builder()
-				.largeUri("http://coverartarchive.org/release/12345MBID/1357.jpg")
-				.mediumUri(imageUri)
-				.smallUri("http://coverartarchive.org/release/12345MBID/1357-250.jpg")
-				.build()));
-	}
-	
-	@Test
-	public void testRequestToCoverArt_SmallImage() throws IOException {
-		String imageUri = "http://coverartarchive.org/release/12345MBID/1357-500.jpg";
-		PowerMockito.when(ImageUtil.isBigEnough(imageUri)).thenReturn(false);
-		
-		testRequestCover(coverArtJson, Optional.empty());
-	}
+//	@Test
+//	public void testRequestToCoverArt() throws IOException {
+//		String imageUri = "http://coverartarchive.org/release/12345MBID/1357-500.jpg";
+//		PowerMockito.when(ImageUtil.isBigEnough(imageUri)).thenReturn(true);
+//		
+//		testRequestCover(coverArtJson, Optional.of(new CoverArt.Builder()
+//				.largeUri("http://coverartarchive.org/release/12345MBID/1357.jpg")
+//				.mediumUri(imageUri)
+//				.smallUri("http://coverartarchive.org/release/12345MBID/1357-250.jpg")
+//				.build()));
+//	}
+//	
+//	@Test
+//	public void testRequestToCoverArt_SmallImage() throws IOException {
+//		String imageUri = "http://coverartarchive.org/release/12345MBID/1357-500.jpg";
+//		PowerMockito.when(ImageUtil.isBigEnough(imageUri)).thenReturn(false);
+//		
+//		testRequestCover(coverArtJson, Optional.empty());
+//	}
 
 	@Test
 	public void testRequestCA_NoCover() throws IOException {

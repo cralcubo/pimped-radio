@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 
 import bo.roman.radio.cover.album.AlbumFindable;
 import bo.roman.radio.cover.album.AmazonCoverFinder;
-import bo.roman.radio.cover.album.CoverArtArchiveFinder;
+import bo.roman.radio.cover.album.CoverArchiveFinder;
 import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.cover.model.CoverArt;
 import bo.roman.radio.cover.model.Radio;
@@ -52,7 +52,7 @@ public class CoverArtManagerTest {
 	@Mock
 	private AlbumFindable albumFinder;
 	@Mock
-	private CoverArtArchiveFinder coverArchiveFinder;
+	private CoverArchiveFinder coverArchiveFinder;
 	@Mock
 	private AmazonCoverFinder amazonFinder;
 	@Mock
@@ -113,6 +113,31 @@ public class CoverArtManagerTest {
 		
 		// Assert
 		assertAlbumIsPresent(oAlbum, artist, song, new URL(linkMocked1));
+	}
+	
+	@Test
+	public void testGetAlbumWithCoverAmazonAsync_noArtist() throws IOException {
+		String coverUri = "http://aUri/pic.jpg";
+		String song = "In bloom by Nirvana";
+		String artist= "";
+		
+		// Mock the albums found (No Albums) 
+		when(albumFinder.findAlbums(song, artist)).thenReturn(Collections.emptyList());
+		
+		// Mock Amazon Finder
+		CoverArt ca = new CoverArt.Builder().mediumUri(coverUri).build();
+		when(amazonFinder.findCoverArt(new Album.Builder().songName(song).artistName(artist).name("").build())).thenReturn(Optional.of(ca));
+		
+		// Run the method to test
+		Optional<Album> oAlbum = manager.getAlbumWithCoverAsync(song, artist);
+		
+		// Assertions
+		assertThat(oAlbum.isPresent(), is(true));
+		Album album = oAlbum.get();
+		assertThat(album.getName(), is(equalTo("")));
+		assertThat(album.getSongName(), is(equalTo(song)));
+		assertThat(album.getArtistName(), is(equalTo("")));
+		assertThat(album.getCoverArt().get(), is(equalTo(ca)));
 	}
 	
 	@Test
@@ -310,45 +335,6 @@ public class CoverArtManagerTest {
 		// Assertions
 		assertThat(album.isPresent(), is(true));
 		assertThat(album.get(), is(equalTo(a1)));
-	}
-	
-	@Test
-	public void testNoAlbumReturned_noSongAsync() {
-		Optional<Album> emptyAlbum1 = manager.getAlbumWithCoverAsync(null, "anArtist");
-		assertThat(emptyAlbum1.isPresent(), is(false));
-		
-		Optional<Album> emptyAlbum2 = manager.getAlbumWithCoverAsync("", "anArtist");
-		assertThat(emptyAlbum2.isPresent(), is(false));
-		
-		Optional<Album> emptyAlbum3 = manager.getAlbumWithCoverAsync(" ", "anArtist");
-		assertThat(emptyAlbum3.isPresent(), is(false));
-	}
-	
-	@Test
-	public void testNoAlbumReturned_noArtistAsync() {
-		Optional<Album> emptyAlbum1 = manager.getAlbumWithCoverAsync("aSong", null);
-		assertThat(emptyAlbum1.isPresent(), is(false));
-		
-		Optional<Album> emptyAlbum2 = manager.getAlbumWithCoverAsync("aSong", "");
-		assertThat(emptyAlbum2.isPresent(), is(false));
-		
-		Optional<Album> emptyAlbum3 = manager.getAlbumWithCoverAsync("aSong", " ");
-		assertThat(emptyAlbum3.isPresent(), is(false));
-	}
-	
-	@Test
-	public void testNoAlbumReturned_noArtist_noSongAsync() {
-		Optional<Album> emptyAlbum1 = manager.getAlbumWithCoverAsync("", null);
-		assertThat(emptyAlbum1.isPresent(), is(false));
-		
-		Optional<Album> emptyAlbum2 = manager.getAlbumWithCoverAsync(null, "");
-		assertThat(emptyAlbum2.isPresent(), is(false));
-		
-		Optional<Album> emptyAlbum3 = manager.getAlbumWithCoverAsync(" ", " ");
-		assertThat(emptyAlbum3.isPresent(), is(false));
-		
-		Optional<Album> emptyAlbum4 = manager.getAlbumWithCoverAsync(null, null);
-		assertThat(emptyAlbum4.isPresent(), is(false));
 	}
 	
 	@Test

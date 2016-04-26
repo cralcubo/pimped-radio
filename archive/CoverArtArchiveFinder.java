@@ -1,6 +1,7 @@
 package bo.roman.radio.cover.album;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -64,7 +65,10 @@ public class CoverArtArchiveFinder implements CoverArtFindable {
 		String jsonObject = HttpUtils.doGet(requestLink);
 
 		// Parse the object and find the link of the front cover art
+		long start = System.nanoTime();
 		CoverArtArchiveImages images = gsonParser.fromJson(jsonObject, CoverArtArchiveImages.class);
+		long invocationTime = ((System.nanoTime() - start) / 1000_000);
+		LoggerUtils.logDebug(LOG, () -> String.format("Parsing JSON response from CAA took %d ms", invocationTime));
 		
 		if(images == null) {
 			return Optional.empty();
@@ -85,8 +89,17 @@ public class CoverArtArchiveFinder implements CoverArtFindable {
 	
 	private boolean isLargeImageBigEnough(Image i) {
 		if(i.getThumbnails() != null && StringUtils.exists(i.getThumbnails().get("large"))) 
-		{
-			return ImageUtil.isBigEnough(i.getThumbnails().get("large"));
+		{	
+			long start = System.nanoTime();
+			try {
+				boolean isBig = ImageUtil.isBigEnough(i.getThumbnails().get("large"));
+				long invocationTime = ((System.nanoTime() - start) / 1000_000);
+				LoggerUtils.logDebug(LOG, () -> String.format("Checking the size of an Image took %d ms", invocationTime));
+				return isBig;
+			} catch (URISyntaxException | IOException e) {
+				return false;
+			}
+			
 		}
 		
 		return false;
