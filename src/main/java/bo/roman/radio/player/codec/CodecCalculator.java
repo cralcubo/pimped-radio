@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import bo.roman.radio.player.model.CodecInformation;
+import bo.roman.radio.utilities.LoggerUtils;
 import uk.co.caprica.vlcj.binding.internal.libvlc_media_stats_t;
 import uk.co.caprica.vlcj.player.AudioTrackInfo;
 import uk.co.caprica.vlcj.player.MediaPlayer;
@@ -24,38 +25,103 @@ public class CodecCalculator {
 			return Optional.empty();
 		}
 		
+		log.info("Retrieving CodecInformation.");
 		List<TrackInfo> trackInfos = mediaPlayer.getTrackInfo(TrackType.AUDIO);
 		if(trackInfos.isEmpty() || !(trackInfos.get(0) instanceof AudioTrackInfo)) {
 			log.info("There is no AudioTrackInfo to retrieve codec information.");
 			return Optional.empty();
 		}
-		
 		AudioTrackInfo audioInfo = (AudioTrackInfo) trackInfos.get(0);
+		LoggerUtils.logDebug(log, () -> audioInfo.toString());
+		
 		String codecName = audioInfo.codecName();
-		int bitRate = audioInfo.bitRate();
+		float bitRate = audioInfo.bitRate() * 1.0f / 1000;
 		int channels = audioInfo.channels();
-		int sampleRate = audioInfo.rate();
+		float sampleRate = audioInfo.rate() * 1.0f/ 1000;
 		
-		
+		// If there is no bitrate we proceed to calculate it
+		// using the MediaStatistics provided by the MediaPlayer
 		if(bitRate <= 0) {
-			bitRate = calculateStableBitRate(mediaPlayer.getMediaStatistics());
+			bitRate = calculateAverageBitRate(mediaPlayer);
 		}
 		
-		return null;
+		CodecInformation codecInfo = new CodecInformation.Builder()
+				.bitRate(bitRate)
+				.channels(channels)
+				.codec(codecName)
+				.sampleRate(sampleRate)
+				.build(); 
+		
+		log.info("Returning {}", codecInfo);
+		return Optional.of(codecInfo);
 	}
-
-	private static int calculateStableBitRate(libvlc_media_stats_t mediaStatistics) {
-		// Loop max 7 times till finding a stable bit rate
-		int times = 7;
-		int bitRate = 0;
-		int delta = 10;
+	
+	/**
+	 *  Loop max n times till finding a stable bit rate.
+	 *  Every loop will wait 1 sec to check the bit rate 
+	 *  at that time.
+	 *  
+	 *  The right bitRate will result from the comparison
+	 *  of the current bitRate and the bitRate calculated
+	 *  by the formula:
+	 *  bRt = (i_demux_read_bytes * 8)/timeLapsed
+	 *  
+	 *  The formula for the current bitRate is:
+	 *  bRc = f_demux_bitrate * 8000
+	 *  
+	 *  To return a bitRate, it will be compared bRt and bRc
+	 *  if the difference between them is +/- 10% the value
+	 *  will be acceptable and an average of both values 
+	 *  will be returned.
+	 *  
+	 */
+	private static float calculateAverageBitRate(MediaPlayer mediaPlayer) {
+		log.info("Calculating average bitRate.");
 		
-		for(int i = 0; i < 7; i++) {
-			bitRate = (int) (mediaStatistics.f_demux_bitrate * ONE_KB);
+		// If the player has been running for a while, the bitRate can be calculated
+		// directly.
+		libvlc_media_stats_t mediaStatistics = mediaPlayer.getMediaStatistics();
+		if(mediaStatistics.f_demux_bitrate > 0) {
+			float bitRate = mediaStatistics.f_demux_bitrate * ONE_KB; 
+			log.info("The MediaPlayer is been running for a while, returning {}", bitRate);
+			return bitRate;
 		}
 		
+		// The mediaPlayer has started, then calculate the average bitRate.
+		int times = 7;
+		long startTime = System.nanoTime();
+		for(int i = 0; i < times; i++) {
+			sleep(1000);
+			libvlc_media_stats_t ms = mediaPlayer.getMediaStatistics();
+			LoggerUtils.logDebug(log, () -> ms.toString());
+			
+			float demuxBitRate = ms.f_demux_bitrate * ONE_KB;
+			if(demuxBitRate <= 0){
+				continue;
+			}
+			
+			long timeLaped = (System.nanoTime() - startTime) / 1000_000;
+			float bitRateTime = ms.i_demux_read_bytes * 8.0f / timeLaped;
+			
+			float diff = demuxBitRate/bitRateTime * 100;
+			
+			LoggerUtils.logDebug(log, () -> String.format("DemuxBitRate[%.2f], BitRate(t)[%.2f], diff=%.2f", demuxBitRate, bitRateTime, diff));
+			if(diff >= 90.0 && diff <= 110.0) {
+				float bitRate = (demuxBitRate + bitRateTime) / 2; 
+				log.info("BitRate calculated = {}", bitRate);
+				return bitRate;
+			}
+		}
 
 		return 0;
+	}
+	
+	private static void sleep(long time) {
+		try {
+			Thread.sleep(time);
+		} catch (InterruptedException e) {
+			log.error("Sleep was interrupted.", e);
+		}
 	}
 
 }

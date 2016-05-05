@@ -3,8 +3,8 @@ package bo.roman.radio.player.model;
 public class CodecInformation {
 	private final String codec;
 	private final int channels;
-	private final int sampleRate;
-	private final int bitRate;
+	private final float sampleRate;
+	private final float bitRate;
 
 	private CodecInformation(Builder b) {
 		codec = b.codec;
@@ -21,19 +21,25 @@ public class CodecInformation {
 		return channels;
 	}
 
-	public int getSampleRate() {
+	public float getSampleRate() {
 		return sampleRate;
 	}
 
-	public int getBitRate() {
+	public float getBitRate() {
 		return bitRate;
 	}
 
-	public class Builder {
+	@Override
+	public String toString() {
+		return "CodecInformation [codec=" + codec + ", channels=" + channels + ", sampleRate=" + sampleRate
+				+ ", bitRate=" + bitRate + "]";
+	}
+
+	public static class Builder {
 		private String codec;
 		private int channels;
-		private int sampleRate;
-		private int bitRate;
+		private float sampleRate;
+		private float bitRate;
 
 		public Builder codec(String val) {
 			codec = val;
@@ -45,12 +51,12 @@ public class CodecInformation {
 			return this;
 		}
 
-		public Builder sampleRate(int val) {
+		public Builder sampleRate(float val) {
 			sampleRate = val;
 			return this;
 		}
 
-		public Builder bitRate(int val) {
+		public Builder bitRate(float val) {
 			bitRate = val;
 			return this;
 		}
