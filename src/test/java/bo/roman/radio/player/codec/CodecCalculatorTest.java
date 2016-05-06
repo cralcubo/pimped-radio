@@ -64,7 +64,7 @@ public class CodecCalculatorTest {
 	}
 	
 	@Test
-	public void testCalculateBitRate() {
+	public void testCalculateBitRate_playerStarted() {
 		int testBitRate = 0;
 		String testCodecName = "aName";
 		int testChannels = 2;
@@ -106,13 +106,34 @@ public class CodecCalculatorTest {
 	}
 	
 	@Test
-	public void testPlayerStartedCodec() {
+	public void testCalculateBitRate_playerRunning() {
+		int testBitRate = 0;
+		String testCodecName = "aName";
+		int testChannels = 2;
+		int testSampleRate = 44100;
+		float demuxBitRate = 0.039846577f;
 		
-	}
-	
-	@Test
-	public void testPlayerRunningCodec() {
+		// Prepare Mock
+		prepareAudioInfoMock(testBitRate, testCodecName, testChannels, testSampleRate);
 		
+		// First check if there is a bitRate to return
+		libvlc_media_stats_t stats = new libvlc_media_stats_t();
+		
+		stats.f_demux_bitrate = demuxBitRate;
+		when(mediaPlayer.getMediaStatistics()).thenReturn(stats);
+
+		Optional<CodecInformation> oInfo = CodecCalculator.calculate(mediaPlayer);
+
+		// Assertions
+		assertThat(oInfo.isPresent(), is(true));
+		
+		CodecInformation ci = oInfo.get();
+		float bitRateExpected = demuxBitRate * 8000;
+		assertThat(ci.getBitRate(), is(bitRateExpected));
+		
+		assertThat(ci.getCodec(), is(testCodecName));
+		assertThat(ci.getChannels(), is(testChannels));
+		assertThat(ci.getSampleRate(), is(44.1f));
 	}
 	
 	@Test
