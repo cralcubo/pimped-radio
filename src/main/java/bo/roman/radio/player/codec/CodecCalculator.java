@@ -19,6 +19,8 @@ public class CodecCalculator {
 	
 	private static final int ONE_KB = 8000;
 	
+	private static final int ERROR_MARGIN = 5;
+	
 	public static Optional<CodecInformation> calculate(MediaPlayer mediaPlayer) {
 		if(mediaPlayer == null) {
 			log.error("There is no mediaPlayer to retrieve codec information.");
@@ -42,7 +44,7 @@ public class CodecCalculator {
 		// If there is no bitrate we proceed to calculate it
 		// using the MediaStatistics provided by the MediaPlayer
 		if(bitRate <= 0) {
-			bitRate = calculateAverageBitRate_(mediaPlayer);
+			bitRate = calculateAverageBitRate(mediaPlayer);
 		}
 		
 		CodecInformation codecInfo = new CodecInformation.Builder()
@@ -62,14 +64,12 @@ public class CodecCalculator {
 	 *  at that time.
 	 *  
 	 *  The right bitRate will result from the comparison
-	 *  of the current bitRate and the bitRate calculated
-	 *  by the formula:
-	 *  bRt = (i_demux_read_bytes * 8)/timeLapsed
+	 *  of the current bitRate and the previous bitRate calculated.
 	 *  
 	 *  The formula for the current bitRate is:
 	 *  bRc = f_demux_bitrate * 8000
 	 *  
-	 *  To return a bitRate, it will be compared bRt and bRc
+	 *  To return a bitRate, it will be compared bRc0 and bRc1
 	 *  if the difference between them is +/- 10% the value
 	 *  will be acceptable and an average of both values 
 	 *  will be returned.
@@ -78,57 +78,6 @@ public class CodecCalculator {
 	private static float calculateAverageBitRate(MediaPlayer mediaPlayer) {
 		log.info("Calculating average bitRate.");
 		
-		// If the player has been running for a while, the bitRate can be calculated
-		// directly.
-		libvlc_media_stats_t mediaStatistics = mediaPlayer.getMediaStatistics();
-		if(mediaStatistics.f_demux_bitrate > 0) {
-			float bitRate = mediaStatistics.f_demux_bitrate * ONE_KB; 
-			log.info("The MediaPlayer is been running for a while, returning {}", bitRate);
-			return bitRate;
-		}
-		
-		// The mediaPlayer has started, then calculate the average bitRate.
-		int times = 7;
-		long startTime = System.nanoTime();
-		for(int i = 0; i < times; i++) {
-			sleep(1000);
-			libvlc_media_stats_t ms = mediaPlayer.getMediaStatistics();
-			LoggerUtils.logDebug(log, () -> ms.toString());
-			
-			float demuxBitRate = ms.f_demux_bitrate * ONE_KB;
-			if(demuxBitRate <= 0){
-				continue;
-			}
-			
-			long timeLaped = (System.nanoTime() - startTime) / 1000_000;
-			float bitRateTime = ms.i_demux_read_bytes * 8.0f / timeLaped;
-			
-			float diff = demuxBitRate/bitRateTime * 100;
-			
-			LoggerUtils.logDebug(log, () -> String.format("DemuxBitRate[%.2f], BitRate(t)[%.2f], diff=%.2f", demuxBitRate, bitRateTime, diff));
-			if(diff >= 90.0 && diff <= 110.0) {
-				float bitRate = (demuxBitRate + bitRateTime) / 2; 
-				log.info("BitRate calculated = {}", bitRate);
-				return bitRate;
-			}
-		}
-
-		return 0;
-	}
-	
-	private static float calculateAverageBitRate_(MediaPlayer mediaPlayer) {
-		log.info("Calculating average bitRate.");
-		
-		// If the player has been running for a while, the bitRate can be calculated
-		// directly.
-		libvlc_media_stats_t mediaStatistics = mediaPlayer.getMediaStatistics();
-//		if(mediaStatistics.f_demux_bitrate > 0) {
-//			float bitRate = mediaStatistics.f_demux_bitrate * ONE_KB; 
-//			log.info("The MediaPlayer is been running for a while, returning {}", bitRate);
-//			return bitRate;
-//		}
-		
-		// The mediaPlayer has started, then calculate the average bitRate.
 		int times = 7;
 		float previousBitRate = 0;
 		for(int i = 0; i < times; i++) {
@@ -144,7 +93,7 @@ public class CodecCalculator {
 			float diff = previousBitRate/demuxBitRate * 100;
 			
 			LoggerUtils.logDebug(log, () -> String.format("DemuxBitRate[%.2f], diff=%.2f", demuxBitRate, diff));
-			if(diff >= 90.0 && diff <= 110.0) {
+			if(diff >= (100 - ERROR_MARGIN) && diff <= (100 + ERROR_MARGIN)) {
 				float bitRate = (demuxBitRate + previousBitRate) / 2; 
 				log.info("BitRate calculated = {}", bitRate);
 				return bitRate;
