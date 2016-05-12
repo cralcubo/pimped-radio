@@ -14,10 +14,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ImageUtil {
+
 	private final static Logger logger = LoggerFactory.getLogger(ImageUtil.class);
 	
-	private static final int MIN_HEIGHT = 300;
-	private static final int MIN_WIDTH = 300;
+	private static final int MIN_SIZE = 300;
+	private static final float MAXRATIO_DIFF = 0.1f;
+	
 	
 	/**
 	 * Method that will find the width and height of an image
@@ -54,8 +56,12 @@ public class ImageUtil {
 	}
 	
 	public static boolean isBigEnough(int w, int h, String imageIdentifier) {
-		LoggerUtils.logDebug(logger, () -> String.format("Size [%d x %d] for image [%s]", w, h, imageIdentifier));
-		return w >= MIN_WIDTH && h >= MIN_HEIGHT;
+		
+		// Calculate the Width - Height ratio to avoid rectangular images.
+		// Acceptable ratio_diff will be 0.1 so the images are as square as possible.
+		float ratio_diff = Math.abs(w * 1.0f/ h - 1.0f);
+		LoggerUtils.logDebug(logger, () -> String.format("Size [w=%d x h=%d] ratio_diff=%.2f for image [%s]", w, h, ratio_diff, imageIdentifier));
+		return ratio_diff <= MAXRATIO_DIFF && w >= MIN_SIZE && h >= MIN_SIZE;
 	}
 
 }

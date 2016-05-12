@@ -6,6 +6,6 @@ public interface CodecInformationSubject {
 	
 	void registerObservers(CodecInformationObserver observer);
 	
-	void updateOnservers(CodecInformation codecInformation);
+	void notifyObservers(CodecInformation codecInformation);
 
 }

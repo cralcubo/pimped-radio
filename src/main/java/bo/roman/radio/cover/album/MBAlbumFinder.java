@@ -180,5 +180,6 @@ public class MBAlbumFinder implements AlbumFindable {
 		public static Recording createRecording() {
 			return new Recording();
 		}
-	} 
+	}
+	//TODO Implement your own WebService call
 }

@@ -19,7 +19,7 @@ public class CodecCalculator {
 	
 	private static final int ONE_KB = 8000;
 	
-	private static final int ERROR_MARGIN = 5;
+	private static final float ERROR_MARGIN = 0.05f;
 	
 	public static Optional<CodecInformation> calculate(MediaPlayer mediaPlayer) {
 		if(mediaPlayer == null) {
@@ -90,10 +90,10 @@ public class CodecCalculator {
 				continue;
 			}
 			
-			float diff = previousBitRate/demuxBitRate * 100;
+			float diff = Math.abs(previousBitRate/demuxBitRate - 1.0f);
 			
 			LoggerUtils.logDebug(log, () -> String.format("DemuxBitRate[%.2f], diff=%.2f", demuxBitRate, diff));
-			if(diff >= (100 - ERROR_MARGIN) && diff <= (100 + ERROR_MARGIN)) {
+			if(diff <= ERROR_MARGIN) {
 				float bitRate = (demuxBitRate + previousBitRate) / 2; 
 				log.info("BitRate calculated = {}", bitRate);
 				return bitRate;

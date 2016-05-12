@@ -30,20 +30,17 @@ public class RadioPlayerEventListener extends MediaPlayerEventAdapter{
 	}
 	
 	@Override
-	public void playing(MediaPlayer mediaPlayer) {
-		Optional<CodecInformation> oCodecInfo = CodecCalculator.calculate(mediaPlayer);
-		if(oCodecInfo.isPresent()) {
-			codecNotifier.updateOnservers(oCodecInfo.get());
-		}
-	}
-	
-	@Override
 	public void mediaMetaChanged(MediaPlayer mediaPlayer, int metaType) {
 		LoggerUtils.logDebug(log, () -> String.format("Media Meta Changed[metaType=%s]", metaType));
 		if(metaType == METATYPE_NOWPLAYING) { // 12 -> Changed NowPlying
+			// Update NowPLaying info
 			MediaMeta meta = mediaPlayer.getMediaMeta();
 			metaNotifier.notifyObservers(meta);
 			meta.release();
+			
+			// Update Codec info
+			Optional<CodecInformation> oCodecInfo = CodecCalculator.calculate(mediaPlayer);
+			oCodecInfo.ifPresent(ci -> codecNotifier.notifyObservers(ci));
 		}
 	}
 

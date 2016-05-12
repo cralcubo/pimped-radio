@@ -34,5 +34,24 @@ public class ImageUtilTest {
 	public void testIsBigEnough_notExistentImage() throws URISyntaxException, IOException {
 		ImageUtil.isBigEnough("file:///a/path");
 	}
-
+	
+	@Test
+	public void testRatio_longImage() {
+		assertThat("Image is too long.", ImageUtil.isBigEnough(300, 350, "Testing long image"), is(false));;
+	}
+	
+	@Test
+	public void testRatio_wideImage() {
+		assertThat("Image is too wide.", ImageUtil.isBigEnough(600, 400, "Testing wide image"), is(false));;
+	}
+	
+	@Test
+	public void testRatio_width() {
+		assertThat("Image is with good height ratio.", ImageUtil.isBigEnough(300, 330, "Testing long image"), is(true));;
+	}
+	
+	@Test
+	public void testRatio_height() {
+		assertThat("Image is with good wide ratio.", ImageUtil.isBigEnough(400, 380, "Testing wide image"), is(true));;
+	}
 }

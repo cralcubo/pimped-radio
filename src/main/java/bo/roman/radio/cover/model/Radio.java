@@ -34,10 +34,6 @@ public class Radio {
 	public String getName() {
 		return name;
 	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public String getId() {
 		return id;
@@ -45,10 +41,6 @@ public class Radio {
 
 	public String getCategory() {
 		return category;
-	}
-
-	public Picture getPicture() {
-		return picture;
 	}
 	
 	/**
@@ -93,7 +85,15 @@ public class Radio {
 		
 		return false;
 	}
-
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void setPicture(Picture picture) {
+		this.picture = picture;
+	}
+	
 	@Override
 	public String toString() {
 		return "Radio [name=" + name + ", id=" + id + ", category=" + category + ", logoUrl=" + getLogoUri() + "]";
@@ -123,7 +123,6 @@ public class Radio {
 			return false;
 		return true;
 	}
-
 
 	public static class Builder {
 		private String name;

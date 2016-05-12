@@ -15,7 +15,7 @@ public class CodecInformationNotifier implements CodecInformationSubject {
 	}
 
 	@Override
-	public void updateOnservers(CodecInformation codecInformation) {
+	public void notifyObservers(CodecInformation codecInformation) {
 		observers.forEach(o -> o.update(codecInformation));
 	}
 
