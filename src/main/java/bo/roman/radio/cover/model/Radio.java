@@ -20,9 +20,9 @@ public class Radio {
 	private Picture picture;
 	private Optional<URI> logoUri;
 	
-	public Radio(String name, URI logoUri){
+	public Radio(String name, Optional<URI> logoUri){
 		this.name = name;
-		this.logoUri = Optional.of(logoUri);
+		this.logoUri = logoUri;
 	}
 	
 	private Radio(Builder b) {

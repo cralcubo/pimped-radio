@@ -2,7 +2,6 @@ package bo.roman.radio.cover;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -16,8 +15,8 @@ import org.slf4j.LoggerFactory;
 
 import bo.roman.radio.cover.album.AlbumFindable;
 import bo.roman.radio.cover.album.AmazonCoverFinder;
-import bo.roman.radio.cover.album.CoverArtFindable;
 import bo.roman.radio.cover.album.CoverArchiveFinder;
+import bo.roman.radio.cover.album.CoverArtFindable;
 import bo.roman.radio.cover.album.MBAlbumFinder;
 import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.cover.model.CoverArt;
@@ -34,8 +33,6 @@ public class CoverArtManager implements RadioCoverInterface{
 	private final static Logger log = LoggerFactory.getLogger(CoverArtManager.class);
 	
 	private static final int MAXALBUMS_FETCHED = 5;
-	
-	private static final String DEFAULTLOGO_PATH = "src/main/resources/pimped-radio-flat.png";
 	
 	private final AlbumFindable albumFinder;
 	private final CoverArtFindable coverArchiveFinder;
@@ -101,7 +98,7 @@ public class CoverArtManager implements RadioCoverInterface{
 		if (CacheLogoUtil.isCached(radioName)) {
 			log.info("Returning Cached Radio Logo.");
 			Path cachedLogoPath = CacheLogoUtil.getCachedLogoPath(radioName);
-			return Optional.of(new Radio(radioName, cachedLogoPath.toUri()));
+			return Optional.of(new Radio(radioName, Optional.of(cachedLogoPath.toUri())));
 		}
 
 		// Logo is not cached, send a query to retrieve it
@@ -114,7 +111,7 @@ public class CoverArtManager implements RadioCoverInterface{
 
 		// Radio logo is not cached and was not found on internet
 		// return default app logo.
-		return Optional.of(new Radio(radioName, Paths.get(DEFAULTLOGO_PATH).toUri()));
+		return Optional.of(new Radio(radioName, Optional.empty()));
 	}
 	
 	private Optional<Album> findAmazonAlbum(List<Album> albums) {

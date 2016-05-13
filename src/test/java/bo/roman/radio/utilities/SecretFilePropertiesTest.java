@@ -8,6 +8,30 @@ import static org.hamcrest.MatcherAssert.*;
 public class SecretFilePropertiesTest {
 	
 	@Test
+	public void testReadAppName() {
+		String key = "app.name";
+		String val = SecretFileProperties.get(key);
+		
+		assertThat(val, not(isEmptyOrNullString()));
+	}
+	
+	@Test
+	public void testReadAppVersion() {
+		String key = "app.version";
+		String val = SecretFileProperties.get(key);
+		
+		assertThat(val, not(isEmptyOrNullString()));
+	}
+	
+	@Test
+	public void testReadAppContact() {
+		String key = "app.contact";
+		String val = SecretFileProperties.get(key);
+		
+		assertThat(val, not(isEmptyOrNullString()));
+	}
+	
+	@Test
 	public void testReadFacebookToken() {
 		String key = "facebook.token";
 		String val = SecretFileProperties.get(key);

@@ -18,10 +18,12 @@ import java.util.stream.Collectors;
 
 import org.musicbrainz.controller.Recording;
 import org.musicbrainz.model.searchresult.RecordingResultWs2;
+import org.musicbrainz.webservice.impl.HttpClientWebServiceWs2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import bo.roman.radio.cover.model.Album;
+import bo.roman.radio.utilities.SecretFileProperties;
 import bo.roman.radio.utilities.StringUtils;
 
 /**
@@ -34,17 +36,18 @@ import bo.roman.radio.utilities.StringUtils;
  *
  */
 public class MBAlbumFinder implements AlbumFindable {
-	private static final int TIMEOUT_SECS = 3;
-
-	private static final String OFFICIAL_RELEASE = "Official";
-
 	private final static Logger log = LoggerFactory.getLogger(MBAlbumFinder.class);
 
 	private static final String QUERY_TEMPLATE = "\"%s\" AND artist:\"%s\""; // songName, artistName
-	
 	private static final String SAMENAMEREGEX_TMPL = "(?i)^\\b%s\\b($|\\s+\\(.+\\)$)";
 
+	private static final int TIMEOUT_SECS = 3;
+	private static final String OFFICIAL_RELEASE = "Official";
 	private static final long HIGHPRIORITY = 1000_000L;
+
+	private static final String APPLICATION_NAME = SecretFileProperties.get("app.name");
+	private static final String APPLICATION_VERSION = SecretFileProperties.get("app.version");
+	private static final String APPLICATION_CONTACT = SecretFileProperties.get("app.contact");
 	
 	private final int limit;
 	
@@ -89,6 +92,9 @@ public class MBAlbumFinder implements AlbumFindable {
 	
 	private Set<Album> findAllAlbums(String songName, String artistName) {
 		Recording recordingController = RecordingFactory.createRecording();
+		logDebug(log, () -> String.format("Generating MB WSClient for [name=%s, version=%s, contact=%s]", APPLICATION_NAME, APPLICATION_VERSION, APPLICATION_CONTACT));
+		recordingController.setQueryWs(new HttpClientWebServiceWs2(APPLICATION_NAME, APPLICATION_VERSION, APPLICATION_CONTACT));
+		
 		// First generate the query to find an album
 		String query = String.format(QUERY_TEMPLATE, songName, artistName);
 		logDebug(log, () -> "Query generated=" + query);
@@ -181,5 +187,4 @@ public class MBAlbumFinder implements AlbumFindable {
 			return new Recording();
 		}
 	}
-	//TODO Implement your own WebService call
 }

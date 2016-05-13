@@ -64,7 +64,7 @@ public class MediaMetaNotifierTest {
 		Optional<Song> oSong = Optional.of(testSong);
 		PowerMockito.when(MediaMetaUtils.buildSong(meta)).thenReturn(oSong);
 		
-		Radio testRadio = new Radio(radioName, testRadioLogo);
+		Radio testRadio = new Radio(radioName, Optional.of(testRadioLogo));
 		Optional<Radio> oRadio = Optional.ofNullable(testRadio );
 		when(radioCover.getRadioWithLogo(radioName)).thenReturn(oRadio);
 		
@@ -115,7 +115,7 @@ public class MediaMetaNotifierTest {
 		Optional<Song> oSong = Optional.empty();
 		PowerMockito.when(MediaMetaUtils.buildSong(meta)).thenReturn(oSong);
 		
-		Radio testRadio = new Radio(radioName, testRadioLogo);
+		Radio testRadio = new Radio(radioName, Optional.of(testRadioLogo));
 		Optional<Radio> oRadio = Optional.ofNullable(testRadio );
 		when(radioCover.getRadioWithLogo(radioName)).thenReturn(oRadio);
 		

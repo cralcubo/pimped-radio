@@ -3,10 +3,8 @@ package bo.roman.radio.cover;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -390,17 +388,10 @@ public class CoverArtManagerTest {
 		// Assert
 		assertThat(oRadio.isPresent(), is(true));
 		
-		String defaultLogoPath = (String) ReflectionUtils.getPrivateConstant(manager, "DEFAULTLOGO_PATH");
-		Radio expectedRadio = new Radio(testRadioName, new URI(defaultLogoPath));
+		Radio expectedRadio = new Radio(testRadioName, Optional.empty());
 		Radio radioFound = oRadio.get();
 		
 		assertThat(radioFound, is(equalTo(expectedRadio)));
-		// The default radio has a link to the file with a default
-		// radio logo, this logo file must exist.
-		String radioLog = oRadio.flatMap(Radio::getLogoUri).map(URI::getPath).get();
-		File logoFile = new File(radioLog);
-		
-		assertTrue("Logo File Path=" + radioLog + " is supposed to exist.", logoFile.exists());
 	}
 	
 	@Test
