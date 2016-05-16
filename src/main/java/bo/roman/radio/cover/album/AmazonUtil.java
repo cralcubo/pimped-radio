@@ -1,169 +1,104 @@
 package bo.roman.radio.cover.album;
 
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
-
-import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import bo.roman.radio.cover.model.Album;
-import bo.roman.radio.utilities.HttpUtils;
+import bo.roman.radio.cover.model.CoverArt;
+import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item;
+import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.Image;
+import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.ItemAttributes;
+import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.RelatedItems;
+import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.ItemAttributes.Creator;
+import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.RelatedItems.RelatedItem;
 import bo.roman.radio.utilities.LoggerUtils;
-import bo.roman.radio.utilities.SecretFileProperties;
 
 public class AmazonUtil {
-	private final static Logger log = LoggerFactory.getLogger(AmazonUtil.class);
 	
-	// This is the type of request method to send to Amazon
-	private final static String REQUEST_METHOD = "GET";
+	private static final Logger log = LoggerFactory.getLogger(AmazonUtilTest.class);
 	
-	// This is the store where the covers will be retrieved from
-	private final static String AMAZONSTORE_SITE = "ecs.amazonaws.com";
-	
-	// This is the path that accepts REST request
-	private final static String REST_PATH = "/onca/xml";
-	
-	// Query templates
-	// Search Album by name
-	private final static String SEARCHQUERY_TEMPLATE = "AWSAccessKeyId=%s"
-			+ "&Artist='%s'"
-			+ "&AssociateTag=%s"
-			+ "&Operation=ItemSearch"
-			+ "&ResponseGroup=Images,ItemAttributes"
-			+ "&SearchIndex=Music"
-			+ "&Service=AWSECommerceService"
-			+ "&Timestamp=%s"
-			+ "&Title='%s'";
-	
-	// Search Album by keyword
-	private final static String SEARCHALLQUERY_TEMPLATE = "AWSAccessKeyId=%s"
-			+ "&AssociateTag=%s"
-			+ "&Keywords='%s'"
-			+ "&Operation=ItemSearch"
-			+ "&ResponseGroup=Images,ItemAttributes"
-			+ "&SearchIndex=All"
-			+ "&Service=AWSECommerceService"
-			+ "&Timestamp=%s";
-	
-	// Date pattern accepted by Amazon
-	private static final String DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss'Z'";
-	
-	// Algorithm used to generate the encripted signature
-	private static final String HMAC_SHA256_ALGORITHM = "HmacSHA256";
-	
+	private static final String PRIMARY_CONTRIBUTOR = "Primary Contributor";
+	private static final String PRODUCTGROUP_ALBUM = "Digital Music Album";
+	private static final String PRODUCTGROUP_MUSIC = "Music";
+	private static final String AMAZON_UNKNOWN = "AMAZON_UNKNOWN";
+
 	/**
-	 * Generates the URL to send a REST request to get all
-	 * the Items available in Amazon that matches a keyword
-	 * formed by a song name and an artist name.
-	 *  
-	 * @param keyword
-	 * @return
-	 */
-	public static String generateSearchAllRequestUrl(Album album) {
-		String keyword = String.format("%s,%s", album.getSongName(), album.getArtistName());
-		String requestQuery = String.format(SEARCHALLQUERY_TEMPLATE
-				, getAwsAccessKeyId()
-				, getAwsAssociateTag()
-				, keyword
-				, getTimeStamp());
-		
-		
-		// Generate the URL to send the REST request
-		String url = generateUrl(requestQuery); 
-		LoggerUtils.logDebug(log, () -> "SearchAll Amazon URL=" + url);
-		
-		return  url;
-	}
-		
-	/**
-	 * Method used to generate the URL to which 
-	 * a REST request will be sent to Amazon.
+	 * Helper method to convert an Amazon Item to a Pimped Radio Album.
 	 * 
-	 * @param artistName
-	 * @param albumName
+	 * @param item
 	 * @return
 	 */
-	public static String generateSearchAlbumRequestUrl(Album album) {
-		String requestQuery = String.format(SEARCHQUERY_TEMPLATE
-				, getAwsAccessKeyId()
-				, album.getArtistName()
-				, getAwsAssociateTag()
-				, getTimeStamp()
-				, album.getName());
-		
-		// Generate the URL to send the REST request
-		String url = generateUrl(requestQuery);
-		LoggerUtils.logDebug(log, () -> "SearchMusic Amazon URL=" + url);
-		return  url;
-	}
-	
-	private static String generateUrl(String requestQuery) {
-		LoggerUtils.logDebug(log, () -> "Generating URL for the requestQuery=" + requestQuery);
-		return "http://" + AMAZONSTORE_SITE + REST_PATH + "?" + requestQuery + "&Signature=" + generateSignature(requestQuery);
-	}
-	
-	private static String generateSignature(String reqQuery){
-		String awsSecretKey = getAwsSecretKey();
-		String toSign = REQUEST_METHOD + "\n"
-				+ AMAZONSTORE_SITE + "\n"
-				+ REST_PATH + "\n"
-				+ HttpUtils.encodeParameters(reqQuery);
-		
-		LoggerUtils.logDebug(log, () -> String.format("Generating Amazon Signature for [%s]", toSign));
-		
-		byte[] secretKeyBytes;
-		byte[] data;
-		try {
-			secretKeyBytes = awsSecretKey.getBytes(HttpUtils.UTF_8);
-			data = toSign.getBytes(HttpUtils.UTF_8);
-		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException(String.format("Totally unexpected, %s is supposed to be an accepted character encoding.", HttpUtils.UTF_8), e);
+	public static Optional<Album> itemToAlbum(Item item) {
+		if (item == null) {
+			log.info("There is no Amazon Item to build an Album.");
+			return Optional.empty();
 		}
+
+		// To build an Album we need: Song, Artist, albumName, CoverArt
+		log.info("Building Album from AmazonItem");
+		LoggerUtils.logDebug(log, () -> item.toString());
 		
-		SecretKeySpec sks = new SecretKeySpec(secretKeyBytes, HMAC_SHA256_ALGORITHM);
+		/* CoverArt */
+		Optional<Image> largeImage = Optional.ofNullable(item.getLargeImage());
+		CoverArt coverArt = new CoverArt.Builder()
+				.mediumUri(item.getLargeImageUrl())
+				.smallUri(item.getMediumImageUrl())
+				.tinyUri(item.getSmallImageUrl())
+				.maxWidth(largeImage.map(Image::getWidth).orElse(0))
+				.maxHeight(largeImage.map(Image::getHeight).orElse(0))
+				.build();
+		Optional<CoverArt> oCoverArt = Optional.of(coverArt);
+
+		/* Song | Artist | Album */
+		Optional<ItemAttributes> oItemAttribute = Optional.ofNullable(item.getItemAttributes());
+		Optional<String> oTitle = oItemAttribute.map(ItemAttributes::getTitle);
+
+		// Check the type of ProductGroup
+		String pg = oItemAttribute.map(ItemAttributes::getProductGroup).orElse(AMAZON_UNKNOWN);
+		// Song name is Album name when ProductGroup is: Music
+		Optional<String> oArtist = oItemAttribute.map(ItemAttributes::getArtist);
 		
-		Mac mac;
-		try {
-			mac = Mac.getInstance(HMAC_SHA256_ALGORITHM);
-		} catch (NoSuchAlgorithmException e) {
-			throw new RuntimeException(String.format("Totally unexpected, %s is supposed to be a valid algorithm.", HMAC_SHA256_ALGORITHM), e);
+		LoggerUtils.logDebug(log, () -> "Product Group of the Song: " + pg);
+		if (pg.equals(PRODUCTGROUP_MUSIC)) {
+			Album a = new Album.Builder().artistName(oArtist.orElse(AMAZON_UNKNOWN))
+					.songName(oTitle.orElse(AMAZON_UNKNOWN))
+					.name(oTitle.orElse(AMAZON_UNKNOWN))
+					.coverArt(oCoverArt)
+					.build();
+			log.info("Built {}", a);
+			return Optional.of(a);
 		}
+
+		// We need to find the album from the RelatedItem
+		Optional<Creator> oCreator = oItemAttribute.map(ItemAttributes::getCreator);
+		// This is the Artist:
+		Optional<String> oCreatorArtist = oCreator.filter(c -> PRIMARY_CONTRIBUTOR.equals(c.getRole()))
+												  .map(Creator::getValue);
+		// Album name:
+		Optional<ItemAttributes> oAlbumItem = Optional.ofNullable(item.getRelatedItems())
+				.map(RelatedItems::getRelatedItem)
+				.map(RelatedItem::getItem)
+				.map(Item::getItemAttributes);
+
+		String pgAlbum = oAlbumItem.map(ItemAttributes::getProductGroup).orElse(AMAZON_UNKNOWN);
+		Optional<String> oAlbumName = oAlbumItem.map(ItemAttributes::getTitle);
 		
-		try {
-			mac.init(sks);
-		} catch (InvalidKeyException e) {
-			log.error("The secret key [{}] is invalid. Verify that the Amazon secret was correctly set.", awsSecretKey, e);
-			return "";
+		LoggerUtils.logDebug(log, () -> "Product Group of the Album: " + pgAlbum);
+		if (pgAlbum.equals(PRODUCTGROUP_ALBUM)) {
+			Album a = new Album.Builder().artistName(oCreatorArtist.orElse(AMAZON_UNKNOWN))
+					.songName(oTitle.orElse(AMAZON_UNKNOWN))
+					.name(oAlbumName.orElse(AMAZON_UNKNOWN))
+					.coverArt(oCoverArt)
+					.build();
+			log.info("Built {}", a);
+			return Optional.of(a);
 		}
-		
-		byte[] rawHmac = mac.doFinal(data);
-		Base64 encoder = new Base64();
-		
-		return new String(encoder.encode(rawHmac));
-	}
 
-	private static String getAwsSecretKey() {
-		return SecretFileProperties.get("amazon.awsSecretKey");
-	}
-	
-	private static String getAwsAssociateTag() {
-		return SecretFileProperties.get("amazon.associateTag");
-	}
-
-	private static String getAwsAccessKeyId() {
-		return SecretFileProperties.get("amazon.awsAccessKeyId");
-	}
-
-	private static String getTimeStamp () {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern(DATE_PATTERN);
-		return dtf.format(LocalDateTime.now());
+		// Not enough info to build an Album
+		log.info("Not enough info to build an Album.");
+		return Optional.empty();
 	}
 
 }

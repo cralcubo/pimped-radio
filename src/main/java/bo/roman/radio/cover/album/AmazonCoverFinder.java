@@ -54,10 +54,10 @@ public class AmazonCoverFinder implements CoverArtFindable {
 		final String url;
 		switch (searchType) {
 		case SEARCHBY_ALBUM:
-			url = AmazonUtil.generateSearchAlbumRequestUrl(album);
+			url = AmazonConnectionUtil.generateSearchByAlbumRequestUrl(album);
 			break;
 		case SEARCHBY_KEYWORD:
-			url = AmazonUtil.generateSearchAllRequestUrl(album);
+			url = AmazonConnectionUtil.generateSearchByKeywordRequestUrl(String.format(album.getSongName(), album.getArtistName()));
 			break;
 		default:
 			log.info("There is no artistName or albumName or songName to search a Cover Art in Amazon.");
@@ -69,7 +69,6 @@ public class AmazonCoverFinder implements CoverArtFindable {
 		
 		// Convert XML response to an AmazonItem object
 		Optional<AmazonItems> oItems = unmarshalXml(xmlResponse);
-		
 		if(!oItems.isPresent() 
 				|| !oItems.map(AmazonItems::getItemsWrapper).isPresent() 
 				|| !oItems.map(AmazonItems::getItemsWrapper).map(ItemsWrapper::getItems).isPresent()) {

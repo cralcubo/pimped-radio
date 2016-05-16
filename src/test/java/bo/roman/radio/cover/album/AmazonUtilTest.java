@@ -1,177 +1,227 @@
 package bo.roman.radio.cover.album;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import java.util.Optional;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.hamcrest.text.IsEmptyString;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import bo.roman.radio.cover.model.Album;
-import bo.roman.radio.utilities.SecretFileProperties;
+import bo.roman.radio.cover.model.CoverArt;
+import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item;
+import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.Image;
+import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.ItemAttributes;
+import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.ItemAttributes.Creator;
+import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.RelatedItems;
+import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.RelatedItems.RelatedItem;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(SecretFileProperties.class)
-@PowerMockIgnore("javax.crypto.*") 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+
 public class AmazonUtilTest {
-	private static final String PARAMETERSREGEX_TMPL = "(?<=%s=)('.+?'|[^&]+)";
 	
-	private String awsSecretKey = "aSecretKey";
-	private String associateTag = "aTag";
-	private String awsAccessKeyId = "anAccessKeyId";
-	
-	@Before
-	public void setUp() {
-		PowerMockito.mockStatic(SecretFileProperties.class);
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Test(expected=RuntimeException.class)
-	public void testNoAccessKeys_searchAll() {
-		String song = "testSong";
-		String artist = "testArtist";
-		String albName = "testAlbum";
-		Album album = new Album.Builder()
-				.songName(song)
-				.artistName(artist)
-				.name(albName)
+	@Test
+	public void testItemToAlbum_Album() {
+		String liUrl = "http://largeUrl";
+		int lw, lh;
+		lw = lh = 500;
+		String miUrl = "http://mediumUrl";
+		int mw, mh;
+		mw = mh = 200;
+		String siUrl = "http://smallUrl";
+		int sw, sh;
+		sw = sh = 100;
+		CoverArt ca = new CoverArt.Builder()
+				.mediumUri(liUrl)
+				.smallUri(miUrl)
+				.tinyUri(siUrl)
+				.maxHeight(lw)
+				.maxWidth(lw)
 				.build();
 		
-		// Prepare Mock
-		PowerMockito.when(SecretFileProperties.get("amazon.awsAccessKeyId")).thenThrow(RuntimeException.class);
+		String title = "Nevermind";
+		String artist = "Nirvana";
+		String productGroup = "Music";
 		
-		AmazonUtil.generateSearchAllRequestUrl(album);
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Test(expected=RuntimeException.class)
-	public void testNoAccessKeys_searchAlbum() {
-		String song = "testSong";
-		String artist = "testArtist";
-		String albName = "testAlbum";
-		Album album = new Album.Builder()
-				.songName(song)
-				.artistName(artist)
-				.name(albName)
-				.build();
+		Item item = new Item();
+		ItemAttributes itemAttributes = new ItemAttributes(artist, title, productGroup, null);
+		item.setItemAttributes(itemAttributes);
 		
-		// Prepare Mock
-		PowerMockito.when(SecretFileProperties.get("amazon.awsAccessKeyId")).thenThrow(RuntimeException.class);
+		Image largeImage = new Image(liUrl, lh, lw);
+		item.setLargeImage(largeImage );
+		Image mImage = new Image(miUrl, mh, mw);
+		item.setMediumImage(mImage);
+		Image sImage = new Image(siUrl, sh, sw);
+		item.setSmallImage(sImage );
 		
-		AmazonUtil.generateSearchAlbumRequestUrl(album);
+		
+		Optional<Album> oAlb = AmazonUtil.itemToAlbum(item);
+		
+		// Assertions
+		
+		assertThat(oAlb.isPresent(), is(true));
+		Album a = oAlb.get();
+		assertThat(a.getArtistName(), is(artist));
+		assertThat(a.getSongName(), is(title));
+		assertThat(a.getName(), is(title));
+		assertThat(a.getCoverArt().get(), is(ca));
 	}
 	
 	@Test
-	public void testGenerateSearchAlbumRequestUrl() {
-		Album album = setUpGenerateUrlTest();
-		
-		// Run the method
-		String url = AmazonUtil.generateSearchAlbumRequestUrl(album);
-		
-		// Assert that all the parameters are present
-		String pAWSAccessKeyId = "AWSAccessKeyId";
-		assertThat(getParameter(pAWSAccessKeyId, url), is(equalTo(awsAccessKeyId)));
-		
-		String pArtist = "Artist";
-		assertThat(getParameter(pArtist, url), is(equalTo(String.format("'%s'", album.getArtistName()))));
-		
-		String pAssociateTag = "AssociateTag";
-		assertThat(getParameter(pAssociateTag, url), is(equalTo(associateTag)));
-		
-		String pOperation = "Operation";
-		assertThat(getParameter(pOperation, url), is(equalTo("ItemSearch")));
-		
-		String pResponseGroup = "ResponseGroup";
-		assertThat(getParameter(pResponseGroup, url), is(equalTo("Images,ItemAttributes")));
-		
-		String pSearchIndex = "SearchIndex";
-		assertThat(getParameter(pSearchIndex, url), is(equalTo("Music")));
-		
-		String pService = "Service";
-		assertThat(getParameter(pService, url), is(equalTo("AWSECommerceService")));
-		
-		String pTimestamp = "Timestamp";
-		assertThat(getParameter(pTimestamp, url), not(IsEmptyString.isEmptyOrNullString()));
-		
-		String pTitle = "Title";
-		assertThat(getParameter(pTitle, url), is(equalTo(String.format("'%s'", album.getName()))));
-		
-		String pSignature = "Signature";
-		assertThat(getParameter(pSignature, url), not(IsEmptyString.isEmptyOrNullString()));
-	}
-	
-	@Test
-	public void testGenereateSearchAllRequest() {
-		Album album = setUpGenerateUrlTest();
-		
-		// Run the method
-		String url = AmazonUtil.generateSearchAllRequestUrl(album);
-		
-		// Assert that all the parameters are present
-		String pAWSAccessKeyId = "AWSAccessKeyId";
-		assertThat(getParameter(pAWSAccessKeyId, url), is(equalTo(awsAccessKeyId)));
-		
-		String pAssociateTag = "AssociateTag";
-		assertThat(getParameter(pAssociateTag, url), is(equalTo(associateTag)));
-		
-		String pKeywords = "Keywords";
-		assertThat(getParameter(pKeywords, url), is(equalTo(String.format("'%s,%s'", album.getSongName(), album.getArtistName()))));
-		
-		String pOperation = "Operation";
-		assertThat(getParameter(pOperation, url), is(equalTo("ItemSearch")));
-		
-		String pResponseGroup = "ResponseGroup";
-		assertThat(getParameter(pResponseGroup, url), is(equalTo("Images,ItemAttributes")));
-		
-		String pSearchIndex = "SearchIndex";
-		assertThat(getParameter(pSearchIndex, url), is(equalTo("All")));
-		
-		String pService = "Service";
-		assertThat(getParameter(pService, url), is(equalTo("AWSECommerceService")));
-		
-		String pTimestamp = "Timestamp";
-		assertThat(getParameter(pTimestamp, url), not(IsEmptyString.isEmptyOrNullString()));
-		
-		String pSignature = "Signature";
-		assertThat(getParameter(pSignature, url), not(IsEmptyString.isEmptyOrNullString()));
-	}
-	
-	/* *** Utilities *** */
-	
-	private Album setUpGenerateUrlTest() {
-		String song = "testSong";
-		String artist = "testArtist";
-		String albName = "testAlbum";
-		Album album = new Album.Builder()
-				.songName(song)
-				.artistName(artist)
-				.name(albName)
+	public void testItemToAlbum_AlbumWithRelatedItems() {
+		String liUrl = "http://largeUrl";
+		int lw, lh;
+		lw = lh = 500;
+		String miUrl = "http://mediumUrl";
+		int mw, mh;
+		mw = mh = 200;
+		String siUrl = "http://smallUrl";
+		int sw, sh;
+		sw = sh = 100;
+		CoverArt ca = new CoverArt.Builder()
+				.mediumUri(liUrl)
+				.smallUri(miUrl)
+				.tinyUri(siUrl)
+				.maxHeight(lw)
+				.maxWidth(lw)
 				.build();
 		
-		// Prepare Mock
-		PowerMockito.when(SecretFileProperties.get("amazon.awsSecretKey")).thenReturn(awsSecretKey);
-		PowerMockito.when(SecretFileProperties.get("amazon.associateTag")).thenReturn(associateTag);
-		PowerMockito.when(SecretFileProperties.get("amazon.awsAccessKeyId")).thenReturn(awsAccessKeyId);
+		String title = "In Bloom";
+		String artist = "Nirvana";
+		String productGroup = "Music";
 		
-		return album;
-	}
+		Item item = new Item();
+		ItemAttributes itemAttributes = new ItemAttributes(artist, title, productGroup, null);
+		item.setItemAttributes(itemAttributes);
+		
+		Image largeImage = new Image(liUrl, lh, lw);
+		item.setLargeImage(largeImage );
+		Image mImage = new Image(miUrl, mh, mw);
+		item.setMediumImage(mImage);
+		Image sImage = new Image(siUrl, sh, sw);
+		item.setSmallImage(sImage);
+		
+		Item albumItem = new Item();
+		String albumName = "Nevermind";
+		String albumPG = "Digital Music Album";
+		Creator creator = new Creator("Primary Contributor", artist);
 
-	private String getParameter(String parameter, String url) {
-		String regEx = String.format(PARAMETERSREGEX_TMPL, parameter);
-		Matcher matcher = Pattern.compile(regEx).matcher(url);
-		if(matcher.find()) {
-			return matcher.group();
-		}
+		ItemAttributes albumIA = new ItemAttributes(artist, albumName, albumPG, creator);
+		albumItem.setItemAttributes(albumIA );
+		RelatedItem relatedItem = new RelatedItem(albumItem );
+		RelatedItems relatedItems = new RelatedItems(relatedItem );
+		item.setRelatedItems(relatedItems);
 		
-		return null;
+		
+		Optional<Album> oAlb = AmazonUtil.itemToAlbum(item);
+		
+		// Assertions
+		
+		assertThat(oAlb.isPresent(), is(true));
+		Album a = oAlb.get();
+		assertThat(a.getArtistName(), is(artist));
+		assertThat(a.getSongName(), is(title));
+		assertThat(a.getName(), is(title));
+		assertThat(a.getCoverArt().get(), is(ca));
+		
+	}
+	
+	@Test
+	public void testItemToAlbum_Track() {
+		String liUrl = "http://largeUrl";
+		int lw, lh;
+		lw = lh = 500;
+		String miUrl = "http://mediumUrl";
+		int mw, mh;
+		mw = mh = 200;
+		String siUrl = "http://smallUrl";
+		int sw, sh;
+		sw = sh = 100;
+		CoverArt ca = new CoverArt.Builder()
+				.mediumUri(liUrl)
+				.smallUri(miUrl)
+				.tinyUri(siUrl)
+				.maxHeight(lw)
+				.maxWidth(lw)
+				.build();
+		
+		String title = "Breed";
+		String artist = "Nirvana";
+		String productGroup = "Digital Music Track";
+		Creator creator = new Creator("Primary Contributor", artist);
+		
+		Item item = new Item();
+		ItemAttributes itemAttributes = new ItemAttributes(null, title, productGroup, creator);
+		item.setItemAttributes(itemAttributes);
+		
+		Image largeImage = new Image(liUrl, lh, lw);
+		item.setLargeImage(largeImage );
+		Image mImage = new Image(miUrl, mh, mw);
+		item.setMediumImage(mImage);
+		Image sImage = new Image(siUrl, sh, sw);
+		item.setSmallImage(sImage);
+		
+		Item albumItem = new Item();
+		String albumName = "Nevermind";
+		String albumPG = "Digital Music Album";
+		ItemAttributes albumIA = new ItemAttributes(artist, albumName, albumPG, creator);
+		albumItem.setItemAttributes(albumIA );
+		RelatedItem relatedItem = new RelatedItem(albumItem );
+		RelatedItems relatedItems = new RelatedItems(relatedItem );
+		item.setRelatedItems(relatedItems);
+		
+		
+		Optional<Album> oAlb = AmazonUtil.itemToAlbum(item);
+		
+		// Assertions
+		
+		assertThat(oAlb.isPresent(), is(true));
+		Album a = oAlb.get();
+		assertThat(a.getArtistName(), is(artist));
+		assertThat(a.getSongName(), is(title));
+		assertThat(a.getName(), is(albumName));
+		assertThat(a.getCoverArt().get(), is(ca));
+	}
+	
+	@Test
+	public void testItemToAlbum_NoItemAttributes() {
+		Optional<Album> oAlb = AmazonUtil.itemToAlbum(new Item());
+		
+		// Assertions
+		assertThat(oAlb.isPresent(), is(false));
+	}
+	
+	@Test
+	public void testItemToAlbum_TrackNoRelatedItems() {
+		String liUrl = "http://largeUrl";
+		int lw, lh;
+		lw = lh = 500;
+		String miUrl = "http://mediumUrl";
+		int mw, mh;
+		mw = mh = 200;
+		String siUrl = "http://smallUrl";
+		int sw, sh;
+		sw = sh = 100;
+		
+		String title = "Breed";
+		String artist = "Nirvana";
+		String productGroup = "Digital Music Track";
+		Creator creator = new Creator("Primary Contributor", artist);
+		
+		Item item = new Item();
+		ItemAttributes itemAttributes = new ItemAttributes(null, title, productGroup, creator);
+		item.setItemAttributes(itemAttributes);
+		
+		Image largeImage = new Image(liUrl, lh, lw);
+		item.setLargeImage(largeImage );
+		Image mImage = new Image(miUrl, mh, mw);
+		item.setMediumImage(mImage);
+		Image sImage = new Image(siUrl, sh, sw);
+		item.setSmallImage(sImage);
+		
+		Optional<Album> oAlb = AmazonUtil.itemToAlbum(item);
+		
+		// Assertions
+		assertThat(oAlb.isPresent(), is(false));
 	}
 
 }

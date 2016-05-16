@@ -8,53 +8,52 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlValue;
 
 import bo.roman.radio.utilities.StringUtils;
+
 /**
- * Class that maps the XML response
- * from Amazon Items. 
+ * Class that maps the XML response from Amazon Items.
  * 
  * @author christian
  *
  */
-@XmlRootElement(name="ItemSearchResponse", namespace="http://webservices.amazon.com/AWSECommerceService/2011-08-01")
+@XmlRootElement(name = "ItemSearchResponse", namespace = "http://webservices.amazon.com/AWSECommerceService/2011-08-01")
 public class AmazonItems {
-	
+
 	private ItemsWrapper itemsWrapper;
-	
+
 	public ItemsWrapper getItemsWrapper() {
 		return itemsWrapper;
 	}
-	
-	@XmlElement(name="Items")
+
+	@XmlElement(name = "Items")
 	public void setItemsWrapper(ItemsWrapper items) {
 		this.itemsWrapper = items;
 	}
-	
-	@XmlRootElement(name="Items")
+
 	public static class ItemsWrapper {
 		private List<Item> items;
 
 		public List<Item> getItems() {
 			return items;
 		}
-		
-		@XmlElement(name="Item")
+
+		@XmlElement(name = "Item")
 		public void setItems(List<Item> items) {
 			this.items = items;
 		}
 		
-		@XmlRootElement(name="Item")
 		public static class Item {
+			private RelatedItems relatedItems;
 			private ItemAttributes itemAttributes;
-			
+
 			private Image largeImage;
 			private Image mediumImage;
 			private Image smallImage;
-			
+
 			public ItemAttributes getItemAttributes() {
 				return itemAttributes;
 			}
-			
-			@XmlElement(name="ItemAttributes")
+
+			@XmlElement(name = "ItemAttributes")
 			public void setItemAttributes(ItemAttributes itemAttributes) {
 				this.itemAttributes = itemAttributes;
 			}
@@ -62,15 +61,16 @@ public class AmazonItems {
 			public Image getLargeImage() {
 				return largeImage;
 			}
-			
+
 			public String getLargeImageUrl() {
-				if(largeImage != null) {
+				if (largeImage != null) {
 					return largeImage.getUrl().trim();
 				}
-				
+
 				return "";
 			}
-			@XmlElement(name="LargeImage")
+
+			@XmlElement(name = "LargeImage")
 			public void setLargeImage(Image largeImage) {
 				this.largeImage = largeImage;
 			}
@@ -78,15 +78,16 @@ public class AmazonItems {
 			public Image getMediumImage() {
 				return mediumImage;
 			}
-			
+
 			public String getMediumImageUrl() {
-				if(mediumImage != null) {
+				if (mediumImage != null) {
 					return mediumImage.getUrl();
 				}
-				
+
 				return "";
 			}
-			@XmlElement(name="MediumImage")
+
+			@XmlElement(name = "MediumImage")
 			public void setMediumImage(Image mediumImage) {
 				this.mediumImage = mediumImage;
 			}
@@ -94,92 +95,133 @@ public class AmazonItems {
 			public Image getSmallImage() {
 				return smallImage;
 			}
-			
+
 			public String getSmallImageUrl() {
-				if(smallImage != null) {
+				if (smallImage != null) {
 					return smallImage.getUrl();
 				}
-				
+
 				return "";
 			}
-			
-			@XmlElement(name="SmallImage")
+
+			@XmlElement(name = "SmallImage")
 			public void setSmallImage(Image smallImage) {
 				this.smallImage = smallImage;
 			}
 			
-			@Override
-			public String toString() {
-				return "Item [itemAttributes=" + itemAttributes + ", largeImage=" + largeImage
-						+ ", mediumImage=" + mediumImage + ", smallImage=" + smallImage + "]";
+			public RelatedItems getRelatedItems() {
+				return relatedItems;
 			}
 			
-			@XmlRootElement(name="ItemAttributes")
+			@XmlElement(name = "RelatedItems")
+			public void setRelatedItems(RelatedItems relatedItems) {
+				this.relatedItems = relatedItems;
+			}
+
+			@Override
+			public String toString() {
+				return "Item [relatedItems=" + relatedItems + ", itemAttributes=" + itemAttributes + ", largeImage=" + largeImage + ", mediumImage="
+						+ mediumImage + ", smallImage=" + smallImage + "]";
+			}
+
 			public static class ItemAttributes {
+				private String artist;
 				private String title;
-				
+				private String productGroup;
+
 				private Creator creator;
 				
-				private String productGroup;
+				public ItemAttributes() {
+					this(null,null,null,null);
+				}
 				
-				@XmlElement(name="Title")
+				public ItemAttributes(String artist, String title, String productGroup, Creator creator) {
+					this.artist = artist;
+					this.title = title;
+					this.productGroup = productGroup;
+					this.creator = creator;
+				}
+
+				@XmlElement(name = "Title")
 				public void setTitle(String title) {
 					this.title = StringUtils.cleanIt(title);
 				}
-				
+
 				public String getTitle() {
 					return title;
 				}
-				@XmlElement(name="Creator")
+
+				@XmlElement(name = "Creator")
 				public void setCreator(Creator creator) {
 					this.creator = creator;
 				}
-				
+
 				public Creator getCreator() {
 					return creator;
 				}
-				@XmlElement(name="ProductGroup")
+
+				@XmlElement(name = "ProductGroup")
 				public void setProductGroup(String productGroup) {
 					this.productGroup = StringUtils.cleanIt(productGroup);
 				}
-				
+
 				public String getProductGroup() {
 					return productGroup;
 				}
-				
+
+				@XmlElement(name = "Artist")
+				public void setArtist(String artist) {
+					this.artist = artist;
+				}
+
+				public String getArtist() {
+					return artist;
+				}
+
 				@Override
 				public String toString() {
-					return "ItemAttributes [title=" + title + ", creator=" + creator + ", productGroup=" + productGroup
-							+ "]";
+					return "ItemAttributes [title=" + title + ", artist=" + artist + ", creator=" + creator
+							+ ", productGroup=" + productGroup + "]";
 				}
-				
+
 				public static class Creator {
 					private String role;
 					private String value;
+
+					public Creator() {
+						this(null,null);
+					}
 					
+					public Creator(String role, String value) {
+						this.role = role;
+						this.value = value;
+					}
+
 					public String getRole() {
 						return role;
 					}
-					@XmlAttribute(name="Role")
+
+					@XmlAttribute(name = "Role")
 					public void setRole(String role) {
 						this.role = role;
 					}
-					
+
 					public String getValue() {
 						return value;
 					}
+
 					@XmlValue
 					public void setValue(String value) {
 						this.value = value;
 					}
-					
+
 					@Override
 					public String toString() {
 						return "Creator [role=" + role + ", value=" + value + "]";
 					}
-					
+
 				}
-				
+
 			}
 
 			public static class Image {
@@ -187,32 +229,98 @@ public class AmazonItems {
 				private int height;
 				private int width;
 				
+				public Image() {
+					this(null, 0 ,0);
+				}
+				
+				public Image(String url, int height, int width) {
+					this.url = url;
+					this.height = height;
+					this.width = width;
+				}
+
 				public String getUrl() {
 					return url;
 				}
-				@XmlElement(name="URL")
+
+				@XmlElement(name = "URL")
 				public void setUrl(String url) {
 					this.url = StringUtils.cleanIt(url);
 				}
-				
+
 				public int getHeight() {
 					return height;
 				}
-				@XmlElement(name="Height")
+
+				@XmlElement(name = "Height")
 				public void setHeight(int height) {
 					this.height = height;
 				}
-				
+
 				public int getWidth() {
 					return width;
 				}
-				@XmlElement(name="Width")
+
+				@XmlElement(name = "Width")
 				public void setWidth(int width) {
 					this.width = width;
 				}
+
 				@Override
 				public String toString() {
 					return "Image [url=" + url + ", height=" + height + ", width=" + width + "]";
+				}
+			}
+			
+			public static class RelatedItems {
+				private RelatedItem relatedItem;
+
+				public RelatedItems() {
+					this(null);
+				}
+				
+				public RelatedItems(RelatedItem relatedItem) {
+					this.relatedItem = relatedItem;
+				}
+
+				public RelatedItem getRelatedItem() {
+					return relatedItem;
+				}
+
+				@XmlElement(name = "RelatedItem")
+				public void setRelatedItem(RelatedItem relatedItem) {
+					this.relatedItem = relatedItem;
+				}
+
+				@Override
+				public String toString() {
+					return "RelatedItems [relatedItem=" + relatedItem + "]";
+				}
+				
+				public static class RelatedItem {
+					private Item item;
+					
+					public RelatedItem() {
+						this(null);
+					}
+					
+					public RelatedItem(Item item) {
+						this.item = item;
+					}
+
+					public Item getItem() {
+						return item;
+					}
+
+					@XmlElement(name = "Item")
+					public void setItem(Item item) {
+						this.item = item;
+					}
+
+					@Override
+					public String toString() {
+						return "RelatedItem [item=" + item + "]";
+					}
 				}
 			}
 		}

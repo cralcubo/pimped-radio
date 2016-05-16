@@ -10,6 +10,9 @@ import org.slf4j.LoggerFactory;
 public class CoverArt {
 	private final static Logger log = LoggerFactory.getLogger(CoverArt.class);
 	
+	private int maxWidth;
+	private int maxHeight;
+	
 	private Optional<URI> largeUri;
 	private Optional<URI> mediumUri;
 	private Optional<URI> smallUri;
@@ -20,6 +23,8 @@ public class CoverArt {
 		mediumUri = b.mediumUri;
 		smallUri = b.smallUri;
 		tinyUri = b.tinyUri;
+		maxWidth = b.maxWidth;
+		maxHeight = b.maxHeight;
 	}
 	
 	public Optional<URI> getLargeUri() {
@@ -34,9 +39,17 @@ public class CoverArt {
 		return smallUri;
 	}
 	
+	public int getMaxHeight() {
+		return maxHeight;
+	}
+	
+	public int getMaxWidth() {
+		return maxWidth;
+	}
+	
 	@Override
 	public String toString() {
-		return "CoverArt [largeUri=" + largeUri + ", mediumUri=" + mediumUri + ", smallUri=" + smallUri + ", tinyUri=" + tinyUri + "]";
+		return "CoverArt [[w=" + maxWidth+ " x h=" + maxHeight+ "] largeUri=" + largeUri + ", mediumUri=" + mediumUri + ", smallUri=" + smallUri + ", tinyUri=" + tinyUri + "]";
 	}
 
 	@Override
@@ -81,6 +94,19 @@ public class CoverArt {
 		private Optional<URI> mediumUri = Optional.empty();
 		private Optional<URI> smallUri = Optional.empty();
 		private Optional<URI> tinyUri = Optional.empty();
+		
+		private int maxWidth;
+		private int maxHeight;
+		
+		public Builder maxWidth(int val) {
+			maxWidth = val;
+			return this;
+		}
+		
+		public Builder maxHeight(int val) {
+			maxHeight = val;
+			return this;
+		}
 		
 		public Builder largeUri(String val) {
 			largeUri = buildUri(val);

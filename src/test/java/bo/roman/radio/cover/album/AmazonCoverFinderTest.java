@@ -15,7 +15,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import bo.roman.radio.cover.album.AmazonCoverFinder;
 import bo.roman.radio.cover.album.AmazonCoverFinder.SearchType;
-import bo.roman.radio.cover.album.AmazonUtil;
+import bo.roman.radio.cover.album.AmazonConnectionUtil;
 import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.cover.model.CoverArt;
 import bo.roman.radio.utilities.HttpUtils;
@@ -25,7 +25,7 @@ import static org.hamcrest.CoreMatchers.*;
 
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({HttpUtils.class, AmazonUtil.class})
+@PrepareForTest({HttpUtils.class, AmazonConnectionUtil.class})
 public class AmazonCoverFinderTest {
 	
 	private AmazonCoverFinder finder;
@@ -46,7 +46,7 @@ public class AmazonCoverFinderTest {
 	public void setUp() {
 		finder = new AmazonCoverFinder();
 		PowerMockito.mockStatic(HttpUtils.class);
-		PowerMockito.mockStatic(AmazonUtil.class);
+		PowerMockito.mockStatic(AmazonConnectionUtil.class);
 	}
 	
 	@Test
@@ -240,10 +240,10 @@ public class AmazonCoverFinderTest {
 		String url = "aURL";
 		switch (searchType) {
 		case SEARCHBY_ALBUM:
-			PowerMockito.when(AmazonUtil.generateSearchAlbumRequestUrl(testAlbum)).thenReturn(url);
+			PowerMockito.when(AmazonConnectionUtil.generateSearchByAlbumRequestUrl(testAlbum)).thenReturn(url);
 			break;
 		case SEARCHBY_KEYWORD:
-			PowerMockito.when(AmazonUtil.generateSearchAllRequestUrl(testAlbum)).thenReturn(url);
+			PowerMockito.when(AmazonConnectionUtil.generateSearchByKeywordRequestUrl(String.format("%s,%s", testAlbum.getSongName(), testAlbum.getArtistName()))).thenReturn(url);
 			break;
 		default:
 			Assert.fail("Unexpected searchType to run a test.");

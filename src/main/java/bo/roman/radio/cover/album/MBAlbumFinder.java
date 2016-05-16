@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 import org.musicbrainz.controller.Recording;
 import org.musicbrainz.model.searchresult.RecordingResultWs2;
+import org.musicbrainz.webservice.DefaultWebServiceWs2;
 import org.musicbrainz.webservice.impl.HttpClientWebServiceWs2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -92,8 +93,6 @@ public class MBAlbumFinder implements AlbumFindable {
 	
 	private Set<Album> findAllAlbums(String songName, String artistName) {
 		Recording recordingController = RecordingFactory.createRecording();
-		logDebug(log, () -> String.format("Generating MB WSClient for [name=%s, version=%s, contact=%s]", APPLICATION_NAME, APPLICATION_VERSION, APPLICATION_CONTACT));
-		recordingController.setQueryWs(new HttpClientWebServiceWs2(APPLICATION_NAME, APPLICATION_VERSION, APPLICATION_CONTACT));
 		
 		// First generate the query to find an album
 		String query = String.format(QUERY_TEMPLATE, songName, artistName);
@@ -184,7 +183,15 @@ public class MBAlbumFinder implements AlbumFindable {
 	 */
 	public static class RecordingFactory {
 		public static Recording createRecording() {
-			return new Recording();
+			logDebug(log, () -> String.format("Generating MB WSClient for [name=%s, version=%s, contact=%s]", APPLICATION_NAME, APPLICATION_VERSION, APPLICATION_CONTACT));
+			Recording recording = new Recording(); 
+			recording.setQueryWs(new HttpClientWebServiceWs2(APPLICATION_NAME, APPLICATION_VERSION, APPLICATION_CONTACT));
+			
+			HttpClientWebServiceWs2 annotations = new HttpClientWebServiceWs2(APPLICATION_NAME, APPLICATION_VERSION, APPLICATION_CONTACT);
+			((DefaultWebServiceWs2)annotations).setHost("search.musicbrainz.org");
+			recording.setAnnotationWs(annotations);
+			
+			return recording;
 		}
 	}
 }
