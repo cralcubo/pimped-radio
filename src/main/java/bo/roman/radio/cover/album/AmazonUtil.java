@@ -17,7 +17,7 @@ import bo.roman.radio.utilities.LoggerUtils;
 
 public class AmazonUtil {
 	
-	private static final Logger log = LoggerFactory.getLogger(AmazonUtilTest.class);
+	private static final Logger log = LoggerFactory.getLogger(AmazonUtil.class);
 	
 	private static final String PRIMARY_CONTRIBUTOR = "Primary Contributor";
 	private static final String PRODUCTGROUP_ALBUM = "Digital Music Album";

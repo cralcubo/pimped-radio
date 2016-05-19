@@ -4,8 +4,6 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang3.StringEscapeUtils;
-
 import bo.roman.radio.cover.model.Song;
 import uk.co.caprica.vlcj.player.MediaMeta;
 
@@ -36,15 +34,15 @@ public class MediaMetaUtils {
 		String songName = meta.getTitle();
 		String artistName = meta.getArtist();
 		if(StringUtils.exists(songName) && StringUtils.exists(artistName)) {
-			songName = StringEscapeUtils.unescapeHtml4(songName);
-			artistName = StringEscapeUtils.unescapeHtml4(artistName);
+			songName = StringUtils.cleanIt(songName);
+			artistName = StringUtils.cleanIt(artistName);
 			return buildCleanSong(songName, artistName);
 		}
 		
 		// Check NowPlaying
 		String nowPlaying = meta.getNowPlaying();
 		if(StringUtils.exists(nowPlaying)){
-			nowPlaying = StringEscapeUtils.unescapeHtml4(nowPlaying);
+			nowPlaying = StringUtils.cleanIt(nowPlaying);
 			return parseNowPlaying(nowPlaying);
 		}
 		
@@ -109,7 +107,7 @@ public class MediaMetaUtils {
 		}
 		
 		// First ecape html encoding
-		String parsedRadioName = StringEscapeUtils.unescapeHtml4(radioName.trim());
+		String parsedRadioName = StringUtils.cleanIt(radioName.trim());
 		
 		// Separate the radio name if there is in the middle a '-'
 		Matcher m = Pattern.compile(TILSPACEDASH_REGEX).matcher(parsedRadioName);

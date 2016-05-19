@@ -16,7 +16,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import bo.roman.radio.cover.RadioCoverInterface;
+import bo.roman.radio.cover.CoverArtManagerInterface;
 import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.cover.model.Radio;
 import bo.roman.radio.cover.model.Song;
@@ -34,7 +34,7 @@ public class MediaMetaNotifierTest {
 	private MediaMeta meta;
 	
 	@Mock
-	private RadioCoverInterface radioCover;
+	private CoverArtManagerInterface radioCover;
 	
 	@Mock
 	private MediaMetaObserver observer;

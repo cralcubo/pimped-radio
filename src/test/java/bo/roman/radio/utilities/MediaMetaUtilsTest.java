@@ -26,7 +26,7 @@ public class MediaMetaUtilsTest {
 		String song = "Escape me";
 		String artist = "Tiësto";
 		String nowPlaying = String.format("%s - %s", artist, song);
-		doTestNowPlaying(nowPlaying, song, artist);
+		doTestNowPlaying(nowPlaying, song, "Tiesto");
 	}
 	
 	@Test
@@ -105,7 +105,7 @@ public class MediaMetaUtilsTest {
 		assertThat(optSong.isPresent(), is(true));
 		Song songObj = optSong.get();
 		String songExpected = "#song";
-		String artistExpected = "<Français>";
+		String artistExpected = "<Francais>";
 		assertThat(songObj.getArtist(), is(equalTo(artistExpected)));
 		assertThat(songObj.getName(), is(equalTo(songExpected)));
 	}

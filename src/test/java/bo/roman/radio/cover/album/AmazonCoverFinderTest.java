@@ -31,7 +31,7 @@ public class AmazonCoverFinderTest {
 	private AmazonCoverFinder finder;
 	
 	private final static String ROOTH_PATH = "src/test/resources/amazon/";
-	private final static String NIRVANAXML_PATH = ROOTH_PATH + "amazon-nirvana.xml";
+	private final static String NIRVANAXML_PATH = ROOTH_PATH + "amazon-nirvana-nevermind.xml";
 	private final static String NOITEMSXML_PATH = ROOTH_PATH + "amazon-noItems.xml";
 	private static final String SEARCHKEYWORDXML_PATH = ROOTH_PATH + "amazon-nirvanaKeyword.xml";
 	private static final String NOALBUMSXML_PATH = ROOTH_PATH + "amazon-noMusic.xml";

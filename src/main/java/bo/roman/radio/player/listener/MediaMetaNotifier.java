@@ -9,8 +9,8 @@ import java.util.concurrent.Executor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import bo.roman.radio.cover.CoverArtManager;
-import bo.roman.radio.cover.RadioCoverInterface;
+import bo.roman.radio.cover.CoverArtManagerInterface;
+import bo.roman.radio.cover.NewCoverArtManager;
 import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.cover.model.Radio;
 import bo.roman.radio.cover.model.Song;
@@ -26,13 +26,13 @@ public class MediaMetaNotifier implements MediaMetaSubject {
 	
 	private final List<MediaMetaObserver> observers;
 	
-	private final RadioCoverInterface radioCover; 
+	private final CoverArtManagerInterface radioCover; 
 	
 	public MediaMetaNotifier() {
-		this(new CoverArtManager());
+		this(new NewCoverArtManager());
 	}
 	
-	protected MediaMetaNotifier(RadioCoverInterface radioCover) {
+	protected MediaMetaNotifier(CoverArtManagerInterface radioCover) {
 		this.radioCover = radioCover;
 		observers = new ArrayList<>();
 	}

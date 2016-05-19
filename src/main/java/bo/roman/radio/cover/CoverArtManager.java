@@ -29,7 +29,7 @@ import bo.roman.radio.utilities.FiltersUtil;
 import bo.roman.radio.utilities.LoggerUtils;
 import bo.roman.radio.utilities.StringUtils;
 
-public class CoverArtManager implements RadioCoverInterface{
+public class CoverArtManager implements CoverArtManagerInterface{
 	private final static Logger log = LoggerFactory.getLogger(CoverArtManager.class);
 	
 	private static final int MAXALBUMS_FETCHED = 5;

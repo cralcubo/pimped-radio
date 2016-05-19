@@ -171,7 +171,7 @@ public class AmazonItems {
 
 				@XmlElement(name = "Artist")
 				public void setArtist(String artist) {
-					this.artist = artist;
+					this.artist = StringUtils.cleanIt(artist);
 				}
 
 				public String getArtist() {
@@ -212,7 +212,7 @@ public class AmazonItems {
 
 					@XmlValue
 					public void setValue(String value) {
-						this.value = value;
+						this.value = StringUtils.cleanIt(value);
 					}
 
 					@Override
