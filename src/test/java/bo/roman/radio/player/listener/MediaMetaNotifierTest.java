@@ -16,7 +16,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import bo.roman.radio.cover.CoverArtManagerInterface;
+import bo.roman.radio.cover.ICoverArtManager;
 import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.cover.model.Radio;
 import bo.roman.radio.cover.model.Song;
@@ -34,7 +34,7 @@ public class MediaMetaNotifierTest {
 	private MediaMeta meta;
 	
 	@Mock
-	private CoverArtManagerInterface radioCover;
+	private ICoverArtManager radioCover;
 	
 	@Mock
 	private MediaMetaObserver observer;
@@ -69,7 +69,7 @@ public class MediaMetaNotifierTest {
 		when(radioCover.getRadioWithLogo(radioName)).thenReturn(oRadio);
 		
 		Optional<Album> oAlbum = Optional.of(new Album.Builder().artistName(artist).songName(songName).build());
-		when(radioCover.getAlbumWithCoverAsync(songName, artist)).thenReturn(oAlbum);
+		when(radioCover.getAlbumWithCover(songName, artist)).thenReturn(oAlbum);
 		
 		notifier.notifyObservers(meta);
 		
@@ -96,7 +96,7 @@ public class MediaMetaNotifierTest {
 		when(radioCover.getRadioWithLogo("")).thenReturn(oRadio);
 		
 		Optional<Album> oAlbum = Optional.of(new Album.Builder().artistName(artist).songName(songName).build());
-		when(radioCover.getAlbumWithCoverAsync(songName, artist)).thenReturn(oAlbum);
+		when(radioCover.getAlbumWithCover(songName, artist)).thenReturn(oAlbum);
 		
 		notifier.notifyObservers(meta);
 		
@@ -120,7 +120,7 @@ public class MediaMetaNotifierTest {
 		when(radioCover.getRadioWithLogo(radioName)).thenReturn(oRadio);
 		
 		Optional<Album> oAlbum = Optional.empty();
-		when(radioCover.getAlbumWithCoverAsync(null, null)).thenReturn(oAlbum);
+		when(radioCover.getAlbumWithCover(null, null)).thenReturn(oAlbum);
 		
 		notifier.notifyObservers(meta);
 		
@@ -140,7 +140,7 @@ public class MediaMetaNotifierTest {
 		when(radioCover.getRadioWithLogo("")).thenReturn(oRadio);
 		
 		Optional<Album> oAlbum = Optional.empty();
-		when(radioCover.getAlbumWithCoverAsync(null, null)).thenReturn(oAlbum);
+		when(radioCover.getAlbumWithCover(null, null)).thenReturn(oAlbum);
 		
 		notifier.notifyObservers(meta);
 		

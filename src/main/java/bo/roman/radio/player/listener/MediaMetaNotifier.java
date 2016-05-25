@@ -9,8 +9,8 @@ import java.util.concurrent.Executor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import bo.roman.radio.cover.CoverArtManagerInterface;
-import bo.roman.radio.cover.NewCoverArtManager;
+import bo.roman.radio.cover.ICoverArtManager;
+import bo.roman.radio.cover.CoverArtManager;
 import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.cover.model.Radio;
 import bo.roman.radio.cover.model.Song;
@@ -26,13 +26,13 @@ public class MediaMetaNotifier implements MediaMetaSubject {
 	
 	private final List<MediaMetaObserver> observers;
 	
-	private final CoverArtManagerInterface radioCover; 
+	private final ICoverArtManager radioCover; 
 	
 	public MediaMetaNotifier() {
-		this(new NewCoverArtManager());
+		this(new CoverArtManager());
 	}
 	
-	protected MediaMetaNotifier(CoverArtManagerInterface radioCover) {
+	protected MediaMetaNotifier(ICoverArtManager radioCover) {
 		this.radioCover = radioCover;
 		observers = new ArrayList<>();
 	}
@@ -62,7 +62,7 @@ public class MediaMetaNotifier implements MediaMetaSubject {
 		
 		// Find the Album of the Song
 		Song song = oSong.orElse(new Song.Builder().build());
-		final CompletableFuture<Optional<Album>> futureAlbum = CompletableFuture.supplyAsync(() -> radioCover.getAlbumWithCoverAsync(song.getName(), song.getArtist()), executor);
+		final CompletableFuture<Optional<Album>> futureAlbum = CompletableFuture.supplyAsync(() -> radioCover.getAlbumWithCover(song.getName(), song.getArtist()), executor);
 		
 		// Get the info found
 		final Optional<Radio> oRadio = futureRadio.join();

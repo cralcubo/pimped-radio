@@ -31,9 +31,9 @@ public class AmazonUtilTest {
 		int sw, sh;
 		sw = sh = 100;
 		CoverArt ca = new CoverArt.Builder()
-				.mediumUri(liUrl)
-				.smallUri(miUrl)
-				.tinyUri(siUrl)
+				.largeUri(liUrl)
+				.mediumUri(miUrl)
+				.smallUri(siUrl)
 				.maxHeight(lw)
 				.maxWidth(lw)
 				.build();
@@ -78,9 +78,9 @@ public class AmazonUtilTest {
 		int sw, sh;
 		sw = sh = 100;
 		CoverArt ca = new CoverArt.Builder()
-				.mediumUri(liUrl)
-				.smallUri(miUrl)
-				.tinyUri(siUrl)
+				.largeUri(liUrl)
+				.mediumUri(miUrl)
+				.smallUri(siUrl)
 				.maxHeight(lw)
 				.maxWidth(lw)
 				.build();
@@ -137,9 +137,9 @@ public class AmazonUtilTest {
 		int sw, sh;
 		sw = sh = 100;
 		CoverArt ca = new CoverArt.Builder()
-				.mediumUri(liUrl)
-				.smallUri(miUrl)
-				.tinyUri(siUrl)
+				.largeUri(liUrl)
+				.mediumUri(miUrl)
+				.smallUri(siUrl)
 				.maxHeight(lw)
 				.maxWidth(lw)
 				.build();

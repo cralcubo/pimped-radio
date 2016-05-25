@@ -9,8 +9,8 @@ public class AlbumTest {
 	
 	@Test
 	public void testEqual() {
-		Album a1 = new Album.Builder().name("name").artistName("artist").mbid("1").build();
-		Album a2 = new Album.Builder().mbid("1").build();
+		Album a1 = new Album.Builder().name("name").artistName("artist").build();
+		Album a2 = new Album.Builder().build();
 		
 		// Albums with the same mbid are equal
 		assertThat(a1, is(equalTo(a2)));
@@ -18,8 +18,8 @@ public class AlbumTest {
 	
 	@Test
 	public void testNotEqual() {
-		Album a1 = new Album.Builder().name("name").artistName("artist").mbid("1").build();
-		Album a2 = new Album.Builder().name("name").artistName("artist").mbid("2").build();
+		Album a1 = new Album.Builder().name("name").artistName("artist").build();
+		Album a2 = new Album.Builder().name("name").artistName("artist").build();
 		
 		// Albums with different mbid are not equal
 		assertThat(a1, is(not(equalTo(a2))));

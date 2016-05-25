@@ -43,9 +43,9 @@ public class AmazonUtil {
 		/* CoverArt */
 		Optional<Image> largeImage = Optional.ofNullable(item.getLargeImage());
 		CoverArt coverArt = new CoverArt.Builder()
-				.mediumUri(item.getLargeImageUrl())
-				.smallUri(item.getMediumImageUrl())
-				.tinyUri(item.getSmallImageUrl())
+				.largeUri(item.getLargeImageUrl())
+				.mediumUri(item.getMediumImageUrl())
+				.smallUri(item.getSmallImageUrl())
 				.maxWidth(largeImage.map(Image::getWidth).orElse(0))
 				.maxHeight(largeImage.map(Image::getHeight).orElse(0))
 				.build();

@@ -1,93 +1,80 @@
 package bo.roman.radio.cover;
 
-import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import bo.roman.radio.cover.album.AlbumFindable;
-import bo.roman.radio.cover.album.AmazonCoverFinder;
-import bo.roman.radio.cover.album.CoverArchiveFinder;
-import bo.roman.radio.cover.album.CoverArtFindable;
-import bo.roman.radio.cover.album.MBAlbumFinder;
+import bo.roman.radio.cover.album.AmazonAlbumFinder;
 import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.cover.model.CoverArt;
 import bo.roman.radio.cover.model.Radio;
 import bo.roman.radio.cover.station.CacheLogoUtil;
 import bo.roman.radio.cover.station.FacebookRadioStationFinder;
 import bo.roman.radio.cover.station.RadioStationFindable;
-import bo.roman.radio.utilities.ExecutorUtils;
-import bo.roman.radio.utilities.FiltersUtil;
-import bo.roman.radio.utilities.LoggerUtils;
+import bo.roman.radio.utilities.RegExUtil;
 import bo.roman.radio.utilities.StringUtils;
 
-public class CoverArtManager implements CoverArtManagerInterface{
+public class CoverArtManager implements ICoverArtManager {
 	private final static Logger log = LoggerFactory.getLogger(CoverArtManager.class);
 	
-	private static final int MAXALBUMS_FETCHED = 5;
-	
 	private final AlbumFindable albumFinder;
-	private final CoverArtFindable coverArchiveFinder;
-	private final CoverArtFindable amazonCoverFinder;
 	private final RadioStationFindable radioFinder;
 	
 	public CoverArtManager() {
-		this(new MBAlbumFinder(MAXALBUMS_FETCHED), new CoverArchiveFinder(), new AmazonCoverFinder(), new FacebookRadioStationFinder());
+		this(new AmazonAlbumFinder(), new FacebookRadioStationFinder());
 	}
-
-	CoverArtManager(AlbumFindable albumFinder, CoverArtFindable coverArchiveFinder, CoverArtFindable amazonFinder, RadioStationFindable radioFinder) {
+	
+	CoverArtManager(AlbumFindable albumFinder, RadioStationFindable radioFinder) {
 		this.albumFinder = albumFinder;
-		this.coverArchiveFinder = coverArchiveFinder;
-		this.amazonCoverFinder = amazonFinder;
 		this.radioFinder = radioFinder;
 	}
-	
+
 	@Override
-	public Optional<Album> getAlbumWithCoverAsync(String song, String artist) {
-		// First find the albums that match the song and artist
-		List<Album> albums = albumFinder.findAlbums(song, artist);
+	public Optional<Album> getAlbumWithCover(String song, String artist) {
 		
-		// No albums found for song/artist
-		// Try to find an album from Amazon
-		if(albums.isEmpty()) {
-			log.info("No album MBID found. Trying to find album in Amazon.");
-			Album album = new Album.Builder()
-					.artistName(artist)
-					.songName(song)
-					.name("")
-					.build();
-			Optional<Album> richAlbum = findAmazonAlbum(Arrays.asList(album));
-			LoggerUtils.logDebug(log, () -> String.format("RichAlbum built after searching in Amazon by [%s - %s] =%s", artist, song, richAlbum));
-			return richAlbum;
+		log.info("Finding Album for [{} - {}]", song, artist);
+		List<Album> allAlbums = albumFinder.findAlbums(song, artist);
+		
+		if(allAlbums.isEmpty()) {
+			log.info("No Albums found.");
+			return Optional.empty();
 		}
 		
-		// Find the covers first in CoverArtArchive
-		Optional<Album> coverArchiveAlbum = findCoverArchiveAlbum(albums);
-		if(coverArchiveAlbum.isPresent()) {
-			log.info("RichAlbum build after CoverArtArchive search=" + coverArchiveAlbum);
-			return coverArchiveAlbum;
+		Comparator<Album> proportionsComparator = new CoverArtProportionsComparator();
+		
+		// Find the best Album, this is the one that exactly matches song and artist
+		// if there is more than one, return the one that is more square: w/h closer to 1
+		Optional<Album> bestAlbum = allAlbums.stream()
+											 .filter(a -> a.getSongName().equalsIgnoreCase(song))
+											 .filter(a -> a.getArtistName().equalsIgnoreCase(artist))
+											 .min(proportionsComparator);
+		if(bestAlbum.isPresent()) {
+			log.info("Best Match Album found {}", bestAlbum.get());
+			return bestAlbum;
 		}
 		
-		// No Album with Cover found in CoverArtArchive, try Amazon
-		Optional<Album> amazonAlbum = findAmazonAlbum(albums);
-		if(amazonAlbum.isPresent()) {
-			log.info("RichAlbum build after Amazon search=" + amazonAlbum);
-			return amazonAlbum;
+		// No Exact Match, return a close Match
+		Optional<Album> closeAlbum = allAlbums.stream()
+											.filter(a -> RegExUtil.phrase(a.getSongName()).beginsWithIgnoreCase(song))
+											.filter(a -> RegExUtil.phrase(a.getArtistName()).containsIgnoreCase(artist))
+											.min(proportionsComparator);
+		
+		if(closeAlbum.isPresent()) {
+			log.info("Close Match Album found {}", closeAlbum.get());
+			return closeAlbum;
 		}
 		
-		// No cover art album found, return the first cover-less album
-		// retrieved from MusicBrains
-		return albums.stream().findFirst();
+		// No exact/close match found, then return the album with the best CoverArt: w/h closer to 1
+		Optional<Album> albumFound = allAlbums.stream().min(proportionsComparator);
+		log.info("Returning {}", albumFound);
+		return albumFound;
 	}
-	
+
 	@Override
 	public Optional<Radio> getRadioWithLogo(String radioName) {
 		if (!StringUtils.exists(radioName)) {
@@ -114,81 +101,31 @@ public class CoverArtManager implements CoverArtManagerInterface{
 		return Optional.of(new Radio(radioName, Optional.empty()));
 	}
 	
-	private Optional<Album> findAmazonAlbum(List<Album> albums) {
-		// Amazon just needs the name of an album and the name of an artist
-		// to find a Cover Art.
-		List<Album> diffNameAlbums = albums.stream()
-				.filter(FiltersUtil.distinctByKey(Album::getName))
-				.collect(Collectors.toList());
-		
-		log.info("Fetching CoverArt from Amazon for [{}] Albums [{}]", diffNameAlbums.size(), diffNameAlbums);
-		return findCoverArt(diffNameAlbums, amazonCoverFinder);
-	}
 	
-	private Optional<Album> findCoverArchiveAlbum(List<Album> albums) {
-		log.info("Fetching CoverArt from CoverArtArchive for [{}] Albums [{}]", albums.size(), albums);
-		return findCoverArt(albums, coverArchiveFinder);
-	}
-	
-	/**
-	 * Generic method that will find the cover art of a list of albums.
-	 * 
-	 * @param albums 
-	 * @param coverFinder
-	 * @return
-	 */
-	private Optional<Album> findCoverArt(List<Album> albums, CoverArtFindable coverFinder) {
-		if(albums.isEmpty()) {
-			log.info("No Albums found to retrieve a CoverArt");
-			return Optional.empty();
-		}
-		// Build an Executor with all the threads needed to find
-		// the Album covers.
-		final Executor executor = ExecutorUtils.fixedThreadPoolFactory(albums.size());
-		
-		// Find asynchronously all the covers available
-		List<CompletableFuture<Optional<Album>>> asyncAlbums = albums.stream()
-				.map(album -> CompletableFuture.supplyAsync(albumWithCoverSupplier(album, coverFinder), executor))
-				.collect(Collectors.toList());
-		
-		// Get the first Abum with cover
-		Optional<Album> albumWithCover = asyncAlbums.stream()
-				.map(CompletableFuture::join)
-				.filter(Optional::isPresent)
-				.map(Optional::get)
-				.findFirst();
-		
-		if(albumWithCover.isPresent()) {
-			return albumWithCover;
-		}
-		
-		return Optional.empty();
-	}
+	private class CoverArtProportionsComparator implements Comparator<Album>{
 
-	private Supplier<Optional<Album>> albumWithCoverSupplier(Album album, CoverArtFindable coverFinder) {
-		log.info("Fetching CoverArt for [{}]", album);
-		return () -> {
-			try {
-				Optional<CoverArt> oArt = coverFinder.findCoverArt(album);
-				// If it exists:
-				if(oArt.isPresent()) {
-					Album richAlbum = new Album.Builder()
-							.artistName(album.getArtistName())
-							.songName(album.getSongName())
-							.name(album.getName())
-							.coverArt(oArt)
-							.mbid(album.getMbid().get())
-							.status(album.getStatus())
-							.build();
-					log.info("Album with Cover found [{}]", richAlbum);
-					return Optional.of(richAlbum);
-				}
-			} catch (IOException e) {
-				log.info("Cover not found for [{}]. Error={}", album, e.getMessage());
-				LoggerUtils.logDebug(log, () -> "Cover not found for " + album, e);
-			}
-			
-			return Optional.empty();
-		};
+		@Override
+		public int compare(Album a1, Album a2) {
+			Optional<CoverArt> oCA1 = a1.getCoverArt();
+			 Optional<CoverArt> oCA2 = a2.getCoverArt();
+			 
+			 if(oCA1.isPresent() && oCA2.isPresent()) {
+				 float r1 = Math.abs(oCA1.get().getMaxWidth() * 1.0f/oCA1.get().getMaxHeight() - 1);
+				 float r2 = Math.abs(oCA2.get().getMaxWidth() * 1.0f/oCA2.get().getMaxHeight() - 1);
+				 return Float.compare(r1, r2);
+			 }
+			 else if(oCA1.isPresent() && !oCA2.isPresent()) {
+				 return 1;
+			 }
+			 else if(!oCA1.isPresent() && oCA2.isPresent()) {
+				 return -1;
+			 }
+			 else {
+				 return 0;
+			 }
+		}
+		
 	}
+	
+
 }

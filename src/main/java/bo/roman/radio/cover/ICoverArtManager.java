@@ -5,7 +5,7 @@ import java.util.Optional;
 import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.cover.model.Radio;
 
-public interface CoverArtManagerInterface {
+public interface ICoverArtManager {
 	
 	/**
 	 * Get the Album for the song and artist in an Async way.
@@ -17,7 +17,7 @@ public interface CoverArtManagerInterface {
 	 * @param artist
 	 * @return
 	 */
-	Optional<Album> getAlbumWithCoverAsync(String song, String artist);
+	Optional<Album> getAlbumWithCover(String song, String artist);
 	
 	/**
 	 * Get the Radio that is playing with 

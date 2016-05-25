@@ -4,10 +4,15 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import bo.roman.radio.cover.model.Song;
 import uk.co.caprica.vlcj.player.MediaMeta;
 
 public class MediaMetaUtils {
+	private final static Logger logger = LoggerFactory.getLogger(MediaMetaUtils.class);
+	
 	private static final String FROMSPACEDASH_REGEX = "(?<=-)\\s+.+$";
 	private static final String TILSPACEDASH_REGEX = "^.+?\\s+(?=-)";
 	private static final String SONGINFO_REGEX = "(?<=.)\\(.*\\).*";
@@ -34,8 +39,6 @@ public class MediaMetaUtils {
 		String songName = meta.getTitle();
 		String artistName = meta.getArtist();
 		if(StringUtils.exists(songName) && StringUtils.exists(artistName)) {
-			songName = StringUtils.cleanIt(songName);
-			artistName = StringUtils.cleanIt(artistName);
 			return buildCleanSong(songName, artistName);
 		}
 		
@@ -79,14 +82,20 @@ public class MediaMetaUtils {
 		if(!StringUtils.exists(songName)) {
 			return Optional.empty();
 		}
+		songName = StringUtils.cleanIt(songName);
+		artist = StringUtils.cleanIt(artist);
 		
 		songName = songName.replaceAll(SONGINFO_REGEX, "").trim();
+		
 		if(StringUtils.exists(songName) && !StringUtils.exists(artist)) {
-			return Optional.of(new Song(songName, ""));
+			Song s = new Song(songName, "");
+			LoggerUtils.logDebug(logger, () -> "Built Clean Song: " + s);
+			return Optional.of(s);
 		}
 		
-		artist = artist.trim();
-		return Optional.of(new Song(songName, artist));
+		Song s = new Song(songName, artist);
+		LoggerUtils.logDebug(logger, () -> "Built Clean Song: " + s);
+		return Optional.of(s);
 	}
 	
 	/**
@@ -101,13 +110,14 @@ public class MediaMetaUtils {
 	 * @return
 	 */
 	public static Optional<String> findRadioName(MediaMeta meta) {
+		LoggerUtils.logDebug(logger, () -> "Parsing MetaTitle=" + meta.getTitle());
 		String radioName = meta.getTitle();
 		if(!StringUtils.exists(radioName)) {
 			return Optional.empty();
 		}
 		
 		// First ecape html encoding
-		String parsedRadioName = StringUtils.cleanIt(radioName.trim());
+		String parsedRadioName = StringUtils.cleanIt(radioName);
 		
 		// Separate the radio name if there is in the middle a '-'
 		Matcher m = Pattern.compile(TILSPACEDASH_REGEX).matcher(parsedRadioName);
@@ -115,7 +125,9 @@ public class MediaMetaUtils {
 			parsedRadioName = m.group().trim();
 		}
 		
-		return Optional.of(parsedRadioName);
+		final String name = parsedRadioName;
+		LoggerUtils.logDebug(logger, () -> "Parsed Radio Name=" + name);
+		return Optional.of(name);
 	}
 	
 }

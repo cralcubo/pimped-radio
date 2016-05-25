@@ -4,17 +4,14 @@ import static bo.roman.radio.utilities.StringUtils.nullIsEmpty;
 
 import java.util.Optional;
 
-public class Album extends MBEntity{
+public class Album {
 	private String songName;
 	private String artistName;
 	private String name;
-	private String status;
 	private Optional<CoverArt> coverArt;
 
 	private Album(Builder builder) {
-		super(builder.mbid);
 		this.name = builder.name;
-		this.status = builder.status;
 		this.coverArt = builder.coverArt;
 		this.songName = builder.songName;
 		this.artistName = builder.artistName;
@@ -32,28 +29,63 @@ public class Album extends MBEntity{
 		return name;
 	}
 	
-	public String getStatus() {
-		return status;
-	}
-	
 	public Optional<CoverArt> getCoverArt() {
 		return coverArt;
 	}
 	
-	
 	@Override
 	public String toString() {
-		return "Album [songName=" + songName + ", artistName=" + artistName + ", name=" + name + ", status=" + status
+		return "Album [songName=" + songName + ", artistName=" + artistName + ", albumName=" + name
 				+ ", coverArt=" + coverArt + "] " + super.toString();
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((artistName == null) ? 0 : artistName.hashCode());
+		result = prime * result + ((coverArt == null) ? 0 : coverArt.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((songName == null) ? 0 : songName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Album other = (Album) obj;
+		if (artistName == null) {
+			if (other.artistName != null)
+				return false;
+		} else if (!artistName.equals(other.artistName))
+			return false;
+		if (coverArt == null) {
+			if (other.coverArt != null)
+				return false;
+		} else if (!coverArt.equals(other.coverArt))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (songName == null) {
+			if (other.songName != null)
+				return false;
+		} else if (!songName.equals(other.songName))
+			return false;
+		return true;
+	}
 
 	public static class Builder {
 		private String artistName;
 		private String songName;
-		private String status;
 		private String name;
-		private String mbid;
 		private Optional<CoverArt> coverArt = Optional.empty();
 
 		public Builder name(String val) {
@@ -73,16 +105,6 @@ public class Album extends MBEntity{
 		
 		public Builder artistName(String val) {
 			artistName = nullIsEmpty(val);
-			return this;
-		}
-
-		public Builder mbid(String val) {
-			mbid = nullIsEmpty(val);
-			return this;
-		}
-
-		public Builder status(String val) {
-			status = nullIsEmpty(val);
 			return this;
 		}
 

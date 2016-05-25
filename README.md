@@ -12,7 +12,7 @@ Technologies to be used
 -----------------------
 * Java 8
 * JUnit/Hamcrest [Testing]
-* Musicbrainz [Songs information and cover art]
+* Amazon [Find CoverArt and Album]
 * JVLC [The actual music player]
 
 Future

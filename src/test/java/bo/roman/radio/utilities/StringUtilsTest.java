@@ -9,6 +9,11 @@ public class StringUtilsTest {
 	private final static String NL = StringUtils.LINE_SEPARATOR;
 	
 	@Test
+	public void testPercentage() {
+		assertThat(StringUtils.cleanIt("La X Estereo - 100% Pura Salsa"), is("La X Estereo - 100% Pura Salsa"));
+	}
+	
+	@Test
 	public void testReplaceAccents() {
 		assertThat(StringUtils.cleanIt("Et ça sera sa moitié."), is("Et ca sera sa moitie."));
 	}

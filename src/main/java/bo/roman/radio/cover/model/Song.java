@@ -2,18 +2,16 @@ package bo.roman.radio.cover.model;
 
 import static bo.roman.radio.utilities.StringUtils.nullIsEmpty;
 
-public class Song extends MBEntity {
+public class Song {
 	private final String name;
 	private final String artist;
 	
 	private Song(Builder builder) {
-		super(builder.mbid);
 		this.name = builder.name;
 		this.artist = builder.artist;
 	}
 	
 	public Song(String name, String artist) {
-		super("");
 		this.name = name;
 		this.artist = artist;
 	}
@@ -34,7 +32,6 @@ public class Song extends MBEntity {
 	public static class Builder {
 		private String name;
 		private String artist;
-		private String mbid;
 		
 		public Builder name(String val) {
 			name = nullIsEmpty(val);
@@ -43,11 +40,6 @@ public class Song extends MBEntity {
 		
 		public Builder artist(String val) {
 			artist = nullIsEmpty(val);
-			return this;
-		}
-		
-		public Builder mbid(String val) {
-			mbid = nullIsEmpty(val);
 			return this;
 		}
 		
