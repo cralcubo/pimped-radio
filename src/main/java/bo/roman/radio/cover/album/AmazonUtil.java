@@ -19,9 +19,12 @@ public class AmazonUtil {
 	
 	private static final Logger log = LoggerFactory.getLogger(AmazonUtil.class);
 	
-	private static final String PRIMARY_CONTRIBUTOR = "Primary Contributor";
-	private static final String PRODUCTGROUP_ALBUM = "Digital Music Album";
-	private static final String PRODUCTGROUP_MUSIC = "Music";
+	public static final String PERFORMER_ROLE = "Performer";
+	public static final String PRIMARYCONTRIBUTOR_ROLE = "Primary Contributor";
+	
+	public static final String PRODUCTGROUP_ALBUM = "Digital Music Album";
+	public static final String PRODUCTGROUP_MUSIC = "Music";
+	
 	private static final String AMAZON_UNKNOWN = "AMAZON_UNKNOWN";
 
 	/**
@@ -74,7 +77,7 @@ public class AmazonUtil {
 		// We need to find the album from the RelatedItem
 		Optional<Creator> oCreator = oItemAttribute.map(ItemAttributes::getCreator);
 		// This is the Artist:
-		Optional<String> oCreatorArtist = oCreator.filter(c -> PRIMARY_CONTRIBUTOR.equals(c.getRole()))
+		Optional<String> oCreatorArtist = oCreator.filter(c -> PRIMARYCONTRIBUTOR_ROLE.equals(c.getRole()) || PERFORMER_ROLE.equals(c.getRole()))
 												  .map(Creator::getValue);
 		// Album name:
 		Optional<ItemAttributes> oAlbumItem = Optional.ofNullable(item.getRelatedItems())

@@ -25,7 +25,7 @@ public class Album {
 		return artistName;
 	}
 	
-	public String getName() {
+	public String getAlbumName() {
 		return name;
 	}
 	
@@ -36,7 +36,7 @@ public class Album {
 	@Override
 	public String toString() {
 		return "Album [songName=" + songName + ", artistName=" + artistName + ", albumName=" + name
-				+ ", coverArt=" + coverArt + "] " + super.toString();
+				+ ", coverArt=" + coverArt + "]";
 	}
 
 	@Override

@@ -98,7 +98,7 @@ public class AmazonConnectionUtil {
 				, album.getArtistName()
 				, getAwsAssociateTag()
 				, getTimeStamp()
-				, album.getName());
+				, album.getAlbumName());
 		
 		// Generate the URL to send the REST request
 		String url = generateUrl(requestQuery);

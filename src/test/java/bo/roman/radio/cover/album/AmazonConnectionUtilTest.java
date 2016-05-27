@@ -96,7 +96,7 @@ public class AmazonConnectionUtilTest {
 		assertThat(getParameter(pTimestamp, url), not(IsEmptyString.isEmptyOrNullString()));
 		
 		String pTitle = "Title";
-		assertThat(getParameter(pTitle, url), is(equalTo(String.format("'%s'", album.getName()))));
+		assertThat(getParameter(pTitle, url), is(equalTo(String.format("'%s'", album.getAlbumName()))));
 		
 		String pSignature = "Signature";
 		assertThat(getParameter(pSignature, url), not(IsEmptyString.isEmptyOrNullString()));

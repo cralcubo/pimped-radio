@@ -62,7 +62,7 @@ public class AmazonUtilTest {
 		Album a = oAlb.get();
 		assertThat(a.getArtistName(), is(artist));
 		assertThat(a.getSongName(), is(title));
-		assertThat(a.getName(), is(title));
+		assertThat(a.getAlbumName(), is(title));
 		assertThat(a.getCoverArt().get(), is(ca));
 	}
 	
@@ -120,7 +120,7 @@ public class AmazonUtilTest {
 		Album a = oAlb.get();
 		assertThat(a.getArtistName(), is(artist));
 		assertThat(a.getSongName(), is(title));
-		assertThat(a.getName(), is(title));
+		assertThat(a.getAlbumName(), is(title));
 		assertThat(a.getCoverArt().get(), is(ca));
 		
 	}
@@ -178,7 +178,7 @@ public class AmazonUtilTest {
 		Album a = oAlb.get();
 		assertThat(a.getArtistName(), is(artist));
 		assertThat(a.getSongName(), is(title));
-		assertThat(a.getName(), is(albumName));
+		assertThat(a.getAlbumName(), is(albumName));
 		assertThat(a.getCoverArt().get(), is(ca));
 	}
 	

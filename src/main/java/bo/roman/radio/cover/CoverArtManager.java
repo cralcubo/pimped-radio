@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +39,19 @@ public class CoverArtManager implements ICoverArtManager {
 	public Optional<Album> getAlbumWithCover(String song, String artist) {
 		
 		log.info("Finding Album for [{} - {}]", song, artist);
-		List<Album> allAlbums = albumFinder.findAlbums(song, artist);
+		// Get all the albums found in Amazon and give priority to the albums name 
+		// that have the same name as the song that was used to find it.
+		List<Album> allAlbums = albumFinder.findAlbums(song, artist).stream()
+								.sorted((a1, a2) -> {
+									if(RegExUtil.phrase(a1.getAlbumName()).beginsWithIgnoreCase(song) && !RegExUtil.phrase(a2.getAlbumName()).beginsWithIgnoreCase(song)) {
+										return -1;
+									}
+									else if(!RegExUtil.phrase(a1.getAlbumName()).beginsWithIgnoreCase(song) && RegExUtil.phrase(a2.getAlbumName()).beginsWithIgnoreCase(song)) {
+										return 1;
+									}
+									return 0;
+								})
+								.collect(Collectors.toList());
 		
 		if(allAlbums.isEmpty()) {
 			log.info("No Albums found.");
@@ -50,28 +63,18 @@ public class CoverArtManager implements ICoverArtManager {
 		// Find the best Album, this is the one that exactly matches song and artist
 		// if there is more than one, return the one that is more square: w/h closer to 1
 		Optional<Album> bestAlbum = allAlbums.stream()
-											 .filter(a -> a.getSongName().equalsIgnoreCase(song))
-											 .filter(a -> a.getArtistName().equalsIgnoreCase(artist))
+											 .filter(a -> (a.getSongName().equalsIgnoreCase(song) && a.getArtistName().equalsIgnoreCase(artist)) 
+													  ||   RegExUtil.phrase(a.getAlbumName()).beginsWithIgnoreCase(song))
 											 .min(proportionsComparator);
 		if(bestAlbum.isPresent()) {
 			log.info("Best Match Album found {}", bestAlbum.get());
 			return bestAlbum;
 		}
 		
-		// No Exact Match, return a close Match
-		Optional<Album> closeAlbum = allAlbums.stream()
-											.filter(a -> RegExUtil.phrase(a.getSongName()).beginsWithIgnoreCase(song))
-											.filter(a -> RegExUtil.phrase(a.getArtistName()).containsIgnoreCase(artist))
-											.min(proportionsComparator);
-		
-		if(closeAlbum.isPresent()) {
-			log.info("Close Match Album found {}", closeAlbum.get());
-			return closeAlbum;
-		}
-		
-		// No exact/close match found, then return the album with the best CoverArt: w/h closer to 1
+		// No exact match found, then return the album with the best CoverArt: w/h closer to 1
 		Optional<Album> albumFound = allAlbums.stream().min(proportionsComparator);
-		log.info("Returning {}", albumFound);
+		log.info("Close Match Album found {}", albumFound);
+		
 		return albumFound;
 	}
 

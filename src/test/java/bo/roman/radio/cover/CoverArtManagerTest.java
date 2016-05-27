@@ -39,6 +39,7 @@ public class CoverArtManagerTest {
 	
 	private String testSong = "aSong";
 	private String testArtist = "anArtist";
+	private String testAlbum = "anAlbum";
 	
 	@Mock
 	private RadioStationFindable radioFinder;
@@ -63,13 +64,13 @@ public class CoverArtManagerTest {
 	@Test
 	public void testGetAlbum_bestMatch() {
 		CoverArt rectangularCover = new CoverArt.Builder().maxHeight(500).maxWidth(499).largeUri("http://rect.uri").build();
-		Album a1 = new Album.Builder().artistName(testArtist).songName(testSong).coverArt(Optional.of(rectangularCover)).build();
+		Album a1 = new Album.Builder().artistName(testArtist).songName(testSong).name(testAlbum).coverArt(Optional.of(rectangularCover)).build();
 		
 		CoverArt squareCover = new CoverArt.Builder().maxHeight(500).maxWidth(500).largeUri("http://square.uri").build();
-		Album a2 = new Album.Builder().artistName(testArtist).songName(testSong).coverArt(Optional.of(squareCover)).build();
+		Album a2 = new Album.Builder().artistName(testArtist).songName(testSong).name(testAlbum).coverArt(Optional.of(squareCover)).build();
 		
-		Album a3 = new Album.Builder().artistName(testArtist + " ft. DMX").songName(testSong).coverArt(Optional.of(squareCover)).build();
-		Album a4 = new Album.Builder().artistName(testArtist).songName(testSong + "(Remix)").coverArt(Optional.of(squareCover)).build();
+		Album a3 = new Album.Builder().artistName(testArtist + " ft. DMX").songName(testSong).name(testAlbum).coverArt(Optional.of(squareCover)).build();
+		Album a4 = new Album.Builder().artistName(testArtist).songName(testSong + "(Remix)").name(testAlbum).coverArt(Optional.of(squareCover)).build();
 		
 		List<Album> albums = Arrays.asList(a1, a2, a3, a4);
 		
@@ -82,36 +83,39 @@ public class CoverArtManagerTest {
 	}
 	
 	@Test
-	public void testGetAlbum_closeMatch() {
+	public void testGetAlbum_bestMatchAlbum() {
+		String song = "Breed";
+		String band = "Nirvana";
+		String albumName = "Nevermind";
+		
 		CoverArt rectangularCover = new CoverArt.Builder().maxHeight(500).maxWidth(499).largeUri("http://rect.uri").build();
-		Album a1 = new Album.Builder().artistName("Nirvana").songName(testSong).coverArt(Optional.of(rectangularCover)).build();
+		CoverArt squareCover = new CoverArt.Builder().maxHeight(500).maxWidth(500).largeUri("http://rect.uri").build();
+		Album a1 = new Album.Builder().artistName(band).songName(song).name(albumName).coverArt(Optional.of(squareCover)).build();
+		Album a2 = new Album.Builder().artistName(band).songName(song + " (Remastered)").name(albumName + " (Remastered)").coverArt(Optional.of(squareCover)).build();
+		Album a3 = new Album.Builder().artistName(band + "(Unplugged)").songName(song + " (Unplugged)").name(albumName + " (Unplugged)").coverArt(Optional.of(squareCover)).build();
+		Album a4 = new Album.Builder().artistName(band).songName(song).name(song + "(Explicit)").coverArt(Optional.of(rectangularCover)).build();
+		Album a5 = new Album.Builder().artistName(band).songName(song + "(Unplugged)").name(song + "(Unplugged)").coverArt(Optional.of(squareCover)).build();
 		
-		CoverArt squareCover = new CoverArt.Builder().maxHeight(500).maxWidth(500).largeUri("http://square.uri").build();
-		Album a2 = new Album.Builder().artistName("Mix 95").songName(testSong).coverArt(Optional.of(squareCover)).build();
-		
-		Album a3 = new Album.Builder().artistName(testArtist + " ft. DMX").songName(testSong).coverArt(Optional.of(squareCover)).build();
-		Album a4 = new Album.Builder().artistName(testArtist).songName(testSong + " (Remix)").coverArt(Optional.of(rectangularCover)).build();
-		
-		List<Album> albums = Arrays.asList(a1, a2, a3, a4);
+		List<Album> albums = Arrays.asList(a1, a2, a3, a4, a5);
 		
 		// Mock
-		when(albumFinder.findAlbums(testSong, testArtist)).thenReturn(albums );
+		when(albumFinder.findAlbums(song, band)).thenReturn(albums);
 		
-		Optional<Album> oAlbum = manager.getAlbumWithCover(testSong, testArtist);
+		Optional<Album> oAlbum = manager.getAlbumWithCover(song, band);
 		
-		assertThat(oAlbum.get(), is(a3));
+		assertThat(oAlbum.get(), is(a5));
 	}
 	
 	@Test
-	public void testGetAlbum_anyMatch() {
+	public void testGetAlbum_closeMatch() {
 		CoverArt rectangularCover = new CoverArt.Builder().maxHeight(500).maxWidth(499).largeUri("http://rect.uri").build();
-		Album a1 = new Album.Builder().artistName("Nirvana").songName(testSong).coverArt(Optional.of(rectangularCover)).build();
+		Album a1 = new Album.Builder().artistName("Nirvana -" + testArtist).songName(testSong).name(testAlbum).coverArt(Optional.of(rectangularCover)).build();
 		
 		CoverArt squareCover = new CoverArt.Builder().maxHeight(500).maxWidth(500).largeUri("http://square.uri").build();
-		Album a2 = new Album.Builder().artistName("Mix 95").songName(testSong).coverArt(Optional.of(squareCover)).build();
+		Album a2 = new Album.Builder().artistName(testArtist).songName(testSong + "(Remix 95)").name(testAlbum).coverArt(Optional.of(squareCover)).build();
 		
-		Album a3 = new Album.Builder().artistName(" ft. DMX").songName(testSong).coverArt(Optional.of(squareCover)).build();
-		Album a4 = new Album.Builder().artistName("no artist").songName(testSong + " (Remix)").coverArt(Optional.of(rectangularCover)).build();
+		Album a3 = new Album.Builder().artistName(testArtist + " ft. DMX").songName(testSong).name(testAlbum).coverArt(Optional.of(squareCover)).build();
+		Album a4 = new Album.Builder().artistName(testArtist).songName(testSong + " (Remix)").name(testAlbum).coverArt(Optional.of(rectangularCover)).build();
 		
 		List<Album> albums = Arrays.asList(a1, a2, a3, a4);
 		
