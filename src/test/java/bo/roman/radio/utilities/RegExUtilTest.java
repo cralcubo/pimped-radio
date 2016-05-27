@@ -28,6 +28,13 @@ public class RegExUtilTest {
 		String song = "Harmony"; // Clinic
 		assertThat(RegExUtil.phrase(title).containsIgnoreCase(song), is(false));
 		assertThat(RegExUtil.phrase(song).containsIgnoreCase(title), is(false));
+		
+		String title2 = "Taguin?e lashe (Mujer del este)";
+		String song2 = "Plegaria del Arbol Negro";
+		assertThat(RegExUtil.phrase(title2).containsIgnoreCase(song2), is(false));
+		assertThat(RegExUtil.phrase(song2).containsIgnoreCase(title2), is(false));
+		
+		
 	}
 
 	@Test
