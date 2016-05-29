@@ -1,0 +1,1451 @@
+<?xml version="1.0" ?>
+<ItemSearchResponse
+	xmlns="http://webservices.amazon.com/AWSECommerceService/2011-08-01">
+	<OperationRequest>
+		<HTTPHeaders>
+			<Header Name="UserAgent" Value="Apache-HttpClient/4.5.2 (Java/1.8.0_77)"></Header>
+		</HTTPHeaders>
+		<RequestId>061dfe37-502a-4e69-95f2-e4b6cee0801d</RequestId>
+		<Arguments>
+			<Argument Name="AWSAccessKeyId" Value="AKIAIL5VGOSTTL6ZVC6A"></Argument>
+			<Argument Name="AssociateTag" Value="2615-2750-3759"></Argument>
+			<Argument Name="Keywords" Value="'Work ft. Drake,Rihanna'"></Argument>
+			<Argument Name="Operation" Value="ItemSearch"></Argument>
+			<Argument Name="RelationshipType" Value="Tracks"></Argument>
+			<Argument Name="ResponseGroup" Value="RelatedItems,Images,Small"></Argument>
+			<Argument Name="SearchIndex" Value="All"></Argument>
+			<Argument Name="Service" Value="AWSECommerceService"></Argument>
+			<Argument Name="Timestamp" Value="2016-05-28T17:44:01Z"></Argument>
+			<Argument Name="Signature"
+				Value="MRTOGLludvP9lLUq47QV3MgY65AFpWUuSQE52p4J6WI="></Argument>
+		</Arguments>
+		<RequestProcessingTime>0.2029023080000000</RequestProcessingTime>
+	</OperationRequest>
+	<Items>
+		<Request>
+			<IsValid>True</IsValid>
+			<ItemSearchRequest>
+				<Keywords>'Work ft. Drake,Rihanna'</Keywords>
+				<RelationshipType>Tracks</RelationshipType>
+				<ResponseGroup>RelatedItems</ResponseGroup>
+				<ResponseGroup>Images</ResponseGroup>
+				<ResponseGroup>Small</ResponseGroup>
+				<SearchIndex>All</SearchIndex>
+			</ItemSearchRequest>
+		</Request>
+		<TotalResults>16</TotalResults>
+		<TotalPages>2</TotalPages>
+		<MoreSearchResultsUrl>http://www.amazon.com/gp/redirect.html?linkCode=xm2&amp;SubscriptionId=AKIAIL5VGOSTTL6ZVC6A&amp;location=http%3A%2F%2Fwww.amazon.com%2Fgp%2Fsearch%3Fkeywords%3D%2527Work%2Bft.%2BDrake%252CRihanna%2527%26url%3Dsearch-alias%253Daws-amazon-aps&amp;tag=2615-2750-3759&amp;creative=386001&amp;camp=2025
+		</MoreSearchResultsUrl>
+		<Item>
+			<ASIN>B01B8IBDKI</ASIN>
+			<DetailPageURL>http://www.amazon.com/Work-feat-Drake-Explicit/dp/B01B8IBDKI%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB01B8IBDKI
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Work-feat-Drake-Explicit/dp/tech-data/B01B8IBDKI%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01B8IBDKI
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB01B8IBDKI%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01B8IBDKI
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB01B8IBDKI%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01B8IBDKI
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB01B8IBDKI%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01B8IBDKI
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B01B8IBDKI%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01B8IBDKI
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B01B8IBDKI%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01B8IBDKI
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B01B8IBDKI%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01B8IBDKI
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/51nMltCScrL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">75</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/51nMltCScrL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">160</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/51nMltCScrL.jpg</URL>
+				<Height Units="pixels">500</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/51nMltCScrL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">30</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/51nMltCScrL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/51nMltCScrL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/51nMltCScrL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">110</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/51nMltCScrL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">160</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/51nMltCScrL.jpg</URL>
+						<Height Units="pixels">500</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Creator Role="Primary Contributor">Rihanna</Creator>
+				<Manufacturer>Roc Nation / Rihanna</Manufacturer>
+				<ProductGroup>Digital Music Track</ProductGroup>
+				<Title>Work [feat. Drake] [Explicit]</Title>
+			</ItemAttributes>
+			<RelatedItems>
+				<Relationship>Parents</Relationship>
+				<RelationshipType>Tracks</RelationshipType>
+				<RelatedItemCount>1</RelatedItemCount>
+				<RelatedItemPageCount>1</RelatedItemPageCount>
+				<RelatedItemPage>1</RelatedItemPage>
+				<RelatedItem>
+					<Item>
+						<ASIN>B01B8I4AN0</ASIN>
+						<ItemAttributes>
+							<Creator Role="Primary Contributor">Rihanna</Creator>
+							<Manufacturer>Roc Nation / Rihanna</Manufacturer>
+							<ProductGroup>Digital Music Album</ProductGroup>
+							<Title>Anti (Deluxe) [Explicit]</Title>
+						</ItemAttributes>
+					</Item>
+				</RelatedItem>
+			</RelatedItems>
+		</Item>
+		<Item>
+			<ASIN>B01B8I3ROS</ASIN>
+			<DetailPageURL>http://www.amazon.com/Work-feat-Drake-Clean/dp/B01B8I3ROS%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB01B8I3ROS
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Work-feat-Drake-Clean/dp/tech-data/B01B8I3ROS%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01B8I3ROS
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB01B8I3ROS%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01B8I3ROS
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB01B8I3ROS%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01B8I3ROS
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB01B8I3ROS%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01B8I3ROS
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B01B8I3ROS%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01B8I3ROS
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B01B8I3ROS%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01B8I3ROS
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B01B8I3ROS%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01B8I3ROS
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/51nMltCScrL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">75</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/51nMltCScrL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">160</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/51nMltCScrL.jpg</URL>
+				<Height Units="pixels">500</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/51nMltCScrL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">30</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/51nMltCScrL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/51nMltCScrL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/51nMltCScrL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">110</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/51nMltCScrL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">160</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/51nMltCScrL.jpg</URL>
+						<Height Units="pixels">500</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Creator Role="Primary Contributor">Rihanna</Creator>
+				<Manufacturer>Roc Nation / Rihanna</Manufacturer>
+				<ProductGroup>Digital Music Track</ProductGroup>
+				<Title>Work [feat. Drake] [Clean]</Title>
+			</ItemAttributes>
+			<RelatedItems>
+				<Relationship>Parents</Relationship>
+				<RelationshipType>Tracks</RelationshipType>
+				<RelatedItemCount>1</RelatedItemCount>
+				<RelatedItemPageCount>1</RelatedItemPageCount>
+				<RelatedItemPage>1</RelatedItemPage>
+				<RelatedItem>
+					<Item>
+						<ASIN>B01B8I3K6I</ASIN>
+						<ItemAttributes>
+							<Creator Role="Primary Contributor">Rihanna</Creator>
+							<Manufacturer>Roc Nation / Rihanna</Manufacturer>
+							<ProductGroup>Digital Music Album</ProductGroup>
+							<Title>Anti (Deluxe) [Clean]</Title>
+						</ItemAttributes>
+					</Item>
+				</RelatedItem>
+			</RelatedItems>
+		</Item>
+		<Item>
+			<ASIN>B01CFZ901M</ASIN>
+			<ParentASIN>B01CFZ8Z5E</ParentASIN>
+			<DetailPageURL>http://www.amazon.com/SHMUY-Rihanna-Drake-Cotton-Collar/dp/B01CFZ901M%3Fpsc%3D1%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB01CFZ901M
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/SHMUY-Rihanna-Drake-Cotton-Collar/dp/tech-data/B01CFZ901M%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZ901M
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB01CFZ901M%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZ901M
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB01CFZ901M%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZ901M
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB01CFZ901M%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZ901M
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B01CFZ901M%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZ901M
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B01CFZ901M%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZ901M
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B01CFZ901M%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZ901M
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/41G3mp6NMOL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">75</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/41G3mp6NMOL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">160</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/41G3mp6NMOL.jpg</URL>
+				<Height Units="pixels">500</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="variant">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/419pcuKMcfL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">11</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/419pcuKMcfL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">29</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/419pcuKMcfL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">29</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/419pcuKMcfL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">42</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/419pcuKMcfL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">61</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/419pcuKMcfL.jpg</URL>
+						<Height Units="pixels">191</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/41G3mp6NMOL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">30</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/41G3mp6NMOL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/41G3mp6NMOL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/41G3mp6NMOL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">110</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/41G3mp6NMOL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">160</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/41G3mp6NMOL.jpg</URL>
+						<Height Units="pixels">500</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<ProductGroup>Apparel</ProductGroup>
+				<Title>SHMUY Men's Rihanna Ft Drake Work Cotton Round Collar T
+					Shirt,XS,Black</Title>
+			</ItemAttributes>
+		</Item>
+		<Item>
+			<ASIN>B01CFZAFHA</ASIN>
+			<ParentASIN>B01CFZADF4</ParentASIN>
+			<DetailPageURL>http://www.amazon.com/SHMUY-Womens-Rihanna-Cotton-Collar/dp/B01CFZAFHA%3Fpsc%3D1%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB01CFZAFHA
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/SHMUY-Womens-Rihanna-Cotton-Collar/dp/tech-data/B01CFZAFHA%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZAFHA
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB01CFZAFHA%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZAFHA
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB01CFZAFHA%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZAFHA
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB01CFZAFHA%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZAFHA
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B01CFZAFHA%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZAFHA
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B01CFZAFHA%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZAFHA
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B01CFZAFHA%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZAFHA
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/41MKKRfuUjL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">75</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/41MKKRfuUjL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">160</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/41MKKRfuUjL.jpg</URL>
+				<Height Units="pixels">500</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="variant">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/419pcuKMcfL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">11</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/419pcuKMcfL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">29</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/419pcuKMcfL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">29</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/419pcuKMcfL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">42</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/419pcuKMcfL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">61</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/419pcuKMcfL.jpg</URL>
+						<Height Units="pixels">191</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/41MKKRfuUjL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">30</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/41MKKRfuUjL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/41MKKRfuUjL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/41MKKRfuUjL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">110</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/41MKKRfuUjL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">160</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/41MKKRfuUjL.jpg</URL>
+						<Height Units="pixels">500</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<ProductGroup>Apparel</ProductGroup>
+				<Title>SHMUY Women's Rihanna Ft Drake Work Cotton Round Collar T
+					Shirt,S,Black</Title>
+			</ItemAttributes>
+		</Item>
+		<Item>
+			<ASIN>B01CFZA6KG</ASIN>
+			<ParentASIN>B01CFZA4GM</ParentASIN>
+			<DetailPageURL>http://www.amazon.com/SHMUY-Womens-Rihanna-Cotton-Collar/dp/B01CFZA6KG%3Fpsc%3D1%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB01CFZA6KG
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/SHMUY-Womens-Rihanna-Cotton-Collar/dp/tech-data/B01CFZA6KG%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZA6KG
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB01CFZA6KG%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZA6KG
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB01CFZA6KG%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZA6KG
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB01CFZA6KG%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZA6KG
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B01CFZA6KG%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZA6KG
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B01CFZA6KG%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZA6KG
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B01CFZA6KG%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZA6KG
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/41VihPMAtXL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">75</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/41VihPMAtXL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">160</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/41VihPMAtXL.jpg</URL>
+				<Height Units="pixels">500</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="variant">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/419pcuKMcfL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">11</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/419pcuKMcfL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">29</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/419pcuKMcfL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">29</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/419pcuKMcfL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">42</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/419pcuKMcfL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">61</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/419pcuKMcfL.jpg</URL>
+						<Height Units="pixels">191</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/41VihPMAtXL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">30</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/41VihPMAtXL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/41VihPMAtXL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/41VihPMAtXL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">110</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/41VihPMAtXL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">160</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/41VihPMAtXL.jpg</URL>
+						<Height Units="pixels">500</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<ProductGroup>Apparel</ProductGroup>
+				<Title>SHMUY Women's Rihanna Ft Drake Work Cotton Round Collar T
+					Shirt,S,Black</Title>
+			</ItemAttributes>
+		</Item>
+		<Item>
+			<ASIN>B01CFZ99FY</ASIN>
+			<ParentASIN>B01CFZ97HO</ParentASIN>
+			<DetailPageURL>http://www.amazon.com/SHMUY-Rihanna-Drake-Cotton-Collar/dp/B01CFZ99FY%3Fpsc%3D1%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB01CFZ99FY
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/SHMUY-Rihanna-Drake-Cotton-Collar/dp/tech-data/B01CFZ99FY%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZ99FY
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB01CFZ99FY%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZ99FY
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB01CFZ99FY%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZ99FY
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB01CFZ99FY%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZ99FY
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B01CFZ99FY%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZ99FY
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B01CFZ99FY%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZ99FY
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B01CFZ99FY%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01CFZ99FY
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/41%2BDVCSDfgL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">75</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/41%2BDVCSDfgL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">160</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/41%2BDVCSDfgL.jpg</URL>
+				<Height Units="pixels">500</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="variant">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/419pcuKMcfL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">11</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/419pcuKMcfL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">29</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/419pcuKMcfL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">29</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/419pcuKMcfL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">42</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/419pcuKMcfL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">61</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/419pcuKMcfL.jpg</URL>
+						<Height Units="pixels">191</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/41%2BDVCSDfgL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">30</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/41%2BDVCSDfgL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/41%2BDVCSDfgL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/41%2BDVCSDfgL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">110</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/41%2BDVCSDfgL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">160</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/41%2BDVCSDfgL.jpg</URL>
+						<Height Units="pixels">500</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<ProductGroup>Apparel</ProductGroup>
+				<Title>SHMUY Men's Rihanna Ft Drake Work Cotton Round Collar T
+					Shirt,S,Black</Title>
+			</ItemAttributes>
+		</Item>
+		<Item>
+			<ASIN>B01F3BORNG</ASIN>
+			<ParentASIN>B01F3BOPUQ</ParentASIN>
+			<DetailPageURL>http://www.amazon.com/VOLTEBQ-Dancing-Breathable-Athletic-Shorts/dp/B01F3BORNG%3Fpsc%3D1%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB01F3BORNG
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/VOLTEBQ-Dancing-Breathable-Athletic-Shorts/dp/tech-data/B01F3BORNG%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01F3BORNG
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB01F3BORNG%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01F3BORNG
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB01F3BORNG%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01F3BORNG
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB01F3BORNG%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01F3BORNG
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B01F3BORNG%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01F3BORNG
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B01F3BORNG%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01F3BORNG
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B01F3BORNG%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01F3BORNG
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/41aF4QnoLAL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">75</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/41aF4QnoLAL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">160</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/41aF4QnoLAL.jpg</URL>
+				<Height Units="pixels">500</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/41aF4QnoLAL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">30</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/41aF4QnoLAL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/41aF4QnoLAL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/41aF4QnoLAL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">110</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/41aF4QnoLAL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">160</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/41aF4QnoLAL.jpg</URL>
+						<Height Units="pixels">500</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Manufacturer>VOLTEWK</Manufacturer>
+				<ProductGroup>Apparel</ProductGroup>
+				<Title>VOLTEBQ Young Lady Loves Dancing Breathable Athletic Walk
+					Mens Shorts M</Title>
+			</ItemAttributes>
+		</Item>
+		<Item>
+			<ASIN>B00OD0MFY2</ASIN>
+			<DetailPageURL>http://www.amazon.com/New-Def-Rapstar-Nintendo-Music-Rhythm/dp/B00OD0MFY2%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00OD0MFY2
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/New-Def-Rapstar-Nintendo-Music-Rhythm/dp/tech-data/B00OD0MFY2%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00OD0MFY2
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB00OD0MFY2%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00OD0MFY2
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB00OD0MFY2%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00OD0MFY2
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB00OD0MFY2%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00OD0MFY2
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B00OD0MFY2%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00OD0MFY2
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B00OD0MFY2%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00OD0MFY2
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B00OD0MFY2%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00OD0MFY2
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/41ddlmp5ynL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">75</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/41ddlmp5ynL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">160</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/41ddlmp5ynL.jpg</URL>
+				<Height Units="pixels">300</Height>
+				<Width Units="pixels">300</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="variant">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/51BgVX81-eL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">30</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/51BgVX81-eL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/51BgVX81-eL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/51BgVX81-eL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">110</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/51BgVX81-eL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">160</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/51BgVX81-eL.jpg</URL>
+						<Height Units="pixels">500</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+				<ImageSet Category="variant">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/51o81aebL2L._SL30_.jpg
+						</URL>
+						<Height Units="pixels">30</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/51o81aebL2L._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/51o81aebL2L._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/51o81aebL2L._SL110_.jpg
+						</URL>
+						<Height Units="pixels">110</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/51o81aebL2L._SL160_.jpg
+						</URL>
+						<Height Units="pixels">160</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/51o81aebL2L.jpg</URL>
+						<Height Units="pixels">500</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+				<ImageSet Category="variant">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/51HDN9WJzpL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">30</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/51HDN9WJzpL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/51HDN9WJzpL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/51HDN9WJzpL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">110</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/51HDN9WJzpL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">160</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/51HDN9WJzpL.jpg</URL>
+						<Height Units="pixels">500</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/41ddlmp5ynL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">30</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/41ddlmp5ynL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/41ddlmp5ynL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/41ddlmp5ynL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">110</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/41ddlmp5ynL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">160</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/41ddlmp5ynL.jpg</URL>
+						<Height Units="pixels">300</Height>
+						<Width Units="pixels">300</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Manufacturer>Konami</Manufacturer>
+				<ProductGroup>Video Games</ProductGroup>
+				<Title>New Def Jam Rapstar (Nintendo Wii) Music &amp; Rhythm</Title>
+			</ItemAttributes>
+		</Item>
+		<Item>
+			<ASIN>B01EHQL9MK</ASIN>
+			<ParentASIN>B01EHQNSE2</ParentASIN>
+			<DetailPageURL>http://www.amazon.com/Womens-ANTI-Haffi-Shirt-Medium/dp/B01EHQL9MK%3Fpsc%3D1%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB01EHQL9MK
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Womens-ANTI-Haffi-Shirt-Medium/dp/tech-data/B01EHQL9MK%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01EHQL9MK
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB01EHQL9MK%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01EHQL9MK
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB01EHQL9MK%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01EHQL9MK
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB01EHQL9MK%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01EHQL9MK
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B01EHQL9MK%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01EHQL9MK
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B01EHQL9MK%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01EHQL9MK
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B01EHQL9MK%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01EHQL9MK
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/41JbEB0z9HL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">70</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/41JbEB0z9HL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">150</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/41JbEB0z9HL.jpg</URL>
+				<Height Units="pixels">468</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="variant">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/41dp1H%2By5DL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">30</Height>
+						<Width Units="pixels">25</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/41dp1H%2By5DL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">63</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/41dp1H%2By5DL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">63</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/41dp1H%2By5DL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">110</Height>
+						<Width Units="pixels">92</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/41dp1H%2By5DL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">160</Height>
+						<Width Units="pixels">133</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/41dp1H%2By5DL.jpg</URL>
+						<Height Units="pixels">500</Height>
+						<Width Units="pixels">417</Width>
+					</LargeImage>
+				</ImageSet>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/41JbEB0z9HL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">28</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/41JbEB0z9HL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">70</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/41JbEB0z9HL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">70</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/41JbEB0z9HL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">103</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/41JbEB0z9HL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">150</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/41JbEB0z9HL.jpg</URL>
+						<Height Units="pixels">468</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Manufacturer>ANTI</Manufacturer>
+				<ProductGroup>Apparel</ProductGroup>
+				<Title>Women's ANTI Work Work Work He Said Me Haffi Shirt Medium
+					Black</Title>
+			</ItemAttributes>
+		</Item>
+		<Item>
+			<ASIN>B01EHQI2HA</ASIN>
+			<ParentASIN>B01EHQJNMS</ParentASIN>
+			<DetailPageURL>http://www.amazon.com/Womens-Work-Shirt-Large-Royal/dp/B01EHQI2HA%3Fpsc%3D1%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB01EHQI2HA
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Womens-Work-Shirt-Large-Royal/dp/tech-data/B01EHQI2HA%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01EHQI2HA
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB01EHQI2HA%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01EHQI2HA
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB01EHQI2HA%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01EHQI2HA
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB01EHQI2HA%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01EHQI2HA
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B01EHQI2HA%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01EHQI2HA
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B01EHQI2HA%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01EHQI2HA
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B01EHQI2HA%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01EHQI2HA
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/413%2BerYN0XL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">70</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/413%2BerYN0XL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">150</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/413%2BerYN0XL.jpg</URL>
+				<Height Units="pixels">468</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="variant">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/41dp1H%2By5DL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">30</Height>
+						<Width Units="pixels">25</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/41dp1H%2By5DL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">63</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/41dp1H%2By5DL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">75</Height>
+						<Width Units="pixels">63</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/41dp1H%2By5DL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">110</Height>
+						<Width Units="pixels">92</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/41dp1H%2By5DL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">160</Height>
+						<Width Units="pixels">133</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/41dp1H%2By5DL.jpg</URL>
+						<Height Units="pixels">500</Height>
+						<Width Units="pixels">417</Width>
+					</LargeImage>
+				</ImageSet>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/413%2BerYN0XL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">28</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/413%2BerYN0XL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">70</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/413%2BerYN0XL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">70</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/413%2BerYN0XL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">103</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/413%2BerYN0XL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">150</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/413%2BerYN0XL.jpg</URL>
+						<Height Units="pixels">468</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Manufacturer>ANTI</Manufacturer>
+				<ProductGroup>Apparel</ProductGroup>
+				<Title>Women's Work Work Work Shirt Large Royal Blue</Title>
+			</ItemAttributes>
+		</Item>
+	</Items>
+</ItemSearchResponse>

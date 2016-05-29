@@ -2,7 +2,7 @@ package bo.roman.radio.player;
 
 import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
 
-public interface RadioPlayerInterface {
+public interface IRadioPlayer {
 	
 	/**
 	 * Start playing a stream.

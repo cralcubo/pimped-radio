@@ -12,7 +12,7 @@ import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
 
-public class RadioPlayer implements RadioPlayerInterface {
+public class RadioPlayer implements IRadioPlayer {
 	private static final Logger log = LoggerFactory.getLogger(RadioPlayer.class);
 
 	private final MediaPlayer mediaPlayer;

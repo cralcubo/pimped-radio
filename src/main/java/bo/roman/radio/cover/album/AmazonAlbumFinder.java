@@ -157,21 +157,29 @@ public class AmazonAlbumFinder implements AlbumFindable {
 		LoggerUtils.logDebug(log, () -> "Checking match of song and artist for " + ia);
 		// An item Title must be present
 		String iTitle = ia.getTitle();
+		LoggerUtils.logDebug(log, () -> "Item Title=" + iTitle);
 		if(!StringUtils.exists(iTitle) || 
 				(!RegExUtil.phrase(iTitle).containsIgnoreCase(song) && !RegExUtil.phrase(song).containsIgnoreCase(iTitle))) {
+			LoggerUtils.logDebug(log, () -> String.format("Item Title[%s] does not match Song=%s", iTitle, song));
 			return false;
 		}
 		
 		// Check if there is an Artist
 		String iArtist = ia.getArtist();
+		LoggerUtils.logDebug(log, () -> "Item Artist=" + artist);
 		if(StringUtils.exists(iArtist)) {
-			return RegExUtil.phrase(iArtist).containsIgnoreCase(artist) || RegExUtil.phrase(artist).containsIgnoreCase(iArtist);
+			boolean match = RegExUtil.phrase(iArtist).containsIgnoreCase(artist) || RegExUtil.phrase(artist).containsIgnoreCase(iArtist); 
+			LoggerUtils.logDebug(log, () ->  String.format("Item matches Artist[%s]=%s", artist, match));
+			return match;
 		}
 		
 		// No Artist, then a Primary Contributor must exist
 		Creator creator = ia.getCreator();
+		LoggerUtils.logDebug(log, () -> "Item Creator=" + creator);
 		if(creator != null && (creator.getRole().equals(AmazonUtil.PERFORMER_ROLE) || creator.getRole().equals(AmazonUtil.PRIMARYCONTRIBUTOR_ROLE))) {
-			return RegExUtil.phrase(creator.getValue()).containsIgnoreCase(artist) || RegExUtil.phrase(artist).containsIgnoreCase(creator.getValue());
+			boolean match = RegExUtil.phrase(creator.getValue()).containsIgnoreCase(artist) || RegExUtil.phrase(artist).containsIgnoreCase(creator.getValue());
+			LoggerUtils.logDebug(log, () ->  String.format("Item Creator matches Artist[%s]=%s", artist, match));
+			return match;
 		}
 		
 		return false;

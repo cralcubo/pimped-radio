@@ -33,6 +33,7 @@ public class AmazonAlbumFinderTest {
 	private static final String NOMUSICXML_PATH = ROOTH_PATH + "amazon-noMusic.xml";
 	private static final String NIRVANACLOSEXML_PATH = ROOTH_PATH + "amazon-nirvanaClose.xml";
 	private static final String WHITESNAKEXML_PATH = ROOTH_PATH + "amazon-whitesnake.xml";
+	private static final String RIHANNAXML_PATH = ROOTH_PATH + "amazon-rihanna-work.xml";
 
 	private AmazonAlbumFinder finder;
 	
@@ -45,7 +46,7 @@ public class AmazonAlbumFinderTest {
 		mockStatic(AmazonConnectionUtil.class);
 		NOWPLAYING_TEMPL = (String) ReflectionUtils.getPrivateConstant(finder, "NOWPLAYING_TEMPL");
 	}
-
+	
 	@Test
 	public void testFindAlbums_Track() throws IOException {
 		String testArtist = "Nirvana";
@@ -110,8 +111,13 @@ public class AmazonAlbumFinderTest {
 		doFindAlbumsTest(song, artist, WHITESNAKEXML_PATH, 5);
 	}
 	
-	
-	
+	@Test
+	public void testFindAlbum_Rihanna() throws IOException {
+		String artist = "Rihanna";
+		String song = "Work";
+		
+		doFindAlbumsTest(song, artist, RIHANNAXML_PATH, 2);
+	}
 	
 	/* *** Utilities *** */
 	private void doFindAlbumsTest(String song, String artist, String xmlFilePath, int numbAlbums) throws IOException {

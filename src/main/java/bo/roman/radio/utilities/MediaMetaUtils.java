@@ -16,6 +16,7 @@ public class MediaMetaUtils {
 	private static final String FROMSPACEDASH_REGEX = "(?<=-)\\s+.+$";
 	private static final String TILSPACEDASH_REGEX = "^.+?\\s+(?=-)";
 	private static final String SONGINFO_REGEX = "(?<=.)\\(.*\\).*";
+	private static final String FEATURING_REGEX = "(?i)(?<=.)(\\s+(ft\\.|feat\\.|featuring|feature).*)";
 	
 	/**
 	 * Get the information from the MetaData
@@ -86,7 +87,9 @@ public class MediaMetaUtils {
 		artist = StringUtils.cleanIt(artist);
 		
 		songName = songName.replaceAll(SONGINFO_REGEX, "").trim();
+		songName = songName.replaceAll(FEATURING_REGEX, "").trim();
 		
+		artist = artist.replaceAll(FEATURING_REGEX, "").trim();
 		if(StringUtils.exists(songName) && !StringUtils.exists(artist)) {
 			Song s = new Song(songName, "");
 			LoggerUtils.logDebug(logger, () -> "Built Clean Song: " + s);
