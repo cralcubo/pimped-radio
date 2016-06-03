@@ -14,6 +14,8 @@ import bo.roman.radio.cover.CoverArtManager;
 import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.cover.model.Radio;
 import bo.roman.radio.cover.model.Song;
+import bo.roman.radio.player.listener.observers.MediaMetaObserver;
+import bo.roman.radio.player.listener.subjects.MediaMetaSubject;
 import bo.roman.radio.player.model.RadioPlayerEntity;
 import bo.roman.radio.utilities.ExecutorUtils;
 import bo.roman.radio.utilities.LoggerUtils;

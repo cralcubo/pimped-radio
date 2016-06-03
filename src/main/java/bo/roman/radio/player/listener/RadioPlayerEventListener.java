@@ -1,49 +1,60 @@
 package bo.roman.radio.player.listener;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import bo.roman.radio.player.RadioPlayer;
+import bo.roman.radio.cover.model.Song;
 import bo.roman.radio.player.codec.CodecCalculator;
 import bo.roman.radio.player.model.CodecInformation;
+import bo.roman.radio.player.model.RadioPlayerEntity;
 import bo.roman.radio.utilities.LoggerUtils;
+import bo.roman.radio.utilities.MediaMetaUtils;
 import uk.co.caprica.vlcj.player.MediaMeta;
 import uk.co.caprica.vlcj.player.MediaPlayer;
 import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
 
-public class RadioPlayerEventListener extends MediaPlayerEventAdapter{
+public class RadioPlayerEventListener extends MediaPlayerEventAdapter {
 	
-	private static final int METATYPE_NOWPLAYING = 12;
-
 	private static final Logger log = LoggerFactory.getLogger(RadioPlayerEventListener.class);
 	
-	private final RadioPlayer radioPlayer;
-	private final MediaMetaSubject metaNotifier;
-	private final CodecInformationSubject codecNotifier;
+	private static final int METATYPE_NOWPLAYING = 12;
 	
-	public RadioPlayerEventListener(RadioPlayer radioPlayer, MediaMetaSubject metaNotifier, CodecInformationSubject codecNotifier) {
-		this.radioPlayer = radioPlayer;
-		this.metaNotifier = metaNotifier;
-		this.codecNotifier = codecNotifier;
+	private final Subject<RadioPlayerEntity> radioEntitySubject;
+	private final Subject<CodecInformation> codecSubject;
+	
+	public RadioPlayerEventListener(List<Observer<RadioPlayerEntity>> radioEntityObservers, List<Observer<CodecInformation>> codecObservers) {
+		radioEntitySubject = new Subject<>();
+		codecSubject = new Subject<>();
+		radioEntityObservers.forEach(radioEntitySubject::registerObserver);
+		codecObservers.forEach(codecSubject::registerObserver);
 	}
 	
 	@Override
 	public void mediaMetaChanged(MediaPlayer mediaPlayer, int metaType) {
 		LoggerUtils.logDebug(log, () -> String.format("Media Meta Changed[metaType=%s]", metaType));
 		if(metaType == METATYPE_NOWPLAYING) { // 12 -> Changed NowPlying
-			// Update NowPLaying info
+			
 			MediaMeta meta = mediaPlayer.getMediaMeta();
-			metaNotifier.notifyObservers(meta);
+			LoggerUtils.logDebug(log, () -> "MediaMeta changed=" + meta);
+			final Optional<String> oRadioName = MediaMetaUtils.findRadioName(meta);
+			final Optional<Song> oSong = MediaMetaUtils.buildSong(meta);
+			log.info("Changed MediaMeta. Radio[{}] and Song[{}]", oRadioName, oSong);
 			meta.release();
+			
+			// Find the new RadioPlayer Info and update with
+			// a RadioPlayerEntity
+			RadioPlayerEntity rpe = new RadioInformationFinder().find(oRadioName, oSong);
+			radioEntitySubject.notifyObservers(rpe);
 			
 			// Update Codec info
 			Optional<CodecInformation> oCodecInfo = CodecCalculator.calculate(mediaPlayer);
-			oCodecInfo.ifPresent(ci -> codecNotifier.notifyObservers(ci));
+			oCodecInfo.ifPresent(ci -> codecSubject.notifyObservers(ci));
 		}
 	}
-
+	
 	@Override
 	public void error(MediaPlayer mediaPlayer) {
 		String streamName = "";
@@ -51,9 +62,9 @@ public class RadioPlayerEventListener extends MediaPlayerEventAdapter{
 			streamName = mediaPlayer.getMediaMeta().getTitle();
 		}
 		log.error("There was an error trying to play the stream [{}]", streamName);
-		
-		radioPlayer.stop();
+		log.info("Closing RadioPlayer.");
 		System.exit(0);
 	}
+	
 
 }

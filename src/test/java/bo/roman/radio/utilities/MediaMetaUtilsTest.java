@@ -115,6 +115,19 @@ public class MediaMetaUtilsTest {
 		assertThat(optSong.get().getName(), is(equalTo("feature")));
 		assertThat(optSong.get().getArtist(), is(equalTo("ft.")));
 	}
+	@Test
+	public void testSongArtist_removeFeaturing3() {
+		String song = "aSong f. anotherArtist";
+		String artist = "anArtist f/anotherArtis";
+		
+		when(mediaMeta.getTitle()).thenReturn(song);
+		when(mediaMeta.getArtist()).thenReturn(artist);
+		
+		Optional<Song> optSong = MediaMetaUtils.buildSong(mediaMeta);
+		
+		assertThat(optSong.get().getName(), is(equalTo("aSong")));
+		assertThat(optSong.get().getArtist(), is(equalTo("anArtist")));
+	}
 	
 	@Test
 	public void testSongArtist_spaces() {

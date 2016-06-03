@@ -16,7 +16,7 @@ public class MediaMetaUtils {
 	private static final String FROMSPACEDASH_REGEX = "(?<=-)\\s+.+$";
 	private static final String TILSPACEDASH_REGEX = "^.+?\\s+(?=-)";
 	private static final String SONGINFO_REGEX = "(?<=.)\\(.*\\).*";
-	private static final String FEATURING_REGEX = "(?i)(?<=.)(\\s+(ft\\.|feat\\.|featuring|feature).*)";
+	private static final String FEATURING_REGEX = "(?i)(?<=.)(\\s+(ft\\.|feat\\.|featuring|feature|f/|f\\.).*)";
 	
 	/**
 	 * Get the information from the MetaData

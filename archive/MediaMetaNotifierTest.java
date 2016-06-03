@@ -20,6 +20,7 @@ import bo.roman.radio.cover.ICoverArtManager;
 import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.cover.model.Radio;
 import bo.roman.radio.cover.model.Song;
+import bo.roman.radio.player.listener.observers.MediaMetaObserver;
 import bo.roman.radio.player.model.RadioPlayerEntity;
 import bo.roman.radio.utilities.MediaMetaUtils;
 import uk.co.caprica.vlcj.player.MediaMeta;

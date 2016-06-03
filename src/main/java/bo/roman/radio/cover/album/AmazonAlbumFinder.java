@@ -166,7 +166,7 @@ public class AmazonAlbumFinder implements AlbumFindable {
 		
 		// Check if there is an Artist
 		String iArtist = ia.getArtist();
-		LoggerUtils.logDebug(log, () -> "Item Artist=" + artist);
+		LoggerUtils.logDebug(log, () -> "Item Artist=" + iArtist);
 		if(StringUtils.exists(iArtist)) {
 			boolean match = RegExUtil.phrase(iArtist).containsIgnoreCase(artist) || RegExUtil.phrase(artist).containsIgnoreCase(iArtist); 
 			LoggerUtils.logDebug(log, () ->  String.format("Item matches Artist[%s]=%s", artist, match));
