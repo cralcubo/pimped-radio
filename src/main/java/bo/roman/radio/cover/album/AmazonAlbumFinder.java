@@ -22,7 +22,6 @@ import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper;
 import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item;
 import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.Image;
 import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.ItemAttributes;
-import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.ItemAttributes.Creator;
 import bo.roman.radio.utilities.HttpUtils;
 import bo.roman.radio.utilities.ImageUtil;
 import bo.roman.radio.utilities.LoggerUtils;
@@ -66,17 +65,26 @@ public class AmazonAlbumFinder implements AlbumFindable {
 					.map(ItemsWrapper::getItems)
 					.get().stream()
 					.filter(AmazonAlbumFinder::isMusicItem)
-					.filter(i -> matchSongArtist(song, artist, i))
 					.filter(AmazonAlbumFinder::hasCoverArt)
 					.filter(AmazonAlbumFinder::isBigEnough)
 					.map(AmazonUtil::itemToAlbum)
 					.flatMap(oa -> oa.map(Stream::of).orElseGet(Stream::empty))
 					.collect(Collectors.toList());
 			
-			log.info("[{}] Albums found in Amazon.", allAlbums.size());
-			LoggerUtils.logDebug(log, () -> allAlbums.toString());
+			// Find the albums that match the Song and Artist used to search them
+			List<Album> matchingAlbums = allAlbums.stream()
+					.filter(a -> matchSongArtist(song, artist, a))
+					.collect(Collectors.toList());
 			
-			return allAlbums;
+			if(matchingAlbums.isEmpty()) {
+				LoggerUtils.logDebug(log, () -> "No matching albums found. Check swaping Song - Artist.");
+				matchingAlbums = allAlbums.stream()
+						.filter(a -> matchSongArtist(artist, song, a))
+						.collect(Collectors.toList());
+			}
+			
+			log.info("[{}] Albums found in Amazon.", matchingAlbums.size());
+			return matchingAlbums;
 			
 		} catch (IOException e) {
 			log.error("There was an error trying to connect to Amazon to find Albums.", e);
@@ -138,47 +146,35 @@ public class AmazonAlbumFinder implements AlbumFindable {
 	
 	/**
 	 * Check if the song and artist match
-	 * the item information retrieved from Amazon.
-	 * If the item retrieved contains the word expected, ignoring
+	 * the Album information retrieved from Amazon.
+	 * If the Album retrieved contains the word expected, ignoring
 	 * the case, the match will be true.
 	 * i.e. 
 	 * Song name is 'In Bloom' will match 'In bloom by Nirvana'
 	 * 
 	 * @param song
 	 * @param artist
-	 * @param i
+	 * @param a
 	 * @return
 	 */
-	private boolean matchSongArtist(String song, String artist, Item i) {
-		ItemAttributes ia = i.getItemAttributes();
-		if(ia == null) {
-			return false;
-		}
-		LoggerUtils.logDebug(log, () -> "Checking match of song and artist for " + ia);
-		// An item Title must be present
-		String iTitle = ia.getTitle();
-		LoggerUtils.logDebug(log, () -> "Item Title=" + iTitle);
-		if(!StringUtils.exists(iTitle) || 
-				(!RegExUtil.phrase(iTitle).containsIgnoreCase(song) && !RegExUtil.phrase(song).containsIgnoreCase(iTitle))) {
-			LoggerUtils.logDebug(log, () -> String.format("Item Title[%s] does not match Song=%s", iTitle, song));
+	private boolean matchSongArtist(String song, String artist, Album a) {
+		LoggerUtils.logDebug(log, () -> "Checking match of song and artist for " + a);
+		
+		// Check Song Name
+		String albumSong = a.getSongName();
+		LoggerUtils.logDebug(log, () -> "Item Title=" + albumSong);
+		if(!StringUtils.exists(albumSong) || 
+				(!RegExUtil.phrase(albumSong).containsIgnoreCase(song) && !RegExUtil.phrase(song).containsIgnoreCase(albumSong))) {
+			LoggerUtils.logDebug(log, () -> String.format("Item Title[%s] does not match Song=%s", albumSong, song));
 			return false;
 		}
 		
-		// Check if there is an Artist
-		String iArtist = ia.getArtist();
-		LoggerUtils.logDebug(log, () -> "Item Artist=" + iArtist);
-		if(StringUtils.exists(iArtist)) {
-			boolean match = RegExUtil.phrase(iArtist).containsIgnoreCase(artist) || RegExUtil.phrase(artist).containsIgnoreCase(iArtist); 
+		// Check Artist
+		String albumArtist = a.getArtistName();
+		LoggerUtils.logDebug(log, () -> "Item Artist=" + albumArtist);
+		if(StringUtils.exists(albumArtist)) {
+			boolean match = RegExUtil.phrase(albumArtist).containsIgnoreCase(artist) || RegExUtil.phrase(artist).containsIgnoreCase(albumArtist); 
 			LoggerUtils.logDebug(log, () ->  String.format("Item matches Artist[%s]=%s", artist, match));
-			return match;
-		}
-		
-		// No Artist, then a Primary Contributor must exist
-		Creator creator = ia.getCreator();
-		LoggerUtils.logDebug(log, () -> "Item Creator=" + creator);
-		if(creator != null && (creator.getRole().equals(AmazonUtil.PERFORMER_ROLE) || creator.getRole().equals(AmazonUtil.PRIMARYCONTRIBUTOR_ROLE))) {
-			boolean match = RegExUtil.phrase(creator.getValue()).containsIgnoreCase(artist) || RegExUtil.phrase(artist).containsIgnoreCase(creator.getValue());
-			LoggerUtils.logDebug(log, () ->  String.format("Item Creator matches Artist[%s]=%s", artist, match));
 			return match;
 		}
 		

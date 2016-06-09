@@ -17,6 +17,11 @@ public interface IRadioPlayer {
 	void stop();
 	
 	/**
+	 * Release the MediaPlayer
+	 */
+	void close();
+	
+	/**
 	 * Add events listener to 
 	 * decide what to do when the RadioPlayer is playing
 	 * is stopped, MediaMeta changed, errors, etc.

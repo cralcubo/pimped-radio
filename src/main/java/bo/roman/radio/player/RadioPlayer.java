@@ -41,17 +41,18 @@ public class RadioPlayer implements IRadioPlayer {
 	public void play(String radioStationUrl) {
 		log.info("Starting to play stream={}", radioStationUrl);
 		mediaPlayer.playMedia(radioStationUrl);
-		try {
-			Thread.currentThread().join();
-		} catch (InterruptedException e) {
-			log.error("RadioPlayer was unexpectedly stopped.", e);
-		}
+	}
+	
+	@Override
+	public void close() {
+		log.info("Closing player, releasing all associated resources.");
+		mediaPlayer.release();
 	}
 
 	@Override
 	public void stop() {
-		log.info("Stopping player..."); 
-		mediaPlayer.release();
+		log.info("Stopping player...");
+		mediaPlayer.stop();
 	}
 
 	@Override

@@ -36,6 +36,12 @@ public class RadioPlayerTest {
 	@Test
 	public void testStop() {
 		radioPlayer.stop();
+		Mockito.verify(mediaPlayer).stop();
+	}
+	
+	@Test
+	public void testClose() {
+		radioPlayer.close();
 		Mockito.verify(mediaPlayer).release();
 	}
 	

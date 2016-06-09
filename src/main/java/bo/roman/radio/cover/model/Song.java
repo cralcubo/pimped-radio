@@ -30,8 +30,8 @@ public class Song {
 	}
 
 	public static class Builder {
-		private String name;
-		private String artist;
+		private String name = "";
+		private String artist = "";
 		
 		public Builder name(String val) {
 			name = nullIsEmpty(val);

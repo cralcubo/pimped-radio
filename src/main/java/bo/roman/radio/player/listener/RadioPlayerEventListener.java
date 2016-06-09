@@ -25,11 +25,15 @@ public class RadioPlayerEventListener extends MediaPlayerEventAdapter {
 	private final Subject<RadioPlayerEntity> radioEntitySubject;
 	private final Subject<CodecInformation> codecSubject;
 	
+	private final RadioInformationFinder radioInfoFinder;
+	
 	public RadioPlayerEventListener(List<Observer<RadioPlayerEntity>> radioEntityObservers, List<Observer<CodecInformation>> codecObservers) {
 		radioEntitySubject = new Subject<>();
 		codecSubject = new Subject<>();
 		radioEntityObservers.forEach(radioEntitySubject::registerObserver);
 		codecObservers.forEach(codecSubject::registerObserver);
+		
+		radioInfoFinder = new RadioInformationFinder();
 	}
 	
 	@Override
@@ -46,7 +50,7 @@ public class RadioPlayerEventListener extends MediaPlayerEventAdapter {
 			
 			// Find the new RadioPlayer Info and update with
 			// a RadioPlayerEntity
-			RadioPlayerEntity rpe = new RadioInformationFinder().find(oRadioName, oSong);
+			RadioPlayerEntity rpe = radioInfoFinder.find(oRadioName, oSong);
 			radioEntitySubject.notifyObservers(rpe);
 			
 			// Update Codec info
@@ -65,6 +69,5 @@ public class RadioPlayerEventListener extends MediaPlayerEventAdapter {
 		log.info("Closing RadioPlayer.");
 		System.exit(0);
 	}
-	
 
 }

@@ -40,9 +40,5 @@ public class StringUtilsTest {
 		String expected = "Et ca sera sa moitie. by Cesaria Evora #song by Tiesto";
 		assertThat(StringUtils.cleanIt(toTest), is(expected));
 	}
-	
-	
-	
-	
 
 }

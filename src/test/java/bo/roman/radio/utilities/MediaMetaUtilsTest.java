@@ -62,7 +62,15 @@ public class MediaMetaUtilsTest {
 	
 	@Test
 	public void testNowPlaying_removeExtraInfo() {
-		String song = "sSong (test edition)";
+		String song = "sSong (test edition) ft. test";
+		String artist = "anArtist";
+		String nowPlaying = String.format("%s - %s", artist, song);
+		doTestNowPlaying(nowPlaying, "sSong", artist);
+	}
+	
+	@Test
+	public void testNowPlaying_removeExtraInfo1() {
+		String song = "sSong [test (xxx) edition] (just a test)";
 		String artist = "anArtist";
 		String nowPlaying = String.format("%s - %s", artist, song);
 		doTestNowPlaying(nowPlaying, "sSong", artist);
@@ -78,6 +86,19 @@ public class MediaMetaUtilsTest {
 	@Test
 	public void testSongArtist_removeExtraInfo() {
 		String song = "aSong (extra info)";
+		String artist = "anArtist";
+		when(mediaMeta.getTitle()).thenReturn(song);
+		when(mediaMeta.getArtist()).thenReturn(artist);
+		
+		Optional<Song> optSong = MediaMetaUtils.buildSong(mediaMeta);
+		
+		assertThat(optSong.get().getName(), is(equalTo("aSong")));
+		assertThat(optSong.get().getArtist(), is(equalTo(artist)));
+	}
+	
+	@Test
+	public void testSongArtist_removeExtraInfo1() {
+		String song = "aSong [extra info]";
 		String artist = "anArtist";
 		when(mediaMeta.getTitle()).thenReturn(song);
 		when(mediaMeta.getArtist()).thenReturn(artist);

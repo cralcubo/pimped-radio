@@ -34,6 +34,7 @@ public class AmazonAlbumFinderTest {
 	private static final String NIRVANACLOSEXML_PATH = ROOTH_PATH + "amazon-nirvanaClose.xml";
 	private static final String WHITESNAKEXML_PATH = ROOTH_PATH + "amazon-whitesnake.xml";
 	private static final String RIHANNAXML_PATH = ROOTH_PATH + "amazon-rihanna-work.xml";
+	private static final String KASKADEXML_PATH = ROOTH_PATH + "amazon-kaskade.xml";
 
 	private AmazonAlbumFinder finder;
 	
@@ -117,6 +118,14 @@ public class AmazonAlbumFinderTest {
 		String song = "Work";
 		
 		doFindAlbumsTest(song, artist, RIHANNAXML_PATH, 2);
+	}
+	
+	@Test
+	public void testFindAlbum_Kaskade() throws IOException {
+		String song = "I Remember";
+		String artist = "Kaskade with Deadmau5";
+		
+		doFindAlbumsTest(song, artist, KASKADEXML_PATH, 0);
 	}
 	
 	/* *** Utilities *** */
