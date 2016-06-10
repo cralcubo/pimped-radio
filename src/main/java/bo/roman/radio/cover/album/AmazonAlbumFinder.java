@@ -69,22 +69,11 @@ public class AmazonAlbumFinder implements AlbumFindable {
 					.filter(AmazonAlbumFinder::isBigEnough)
 					.map(AmazonUtil::itemToAlbum)
 					.flatMap(oa -> oa.map(Stream::of).orElseGet(Stream::empty))
-					.collect(Collectors.toList());
-			
-			// Find the albums that match the Song and Artist used to search them
-			List<Album> matchingAlbums = allAlbums.stream()
 					.filter(a -> matchSongArtist(song, artist, a))
 					.collect(Collectors.toList());
 			
-			if(matchingAlbums.isEmpty()) {
-				LoggerUtils.logDebug(log, () -> "No matching albums found. Check swaping Song - Artist.");
-				matchingAlbums = allAlbums.stream()
-						.filter(a -> matchSongArtist(artist, song, a))
-						.collect(Collectors.toList());
-			}
-			
-			log.info("[{}] Albums found in Amazon.", matchingAlbums.size());
-			return matchingAlbums;
+			log.info("[{}] Albums found in Amazon.", allAlbums.size());
+			return allAlbums;
 			
 		} catch (IOException e) {
 			log.error("There was an error trying to connect to Amazon to find Albums.", e);
