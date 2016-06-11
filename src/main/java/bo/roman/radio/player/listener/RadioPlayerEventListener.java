@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import bo.roman.radio.cover.model.Song;
 import bo.roman.radio.player.codec.CodecCalculator;
 import bo.roman.radio.player.model.CodecInformation;
+import bo.roman.radio.player.model.ErrorInformation;
 import bo.roman.radio.player.model.RadioPlayerEntity;
 import bo.roman.radio.utilities.LoggerUtils;
 import bo.roman.radio.utilities.MediaMetaUtils;
@@ -24,14 +25,17 @@ public class RadioPlayerEventListener extends MediaPlayerEventAdapter {
 	
 	private final Subject<RadioPlayerEntity> radioEntitySubject;
 	private final Subject<CodecInformation> codecSubject;
+	private final Subject<ErrorInformation> errorSubject;
 	
 	private final RadioInformationFinder radioInfoFinder;
 	
-	public RadioPlayerEventListener(List<Observer<RadioPlayerEntity>> radioEntityObservers, List<Observer<CodecInformation>> codecObservers) {
+	public RadioPlayerEventListener(List<Observer<RadioPlayerEntity>> radioEntityObservers, List<Observer<CodecInformation>> codecObservers, List<Observer<ErrorInformation>> errorObservers) {
 		radioEntitySubject = new Subject<>();
 		codecSubject = new Subject<>();
+		errorSubject = new Subject<>();
 		radioEntityObservers.forEach(radioEntitySubject::registerObserver);
 		codecObservers.forEach(codecSubject::registerObserver);
+		errorObservers.forEach(errorSubject::registerObserver);
 		
 		radioInfoFinder = new RadioInformationFinder();
 	}
@@ -65,9 +69,9 @@ public class RadioPlayerEventListener extends MediaPlayerEventAdapter {
 		if(mediaPlayer.getMediaMeta() != null) {
 			streamName = mediaPlayer.getMediaMeta().getTitle();
 		}
+		
 		log.error("There was an error trying to play the stream [{}]", streamName);
-		log.info("Closing RadioPlayer.");
-		System.exit(0);
+		errorSubject.notifyObservers(new ErrorInformation("Error playing stream.", streamName));
 	}
 
 }
