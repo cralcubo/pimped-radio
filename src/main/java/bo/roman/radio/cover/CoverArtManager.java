@@ -17,7 +17,8 @@ import bo.roman.radio.cover.model.Radio;
 import bo.roman.radio.cover.station.CacheLogoUtil;
 import bo.roman.radio.cover.station.FacebookRadioStationFinder;
 import bo.roman.radio.cover.station.RadioStationFindable;
-import bo.roman.radio.utilities.RegExUtil;
+import bo.roman.radio.utilities.PhraseCalculator;
+import bo.roman.radio.utilities.PhraseCalculator.PhraseMatch;
 import bo.roman.radio.utilities.StringUtils;
 
 public class CoverArtManager implements ICoverArtManager {
@@ -43,10 +44,15 @@ public class CoverArtManager implements ICoverArtManager {
 		// that have the same name as the song that was used to find it.
 		List<Album> allAlbums = albumFinder.findAlbums(song, artist).stream()
 								.sorted((a1, a2) -> {
-									if(RegExUtil.phrase(a1.getAlbumName()).beginsWithIgnoreCase(song) && !RegExUtil.phrase(a2.getAlbumName()).beginsWithIgnoreCase(song)) {
+									PhraseMatch match1 = PhraseCalculator.withPhrase(song).calculateSimilarityTo(a1.getAlbumName());
+									PhraseMatch match2 = PhraseCalculator.withPhrase(song).calculateSimilarityTo(a2.getAlbumName());
+									
+									boolean songAlbumMatch1 = match1 == PhraseMatch.EXACT || match1 == PhraseMatch.SAME_BEGIN;
+									boolean songAlbumMatch2 = match2 == PhraseMatch.EXACT || match2 == PhraseMatch.SAME_BEGIN;
+									if(songAlbumMatch1 && !songAlbumMatch2) {
 										return -1;
 									}
-									else if(!RegExUtil.phrase(a1.getAlbumName()).beginsWithIgnoreCase(song) && RegExUtil.phrase(a2.getAlbumName()).beginsWithIgnoreCase(song)) {
+									else if(!songAlbumMatch1 && songAlbumMatch2) {
 										return 1;
 									}
 									return 0;
@@ -63,8 +69,9 @@ public class CoverArtManager implements ICoverArtManager {
 		// Find the best Album, this is the one that exactly matches song and artist
 		// if there is more than one, return the one that is more square: w/h closer to 1
 		Optional<Album> bestAlbum = allAlbums.stream()
-											 .filter(a -> (a.getSongName().equalsIgnoreCase(song) && a.getArtistName().equalsIgnoreCase(artist)) 
-													  ||   RegExUtil.phrase(a.getAlbumName()).beginsWithIgnoreCase(song))
+											 .filter(a -> (PhraseCalculator.withPhrase(song).calculateSimilarityTo(a.getSongName()) == PhraseMatch.EXACT
+											            && PhraseCalculator.withPhrase(artist).calculateSimilarityTo(a.getArtistName()) == PhraseMatch.EXACT)
+													    || PhraseCalculator.withPhrase(song).calculateSimilarityTo(a.getAlbumName()) == PhraseMatch.SAME_BEGIN)
 											 .min(proportionsComparator);
 		if(bestAlbum.isPresent()) {
 			log.info("Best Match Album found {}", bestAlbum.get());

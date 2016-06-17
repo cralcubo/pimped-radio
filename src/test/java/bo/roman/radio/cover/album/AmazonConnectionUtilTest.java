@@ -117,7 +117,7 @@ public class AmazonConnectionUtilTest {
 		assertThat(getParameter(pAssociateTag, url), is(equalTo(associateTag)));
 		
 		String pKeywords = "Keywords";
-		assertThat(getParameter(pKeywords, url), is(equalTo(String.format("'%s,%s'", album.getSongName(), album.getArtistName()))));
+		assertThat(getParameter(pKeywords, url), is(equalTo(String.format("'%s,%s,music'", album.getSongName(), album.getArtistName()))));
 		
 		String pOperation = "Operation";
 		assertThat(getParameter(pOperation, url), is(equalTo("ItemSearch")));

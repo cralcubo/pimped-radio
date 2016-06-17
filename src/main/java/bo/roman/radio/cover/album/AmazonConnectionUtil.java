@@ -47,7 +47,7 @@ public class AmazonConnectionUtil {
 	private final static String SEARCHALLQUERY_TEMPLATE = 
 			  "AWSAccessKeyId=%s"
 			+ "&AssociateTag=%s"
-			+ "&Keywords='%s'"
+			+ "&Keywords='%s,music'"
 			+ "&Operation=ItemSearch"
 			+ "&RelationshipType=Tracks"
 			+ "&ResponseGroup=RelatedItems,Images,Small"

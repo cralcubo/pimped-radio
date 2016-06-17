@@ -1,10 +1,10 @@
 package bo.roman.radio.cover.station;
 
 import static bo.roman.radio.utilities.LoggerUtils.logDebug;
-import static bo.roman.radio.utilities.StringUtils.splitCamelCase;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -15,9 +15,9 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 
 import bo.roman.radio.cover.model.Radio;
-import bo.roman.radio.utilities.RegExUtil;
-
-
+import bo.roman.radio.utilities.LoggerUtils;
+import bo.roman.radio.utilities.PhraseCalculator;
+import bo.roman.radio.utilities.PhraseCalculator.PhraseMatch;
 
 public class FacebookRadioStationFinder implements RadioStationFindable {
 
@@ -26,7 +26,6 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 	private static final String SEARCHPAGE_TEMPLATE = "q='%s'&type=page&fields=id,name,category,picture";
 	
 	private static final String RADIOSTATION_CATEGORY = "Radio Station";
-	private static final String RADIOWORD = "radio";
 	
 	private final Gson gsonParser;
 	
@@ -92,48 +91,41 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 	 * @return
 	 */
 	private Optional<Radio> findBestRadio(List<Radio> radios, String radioName) {
-		if(radios == null || radios.isEmpty()) {
-			return Optional.empty();
-		}
+		log.info("Finding best match for Radio: {}", radioName);
+		// Group all the radios by the similarity that their name have
+		// with the radioName used to searched them.
+		Map<PhraseMatch, List<Radio>> radioGroups = radios.stream()
+				.collect(Collectors.groupingBy(r -> PhraseCalculator.withPhrase(radioName).calculateSimilarityTo(r.getName())));
+		LoggerUtils.logDebug(log, () -> radioGroups.toString());
 		
-		// First check if there is a radio that matches
-		// exactly the name of the radio expected.
-		// In case there is more than one, return any
-		Optional<Radio> oRadio = radios.stream()
-				.filter(r -> r.getName().equalsIgnoreCase(radioName))
-				.findAny();
-		
-		if(oRadio.isPresent()) {
+		Optional<Radio> exactMatch = findRadioByMatch(radioGroups, PhraseMatch.EXACT);
+		if(exactMatch.isPresent()) {
 			log.info("Exact match found for {}", radioName);
-			return oRadio;
+			return exactMatch;
 		}
 		
-		// There is no exact match with the name of the radio
-		// expected, then find the radio which name starts with 
-		// the name of the radio expected and split if there is a camel case present.
-		String noCamelradioName = splitCamelCase(radioName);
-		Optional<Radio> oMatchRadio = radios.stream()
-				.filter(r -> RegExUtil.phrase(splitCamelCase(r.getName())).beginsWithIgnoreCase(noCamelradioName))
-				.findFirst();
-		
-		if(oMatchRadio.isPresent()) {
-			log.info("Closely radio found for {} is: {}", radioName, oMatchRadio);
-			return oMatchRadio;
+		Optional<Radio> similarMatch = findRadioByMatch(radioGroups, PhraseMatch.SIMILAR);
+		Optional<Radio> similarBeginMatch = findRadioByMatch(radioGroups, PhraseMatch.SAME_BEGIN);
+		if(similarBeginMatch.isPresent() || similarMatch.isPresent()) {
+			Radio closeRadio = similarMatch.orElse(similarBeginMatch.get());
+			log.info("Close match found for {} is {}", radioName, closeRadio);
+			return Optional.of(closeRadio);
 		}
 		
-		// One last try to find the log of the radio. Remove the Radio word
-		// of the name of the radio looked for and see if there is any match.
-		String noRadioWordName = removeRadioWord(splitCamelCase(radioName)); 
-		Optional<Radio> oLastMatchRadio = radios.stream()
-				.filter(r -> RegExUtil.phrase(removeRadioWord(splitCamelCase(r.getName()))).beginsWith(noRadioWordName))
-				.findFirst();
+		Optional<Radio> cotainsMatch = findRadioByMatch(radioGroups, PhraseMatch.CONTAINS);
+		log.info("Best Radio found for {} is {}", radioName, cotainsMatch);
 		
-		log.info("[Last try]Closely radio found for {} is: {}", radioName, oLastMatchRadio);
-		return oLastMatchRadio;
+		return cotainsMatch;
 	}
-
-	private String removeRadioWord(String name) {
-		return name.toLowerCase().replace(RADIOWORD, "").trim();
+	
+	private Optional<Radio> findRadioByMatch(Map<PhraseMatch, List<Radio>> radioGroup, PhraseMatch match) {
+		
+		if(radioGroup.containsKey(match) && !radioGroup.get(match).isEmpty()) {
+			Optional<Radio> aMatch = radioGroup.get(match).stream().findAny();
+			return aMatch;
+		}
+		
+		return Optional.empty();
 	}
 
 }

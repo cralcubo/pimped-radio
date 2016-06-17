@@ -96,7 +96,7 @@ public class FacebookStationFinderTest {
 		assertThat(oRadioFound.isPresent(), is(true));
 		
 		Radio radioFound = oRadioFound.get();
-		Radio expectedRadio = new Radio.Builder().id("125801090846440").build();
+		Radio expectedRadio = new Radio.Builder().id("751841008283805").build();
 		assertThat(radioFound, is(equalTo(expectedRadio)));
 	}
 	

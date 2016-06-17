@@ -75,10 +75,6 @@ public class AmazonUtil {
 		}
 
 		// We need to find the album from the RelatedItem
-		Optional<Creator> oCreator = oItemAttribute.map(ItemAttributes::getCreator);
-		// This is the Artist:
-		Optional<String> oCreatorArtist = oCreator.filter(c -> PRIMARYCONTRIBUTOR_ROLE.equals(c.getRole()) || PERFORMER_ROLE.equals(c.getRole()))
-												  .map(Creator::getValue);
 		// Album name:
 		Optional<ItemAttributes> oAlbumItem = Optional.ofNullable(item.getRelatedItems())
 				.map(RelatedItems::getRelatedItem)
@@ -87,6 +83,12 @@ public class AmazonUtil {
 
 		String pgAlbum = oAlbumItem.map(ItemAttributes::getProductGroup).orElse(AMAZON_UNKNOWN);
 		Optional<String> oAlbumName = oAlbumItem.map(ItemAttributes::getTitle);
+		
+		// The creator of the Album is the Artist that we are looking for
+		Optional<Creator> oCreator = oAlbumItem.map(ItemAttributes::getCreator);
+		// This is the Artist:
+		Optional<String> oCreatorArtist = oCreator.filter(c -> PRIMARYCONTRIBUTOR_ROLE.equals(c.getRole()) || PERFORMER_ROLE.equals(c.getRole()))
+												  .map(Creator::getValue);
 		
 		LoggerUtils.logDebug(log, () -> "Product Group of the Album: " + pgAlbum);
 		if (pgAlbum.equals(PRODUCTGROUP_ALBUM)) {

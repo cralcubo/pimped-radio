@@ -18,6 +18,8 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.utilities.HttpUtils;
+import bo.roman.radio.utilities.PhraseCalculator;
+import bo.roman.radio.utilities.PhraseCalculator.PhraseMatch;
 import bo.roman.radio.utilities.ReflectionUtils;
 
 @RunWith(PowerMockRunner.class)
@@ -35,6 +37,7 @@ public class AmazonAlbumFinderTest {
 	private static final String WHITESNAKEXML_PATH = ROOTH_PATH + "amazon-whitesnake.xml";
 	private static final String RIHANNAXML_PATH = ROOTH_PATH + "amazon-rihanna-work.xml";
 	private static final String KASKADEXML_PATH = ROOTH_PATH + "amazon-kaskade.xml";
+	private static final String PINKFLOYDXML_PATH = ROOTH_PATH + "amazon-pinkfloyd.xml";
 
 	private AmazonAlbumFinder finder;
 	
@@ -125,7 +128,15 @@ public class AmazonAlbumFinderTest {
 		String song = "I Remember";
 		String artist = "Kaskade with Deadmau5";
 		
-		doFindAlbumsTest(song, artist, KASKADEXML_PATH, 0);
+		doFindAlbumsTest(song, artist, KASKADEXML_PATH, 5);
+	}
+	
+	@Test
+	public void testFindAlbum_PinkFloyd() throws IOException {
+		String song = "Echoes";
+		String artist = "Pink Floyd";
+		
+		doFindAlbumsTest(song, artist, PINKFLOYDXML_PATH, 0);
 	}
 	
 	/* *** Utilities *** */
@@ -145,8 +156,8 @@ public class AmazonAlbumFinderTest {
 		assertThat("Number of Albums.", albums.size(), is(numbAlbums));
 
 		for (Album a : albums) {
-			assertThat("Song name unexpected: " + a.getSongName(), a.getSongName().toLowerCase().contains(song.toLowerCase()), is(true));
-			assertThat("Artist name unexpected: " + a.getArtistName(), a.getArtistName().toLowerCase().contains(artist.toLowerCase()), is(true));
+			assertThat("Artist name unexpected: " + a.getArtistName(), PhraseCalculator.withPhrase(artist).calculateSimilarityTo(a.getArtistName()) != PhraseMatch.DIFFERENT, is(true));
+			assertThat("Song name unexpected: " + a.getSongName(), PhraseCalculator.withPhrase(song).calculateSimilarityTo(a.getSongName()) != PhraseMatch.DIFFERENT, is(true));
 		}
 	}
 
