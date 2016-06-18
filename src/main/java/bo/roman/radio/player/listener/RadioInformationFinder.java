@@ -38,7 +38,7 @@ public class RadioInformationFinder {
 		final CompletableFuture<Optional<Radio>> futureRadio = CompletableFuture.supplyAsync(() -> coverManager.getRadioWithLogo(radioName), executor);
 		
 		// Find the Album of the Song
-		Song song = oSong.orElse(new Song.Builder().build());
+		Song song = oSong.orElseGet(() -> new Song.Builder().build());
 		final CompletableFuture<Optional<Album>> futureAlbum = CompletableFuture.supplyAsync(() -> coverManager.getAlbumWithCover(song.getName(), song.getArtist()), executor);
 		
 		// Get the info found

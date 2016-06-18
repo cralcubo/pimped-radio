@@ -96,7 +96,7 @@ public class FacebookStationFinderTest {
 		assertThat(oRadioFound.isPresent(), is(true));
 		
 		Radio radioFound = oRadioFound.get();
-		Radio expectedRadio = new Radio.Builder().id("751841008283805").build();
+		Radio expectedRadio = new Radio.Builder().id("102837736720924").build();
 		assertThat(radioFound, is(equalTo(expectedRadio)));
 	}
 	
@@ -115,7 +115,7 @@ public class FacebookStationFinderTest {
 	
 	@Test
 	public void testFindRadio_noMatch() throws IOException {
-		String radioName = "Radio pasión latina";
+		String radioName = "Radio latina";
 		Optional<Radio> oRadioFound = doFindRadioPage(radioName, Paths.get(RADIOPASION_PATH));
 		
 		// Assert

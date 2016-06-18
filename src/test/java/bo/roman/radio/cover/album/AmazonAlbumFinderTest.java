@@ -72,7 +72,7 @@ public class AmazonAlbumFinderTest {
 		String artist = "Cesaria Evora";
 		String song = "Sodade";
 		
-		doFindAlbumsTest(song, artist, CESAREAXML_PATH, 4);
+		doFindAlbumsTest(song, artist, CESAREAXML_PATH, 5);
 	}
 	
 	@Test
@@ -128,7 +128,7 @@ public class AmazonAlbumFinderTest {
 		String song = "I Remember";
 		String artist = "Kaskade with Deadmau5";
 		
-		doFindAlbumsTest(song, artist, KASKADEXML_PATH, 5);
+		doFindAlbumsTest(song, artist, KASKADEXML_PATH, 6);
 	}
 	
 	@Test

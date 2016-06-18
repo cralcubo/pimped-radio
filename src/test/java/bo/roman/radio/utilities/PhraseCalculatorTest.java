@@ -162,14 +162,6 @@ public class PhraseCalculatorTest {
 	}
 	
 	@Test
-	public void testSameBegin4() {
-		String phrase = "Escaping me - Tiesto";
-		String toTest = "Escapin' me ";
-		
-		assertThat(PhraseCalculator.withPhrase(phrase).calculateSimilarityTo(toTest), is(PhraseMatch.SAME_BEGIN));
-	}
-	
-	@Test
 	public void testSameBegin5() {
 		String phrase = "RapRadio";
 		String toTest = "Rap Radio California";
@@ -181,6 +173,14 @@ public class PhraseCalculatorTest {
 	public void testSameBegin6() {
 		String phrase = "Sound & Vision: Tribute to David Bowie";
 		String toTest = "Sound and Vision";
+		
+		assertThat(PhraseCalculator.withPhrase(phrase).calculateSimilarityTo(toTest), is(PhraseMatch.SAME_BEGIN));
+	}
+	
+	@Test
+	public void testSameBegin7() {
+		String phrase = "LAY IT ALL ON ME";
+		String toTest = "Lay It All On Me (feat. Ed Sheeran) [Taurus Riley Remix]";
 		
 		assertThat(PhraseCalculator.withPhrase(phrase).calculateSimilarityTo(toTest), is(PhraseMatch.SAME_BEGIN));
 	}

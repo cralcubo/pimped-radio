@@ -7,7 +7,6 @@ public class PhraseCalculator {
 	public enum PhraseMatch {EXACT, SIMILAR, SAME_BEGIN, CONTAINS, DIFFERENT}
 	
 	private static final String UNIONCHARS_REGEX = "(\\s*((and|with|or)|,|\\+|-|&{1,2}|\\|{1,2}|\\s|\\t)\\s*)";
-	private static final String DIACRITIC_REGEX = "n['|`|`| ̉|᾿]";
 	private static final String BEGINSWITH_TEMPL = "^\\Q%s\\E.*$";
 	private static final int MAXCHARACTERS_DIF = 2;
 	
@@ -39,7 +38,6 @@ public class PhraseCalculator {
 		 * to:
 		 * - split camel cases
 		 * - remove accents
-		 * - replace 'g for ng
 		 * - make them lower case and trim it
 		 */
 		
@@ -50,10 +48,6 @@ public class PhraseCalculator {
 		/* Remove accents*/
 		toPhrase_ = StringUtils.cleanIt(toPhrase_);
 		rootPhrase_ = StringUtils.cleanIt(rootPhrase_);
-		
-		/* replace 'g for ng */
-		toPhrase_ = toPhrase_.replaceAll(DIACRITIC_REGEX, "ng");
-		rootPhrase_ = rootPhrase_.replaceAll(DIACRITIC_REGEX, "ng");
 		
 		/* make them lower case */
 		toPhrase_ = toPhrase_.toLowerCase().trim();

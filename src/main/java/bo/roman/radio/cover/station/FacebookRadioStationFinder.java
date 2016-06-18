@@ -107,7 +107,7 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 		Optional<Radio> similarMatch = findRadioByMatch(radioGroups, PhraseMatch.SIMILAR);
 		Optional<Radio> similarBeginMatch = findRadioByMatch(radioGroups, PhraseMatch.SAME_BEGIN);
 		if(similarBeginMatch.isPresent() || similarMatch.isPresent()) {
-			Radio closeRadio = similarMatch.orElse(similarBeginMatch.get());
+			Radio closeRadio = similarMatch.orElseGet(() -> similarBeginMatch.get());
 			log.info("Close match found for {} is {}", radioName, closeRadio);
 			return Optional.of(closeRadio);
 		}
