@@ -84,23 +84,35 @@ public class PhraseCalculator {
 	}
 	
 	private boolean checkSimilarity(String val1, String val2) {
-		List<Character> c1 = new ArrayList<>();
-		for(int i = 0; i < val1.length(); i++) {
-			c1.add(val1.charAt(i));
-		}
-		List<Character> c2 = new ArrayList<>();
-		for(int i = 0; i < val2.length(); i++) {
-			c2.add(val2.charAt(i));
-		}
-		List<Character> union = new ArrayList<>(c1);
-		union.addAll(c2);
+		List<Character> c1 = toChars(val1);
+		List<Character> c2 = toChars(val2);
 		
-		List<Character> intersection = new ArrayList<>(c1);
-		intersection.retainAll(c2);
+		// Find differences
+		List<Character> diff1 = removeChars(c1, c2);
+		List<Character> diff2 = removeChars(c2, c1);
 		
-		union.removeAll(intersection);
+		// Add both differences
+		diff1.addAll(diff2);
 		
-		return union.size() <= MAXCHARACTERS_DIF; 
+		return diff1.size() <= MAXCHARACTERS_DIF;
 	}
-
+	
+	private List<Character> toChars(String val) {
+		List<Character> c = new ArrayList<>();
+		for(int i = 0; i < val.length(); i++) {
+			c.add(val.charAt(i));
+		}
+		
+		return c;
+	}
+	
+	private List<Character> removeChars(List<Character> from, List<Character> chars) {
+		List<Character> tempFrom = new ArrayList<>(from);
+		for(Character ch : chars) {
+			tempFrom.remove(ch);
+		}
+		
+		return tempFrom;
+	}
+	
 }

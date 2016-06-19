@@ -186,6 +186,14 @@ public class PhraseCalculatorTest {
 	}
 	
 	@Test
+	public void testSameBegin8() {
+		String phrase = "Radio Pasion";
+		String toTest = "Radio Pasion latina";
+		
+		assertThat(PhraseCalculator.withPhrase(phrase).calculateSimilarityTo(toTest), is(PhraseMatch.SAME_BEGIN));
+	}
+	
+	@Test
 	public void testContains() {
 		String phrase = "Rhianna ft. Drake";
 		String toTest = " DRAKE ";
