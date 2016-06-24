@@ -95,7 +95,7 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 		// Group all the radios by the similarity that their name have
 		// with the radioName used to searched them.
 		Map<PhraseMatch, List<Radio>> radioGroups = radios.stream()
-				.collect(Collectors.groupingBy(r -> PhraseCalculator.withPhrase(radioName).calculateSimilarityTo(r.getName())));
+				.collect(Collectors.groupingBy(r -> PhraseCalculator.phrase(radioName).calculateSimilarityTo(r.getName())));
 		LoggerUtils.logDebug(log, () -> radioGroups.toString());
 		
 		Optional<Radio> exactMatch = findRadioByMatch(radioGroups, PhraseMatch.EXACT);

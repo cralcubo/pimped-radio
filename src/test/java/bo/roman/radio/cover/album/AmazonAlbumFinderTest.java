@@ -19,7 +19,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.utilities.HttpUtils;
 import bo.roman.radio.utilities.PhraseCalculator;
-import bo.roman.radio.utilities.PhraseCalculator.PhraseMatch;
 import bo.roman.radio.utilities.ReflectionUtils;
 
 @RunWith(PowerMockRunner.class)
@@ -156,8 +155,8 @@ public class AmazonAlbumFinderTest {
 		assertThat("Number of Albums.", albums.size(), is(numbAlbums));
 
 		for (Album a : albums) {
-			assertThat("Artist name unexpected: " + a.getArtistName(), PhraseCalculator.withPhrase(artist).calculateSimilarityTo(a.getArtistName()) != PhraseMatch.DIFFERENT, is(true));
-			assertThat("Song name unexpected: " + a.getSongName(), PhraseCalculator.withPhrase(song).calculateSimilarityTo(a.getSongName()) != PhraseMatch.DIFFERENT, is(true));
+			assertThat("Artist name unexpected: " + a.getArtistName(), PhraseCalculator.phrase(artist).atLeastContains(a.getArtistName()), is(true));
+			assertThat("Song name unexpected: " + a.getSongName(), PhraseCalculator.phrase(song).atLeastContains(a.getSongName()), is(true));
 		}
 	}
 

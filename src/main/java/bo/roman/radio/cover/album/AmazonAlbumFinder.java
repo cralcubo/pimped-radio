@@ -26,7 +26,6 @@ import bo.roman.radio.utilities.HttpUtils;
 import bo.roman.radio.utilities.ImageUtil;
 import bo.roman.radio.utilities.LoggerUtils;
 import bo.roman.radio.utilities.PhraseCalculator;
-import bo.roman.radio.utilities.PhraseCalculator.PhraseMatch;
 import bo.roman.radio.utilities.StringUtils;
 
 public class AmazonAlbumFinder implements AlbumFindable {
@@ -37,7 +36,7 @@ public class AmazonAlbumFinder implements AlbumFindable {
 	@Override
 	public List<Album> findAlbums(String song, String artist) {
 		if(!StringUtils.exists(song) || !StringUtils.exists(artist)) {
-			log.info("There is no Song name and/or Artist to find an Album.");
+			log.info("There is not enough information to find an Album.");
 			return Collections.emptyList();
 		}
 		
@@ -74,6 +73,9 @@ public class AmazonAlbumFinder implements AlbumFindable {
 					.collect(Collectors.toList());
 			
 			log.info("[{}] Albums found in Amazon.", allAlbums.size());
+			if(log.isDebugEnabled()) {
+				allAlbums.forEach(a -> log.debug(a.toString()));
+			}
 			return allAlbums;
 			
 		} catch (IOException e) {
@@ -131,7 +133,7 @@ public class AmazonAlbumFinder implements AlbumFindable {
 		}
 		LoggerUtils.logDebug(log, () -> "ProductGroup of Item is " + ia.getProductGroup());
 		
-		return StringUtils.exists(ia.getProductGroup()) && PhraseCalculator.withPhrase(ia.getProductGroup()).calculateSimilarityTo("music") != PhraseMatch.DIFFERENT;
+		return StringUtils.exists(ia.getProductGroup()) && PhraseCalculator.phrase(ia.getProductGroup()).atLeastContains("music");
 	}
 	
 	/**
@@ -154,7 +156,7 @@ public class AmazonAlbumFinder implements AlbumFindable {
 		String albumSong = a.getSongName();
 		LoggerUtils.logDebug(log, () -> "Item Title=" + albumSong);
 		if(!StringUtils.exists(albumSong) || 
-				PhraseCalculator.withPhrase(song).calculateSimilarityTo(albumSong) == PhraseMatch.DIFFERENT) {
+				PhraseCalculator.phrase(song).isDifferent(albumSong)) {
 			LoggerUtils.logDebug(log, () -> String.format("Item Title[%s] does not match Song=%s", albumSong, song));
 			return false;
 		}
@@ -163,7 +165,7 @@ public class AmazonAlbumFinder implements AlbumFindable {
 		String albumArtist = a.getArtistName();
 		LoggerUtils.logDebug(log, () -> "Item Artist=" + albumArtist);
 		if(StringUtils.exists(albumArtist)) {
-			boolean match = PhraseCalculator.withPhrase(artist).calculateSimilarityTo(albumArtist) != PhraseMatch.DIFFERENT; 
+			boolean match = PhraseCalculator.phrase(artist).atLeastContains(albumArtist); 
 			LoggerUtils.logDebug(log, () ->  String.format("Item matches Artist[%s]=%s", artist, match));
 			return match;
 		}

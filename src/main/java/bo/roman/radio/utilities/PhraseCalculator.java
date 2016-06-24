@@ -7,8 +7,8 @@ public class PhraseCalculator {
 	public enum PhraseMatch {EXACT, SIMILAR, SAME_BEGIN, CONTAINS, DIFFERENT}
 	
 	private static final String UNIONCHARS_REGEX = "(\\s*((and|with|or)|,|\\+|-|&{1,2}|\\|{1,2}|\\s|\\t)\\s*)";
-	private static final String BEGINSWITH_TEMPL = "^\\Q%s\\E.*$";
-	private static final int MAXCHARACTERS_DIF = 2;
+	private static final String APOSTROPHES_REGEX = "'|`|’";
+	private static final float MAXCHARACTERSDIF_PERCENT = 0.3f;
 	
 	private final String rootPhrase;
 	
@@ -17,7 +17,7 @@ public class PhraseCalculator {
 		this.rootPhrase = rootPhrase;
 	}
 	
-	public static PhraseCalculator withPhrase(final String val) {
+	public static PhraseCalculator phrase(final String val) {
 		return new PhraseCalculator(val);
 	}
 	
@@ -61,6 +61,12 @@ public class PhraseCalculator {
 		 */
 		toPhrase_ = toPhrase_.replaceAll(UNIONCHARS_REGEX, " ");
 		rootPhrase_ = rootPhrase_.replaceAll(UNIONCHARS_REGEX, " ");
+		/*
+		 * Sometimes apostrophes come in different shapes: like ' ` or ’
+		 * We remove from the comparator this characters.
+		 */
+		toPhrase_ = toPhrase_.replaceAll(APOSTROPHES_REGEX, "");
+		rootPhrase_ = rootPhrase_.replaceAll(APOSTROPHES_REGEX, "");
 		
 		if(checkSimilarity(rootPhrase_, toPhrase_)) {
 			return PhraseMatch.SIMILAR;
@@ -69,20 +75,40 @@ public class PhraseCalculator {
 		/*
 		 * 03. Both phrases begin with the same words
 		 */
-		if(rootPhrase_.matches(String.format(BEGINSWITH_TEMPL, toPhrase_)) || toPhrase_.matches(String.format(BEGINSWITH_TEMPL, rootPhrase_))) {
+		if((!rootPhrase_.isEmpty() && !toPhrase_.isEmpty()) && (rootPhrase_.startsWith(toPhrase_) || toPhrase_.startsWith(rootPhrase_))) {
 			return PhraseMatch.SAME_BEGIN;
 		}
 		
 		/*
 		 * 04. Contains part of the phrase
 		 */
-		if(rootPhrase_.contains(toPhrase_) || toPhrase_.contains(rootPhrase_)) {
+		if((!rootPhrase_.isEmpty() && !toPhrase_.isEmpty()) && (rootPhrase_.contains(toPhrase_) || toPhrase_.contains(rootPhrase_))) {
 			return PhraseMatch.CONTAINS;
 		}
 		
 		return PhraseMatch.DIFFERENT;
 	}
 	
+	public boolean isExactTo(String toPhrase) {
+		PhraseMatch pm = calculateSimilarityTo(toPhrase);
+		return pm == PhraseMatch.EXACT; 
+	}
+	
+	public boolean isDifferent(String toPhrase) {
+		PhraseMatch pm = calculateSimilarityTo(toPhrase);
+		return pm == PhraseMatch.DIFFERENT; 
+	}
+	
+	public boolean hasSameBeginAs(String toPhrase) {
+		PhraseMatch pm = calculateSimilarityTo(toPhrase);
+		return pm == PhraseMatch.EXACT || pm == PhraseMatch.SAME_BEGIN; 
+	}
+	
+	public boolean atLeastContains(String toPhrase) {
+		PhraseMatch pm = calculateSimilarityTo(toPhrase);
+		return pm != PhraseMatch.DIFFERENT; 
+	}
+
 	private boolean checkSimilarity(String val1, String val2) {
 		List<Character> c1 = toChars(val1);
 		List<Character> c2 = toChars(val2);
@@ -94,7 +120,9 @@ public class PhraseCalculator {
 		// Add both differences
 		diff1.addAll(diff2);
 		
-		return diff1.size() <= MAXCHARACTERS_DIF;
+		float allowedDiffChars = ((val1.length() + val2.length())/2) * MAXCHARACTERSDIF_PERCENT;  
+		
+		return diff1.size() <= Math.round(allowedDiffChars);
 	}
 	
 	private List<Character> toChars(String val) {

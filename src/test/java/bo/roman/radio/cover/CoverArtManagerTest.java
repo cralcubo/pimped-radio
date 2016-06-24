@@ -90,6 +90,7 @@ public class CoverArtManagerTest {
 		
 		CoverArt rectangularCover = new CoverArt.Builder().maxHeight(500).maxWidth(499).largeUri("http://rect.uri").build();
 		CoverArt squareCover = new CoverArt.Builder().maxHeight(500).maxWidth(500).largeUri("http://rect.uri").build();
+		
 		Album a1 = new Album.Builder().artistName(band).songName(song).name(albumName).coverArt(Optional.of(squareCover)).build();
 		Album a2 = new Album.Builder().artistName(band).songName(song + " (Remastered)").name(albumName + " (Remastered)").coverArt(Optional.of(squareCover)).build();
 		Album a3 = new Album.Builder().artistName(band + "(Unplugged)").songName(song + " (Unplugged)").name(albumName + " (Unplugged)").coverArt(Optional.of(squareCover)).build();

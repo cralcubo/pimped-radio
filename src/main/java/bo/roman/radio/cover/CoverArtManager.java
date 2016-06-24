@@ -18,7 +18,6 @@ import bo.roman.radio.cover.station.CacheLogoUtil;
 import bo.roman.radio.cover.station.FacebookRadioStationFinder;
 import bo.roman.radio.cover.station.RadioStationFindable;
 import bo.roman.radio.utilities.PhraseCalculator;
-import bo.roman.radio.utilities.PhraseCalculator.PhraseMatch;
 import bo.roman.radio.utilities.StringUtils;
 
 public class CoverArtManager implements ICoverArtManager {
@@ -44,11 +43,9 @@ public class CoverArtManager implements ICoverArtManager {
 		// that have the same name as the song that was used to find it.
 		List<Album> allAlbums = albumFinder.findAlbums(song, artist).stream()
 								.sorted((a1, a2) -> {
-									PhraseMatch match1 = PhraseCalculator.withPhrase(song).calculateSimilarityTo(a1.getAlbumName());
-									PhraseMatch match2 = PhraseCalculator.withPhrase(song).calculateSimilarityTo(a2.getAlbumName());
+									boolean songAlbumMatch1 = PhraseCalculator.phrase(song).hasSameBeginAs(a1.getAlbumName());
+									boolean songAlbumMatch2 = PhraseCalculator.phrase(song).hasSameBeginAs(a2.getAlbumName());
 									
-									boolean songAlbumMatch1 = match1 == PhraseMatch.EXACT || match1 == PhraseMatch.SAME_BEGIN;
-									boolean songAlbumMatch2 = match2 == PhraseMatch.EXACT || match2 == PhraseMatch.SAME_BEGIN;
 									if(songAlbumMatch1 && !songAlbumMatch2) {
 										return -1;
 									}
@@ -63,15 +60,17 @@ public class CoverArtManager implements ICoverArtManager {
 			log.info("No Albums found.");
 			return Optional.empty();
 		}
-		
 		Comparator<Album> proportionsComparator = new CoverArtProportionsComparator();
 		
 		// Find the best Album, this is the one that exactly matches song and artist
 		// if there is more than one, return the one that is more square: w/h closer to 1
 		Optional<Album> bestAlbum = allAlbums.stream()
-											 .filter(a -> (PhraseCalculator.withPhrase(song).calculateSimilarityTo(a.getSongName()) == PhraseMatch.EXACT
-											            && PhraseCalculator.withPhrase(artist).calculateSimilarityTo(a.getArtistName()) == PhraseMatch.EXACT)
-													    || PhraseCalculator.withPhrase(song).calculateSimilarityTo(a.getAlbumName()) == PhraseMatch.SAME_BEGIN)
+											 .filter(a -> {
+												 boolean exactSong = PhraseCalculator.phrase(song).isExactTo(a.getSongName());
+												 boolean exactArtist = PhraseCalculator.phrase(artist).isExactTo(a.getArtistName());
+												 boolean similarAlbumToSong = PhraseCalculator.phrase(song).hasSameBeginAs(a.getAlbumName());
+												 return (exactSong && exactArtist) || (similarAlbumToSong && exactArtist);
+											 })
 											 .min(proportionsComparator);
 		if(bestAlbum.isPresent()) {
 			log.info("Best Match Album found {}", bestAlbum.get());
