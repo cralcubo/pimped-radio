@@ -90,9 +90,15 @@ public class AmazonUtil {
 		Optional<String> oCreatorArtist = oCreator.filter(c -> PRIMARYCONTRIBUTOR_ROLE.equals(c.getRole()) || PERFORMER_ROLE.equals(c.getRole()))
 												  .map(Creator::getValue);
 		
+		// Just in case no artist is in the related item Album, we will get the 
+		// Creator of the song.
+		Optional<Creator> sCreator = oItemAttribute.map(ItemAttributes::getCreator);
+		Optional<String> sCreatorArtist = sCreator.filter(c -> PRIMARYCONTRIBUTOR_ROLE.equals(c.getRole()) || PERFORMER_ROLE.equals(c.getRole()))
+				  								  .map(Creator::getValue);
+		
 		LoggerUtils.logDebug(log, () -> "Product Group of the Album: " + pgAlbum);
 		if (pgAlbum.equals(PRODUCTGROUP_ALBUM)) {
-			Album a = new Album.Builder().artistName(oCreatorArtist.orElse(AMAZON_UNKNOWN))
+			Album a = new Album.Builder().artistName(oCreatorArtist.orElseGet(() -> sCreatorArtist.orElse(AMAZON_UNKNOWN)))
 					.songName(oTitle.orElse(AMAZON_UNKNOWN))
 					.name(oAlbumName.orElse(AMAZON_UNKNOWN))
 					.coverArt(oCoverArt)
