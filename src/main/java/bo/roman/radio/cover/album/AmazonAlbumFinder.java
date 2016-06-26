@@ -136,6 +136,10 @@ public class AmazonAlbumFinder implements AlbumFindable {
 		return StringUtils.exists(ia.getProductGroup()) && PhraseCalculator.phrase(ia.getProductGroup()).atLeastContains("music");
 	}
 	
+	private boolean matchSongArtist(String song, String artist, Album a) {
+		return matchSongArtist(song, artist, a, false);
+	}
+	
 	/**
 	 * Check if the song and artist match
 	 * the Album information retrieved from Amazon.
@@ -147,9 +151,10 @@ public class AmazonAlbumFinder implements AlbumFindable {
 	 * @param song
 	 * @param artist
 	 * @param a
+	 * @param isSwapped is song <-> artist swapped
 	 * @return
 	 */
-	private boolean matchSongArtist(String song, String artist, Album a) {
+	private boolean matchSongArtist(String song, String artist, Album a, boolean isSwapped) {
 		LoggerUtils.logDebug(log, () -> "Checking match of song and artist for " + a);
 		
 		// Check Song Name
@@ -158,7 +163,7 @@ public class AmazonAlbumFinder implements AlbumFindable {
 		if(!StringUtils.exists(albumSong) || 
 				PhraseCalculator.phrase(song).isDifferent(albumSong)) {
 			LoggerUtils.logDebug(log, () -> String.format("Item Title[%s] does not match Song=%s", albumSong, song));
-			return false;
+			return isSwapped ? false : matchSongArtist(artist, song, a, true);
 		}
 		
 		// Check Artist

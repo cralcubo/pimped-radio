@@ -67,6 +67,14 @@ public class AmazonAlbumFinderTest {
 	}
 	
 	@Test
+	public void testFindAlbums_AlbumSwapedInfo() throws IOException {
+		String testArtist = "Nevermind";
+		String testSong = "Nirvana";
+		
+		doFindAlbumsTest_swapped(testSong, testArtist, NIRVANAXML_PATH, 2);
+	}
+	
+	@Test
 	public void testFindAlbums_Cesarea() throws IOException {
 		String artist = "Cesaria Evora";
 		String song = "Sodade";
@@ -115,11 +123,27 @@ public class AmazonAlbumFinderTest {
 	}
 	
 	@Test
+	public void testFindAlbums_WhitesnakeSwapped() throws IOException{
+		String song = "Whitesnake";
+		String artist = "Live at Donington 1990";
+		
+		doFindAlbumsTest_swapped(song, artist, WHITESNAKEXML_PATH, 2);
+	}
+	
+	@Test
 	public void testFindAlbum_Rihanna() throws IOException {
 		String artist = "Rihanna";
 		String song = "Work";
 		
 		doFindAlbumsTest(song, artist, RIHANNAXML_PATH, 2);
+	}
+	
+	@Test
+	public void testFindAlbum_RihannaSwapped() throws IOException {
+		String artist = "Work";
+		String song = "Rihanna";
+		
+		doFindAlbumsTest_swapped(song, artist, RIHANNAXML_PATH, 2);
 	}
 	
 	@Test
@@ -139,7 +163,25 @@ public class AmazonAlbumFinderTest {
 	}
 	
 	/* *** Utilities *** */
+	private void doFindAlbumsTest_swapped(String song, String artist, String xmlFilePath, int numbAlbums) throws IOException {
+		List<Album> albums = findAlbums(song, artist, xmlFilePath, numbAlbums);
+
+		for (Album a : albums) {
+			assertThat("Artist name unexpected: " + a.getArtistName(), PhraseCalculator.phrase(song).atLeastContains(a.getArtistName()), is(true));
+			assertThat("Song name unexpected: " + a.getSongName(), PhraseCalculator.phrase(artist).atLeastContains(a.getSongName()), is(true));
+		}
+	}
+	
 	private void doFindAlbumsTest(String song, String artist, String xmlFilePath, int numbAlbums) throws IOException {
+		List<Album> albums = findAlbums(song, artist, xmlFilePath, numbAlbums);
+
+		for (Album a : albums) {
+			assertThat("Artist name unexpected: " + a.getArtistName(), PhraseCalculator.phrase(artist).atLeastContains(a.getArtistName()), is(true));
+			assertThat("Song name unexpected: " + a.getSongName(), PhraseCalculator.phrase(song).atLeastContains(a.getSongName()), is(true));
+		}
+	}
+	
+	private List<Album> findAlbums(String song, String artist, String xmlFilePath, int numbAlbums) throws IOException {
 		String testKeyword = String.format(NOWPLAYING_TEMPL, song, artist);
 		
 		// Prepare Mock
@@ -149,15 +191,9 @@ public class AmazonAlbumFinderTest {
 		when(HttpUtils.doGet(testUrl)).thenReturn(xmlResponse);
 		
 		List<Album> albums = finder.findAlbums(song, artist);
-		
-		albums.forEach(System.out::println);
-
 		assertThat("Number of Albums.", albums.size(), is(numbAlbums));
-
-		for (Album a : albums) {
-			assertThat("Artist name unexpected: " + a.getArtistName(), PhraseCalculator.phrase(artist).atLeastContains(a.getArtistName()), is(true));
-			assertThat("Song name unexpected: " + a.getSongName(), PhraseCalculator.phrase(song).atLeastContains(a.getSongName()), is(true));
-		}
+		
+		return albums;
 	}
 
 }
