@@ -159,23 +159,20 @@ public class AmazonAlbumFinder implements AlbumFindable {
 		
 		// Check Song Name
 		String albumSong = a.getSongName();
-		LoggerUtils.logDebug(log, () -> "Item Title=" + albumSong);
-		if(!StringUtils.exists(albumSong) || 
-				PhraseCalculator.phrase(song).isDifferent(albumSong)) {
-			LoggerUtils.logDebug(log, () -> String.format("Item Title[%s] does not match Song=%s", albumSong, song));
-			return isSwapped ? false : matchSongArtist(artist, song, a, true);
-		}
-		
+		boolean songMatch = StringUtils.exists(albumSong) && !PhraseCalculator.phrase(song).isDifferent(albumSong);
+		LoggerUtils.logDebug(log, () -> String.format("Item Title[%s] match with Song=%s = %s", albumSong, song, songMatch));
+
 		// Check Artist
 		String albumArtist = a.getArtistName();
-		LoggerUtils.logDebug(log, () -> "Item Artist=" + albumArtist);
-		if(StringUtils.exists(albumArtist)) {
-			boolean match = PhraseCalculator.phrase(artist).atLeastContains(albumArtist); 
-			LoggerUtils.logDebug(log, () ->  String.format("Item matches Artist[%s]=%s", artist, match));
-			return match;
+		boolean artistMatch = StringUtils.exists(albumArtist) && !PhraseCalculator.phrase(artist).isDifferent(albumArtist);
+		LoggerUtils.logDebug(log, () ->  String.format("Item Artist[%s] match with Artist=%s = %s", albumArtist, artist, artistMatch));
+		
+		if(!isSwapped && (!songMatch || !artistMatch)) {
+			return matchSongArtist(artist, song, a, true);
 		}
 		
-		return false;
+		return songMatch && artistMatch;
+		
 	}
 	
 	/**

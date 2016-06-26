@@ -71,7 +71,7 @@ public class AmazonAlbumFinderTest {
 		String testArtist = "Nevermind";
 		String testSong = "Nirvana";
 		
-		doFindAlbumsTest_swapped(testSong, testArtist, NIRVANAXML_PATH, 2);
+		doFindAlbumsTest_swapped(testSong, testArtist, NIRVANAXML_PATH, 3);
 	}
 	
 	@Test
@@ -127,7 +127,7 @@ public class AmazonAlbumFinderTest {
 		String song = "Whitesnake";
 		String artist = "Live at Donington 1990";
 		
-		doFindAlbumsTest_swapped(song, artist, WHITESNAKEXML_PATH, 2);
+		doFindAlbumsTest_swapped(song, artist, WHITESNAKEXML_PATH, 5);
 	}
 	
 	@Test
