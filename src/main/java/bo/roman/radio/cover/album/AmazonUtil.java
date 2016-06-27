@@ -10,8 +10,8 @@ import bo.roman.radio.cover.model.CoverArt;
 import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item;
 import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.Image;
 import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.ItemAttributes;
-import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.RelatedItems;
 import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.ItemAttributes.Creator;
+import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.RelatedItems;
 import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.RelatedItems.RelatedItem;
 import bo.roman.radio.utilities.LoggerUtils;
 
@@ -63,9 +63,14 @@ public class AmazonUtil {
 		// Song name is Album name when ProductGroup is: Music
 		Optional<String> oArtist = oItemAttribute.map(ItemAttributes::getArtist);
 		
+		// Just in case check if there is the  creator of the song.
+		Optional<Creator> sCreator = oItemAttribute.map(ItemAttributes::getCreator);
+		Optional<String> sCreatorArtist = sCreator.filter(c -> PRIMARYCONTRIBUTOR_ROLE.equals(c.getRole()) || PERFORMER_ROLE.equals(c.getRole()))
+						  								  .map(Creator::getValue);
+		
 		LoggerUtils.logDebug(log, () -> "Product Group of the Song: " + pg);
 		if (pg.equals(PRODUCTGROUP_MUSIC)) {
-			Album a = new Album.Builder().artistName(oArtist.orElse(AMAZON_UNKNOWN))
+			Album a = new Album.Builder().artistName(oArtist.orElseGet(() -> sCreatorArtist.orElse(AMAZON_UNKNOWN)))
 					.songName(oTitle.orElse(AMAZON_UNKNOWN))
 					.name(oTitle.orElse(AMAZON_UNKNOWN))
 					.coverArt(oCoverArt)
@@ -89,12 +94,6 @@ public class AmazonUtil {
 		// This is the Artist:
 		Optional<String> oCreatorArtist = oCreator.filter(c -> PRIMARYCONTRIBUTOR_ROLE.equals(c.getRole()) || PERFORMER_ROLE.equals(c.getRole()))
 												  .map(Creator::getValue);
-		
-		// Just in case no artist is in the related item Album, we will get the 
-		// Creator of the song.
-		Optional<Creator> sCreator = oItemAttribute.map(ItemAttributes::getCreator);
-		Optional<String> sCreatorArtist = sCreator.filter(c -> PRIMARYCONTRIBUTOR_ROLE.equals(c.getRole()) || PERFORMER_ROLE.equals(c.getRole()))
-				  								  .map(Creator::getValue);
 		
 		LoggerUtils.logDebug(log, () -> "Product Group of the Album: " + pgAlbum);
 		if (pgAlbum.equals(PRODUCTGROUP_ALBUM)) {

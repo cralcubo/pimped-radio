@@ -37,6 +37,7 @@ public class AmazonAlbumFinderTest {
 	private static final String RIHANNAXML_PATH = ROOTH_PATH + "amazon-rihanna-work.xml";
 	private static final String KASKADEXML_PATH = ROOTH_PATH + "amazon-kaskade.xml";
 	private static final String PINKFLOYDXML_PATH = ROOTH_PATH + "amazon-pinkfloyd.xml";
+	private static final String ECHOESXML_PATH = ROOTH_PATH + "amazon-echoes.xml";
 
 	private AmazonAlbumFinder finder;
 	
@@ -162,6 +163,12 @@ public class AmazonAlbumFinderTest {
 		doFindAlbumsTest(song, artist, PINKFLOYDXML_PATH, 0);
 	}
 	
+	@Test
+	public void testFindAlbum_NoArtist() throws IOException {
+		String song = "Echoes";
+		doFindAlbumsTest(song, ECHOESXML_PATH, 1);
+	}
+	
 	/* *** Utilities *** */
 	private void doFindAlbumsTest_swapped(String song, String artist, String xmlFilePath, int numbAlbums) throws IOException {
 		List<Album> albums = findAlbums(song, artist, xmlFilePath, numbAlbums);
@@ -177,6 +184,14 @@ public class AmazonAlbumFinderTest {
 
 		for (Album a : albums) {
 			assertThat("Artist name unexpected: " + a.getArtistName(), PhraseCalculator.phrase(artist).atLeastContains(a.getArtistName()), is(true));
+			assertThat("Song name unexpected: " + a.getSongName(), PhraseCalculator.phrase(song).atLeastContains(a.getSongName()), is(true));
+		}
+	}
+	
+	private void doFindAlbumsTest(String song, String xmlFilePath, int numbAlbums) throws IOException {
+		List<Album> albums = findAlbums(song, "", xmlFilePath, numbAlbums);
+
+		for (Album a : albums) {
 			assertThat("Song name unexpected: " + a.getSongName(), PhraseCalculator.phrase(song).atLeastContains(a.getSongName()), is(true));
 		}
 	}

@@ -144,6 +144,14 @@ public class PhraseCalculatorTest {
 		
 		assertThat(PhraseCalculator.phrase(phrase).calculateSimilarityTo(toTest), is(PhraseMatch.SIMILAR));
 	}
+	//P!nk
+	@Test
+	public void testSimilarMatch_extraChars3() {
+		String phrase = "Pink";
+		String toTest = "P!nk";
+		
+		assertThat(PhraseCalculator.phrase(phrase).calculateSimilarityTo(toTest), is(PhraseMatch.SIMILAR));
+	}
 	
 	@Test
 	public void testSameBegin() {
@@ -252,8 +260,8 @@ public class PhraseCalculatorTest {
 	
 	@Test
 	public void testDifferentMatch_extraChars() {
-		String phrase = "Shy Carter, Aleon Craft";
-		String toTest = "Shy Carter feat. Aleon Craft and extra artists";
+		String phrase = "Let It Echo (Live)";
+		String toTest = "Echoes";
 		
 		assertThat(PhraseCalculator.phrase(phrase).calculateSimilarityTo(toTest), is(PhraseMatch.DIFFERENT));
 	}

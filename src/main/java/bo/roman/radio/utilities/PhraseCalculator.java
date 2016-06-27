@@ -109,9 +109,9 @@ public class PhraseCalculator {
 		return pm != PhraseMatch.DIFFERENT; 
 	}
 
-	private boolean checkSimilarity(String val1, String val2) {
-		List<Character> c1 = toChars(val1);
-		List<Character> c2 = toChars(val2);
+	private boolean checkSimilarity(String rootPhrase, String toCompare) {
+		List<Character> c1 = toChars(rootPhrase);
+		List<Character> c2 = toChars(toCompare);
 		
 		// Find differences
 		List<Character> diff1 = removeChars(c1, c2);
@@ -120,9 +120,9 @@ public class PhraseCalculator {
 		// Add both differences
 		diff1.addAll(diff2);
 		
-		float allowedDiffChars = ((val1.length() + val2.length())/2) * MAXCHARACTERSDIF_PERCENT;  
+		float allowedDiffChars = ((rootPhrase.length() + toCompare.length())/2) * MAXCHARACTERSDIF_PERCENT;  
 		
-		return diff1.size() <= Math.round(allowedDiffChars);
+		return diff1.size() <= Math.ceil(allowedDiffChars);
 	}
 	
 	private List<Character> toChars(String val) {

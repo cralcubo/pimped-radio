@@ -35,8 +35,8 @@ public class AmazonAlbumFinder implements AlbumFindable {
 
 	@Override
 	public List<Album> findAlbums(String song, String artist) {
-		if(!StringUtils.exists(song) || !StringUtils.exists(artist)) {
-			log.info("There is not enough information to find an Album.");
+		if(!StringUtils.exists(song) && !StringUtils.exists(artist)) {
+			log.info("There is not information to find an Album.");
 			return Collections.emptyList();
 		}
 		
@@ -160,19 +160,24 @@ public class AmazonAlbumFinder implements AlbumFindable {
 		// Check Song Name
 		String albumSong = a.getSongName();
 		boolean songMatch = StringUtils.exists(albumSong) && !PhraseCalculator.phrase(song).isDifferent(albumSong);
-		LoggerUtils.logDebug(log, () -> String.format("Item Title[%s] match with Song=%s = %s", albumSong, song, songMatch));
-
+		LoggerUtils.logDebug(log, () -> String.format("Item Title[%s] match with Song[%s] = %s", albumSong, song, songMatch));
+		
+		// Sometimes no artist is provided by the radio station that is playing.
+		// Just return the result of a song match
+		if(!StringUtils.exists(artist)) {
+			return songMatch;
+		}
+		
 		// Check Artist
 		String albumArtist = a.getArtistName();
 		boolean artistMatch = StringUtils.exists(albumArtist) && !PhraseCalculator.phrase(artist).isDifferent(albumArtist);
-		LoggerUtils.logDebug(log, () ->  String.format("Item Artist[%s] match with Artist=%s = %s", albumArtist, artist, artistMatch));
+		LoggerUtils.logDebug(log, () ->  String.format("Item Artist[%s] match with Artist[%s] = %s", albumArtist, artist, artistMatch));
 		
 		if(!isSwapped && (!songMatch || !artistMatch)) {
 			return matchSongArtist(artist, song, a, true);
 		}
 		
 		return songMatch && artistMatch;
-		
 	}
 	
 	/**
