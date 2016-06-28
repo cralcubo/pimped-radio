@@ -50,7 +50,7 @@ public class AmazonConnectionUtil {
 			+ "&Keywords='%s,music'"
 			+ "&Operation=ItemSearch"
 			+ "&RelationshipType=Tracks"
-			+ "&ResponseGroup=RelatedItems,Images,Small"
+			+ "&ResponseGroup=RelatedItems,Images,Small,Tracks"
 			+ "&SearchIndex=All"
 			+ "&Service=AWSECommerceService"
 			+ "&Timestamp=%s";

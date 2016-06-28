@@ -44,6 +44,7 @@ public class AmazonItems {
 		public static class Item {
 			private RelatedItems relatedItems;
 			private ItemAttributes itemAttributes;
+			private Tracks tracks;
 
 			private Image largeImage;
 			private Image mediumImage;
@@ -117,11 +118,74 @@ public class AmazonItems {
 			public void setRelatedItems(RelatedItems relatedItems) {
 				this.relatedItems = relatedItems;
 			}
+			
+			public Tracks getTracks() {
+				return tracks;
+			}
+			
+			@XmlElement(name = "Tracks")
+			public void setTracks(Tracks tracks) {
+				this.tracks = tracks;
+			}
 
 			@Override
 			public String toString() {
 				return "Item [relatedItems=" + relatedItems + ", itemAttributes=" + itemAttributes + ", largeImage=" + largeImage + ", mediumImage="
-						+ mediumImage + ", smallImage=" + smallImage + "]";
+						+ mediumImage + ", smallImage=" + smallImage + ", tracks=" + tracks + "]";
+			}
+
+			public static class Tracks {
+
+				private List<Disc> discs;
+				
+				public Tracks() {
+					this(null);
+				}
+				
+				public Tracks(List<Disc> discs) {
+					this.discs = discs;
+				}
+				
+				public List<Disc> getDiscs() {
+					return discs;
+				}
+				
+				@XmlElement(name = "Disc")
+				public void setDiscs(List<Disc> discs) {
+					this.discs = discs;
+				}
+				
+				@Override
+				public String toString() {
+					return "Tracks [discs=" + discs + "]";
+				}
+
+				public static class Disc {
+					private List<String> tracks;
+					
+					public Disc() {
+						this(null);
+					}
+					
+					public Disc(List<String> tracks) {
+						this.tracks = tracks;
+					}
+
+					public List<String> getTracks() {
+						return tracks;
+					}
+					
+					@XmlElement(name = "Track")
+					public void setTracks(List<String> tracks) {
+						this.tracks = tracks;
+					}
+
+					@Override
+					public String toString() {
+						return "Disc [tracks=" + tracks + "]";
+					}
+				}
+				
 			}
 
 			public static class ItemAttributes {

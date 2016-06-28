@@ -1,5 +1,9 @@
 package bo.roman.radio.cover.album;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+import java.util.Arrays;
 import java.util.Optional;
 
 import org.junit.Test;
@@ -12,9 +16,8 @@ import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.ItemAttr
 import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.ItemAttributes.Creator;
 import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.RelatedItems;
 import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.RelatedItems.RelatedItem;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.Tracks;
+import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.Tracks.Disc;
 
 
 public class AmazonUtilTest {
@@ -54,7 +57,7 @@ public class AmazonUtilTest {
 		item.setSmallImage(sImage );
 		
 		
-		Optional<Album> oAlb = AmazonUtil.itemToAlbum(item);
+		Optional<Album> oAlb = AmazonUtil.itemToAlbum(item, title);
 		
 		// Assertions
 		
@@ -112,7 +115,7 @@ public class AmazonUtilTest {
 		item.setRelatedItems(relatedItems);
 		
 		
-		Optional<Album> oAlb = AmazonUtil.itemToAlbum(item);
+		Optional<Album> oAlb = AmazonUtil.itemToAlbum(item, title);
 		
 		// Assertions
 		
@@ -123,6 +126,164 @@ public class AmazonUtilTest {
 		assertThat(a.getAlbumName(), is(title));
 		assertThat(a.getCoverArt().get(), is(ca));
 		
+	}
+	
+	@Test
+	public void testItemToAlbum_MultipleTracks() {
+		String liUrl = "http://largeUrl";
+		int lw, lh;
+		lw = lh = 500;
+		String miUrl = "http://mediumUrl";
+		int mw, mh;
+		mw = mh = 200;
+		String siUrl = "http://smallUrl";
+		int sw, sh;
+		sw = sh = 100;
+		CoverArt ca = new CoverArt.Builder()
+				.largeUri(liUrl)
+				.mediumUri(miUrl)
+				.smallUri(siUrl)
+				.maxHeight(lw)
+				.maxWidth(lw)
+				.build();
+		
+		String title = "Breed";
+		String artist = "Nirvana";
+		String albumName = "Nevermind";
+		String productGroup = "Music";
+		
+		Item item = new Item();
+		ItemAttributes itemAttributes = new ItemAttributes(artist, albumName, productGroup, null);
+		item.setItemAttributes(itemAttributes);
+		
+		Image largeImage = new Image(liUrl, lh, lw);
+		item.setLargeImage(largeImage );
+		Image mImage = new Image(miUrl, mh, mw);
+		item.setMediumImage(mImage);
+		Image sImage = new Image(siUrl, sh, sw);
+		item.setSmallImage(sImage);
+		
+		Disc disc1 = new Disc(Arrays.asList("Nevermind", "In Bloom"));
+		Disc disc2 = new Disc(Arrays.asList("Come as you are", "Polly"));
+		Disc disc3 = new Disc(Arrays.asList("Smells Like Teen Spirit", "Breed", "Drain you"));
+		Tracks iTracks = new Tracks(Arrays.asList(disc1, disc2, disc3));
+		item.setTracks(iTracks);
+		
+		Optional<Album> oAlb = AmazonUtil.itemToAlbum(item, title);
+		
+		// Assertions
+		
+		assertThat(oAlb.isPresent(), is(true));
+		Album a = oAlb.get();
+		assertThat(a.getArtistName(), is(artist));
+		assertThat(a.getSongName(), is(title));
+		assertThat(a.getAlbumName(), is(albumName));
+		assertThat(a.getCoverArt().get(), is(ca));
+	}
+	
+	@Test
+	public void testItemToAlbum_MultipleTracksCloseMatchSong() {
+		String liUrl = "http://largeUrl";
+		int lw, lh;
+		lw = lh = 500;
+		String miUrl = "http://mediumUrl";
+		int mw, mh;
+		mw = mh = 200;
+		String siUrl = "http://smallUrl";
+		int sw, sh;
+		sw = sh = 100;
+		CoverArt ca = new CoverArt.Builder()
+				.largeUri(liUrl)
+				.mediumUri(miUrl)
+				.smallUri(siUrl)
+				.maxHeight(lw)
+				.maxWidth(lw)
+				.build();
+		
+		String title = "Breed";
+		String artist = "Nirvana";
+		String albumName = "Nevermind";
+		String productGroup = "Music";
+		
+		Item item = new Item();
+		ItemAttributes itemAttributes = new ItemAttributes(artist, albumName, productGroup, null);
+		item.setItemAttributes(itemAttributes);
+		
+		Image largeImage = new Image(liUrl, lh, lw);
+		item.setLargeImage(largeImage );
+		Image mImage = new Image(miUrl, mh, mw);
+		item.setMediumImage(mImage);
+		Image sImage = new Image(siUrl, sh, sw);
+		item.setSmallImage(sImage);
+		
+		Disc disc1 = new Disc(Arrays.asList("Nevermind", "In Bloom"));
+		Disc disc2 = new Disc(Arrays.asList("Come as you are", "Polly"));
+		Disc disc3 = new Disc(Arrays.asList("Smells Like Teen Spirit", "Breed (Live)", "Drain you"));
+		Tracks iTracks = new Tracks(Arrays.asList(disc1, disc2, disc3));
+		item.setTracks(iTracks);
+		
+		Optional<Album> oAlb = AmazonUtil.itemToAlbum(item, title);
+		
+		// Assertions
+		
+		assertThat(oAlb.isPresent(), is(true));
+		Album a = oAlb.get();
+		assertThat(a.getArtistName(), is(artist));
+		assertThat(a.getSongName(), is(title + " (Live)"));
+		assertThat(a.getAlbumName(), is(albumName));
+		assertThat(a.getCoverArt().get(), is(ca));
+	}
+	
+	@Test
+	public void testItemToAlbum_MultipleTracksNoMatchSong() {
+		String liUrl = "http://largeUrl";
+		int lw, lh;
+		lw = lh = 500;
+		String miUrl = "http://mediumUrl";
+		int mw, mh;
+		mw = mh = 200;
+		String siUrl = "http://smallUrl";
+		int sw, sh;
+		sw = sh = 100;
+		CoverArt ca = new CoverArt.Builder()
+				.largeUri(liUrl)
+				.mediumUri(miUrl)
+				.smallUri(siUrl)
+				.maxHeight(lw)
+				.maxWidth(lw)
+				.build();
+		
+		String title = "Plateu";
+		String artist = "Nirvana";
+		String albumName = "Nevermind";
+		String productGroup = "Music";
+		
+		Item item = new Item();
+		ItemAttributes itemAttributes = new ItemAttributes(artist, albumName, productGroup, null);
+		item.setItemAttributes(itemAttributes);
+		
+		Image largeImage = new Image(liUrl, lh, lw);
+		item.setLargeImage(largeImage );
+		Image mImage = new Image(miUrl, mh, mw);
+		item.setMediumImage(mImage);
+		Image sImage = new Image(siUrl, sh, sw);
+		item.setSmallImage(sImage);
+		
+		Disc disc1 = new Disc(Arrays.asList("Nevermind", "In Bloom"));
+		Disc disc2 = new Disc(Arrays.asList("Smells Like Teen Spirit", "Breed"));
+		Tracks iTracks = new Tracks(Arrays.asList(disc1, disc2));
+		item.setTracks(iTracks);
+		
+		Optional<Album> oAlb = AmazonUtil.itemToAlbum(item, title);
+		
+		// Assertions
+		
+		assertThat(oAlb.isPresent(), is(true));
+		Album a = oAlb.get();
+		assertThat(a.getArtistName(), is(artist));
+		assertThat(a.getSongName(), is(albumName));
+		assertThat(a.getAlbumName(), is(albumName));
+		assertThat(a.getCoverArt().get(), is(ca));
 	}
 	
 	@Test
@@ -169,8 +330,7 @@ public class AmazonUtilTest {
 		RelatedItems relatedItems = new RelatedItems(relatedItem );
 		item.setRelatedItems(relatedItems);
 		
-		
-		Optional<Album> oAlb = AmazonUtil.itemToAlbum(item);
+		Optional<Album> oAlb = AmazonUtil.itemToAlbum(item, title);
 		
 		// Assertions
 		
@@ -184,7 +344,7 @@ public class AmazonUtilTest {
 	
 	@Test
 	public void testItemToAlbum_NoItemAttributes() {
-		Optional<Album> oAlb = AmazonUtil.itemToAlbum(new Item());
+		Optional<Album> oAlb = AmazonUtil.itemToAlbum(new Item(), "aTitle");
 		
 		// Assertions
 		assertThat(oAlb.isPresent(), is(false));
@@ -218,7 +378,7 @@ public class AmazonUtilTest {
 		Image sImage = new Image(siUrl, sh, sw);
 		item.setSmallImage(sImage);
 		
-		Optional<Album> oAlb = AmazonUtil.itemToAlbum(item);
+		Optional<Album> oAlb = AmazonUtil.itemToAlbum(item, title);
 		
 		// Assertions
 		assertThat(oAlb.isPresent(), is(false));

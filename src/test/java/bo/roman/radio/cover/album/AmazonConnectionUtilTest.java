@@ -126,7 +126,7 @@ public class AmazonConnectionUtilTest {
 		assertThat(getParameter(pRelationship, url), is(equalTo("Tracks")));
 		
 		String pResponseGroup = "ResponseGroup";
-		assertThat(getParameter(pResponseGroup, url), is(equalTo("RelatedItems,Images,Small")));
+		assertThat(getParameter(pResponseGroup, url), is(equalTo("RelatedItems,Images,Small,Tracks")));
 		
 		String pSearchIndex = "SearchIndex";
 		assertThat(getParameter(pSearchIndex, url), is(equalTo("All")));

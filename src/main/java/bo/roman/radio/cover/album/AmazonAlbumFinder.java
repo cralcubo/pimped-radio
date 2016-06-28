@@ -67,7 +67,7 @@ public class AmazonAlbumFinder implements AlbumFindable {
 					.filter(AmazonAlbumFinder::isMusicItem)
 					.filter(AmazonAlbumFinder::hasCoverArt)
 					.filter(AmazonAlbumFinder::isBigEnough)
-					.map(AmazonUtil::itemToAlbum)
+					.map(i -> AmazonUtil.itemToAlbum(i, song))
 					.flatMap(oa -> oa.map(Stream::of).orElseGet(Stream::empty))
 					.filter(a -> matchSongArtist(song, artist, a))
 					.collect(Collectors.toList());

@@ -38,6 +38,7 @@ public class AmazonAlbumFinderTest {
 	private static final String KASKADEXML_PATH = ROOTH_PATH + "amazon-kaskade.xml";
 	private static final String PINKFLOYDXML_PATH = ROOTH_PATH + "amazon-pinkfloyd.xml";
 	private static final String ECHOESXML_PATH = ROOTH_PATH + "amazon-echoes.xml";
+	private static final String TRACKSINFO_PATH = ROOTH_PATH + "amazon-tracks.xml";
 
 	private AmazonAlbumFinder finder;
 	
@@ -167,6 +168,14 @@ public class AmazonAlbumFinderTest {
 	public void testFindAlbum_NoArtist() throws IOException {
 		String song = "Echoes";
 		doFindAlbumsTest(song, ECHOESXML_PATH, 1);
+	}
+	
+	@Test
+	public void testFindAlbum_SongInTracks() throws IOException {
+		String song = "Listen";
+		String artist = "The Burned";
+		
+		doFindAlbumsTest(song, artist, TRACKSINFO_PATH, 1);
 	}
 	
 	/* *** Utilities *** */

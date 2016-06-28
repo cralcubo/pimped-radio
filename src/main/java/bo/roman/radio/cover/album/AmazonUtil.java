@@ -13,7 +13,9 @@ import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.ItemAttr
 import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.ItemAttributes.Creator;
 import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.RelatedItems;
 import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.RelatedItems.RelatedItem;
+import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.Tracks;
 import bo.roman.radio.utilities.LoggerUtils;
+import bo.roman.radio.utilities.PhraseCalculator;
 
 public class AmazonUtil {
 	
@@ -33,7 +35,7 @@ public class AmazonUtil {
 	 * @param item
 	 * @return
 	 */
-	public static Optional<Album> itemToAlbum(Item item) {
+	public static Optional<Album> itemToAlbum(Item item, String requestedSong) {
 		if (item == null) {
 			log.info("There is no Amazon Item to build an Album.");
 			return Optional.empty();
@@ -70,8 +72,22 @@ public class AmazonUtil {
 		
 		LoggerUtils.logDebug(log, () -> "Product Group of the Song: " + pg);
 		if (pg.equals(PRODUCTGROUP_MUSIC)) {
+			String songName = oTitle.orElse(AMAZON_UNKNOWN);
+			if(!PhraseCalculator.phrase(requestedSong).hasSameBeginAs(songName)) {
+				//Check if between all the tracks there is the requested song
+				Optional<Tracks> oItemTracks = Optional.ofNullable(item.getTracks());
+				Optional<String> trackSong = oItemTracks.map(Tracks::getDiscs)
+												        .flatMap(discs -> discs.stream()
+												    		              	.flatMap(d -> d.getTracks().stream())
+												    		              	.filter(trackName -> PhraseCalculator.phrase(trackName).hasSameBeginAs(requestedSong))
+												    		              	.findAny());
+				if(trackSong.isPresent()) {
+					songName = trackSong.get();
+				}
+			}
+			
 			Album a = new Album.Builder().artistName(oArtist.orElseGet(() -> sCreatorArtist.orElse(AMAZON_UNKNOWN)))
-					.songName(oTitle.orElse(AMAZON_UNKNOWN))
+					.songName(songName)
 					.name(oTitle.orElse(AMAZON_UNKNOWN))
 					.coverArt(oCoverArt)
 					.build();
