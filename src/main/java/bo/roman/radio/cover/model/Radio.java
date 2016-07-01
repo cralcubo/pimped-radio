@@ -12,7 +12,7 @@ import bo.roman.radio.utilities.StringUtils;
 
 public class Radio {
 	
-	private static final String PAGELOGO_TEMPLATE = "https://graph.facebook.com/%s/picture?type=large";
+	private static final String PAGELOGO_TEMPLATE = "https://graph.facebook.com/%s/picture?width=500&height=500";
 	
 	private String name;
 	private String id;

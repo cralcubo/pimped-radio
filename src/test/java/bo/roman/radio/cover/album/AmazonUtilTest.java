@@ -287,6 +287,53 @@ public class AmazonUtilTest {
 	}
 	
 	@Test
+	public void testItemToAlbum_NoTracks() {
+		String liUrl = "http://largeUrl";
+		int lw, lh;
+		lw = lh = 500;
+		String miUrl = "http://mediumUrl";
+		int mw, mh;
+		mw = mh = 200;
+		String siUrl = "http://smallUrl";
+		int sw, sh;
+		sw = sh = 100;
+		CoverArt ca = new CoverArt.Builder()
+				.largeUri(liUrl)
+				.mediumUri(miUrl)
+				.smallUri(siUrl)
+				.maxHeight(lw)
+				.maxWidth(lw)
+				.build();
+		
+		String title = "Plateu";
+		String artist = "Nirvana";
+		String albumName = "Nevermind";
+		String productGroup = "Music";
+		
+		Item item = new Item();
+		ItemAttributes itemAttributes = new ItemAttributes(artist, albumName, productGroup, null);
+		item.setItemAttributes(itemAttributes);
+		
+		Image largeImage = new Image(liUrl, lh, lw);
+		item.setLargeImage(largeImage );
+		Image mImage = new Image(miUrl, mh, mw);
+		item.setMediumImage(mImage);
+		Image sImage = new Image(siUrl, sh, sw);
+		item.setSmallImage(sImage);
+		
+		Optional<Album> oAlb = AmazonUtil.itemToAlbum(item, title);
+		
+		// Assertions
+		
+		assertThat(oAlb.isPresent(), is(true));
+		Album a = oAlb.get();
+		assertThat(a.getArtistName(), is(artist));
+		assertThat(a.getSongName(), is(albumName));
+		assertThat(a.getAlbumName(), is(albumName));
+		assertThat(a.getCoverArt().get(), is(ca));
+	}
+	
+	@Test
 	public void testItemToAlbum_Track() {
 		String liUrl = "http://largeUrl";
 		int lw, lh;

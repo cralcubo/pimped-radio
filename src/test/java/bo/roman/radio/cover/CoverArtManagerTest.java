@@ -95,7 +95,7 @@ public class CoverArtManagerTest {
 		Album a2 = new Album.Builder().artistName(band).songName(song + " (Remastered)").name(albumName + " (Remastered)").coverArt(Optional.of(squareCover)).build();
 		Album a3 = new Album.Builder().artistName(band + "(Unplugged)").songName(song + " (Unplugged)").name(albumName + " (Unplugged)").coverArt(Optional.of(squareCover)).build();
 		Album a4 = new Album.Builder().artistName(band).songName(song).name(song + "(Explicit)").coverArt(Optional.of(rectangularCover)).build();
-		Album a5 = new Album.Builder().artistName(band).songName(song + "(Unplugged)").name(song + "(Unplugged)").coverArt(Optional.of(squareCover)).build();
+		Album a5 = new Album.Builder().artistName(band).songName(song).name(song).coverArt(Optional.of(squareCover)).build();
 		
 		List<Album> albums = Arrays.asList(a1, a2, a3, a4, a5);
 		

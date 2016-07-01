@@ -98,6 +98,14 @@ public class PhraseCalculatorTest {
 	}
 	
 	@Test
+	public void testSimilarMatch_cleaningUnionSeparationCharacters10() {
+		String phrase = "TOKYO (VAMPIRES&WOLVES)";
+		String toTest = "Tokyo (Vampires & Wolves)";
+		
+		assertThat(PhraseCalculator.phrase(phrase).calculateSimilarityTo(toTest), is(PhraseMatch.SIMILAR));
+	}
+	
+	@Test
 	public void testSimilarMatch_cleaningAposthrofes() {
 		String phrase = "Playin' around";
 		String toTest = "Playing Around";
@@ -144,7 +152,7 @@ public class PhraseCalculatorTest {
 		
 		assertThat(PhraseCalculator.phrase(phrase).calculateSimilarityTo(toTest), is(PhraseMatch.SIMILAR));
 	}
-	//P!nk
+	
 	@Test
 	public void testSimilarMatch_extraChars3() {
 		String phrase = "Pink";
@@ -288,6 +296,20 @@ public class PhraseCalculatorTest {
 	}
 	
 	@Test
+	public void testIsSimilarTo() {
+		String phrase = "Shy Carter";
+		String toTest = "Shy Corter";
+		assertThat(PhraseCalculator.phrase(phrase).isSimilarTo(toTest), is(true));
+	}
+	
+	@Test
+	public void testIsSimilarTo_2() {
+		String phrase = "Shy Carter";
+		String toTest = "Shy Carter";
+		assertThat(PhraseCalculator.phrase(phrase).isSimilarTo(toTest), is(true));
+	}
+	
+	@Test
 	public void testAtLeastContains() {
 		String phrase = "Aleon Craft Shy Carter ft. Will Smith";
 		String toTest = "Shy Carter";
@@ -312,7 +334,7 @@ public class PhraseCalculatorTest {
 	public void testIsDifferent() {
 		String phrase = "Jay Z";
 		String toTest = "Shy Carter";
-		assertThat(PhraseCalculator.phrase(phrase).isDifferent(toTest), is(true));
+		assertThat(PhraseCalculator.phrase(phrase).isDifferentTo(toTest), is(true));
 	}
 	
 	

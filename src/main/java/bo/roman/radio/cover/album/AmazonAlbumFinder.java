@@ -64,6 +64,7 @@ public class AmazonAlbumFinder implements AlbumFindable {
 					.map(AmazonItems::getItemsWrapper)
 					.map(ItemsWrapper::getItems)
 					.get().stream()
+					.peek(i -> LoggerUtils.logDebug(log, () -> "Filtering " + i))
 					.filter(AmazonAlbumFinder::isMusicItem)
 					.filter(AmazonAlbumFinder::hasCoverArt)
 					.filter(AmazonAlbumFinder::isBigEnough)
@@ -159,7 +160,7 @@ public class AmazonAlbumFinder implements AlbumFindable {
 		
 		// Check Song Name
 		String albumSong = a.getSongName();
-		boolean songMatch = StringUtils.exists(albumSong) && !PhraseCalculator.phrase(song).isDifferent(albumSong);
+		boolean songMatch = StringUtils.exists(albumSong) && !PhraseCalculator.phrase(song).isDifferentTo(albumSong);
 		LoggerUtils.logDebug(log, () -> String.format("Item Title[%s] match with Song[%s] = %s", albumSong, song, songMatch));
 		
 		// Sometimes no artist is provided by the radio station that is playing.
@@ -170,7 +171,7 @@ public class AmazonAlbumFinder implements AlbumFindable {
 		
 		// Check Artist
 		String albumArtist = a.getArtistName();
-		boolean artistMatch = StringUtils.exists(albumArtist) && !PhraseCalculator.phrase(artist).isDifferent(albumArtist);
+		boolean artistMatch = StringUtils.exists(albumArtist) && !PhraseCalculator.phrase(artist).isDifferentTo(albumArtist);
 		LoggerUtils.logDebug(log, () ->  String.format("Item Artist[%s] match with Artist[%s] = %s", albumArtist, artist, artistMatch));
 		
 		if(!isSwapped && (!songMatch || !artistMatch)) {

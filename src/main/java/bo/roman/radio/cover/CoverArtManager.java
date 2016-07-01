@@ -62,14 +62,14 @@ public class CoverArtManager implements ICoverArtManager {
 		}
 		Comparator<Album> proportionsComparator = new CoverArtProportionsComparator();
 		
-		// Find the best Album, this is the one that exactly matches song and artist
+		// Find the best Album, this is the one that exactly or closely matches song and artist
 		// if there is more than one, return the one that is more square: w/h closer to 1
 		Optional<Album> bestAlbum = allAlbums.stream()
 											 .filter(a -> {
-												 boolean exactSong = PhraseCalculator.phrase(song).isExactTo(a.getSongName());
-												 boolean exactArtist = PhraseCalculator.phrase(artist).isExactTo(a.getArtistName());
-												 boolean similarAlbumToSong = PhraseCalculator.phrase(song).hasSameBeginAs(a.getAlbumName());
-												 return (exactSong && exactArtist) || (similarAlbumToSong && exactArtist);
+												 boolean similarSong = PhraseCalculator.phrase(song).isSimilarTo(a.getSongName());
+												 boolean similarArtist = PhraseCalculator.phrase(artist).isSimilarTo(a.getArtistName());
+												 boolean similarAlbumToSong = PhraseCalculator.phrase(song).isSimilarTo(a.getAlbumName());
+												 return (similarSong && similarArtist) || (similarAlbumToSong && similarArtist);
 											 })
 											 .min(proportionsComparator);
 		if(bestAlbum.isPresent()) {

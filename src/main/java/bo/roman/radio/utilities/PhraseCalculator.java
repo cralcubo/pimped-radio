@@ -94,9 +94,14 @@ public class PhraseCalculator {
 		return pm == PhraseMatch.EXACT; 
 	}
 	
-	public boolean isDifferent(String toPhrase) {
+	public boolean isDifferentTo(String toPhrase) {
 		PhraseMatch pm = calculateSimilarityTo(toPhrase);
 		return pm == PhraseMatch.DIFFERENT; 
+	}
+	
+	public boolean isSimilarTo(String toPhrase) {
+		PhraseMatch pm = calculateSimilarityTo(toPhrase);
+		return pm == PhraseMatch.EXACT || pm == PhraseMatch.SIMILAR; 
 	}
 	
 	public boolean hasSameBeginAs(String toPhrase) {
