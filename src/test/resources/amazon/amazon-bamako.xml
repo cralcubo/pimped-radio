@@ -1,0 +1,1281 @@
+<?xml version="1.0" ?>
+<!--TODO name=Bamako, artist=BeauSoleil -->
+<ItemSearchResponse
+	xmlns="http://webservices.amazon.com/AWSECommerceService/2011-08-01">
+	<OperationRequest>
+		<HTTPHeaders>
+			<Header Name="UserAgent" Value="Apache-HttpClient/4.5.2 (Java/1.8.0_77)"></Header>
+		</HTTPHeaders>
+		<RequestId>af4f5b07-9254-41c7-9c9b-805d50360c62</RequestId>
+		<Arguments>
+			<Argument Name="AWSAccessKeyId" Value="AKIAIL5VGOSTTL6ZVC6A"></Argument>
+			<Argument Name="AssociateTag" Value="2615-2750-3759"></Argument>
+			<Argument Name="Keywords" Value="'Bamako,BeauSoleil,music'"></Argument>
+			<Argument Name="Operation" Value="ItemSearch"></Argument>
+			<Argument Name="RelationshipType" Value="Tracks"></Argument>
+			<Argument Name="ResponseGroup" Value="RelatedItems,Images,Small,Tracks"></Argument>
+			<Argument Name="SearchIndex" Value="All"></Argument>
+			<Argument Name="Service" Value="AWSECommerceService"></Argument>
+			<Argument Name="Timestamp" Value="2016-07-03T21:09:56Z"></Argument>
+			<Argument Name="Signature"
+				Value="XFL4z1+NPAiUla8fkDo+i01BcVxQ5THqs+ZJoMb4ubc="></Argument>
+		</Arguments>
+		<RequestProcessingTime>0.2569808370000000</RequestProcessingTime>
+	</OperationRequest>
+	<Items>
+		<Request>
+			<IsValid>True</IsValid>
+			<ItemSearchRequest>
+				<Keywords>'Bamako,BeauSoleil,music'</Keywords>
+				<RelationshipType>Tracks</RelationshipType>
+				<ResponseGroup>RelatedItems</ResponseGroup>
+				<ResponseGroup>Images</ResponseGroup>
+				<ResponseGroup>Small</ResponseGroup>
+				<ResponseGroup>Tracks</ResponseGroup>
+				<SearchIndex>All</SearchIndex>
+			</ItemSearchRequest>
+		</Request>
+		<TotalResults>17</TotalResults>
+		<TotalPages>2</TotalPages>
+		<MoreSearchResultsUrl>http://www.amazon.com/gp/redirect.html?linkCode=xm2&amp;SubscriptionId=AKIAIL5VGOSTTL6ZVC6A&amp;location=http%3A%2F%2Fwww.amazon.com%2Fgp%2Fsearch%3Fkeywords%3D%2527Bamako%252CBeauSoleil%252Cmusic%2527%26url%3Dsearch-alias%253Daws-amazon-aps&amp;tag=2615-2750-3759&amp;creative=386001&amp;camp=2025
+		</MoreSearchResultsUrl>
+		<Item>
+			<ASIN>B00BGHAL3W</ASIN>
+			<DetailPageURL>http://www.amazon.com/Bamako-Carencro-Beausoleil-Michael-Doucet/dp/B00BGHAL3W%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00BGHAL3W
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Bamako-Carencro-Beausoleil-Michael-Doucet/dp/tech-data/B00BGHAL3W%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHAL3W
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB00BGHAL3W%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHAL3W
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB00BGHAL3W%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHAL3W
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB00BGHAL3W%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHAL3W
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B00BGHAL3W%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHAL3W
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B00BGHAL3W%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHAL3W
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B00BGHAL3W%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHAL3W
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">68</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">146</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL.jpg</URL>
+				<Height Units="pixels">456</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">27</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">68</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">68</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">100</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">146</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL.jpg</URL>
+						<Height Units="pixels">456</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Creator Role="Primary Contributor">Beausoleil Avec Michael Doucet</Creator>
+				<Manufacturer>Compass Records</Manufacturer>
+				<ProductGroup>Digital Music Album</ProductGroup>
+				<Title>From Bamako to Carencro</Title>
+			</ItemAttributes>
+			<RelatedItems>
+				<Relationship>Children</Relationship>
+				<RelationshipType>Tracks</RelationshipType>
+				<RelatedItemCount>11</RelatedItemCount>
+				<RelatedItemPageCount>2</RelatedItemPageCount>
+				<RelatedItemPage>1</RelatedItemPage>
+				<RelatedItem>
+					<Item>
+						<ASIN>B00BGHALX2</ASIN>
+						<ItemAttributes>
+							<Creator Role="Primary Contributor">Beausoleil Avec Michael Doucet</Creator>
+							<Manufacturer>Compass Records</Manufacturer>
+							<ProductGroup>Digital Music Track</ProductGroup>
+							<Title>Two-Step de Port Arthur</Title>
+						</ItemAttributes>
+					</Item>
+				</RelatedItem>
+				<RelatedItem>
+					<Item>
+						<ASIN>B00BGHAMNG</ASIN>
+						<ItemAttributes>
+							<Creator Role="Primary Contributor">Beausoleil Avec Michael Doucet</Creator>
+							<Manufacturer>Compass Records</Manufacturer>
+							<ProductGroup>Digital Music Track</ProductGroup>
+							<Title>La Douceur</Title>
+						</ItemAttributes>
+					</Item>
+				</RelatedItem>
+				<RelatedItem>
+					<Item>
+						<ASIN>B00BGHANF8</ASIN>
+						<ItemAttributes>
+							<Creator Role="Primary Contributor">Beausoleil Avec Michael Doucet</Creator>
+							<Manufacturer>Compass Records</Manufacturer>
+							<ProductGroup>Digital Music Track</ProductGroup>
+							<Title>Bamako</Title>
+						</ItemAttributes>
+					</Item>
+				</RelatedItem>
+				<RelatedItem>
+					<Item>
+						<ASIN>B00BGHAO3E</ASIN>
+						<ItemAttributes>
+							<Creator Role="Primary Contributor">Beausoleil Avec Michael Doucet</Creator>
+							<Manufacturer>Compass Records</Manufacturer>
+							<ProductGroup>Digital Music Track</ProductGroup>
+							<Title>Carencro</Title>
+						</ItemAttributes>
+					</Item>
+				</RelatedItem>
+				<RelatedItem>
+					<Item>
+						<ASIN>B00BGHAOP2</ASIN>
+						<ItemAttributes>
+							<Creator Role="Primary Contributor">Beausoleil Avec Michael Doucet</Creator>
+							<Manufacturer>Compass Records</Manufacturer>
+							<ProductGroup>Digital Music Track</ProductGroup>
+							<Title>Chanson de Cinquante Sous</Title>
+						</ItemAttributes>
+					</Item>
+				</RelatedItem>
+				<RelatedItem>
+					<Item>
+						<ASIN>B00BGHAP74</ASIN>
+						<ItemAttributes>
+							<Creator Role="Primary Contributor">Beausoleil Avec Michael Doucet</Creator>
+							<Manufacturer>Compass Records</Manufacturer>
+							<ProductGroup>Digital Music Track</ProductGroup>
+							<Title>Les Barres de la Prison</Title>
+						</ItemAttributes>
+					</Item>
+				</RelatedItem>
+				<RelatedItem>
+					<Item>
+						<ASIN>B00BGHAPY2</ASIN>
+						<ItemAttributes>
+							<Creator Role="Primary Contributor">Beausoleil Avec Michael Doucet</Creator>
+							<Manufacturer>Compass Records</Manufacturer>
+							<ProductGroup>Digital Music Track</ProductGroup>
+							<Title>Bessie's Blues</Title>
+						</ItemAttributes>
+					</Item>
+				</RelatedItem>
+				<RelatedItem>
+					<Item>
+						<ASIN>B00BGHAR5E</ASIN>
+						<ItemAttributes>
+							<Creator Role="Primary Contributor">Beausoleil Avec Michael Doucet</Creator>
+							<Manufacturer>Compass Records</Manufacturer>
+							<ProductGroup>Digital Music Track</ProductGroup>
+							<Title>I'll Go Crazy</Title>
+						</ItemAttributes>
+					</Item>
+				</RelatedItem>
+				<RelatedItem>
+					<Item>
+						<ASIN>B00BGHAS9E</ASIN>
+						<ItemAttributes>
+							<Creator Role="Primary Contributor">Beausoleil Avec Michael Doucet</Creator>
+							<Manufacturer>Compass Records</Manufacturer>
+							<ProductGroup>Digital Music Track</ProductGroup>
+							<Title>You Got To Move</Title>
+						</ItemAttributes>
+					</Item>
+				</RelatedItem>
+				<RelatedItem>
+					<Item>
+						<ASIN>B00BGHASVW</ASIN>
+						<ItemAttributes>
+							<Creator Role="Primary Contributor">Beausoleil Avec Michael Doucet</Creator>
+							<Manufacturer>Compass Records</Manufacturer>
+							<ProductGroup>Digital Music Track</ProductGroup>
+							<Title>Le Jig Créole</Title>
+						</ItemAttributes>
+					</Item>
+				</RelatedItem>
+			</RelatedItems>
+		</Item>
+		<Item>
+			<ASIN>B00BGHANF8</ASIN>
+			<DetailPageURL>http://www.amazon.com/Bamako/dp/B00BGHANF8%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00BGHANF8
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Bamako/dp/tech-data/B00BGHANF8%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHANF8
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB00BGHANF8%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHANF8
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB00BGHANF8%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHANF8
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB00BGHANF8%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHANF8
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B00BGHANF8%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHANF8
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B00BGHANF8%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHANF8
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B00BGHANF8%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHANF8
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">68</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">146</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL.jpg</URL>
+				<Height Units="pixels">456</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">27</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">68</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">68</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">100</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">146</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL.jpg</URL>
+						<Height Units="pixels">456</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Creator Role="Primary Contributor">Beausoleil Avec Michael Doucet</Creator>
+				<Manufacturer>Compass Records</Manufacturer>
+				<ProductGroup>Digital Music Track</ProductGroup>
+				<Title>Bamako</Title>
+			</ItemAttributes>
+			<RelatedItems>
+				<Relationship>Parents</Relationship>
+				<RelationshipType>Tracks</RelationshipType>
+				<RelatedItemCount>1</RelatedItemCount>
+				<RelatedItemPageCount>1</RelatedItemPageCount>
+				<RelatedItemPage>1</RelatedItemPage>
+				<RelatedItem>
+					<Item>
+						<ASIN>B00BGHAL3W</ASIN>
+						<ItemAttributes>
+							<Creator Role="Primary Contributor">Beausoleil Avec Michael Doucet</Creator>
+							<Manufacturer>Compass Records</Manufacturer>
+							<ProductGroup>Digital Music Album</ProductGroup>
+							<Title>From Bamako to Carencro</Title>
+						</ItemAttributes>
+					</Item>
+				</RelatedItem>
+			</RelatedItems>
+		</Item>
+		<Item>
+			<ASIN>B013H1XLPE</ASIN>
+			<DetailPageURL>http://www.amazon.com/Carencro-Beausoleil-Michael-Mitchell-2013-02-26/dp/B013H1XLPE%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB013H1XLPE
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Carencro-Beausoleil-Michael-Mitchell-2013-02-26/dp/tech-data/B013H1XLPE%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB013H1XLPE
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB013H1XLPE%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB013H1XLPE
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB013H1XLPE%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB013H1XLPE
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB013H1XLPE%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB013H1XLPE
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B013H1XLPE%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB013H1XLPE
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B013H1XLPE%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB013H1XLPE
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B013H1XLPE%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB013H1XLPE
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">68</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">146</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL.jpg</URL>
+				<Height Units="pixels">456</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">27</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">68</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">68</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">100</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">146</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL.jpg</URL>
+						<Height Units="pixels">456</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Artist>Michael Doucet, David Doucet, Billy Ware, Tommy Alissi,
+					Mitchell Ree Beausoleil</Artist>
+				<Manufacturer>Alliance</Manufacturer>
+				<ProductGroup>Music</ProductGroup>
+				<Title>From Bamako to Carencro by Beausoleil, Michael Doucet, David
+					Doucet, Billy Ware, Tommy Alissi, Mitchell Ree (2013-02-26)</Title>
+			</ItemAttributes>
+		</Item>
+		<Item>
+			<ASIN>B019GLMXDA</ASIN>
+			<DetailPageURL>http://www.amazon.com/Bamako-Carencro-Alliance-Beausoleil/dp/B019GLMXDA%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB019GLMXDA
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Bamako-Carencro-Alliance-Beausoleil/dp/tech-data/B019GLMXDA%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB019GLMXDA
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB019GLMXDA%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB019GLMXDA
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB019GLMXDA%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB019GLMXDA
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB019GLMXDA%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB019GLMXDA
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B019GLMXDA%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB019GLMXDA
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B019GLMXDA%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB019GLMXDA
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B019GLMXDA%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB019GLMXDA
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/61lkR2fWTQL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">68</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/61lkR2fWTQL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">144</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/61lkR2fWTQL.jpg</URL>
+				<Height Units="pixels">451</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/61lkR2fWTQL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">27</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/61lkR2fWTQL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">68</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/61lkR2fWTQL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">68</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/61lkR2fWTQL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">99</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/61lkR2fWTQL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">144</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/61lkR2fWTQL.jpg</URL>
+						<Height Units="pixels">451</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Artist>Beausoleil</Artist>
+				<Artist>Michael Doucet</Artist>
+				<Artist>David Doucet</Artist>
+				<Artist>Billy Ware</Artist>
+				<Artist>Tommy Alissi</Artist>
+				<Artist>Mitchell Reed</Artist>
+				<Manufacturer>Alliance</Manufacturer>
+				<ProductGroup>Music</ProductGroup>
+				<Title>From Bamako to Carencro by Alliance</Title>
+			</ItemAttributes>
+		</Item>
+		<Item>
+			<ASIN>B00FW68T82</ASIN>
+			<DetailPageURL>http://www.amazon.com/Bamako-Carencro-Beausoleil-Michael-Mitchell/dp/B00FW68T82%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00FW68T82
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Bamako-Carencro-Beausoleil-Michael-Mitchell/dp/tech-data/B00FW68T82%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00FW68T82
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB00FW68T82%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00FW68T82
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB00FW68T82%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00FW68T82
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB00FW68T82%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00FW68T82
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B00FW68T82%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00FW68T82
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B00FW68T82%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00FW68T82
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B00FW68T82%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00FW68T82
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">68</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">146</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL.jpg</URL>
+				<Height Units="pixels">456</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">27</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">68</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">68</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">100</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">146</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL.jpg</URL>
+						<Height Units="pixels">456</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<ProductGroup>Music</ProductGroup>
+				<Title>From Bamako to Carencro by Beausoleil, Michael Doucet, David
+					Doucet, Billy Ware, Tommy Alissi, Mitchell Ree (2013) Audio CD
+				</Title>
+			</ItemAttributes>
+		</Item>
+		<Item>
+			<ASIN>B00BGHALX2</ASIN>
+			<DetailPageURL>http://www.amazon.com/Two-Step-de-Port-Arthur/dp/B00BGHALX2%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00BGHALX2
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Two-Step-de-Port-Arthur/dp/tech-data/B00BGHALX2%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHALX2
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB00BGHALX2%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHALX2
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB00BGHALX2%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHALX2
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB00BGHALX2%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHALX2
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B00BGHALX2%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHALX2
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B00BGHALX2%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHALX2
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B00BGHALX2%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHALX2
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">68</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">146</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL.jpg</URL>
+				<Height Units="pixels">456</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">27</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">68</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">68</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">100</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">146</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL.jpg</URL>
+						<Height Units="pixels">456</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Creator Role="Primary Contributor">Beausoleil Avec Michael Doucet</Creator>
+				<Manufacturer>Compass Records</Manufacturer>
+				<ProductGroup>Digital Music Track</ProductGroup>
+				<Title>Two-Step de Port Arthur</Title>
+			</ItemAttributes>
+			<RelatedItems>
+				<Relationship>Parents</Relationship>
+				<RelationshipType>Tracks</RelationshipType>
+				<RelatedItemCount>1</RelatedItemCount>
+				<RelatedItemPageCount>1</RelatedItemPageCount>
+				<RelatedItemPage>1</RelatedItemPage>
+				<RelatedItem>
+					<Item>
+						<ASIN>B00BGHAL3W</ASIN>
+						<ItemAttributes>
+							<Creator Role="Primary Contributor">Beausoleil Avec Michael Doucet</Creator>
+							<Manufacturer>Compass Records</Manufacturer>
+							<ProductGroup>Digital Music Album</ProductGroup>
+							<Title>From Bamako to Carencro</Title>
+						</ItemAttributes>
+					</Item>
+				</RelatedItem>
+			</RelatedItems>
+		</Item>
+		<Item>
+			<ASIN>B00G2IJV7C</ASIN>
+			<DetailPageURL>http://www.amazon.com/Bamako-Carencro-Beausoleil-Michael-Mitchell/dp/B00G2IJV7C%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00G2IJV7C
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Bamako-Carencro-Beausoleil-Michael-Mitchell/dp/tech-data/B00G2IJV7C%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00G2IJV7C
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB00G2IJV7C%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00G2IJV7C
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB00G2IJV7C%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00G2IJV7C
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB00G2IJV7C%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00G2IJV7C
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B00G2IJV7C%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00G2IJV7C
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B00G2IJV7C%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00G2IJV7C
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B00G2IJV7C%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00G2IJV7C
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">68</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">146</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL.jpg</URL>
+				<Height Units="pixels">456</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">27</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">68</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">68</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">100</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">146</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/61omSsZ90jL.jpg</URL>
+						<Height Units="pixels">456</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<ProductGroup>Music</ProductGroup>
+				<Title>From Bamako to Carencro by Beausoleil, Michael Doucet, David
+					Doucet, Billy Ware, Tommy Alissi, Mitchell Ree (2013) Audio CD
+				</Title>
+			</ItemAttributes>
+		</Item>
+		<Item>
+			<ASIN>B01ABBYAGM</ASIN>
+			<DetailPageURL>http://www.amazon.com/Carencro-Beausoleil-Michael-Mitchell-0100-01-01/dp/B01ABBYAGM%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB01ABBYAGM
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Carencro-Beausoleil-Michael-Mitchell-0100-01-01/dp/tech-data/B01ABBYAGM%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01ABBYAGM
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB01ABBYAGM%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01ABBYAGM
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB01ABBYAGM%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01ABBYAGM
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB01ABBYAGM%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01ABBYAGM
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B01ABBYAGM%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01ABBYAGM
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B01ABBYAGM%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01ABBYAGM
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B01ABBYAGM%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB01ABBYAGM
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/61oOdtaEojL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">68</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/61oOdtaEojL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">146</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/61oOdtaEojL.jpg</URL>
+				<Height Units="pixels">456</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/61oOdtaEojL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">27</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/61oOdtaEojL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">68</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/61oOdtaEojL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">68</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/61oOdtaEojL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">100</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/61oOdtaEojL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">146</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/61oOdtaEojL.jpg</URL>
+						<Height Units="pixels">456</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Artist>Unknown</Artist>
+				<Manufacturer>N/A</Manufacturer>
+				<ProductGroup>Music</ProductGroup>
+				<Title>From Bamako to Carencro by Beausoleil, Michael Doucet, David
+					Doucet, Billy Ware, Tommy Alissi, Mitchell Ree (2013) Audio CD by
+					Unknown (0100-01-01)</Title>
+			</ItemAttributes>
+		</Item>
+		<Item>
+			<ASIN>B00BGHAMNG</ASIN>
+			<DetailPageURL>http://www.amazon.com/La-Douceur/dp/B00BGHAMNG%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00BGHAMNG
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/La-Douceur/dp/tech-data/B00BGHAMNG%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHAMNG
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB00BGHAMNG%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHAMNG
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB00BGHAMNG%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHAMNG
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB00BGHAMNG%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHAMNG
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B00BGHAMNG%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHAMNG
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B00BGHAMNG%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHAMNG
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B00BGHAMNG%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHAMNG
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">68</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">146</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL.jpg</URL>
+				<Height Units="pixels">456</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">27</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">68</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">68</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">100</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">146</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL.jpg</URL>
+						<Height Units="pixels">456</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Creator Role="Primary Contributor">Beausoleil Avec Michael Doucet</Creator>
+				<Manufacturer>Compass Records</Manufacturer>
+				<ProductGroup>Digital Music Track</ProductGroup>
+				<Title>La Douceur</Title>
+			</ItemAttributes>
+			<RelatedItems>
+				<Relationship>Parents</Relationship>
+				<RelationshipType>Tracks</RelationshipType>
+				<RelatedItemCount>1</RelatedItemCount>
+				<RelatedItemPageCount>1</RelatedItemPageCount>
+				<RelatedItemPage>1</RelatedItemPage>
+				<RelatedItem>
+					<Item>
+						<ASIN>B00BGHAL3W</ASIN>
+						<ItemAttributes>
+							<Creator Role="Primary Contributor">Beausoleil Avec Michael Doucet</Creator>
+							<Manufacturer>Compass Records</Manufacturer>
+							<ProductGroup>Digital Music Album</ProductGroup>
+							<Title>From Bamako to Carencro</Title>
+						</ItemAttributes>
+					</Item>
+				</RelatedItem>
+			</RelatedItems>
+		</Item>
+		<Item>
+			<ASIN>B00BGHAP74</ASIN>
+			<DetailPageURL>http://www.amazon.com/Les-Barres-de-la-Prison/dp/B00BGHAP74%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00BGHAP74
+			</DetailPageURL>
+			<ItemLinks>
+				<ItemLink>
+					<Description>Technical Details</Description>
+					<URL>http://www.amazon.com/Les-Barres-de-la-Prison/dp/tech-data/B00BGHAP74%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHAP74
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Baby Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/baby/add-item.html%3Fasin.0%3DB00BGHAP74%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHAP74
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wedding Registry</Description>
+					<URL>http://www.amazon.com/gp/registry/wedding/add-item.html%3Fasin.0%3DB00BGHAP74%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHAP74
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Add To Wishlist</Description>
+					<URL>http://www.amazon.com/gp/registry/wishlist/add-item.html%3Fasin.0%3DB00BGHAP74%26SubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHAP74
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>Tell A Friend</Description>
+					<URL>http://www.amazon.com/gp/pdp/taf/B00BGHAP74%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHAP74
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Customer Reviews</Description>
+					<URL>http://www.amazon.com/review/product/B00BGHAP74%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHAP74
+					</URL>
+				</ItemLink>
+				<ItemLink>
+					<Description>All Offers</Description>
+					<URL>http://www.amazon.com/gp/offer-listing/B00BGHAP74%3FSubscriptionId%3DAKIAIL5VGOSTTL6ZVC6A%26tag%3D2615-2750-3759%26linkCode%3Dxm2%26camp%3D2025%26creative%3D386001%26creativeASIN%3DB00BGHAP74
+					</URL>
+				</ItemLink>
+			</ItemLinks>
+			<SmallImage>
+				<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL75_.jpg
+				</URL>
+				<Height Units="pixels">68</Height>
+				<Width Units="pixels">75</Width>
+			</SmallImage>
+			<MediumImage>
+				<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL160_.jpg
+				</URL>
+				<Height Units="pixels">146</Height>
+				<Width Units="pixels">160</Width>
+			</MediumImage>
+			<LargeImage>
+				<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL.jpg</URL>
+				<Height Units="pixels">456</Height>
+				<Width Units="pixels">500</Width>
+			</LargeImage>
+			<ImageSets>
+				<ImageSet Category="primary">
+					<SwatchImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL30_.jpg
+						</URL>
+						<Height Units="pixels">27</Height>
+						<Width Units="pixels">30</Width>
+					</SwatchImage>
+					<SmallImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">68</Height>
+						<Width Units="pixels">75</Width>
+					</SmallImage>
+					<ThumbnailImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL75_.jpg
+						</URL>
+						<Height Units="pixels">68</Height>
+						<Width Units="pixels">75</Width>
+					</ThumbnailImage>
+					<TinyImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL110_.jpg
+						</URL>
+						<Height Units="pixels">100</Height>
+						<Width Units="pixels">110</Width>
+					</TinyImage>
+					<MediumImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL._SL160_.jpg
+						</URL>
+						<Height Units="pixels">146</Height>
+						<Width Units="pixels">160</Width>
+					</MediumImage>
+					<LargeImage>
+						<URL>http://ecx.images-amazon.com/images/I/61Ck7EQYDiL.jpg</URL>
+						<Height Units="pixels">456</Height>
+						<Width Units="pixels">500</Width>
+					</LargeImage>
+				</ImageSet>
+			</ImageSets>
+			<ItemAttributes>
+				<Creator Role="Primary Contributor">Beausoleil Avec Michael Doucet</Creator>
+				<Manufacturer>Compass Records</Manufacturer>
+				<ProductGroup>Digital Music Track</ProductGroup>
+				<Title>Les Barres de la Prison</Title>
+			</ItemAttributes>
+			<RelatedItems>
+				<Relationship>Parents</Relationship>
+				<RelationshipType>Tracks</RelationshipType>
+				<RelatedItemCount>1</RelatedItemCount>
+				<RelatedItemPageCount>1</RelatedItemPageCount>
+				<RelatedItemPage>1</RelatedItemPage>
+				<RelatedItem>
+					<Item>
+						<ASIN>B00BGHAL3W</ASIN>
+						<ItemAttributes>
+							<Creator Role="Primary Contributor">Beausoleil Avec Michael Doucet</Creator>
+							<Manufacturer>Compass Records</Manufacturer>
+							<ProductGroup>Digital Music Album</ProductGroup>
+							<Title>From Bamako to Carencro</Title>
+						</ItemAttributes>
+					</Item>
+				</RelatedItem>
+			</RelatedItems>
+		</Item>
+	</Items>
+</ItemSearchResponse>

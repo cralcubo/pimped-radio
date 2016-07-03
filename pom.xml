@@ -8,6 +8,19 @@
 	<packaging>jar</packaging>
 
 	<name>pimped-radio</name>
+	
+	<developers>
+		<developer>
+			<id>cralcubo</id>
+			<name>Christian Roman Rua</name>
+			<roles>
+				<role>Architect</role>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+			<email>christian.roman.rua@gmail.com</email>
+		</developer>
+	</developers>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
