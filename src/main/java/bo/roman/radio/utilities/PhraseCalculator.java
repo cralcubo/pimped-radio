@@ -93,20 +93,22 @@ public class PhraseCalculator {
 		PhraseMatch pm = calculateSimilarityTo(toPhrase);
 		return pm == PhraseMatch.EXACT; 
 	}
+	/**
+	 * Return true if the phrase to compare with is
+	 * either: 
+	 * - An exact match
+	 * - A close match (few letters might be different)
+	 * - Has the same beginning
+	 *
+	 */
+	public boolean isCloseTo(String toPhrase) {
+		PhraseMatch pm = calculateSimilarityTo(toPhrase);
+		return pm == PhraseMatch.EXACT || pm == PhraseMatch.SIMILAR || pm == PhraseMatch.SAME_BEGIN; 
+	}
 	
 	public boolean isDifferentTo(String toPhrase) {
 		PhraseMatch pm = calculateSimilarityTo(toPhrase);
 		return pm == PhraseMatch.DIFFERENT; 
-	}
-	
-	public boolean isSimilarTo(String toPhrase) {
-		PhraseMatch pm = calculateSimilarityTo(toPhrase);
-		return pm == PhraseMatch.EXACT || pm == PhraseMatch.SIMILAR; 
-	}
-	
-	public boolean hasSameBeginAs(String toPhrase) {
-		PhraseMatch pm = calculateSimilarityTo(toPhrase);
-		return pm == PhraseMatch.EXACT || pm == PhraseMatch.SAME_BEGIN; 
 	}
 	
 	public boolean atLeastContains(String toPhrase) {

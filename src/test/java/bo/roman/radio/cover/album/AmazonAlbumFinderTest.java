@@ -39,6 +39,7 @@ public class AmazonAlbumFinderTest {
 	private static final String PINKFLOYDXML_PATH = ROOTH_PATH + "amazon-pinkfloyd.xml";
 	private static final String ECHOESXML_PATH = ROOTH_PATH + "amazon-echoes.xml";
 	private static final String TRACKSINFO_PATH = ROOTH_PATH + "amazon-tracks.xml";
+	private static final String TRACKASRELATEDITEM_PATH = ROOTH_PATH + "amazon-bamako.xml";
 
 	private AmazonAlbumFinder finder;
 	
@@ -153,7 +154,7 @@ public class AmazonAlbumFinderTest {
 		String song = "I Remember";
 		String artist = "Kaskade with Deadmau5";
 		
-		doFindAlbumsTest(song, artist, KASKADEXML_PATH, 6);
+		doFindAlbumsTest(song, artist, KASKADEXML_PATH, 7);
 	}
 	
 	@Test
@@ -176,6 +177,14 @@ public class AmazonAlbumFinderTest {
 		String artist = "The Burned";
 		
 		doFindAlbumsTest(song, artist, TRACKSINFO_PATH, 1);
+	}
+	
+	@Test
+	public void testFindAlbum_TrackAsRelatedItem() throws IOException {
+		String song = "Bamako";
+		String artist = "Beausoleil";
+		
+		doFindAlbumsTest(song, artist, TRACKASRELATEDITEM_PATH, 3);
 	}
 	
 	/* *** Utilities *** */

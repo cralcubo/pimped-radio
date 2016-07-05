@@ -282,31 +282,24 @@ public class PhraseCalculatorTest {
 	}
 	
 	@Test
-	public void testhasSameBegin() {
+	public void testIsCloseTo_SameBegin() {
 		String phrase = "Shy Carter";
 		String toTest = "Shy Carter and Aleon Craft";
-		assertThat(PhraseCalculator.phrase(phrase).hasSameBeginAs(toTest), is(true));
+		assertThat(PhraseCalculator.phrase(phrase).isCloseTo(toTest), is(true));
 	}
 	
 	@Test
-	public void testhasSameBegin_2() {
+	public void testIsCloseTo_Exact() {
 		String phrase = "Shy Carter";
 		String toTest = "Shy Carter";
-		assertThat(PhraseCalculator.phrase(phrase).hasSameBeginAs(toTest), is(true));
+		assertThat(PhraseCalculator.phrase(phrase).isCloseTo(toTest), is(true));
 	}
 	
 	@Test
-	public void testIsSimilarTo() {
+	public void testIsCloseTo_Similar() {
 		String phrase = "Shy Carter";
 		String toTest = "Shy Corter";
-		assertThat(PhraseCalculator.phrase(phrase).isSimilarTo(toTest), is(true));
-	}
-	
-	@Test
-	public void testIsSimilarTo_2() {
-		String phrase = "Shy Carter";
-		String toTest = "Shy Carter";
-		assertThat(PhraseCalculator.phrase(phrase).isSimilarTo(toTest), is(true));
+		assertThat(PhraseCalculator.phrase(phrase).isCloseTo(toTest), is(true));
 	}
 	
 	@Test

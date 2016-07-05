@@ -3,7 +3,9 @@ package bo.roman.radio.cover.album;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.Test;
@@ -111,7 +113,7 @@ public class AmazonUtilTest {
 		ItemAttributes albumIA = new ItemAttributes(artist, albumName, albumPG, creator);
 		albumItem.setItemAttributes(albumIA );
 		RelatedItem relatedItem = new RelatedItem(albumItem );
-		RelatedItems relatedItems = new RelatedItems(relatedItem );
+		RelatedItems relatedItems = new RelatedItems(Arrays.asList(relatedItem));
 		item.setRelatedItems(relatedItems);
 		
 		
@@ -374,7 +376,7 @@ public class AmazonUtilTest {
 		ItemAttributes albumIA = new ItemAttributes(artist, albumName, albumPG, creator);
 		albumItem.setItemAttributes(albumIA );
 		RelatedItem relatedItem = new RelatedItem(albumItem );
-		RelatedItems relatedItems = new RelatedItems(relatedItem );
+		RelatedItems relatedItems = new RelatedItems(Arrays.asList(relatedItem));
 		item.setRelatedItems(relatedItems);
 		
 		Optional<Album> oAlb = AmazonUtil.itemToAlbum(item, title);
@@ -386,6 +388,68 @@ public class AmazonUtilTest {
 		assertThat(a.getArtistName(), is(artist));
 		assertThat(a.getSongName(), is(title));
 		assertThat(a.getAlbumName(), is(albumName));
+		assertThat(a.getCoverArt().get(), is(ca));
+	}
+	
+	@Test
+	public void testItemToAlbum_RelatedItemTracks() {
+		String liUrl = "http://largeUrl";
+		int lw, lh;
+		lw = lh = 500;
+		String miUrl = "http://mediumUrl";
+		int mw, mh;
+		mw = mh = 200;
+		String siUrl = "http://smallUrl";
+		int sw, sh;
+		sw = sh = 100;
+		CoverArt ca = new CoverArt.Builder()
+				.largeUri(liUrl)
+				.mediumUri(miUrl)
+				.smallUri(siUrl)
+				.maxHeight(lw)
+				.maxWidth(lw)
+				.build();
+		
+		String requestedSong = "Drain you";
+		
+		String title = "Nevermind";
+		String artist = "Nirvana";
+		String productGroup = "Digital Music Album";
+		Creator creator = new Creator("Primary Contributor", artist);
+		
+		Item item = new Item();
+		ItemAttributes itemAttributes = new ItemAttributes(null, title, productGroup, creator);
+		item.setItemAttributes(itemAttributes);
+		
+		Image largeImage = new Image(liUrl, lh, lw);
+		item.setLargeImage(largeImage );
+		Image mImage = new Image(miUrl, mh, mw);
+		item.setMediumImage(mImage);
+		Image sImage = new Image(siUrl, sh, sw);
+		item.setSmallImage(sImage);
+		
+		String[] songs = {"Breed", "Smells like teen spirit", "Drain you", "Nevermind"};
+		List<RelatedItem> relatedItemsList = new ArrayList<>();
+		for(String s : songs) {
+			Item trackItem1 = new Item();
+			String albumPG = "Digital Music Track";
+			ItemAttributes albumIA1= new ItemAttributes(null, s, albumPG, creator);
+			trackItem1.setItemAttributes(albumIA1);
+			
+			relatedItemsList.add(new RelatedItem(trackItem1));
+		}
+		
+		RelatedItems relatedItems = new RelatedItems(relatedItemsList);
+		item.setRelatedItems(relatedItems);
+		
+		Optional<Album> oAlb = AmazonUtil.itemToAlbum(item, requestedSong);
+		
+		// Assertions
+		assertThat(oAlb.isPresent(), is(true));
+		Album a = oAlb.get();
+		assertThat(a.getArtistName(), is(artist));
+		assertThat(a.getSongName(), is(requestedSong));
+		assertThat(a.getAlbumName(), is(title));
 		assertThat(a.getCoverArt().get(), is(ca));
 	}
 	

@@ -337,28 +337,28 @@ public class AmazonItems {
 			}
 			
 			public static class RelatedItems {
-				private RelatedItem relatedItem;
+				private List<RelatedItem> relatedItems;
 
 				public RelatedItems() {
 					this(null);
 				}
 				
-				public RelatedItems(RelatedItem relatedItem) {
-					this.relatedItem = relatedItem;
+				public RelatedItems(List<RelatedItem> relatedItems) {
+					this.relatedItems = relatedItems;
 				}
 
-				public RelatedItem getRelatedItem() {
-					return relatedItem;
+				public List<RelatedItem> getRelatedItem() {
+					return relatedItems;
 				}
 
 				@XmlElement(name = "RelatedItem")
-				public void setRelatedItem(RelatedItem relatedItem) {
-					this.relatedItem = relatedItem;
+				public void setRelatedItem(List<RelatedItem> relatedItems) {
+					this.relatedItems = relatedItems;
 				}
 
 				@Override
 				public String toString() {
-					return "RelatedItems [relatedItem=" + relatedItem + "]";
+					return "RelatedItems [relatedItem=" + relatedItems + "]";
 				}
 				
 				public static class RelatedItem {
