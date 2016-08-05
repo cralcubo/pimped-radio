@@ -117,6 +117,16 @@ public class PhraseCalculator {
 	}
 
 	private boolean checkSimilarity(String rootPhrase, String toCompare) {
+		float allowedDiffChars = ((rootPhrase.length() + toCompare.length())/2) * MAXCHARACTERSDIF_PERCENT;
+		
+		return calculateCharsDifference(rootPhrase, toCompare) <= Math.ceil(allowedDiffChars);
+	}
+	
+	public int calculateCharsDifference(String toCompare) {
+		return calculateCharsDifference(rootPhrase, toCompare);
+	}
+	
+	private int calculateCharsDifference(String rootPhrase, String toCompare) {
 		List<Character> c1 = toChars(rootPhrase);
 		List<Character> c2 = toChars(toCompare);
 		
@@ -126,10 +136,7 @@ public class PhraseCalculator {
 		
 		// Add both differences
 		diff1.addAll(diff2);
-		
-		float allowedDiffChars = ((rootPhrase.length() + toCompare.length())/2) * MAXCHARACTERSDIF_PERCENT;  
-		
-		return diff1.size() <= Math.ceil(allowedDiffChars);
+		return diff1.size();
 	}
 	
 	private List<Character> toChars(String val) {

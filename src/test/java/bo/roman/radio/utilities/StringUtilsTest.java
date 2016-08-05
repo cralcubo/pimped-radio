@@ -1,9 +1,10 @@
 package bo.roman.radio.utilities;
 
-import org.junit.Test;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import org.junit.Test;
 
 public class StringUtilsTest {
 	private final static String NL = StringUtils.LINE_SEPARATOR;
@@ -39,6 +40,67 @@ public class StringUtilsTest {
 		String toTest = "Et ça sera sa moitié." + NL + "by Ces%C3%A1ria%20%C3%89vora" + NL + "&#35;song by Tiësto";
 		String expected = "Et ca sera sa moitie. by Cesaria Evora #song by Tiesto";
 		assertThat(StringUtils.cleanIt(toTest), is(expected));
+	}
+	
+	@Test
+	public void testRemoveFeaturing1() {
+		String song = "aSong ft. anArtist";
+		assertThat(StringUtils.removeFeatureInfo(song), is(equalTo("aSong")));
+		
+	}
+	
+	@Test
+	public void testRemoveFeaturing2() {
+		String artist = "anArtist feat. anArtis";
+		assertThat(StringUtils.removeFeatureInfo(artist), is(equalTo("anArtist")));
+	}
+	
+	@Test
+	public void testRemoveFeaturing3() {
+		String song = "feature FEAT. anArtist";
+		assertThat(StringUtils.removeFeatureInfo(song), is(equalTo("feature")));
+	}
+	
+	@Test
+	public void testRemoveFeaturing4() {
+		String artist = "ft. FEATURING anArtis";
+		assertThat(StringUtils.removeFeatureInfo(artist), is(equalTo("ft.")));
+	}
+	
+	@Test
+	public void testRemoveFeaturing5() {
+		String song = "aSong f. anotherArtist";
+		assertThat(StringUtils.removeFeatureInfo(song), is(equalTo("aSong")));
+	}
+	
+	@Test
+	public void testRemoveFeaturing6() {
+		String artist = "anArtist f/anotherArtis";
+		assertThat(StringUtils.removeFeatureInfo(artist), is(equalTo("anArtist")));
+	}
+	
+	@Test
+	public void testRemoveExtraInfo() {
+		String song = "aSong (extra info)";
+		assertThat(StringUtils.removeBracketsInfo(song), is(equalTo("aSong")));
+	}
+	
+	@Test
+	public void testRemoveExtraInfo1() {
+		String song = "sSong [test (xxx) edition] (just a test)";
+		assertThat(StringUtils.removeBracketsInfo(song), is(equalTo("sSong")));
+	}
+	
+	@Test
+	public void testRemoveExtraInfo2() {
+		String song = "aSong [extra info]";
+		assertThat(StringUtils.removeBracketsInfo(song), is(equalTo("aSong")));
+	}
+	
+	@Test
+	public void testRemoveExtraInfo3() {
+		String song = "sSong (test edition) ft. test";
+		assertThat(StringUtils.removeBracketsInfo(song), is(equalTo("sSong")));
 	}
 
 }

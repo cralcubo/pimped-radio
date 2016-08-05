@@ -21,7 +21,9 @@ public class SecretFileProperties {
 		try {
 			Path secretFilePath = Paths.get(SecretFileProperties.class.getResource(propFileName).toURI());
 			LoggerUtils.logDebug(log, () -> "Reading properties from file=" + secretFilePath);
-			properties.load(new FileInputStream(secretFilePath.toFile()));
+			try(FileInputStream fis = new FileInputStream(secretFilePath.toFile())) {
+				properties.load(fis);
+			}
 		} catch (IOException | URISyntaxException e) {
 			log.error("The property file could not be loaded. Double check the Path.", e);
 			throw new RuntimeException("There is no file to read secret tokens.");

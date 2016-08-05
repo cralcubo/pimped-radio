@@ -1,5 +1,8 @@
 package bo.roman.radio.cover;
 
+import static bo.roman.radio.utilities.StringUtils.removeBracketsInfo;
+import static bo.roman.radio.utilities.StringUtils.removeFeatureInfo;
+
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
@@ -9,6 +12,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import bo.roman.radio.cover.album.AlbumComparator;
 import bo.roman.radio.cover.album.AlbumFindable;
 import bo.roman.radio.cover.album.AmazonAlbumFinder;
 import bo.roman.radio.cover.model.Album;
@@ -17,7 +21,7 @@ import bo.roman.radio.cover.model.Radio;
 import bo.roman.radio.cover.station.CacheLogoUtil;
 import bo.roman.radio.cover.station.FacebookRadioStationFinder;
 import bo.roman.radio.cover.station.RadioStationFindable;
-import bo.roman.radio.utilities.PhraseCalculator;
+import bo.roman.radio.utilities.LoggerUtils;
 import bo.roman.radio.utilities.StringUtils;
 
 public class CoverArtManager implements ICoverArtManager {
@@ -37,49 +41,33 @@ public class CoverArtManager implements ICoverArtManager {
 
 	@Override
 	public Optional<Album> getAlbumWithCover(String song, String artist) {
+		// Clean song and artist from info in brackets or featuring info
+		// to have a better Album search.
+		LoggerUtils.logDebug(log, () -> String.format("Cleaning brackets and feat. info from: [%s] - [%s]", song, artist));
+		String cSong = removeFeatureInfo(removeBracketsInfo(song));
+		String cArtist = removeFeatureInfo(removeBracketsInfo(artist));
+		LoggerUtils.logDebug(log, () -> String.format("Clean info: [%s] - [%s]", cSong, cArtist));
 		
-		log.info("Finding Album for [{} - {}]", song, artist);
+		log.info("Finding Album for [{} - {}]", cSong, cArtist);
+		
 		// Get all the albums found in Amazon and give priority to the albums name 
 		// that have the same name as the song that was used to find it.
-		List<Album> allAlbums = albumFinder.findAlbums(song, artist).stream()
-								.sorted((a1, a2) -> {
-									boolean songAlbumMatch1 = PhraseCalculator.phrase(song).isCloseTo(a1.getAlbumName());
-									boolean songAlbumMatch2 = PhraseCalculator.phrase(song).isCloseTo(a2.getAlbumName());
-									
-									if(songAlbumMatch1 && !songAlbumMatch2) {
-										return -1;
-									}
-									else if(!songAlbumMatch1 && songAlbumMatch2) {
-										return 1;
-									}
-									return 0;
-								})
-								.collect(Collectors.toList());
+		final AlbumComparator albumComparator = new AlbumComparator(song, artist);
+		List<Album> allAlbums = albumFinder.findAlbums(cSong, cArtist).stream()
+											.sorted(albumComparator)
+											.collect(Collectors.toList());
+		log.info("{} albums found.", allAlbums.size());
+		if(log.isDebugEnabled()) {
+			allAlbums.forEach(a -> log.debug(a.toString()));
+		}
 		
 		if(allAlbums.isEmpty()) {
-			log.info("No Albums found.");
 			return Optional.empty();
 		}
+		
 		Comparator<Album> proportionsComparator = new CoverArtProportionsComparator();
-		
-		// Find the best Album, this is the one that exactly or closely matches song and artist
-		// if there is more than one, return the one that is more square: w/h closer to 1
-		Optional<Album> bestAlbum = allAlbums.stream()
-											 .filter(a -> {
-												 boolean similarSong = PhraseCalculator.phrase(song).isCloseTo(a.getSongName());
-												 boolean similarArtist = PhraseCalculator.phrase(artist).isCloseTo(a.getArtistName());
-												 boolean similarAlbumToSong = PhraseCalculator.phrase(song).isCloseTo(a.getAlbumName());
-												 return (similarSong && similarArtist) || (similarAlbumToSong && similarArtist);
-											 })
-											 .min(proportionsComparator);
-		if(bestAlbum.isPresent()) {
-			log.info("Best Match Album found {}", bestAlbum.get());
-			return bestAlbum;
-		}
-		
-		// No exact match found, then return the album with the best CoverArt: w/h closer to 1
 		Optional<Album> albumFound = allAlbums.stream().min(proportionsComparator);
-		log.info("Close Match Album found {}", albumFound);
+		log.info("Match for Album found {}", albumFound);
 		
 		return albumFound;
 	}
@@ -109,7 +97,6 @@ public class CoverArtManager implements ICoverArtManager {
 		// return default app logo.
 		return Optional.of(new Radio(radioName, Optional.empty()));
 	}
-	
 	
 	private class CoverArtProportionsComparator implements Comparator<Album>{
 

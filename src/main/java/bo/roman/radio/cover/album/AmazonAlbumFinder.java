@@ -28,6 +28,8 @@ import bo.roman.radio.utilities.LoggerUtils;
 import bo.roman.radio.utilities.PhraseCalculator;
 import bo.roman.radio.utilities.StringUtils;
 
+import static bo.roman.radio.utilities.StringUtils.*;
+
 public class AmazonAlbumFinder implements AlbumFindable {
 	private static final Logger log = LoggerFactory.getLogger(AmazonAlbumFinder.class);
 	
@@ -160,8 +162,9 @@ public class AmazonAlbumFinder implements AlbumFindable {
 		
 		// Check Song Name
 		String albumSong = a.getSongName();
-		boolean songMatch = StringUtils.exists(albumSong) && !PhraseCalculator.phrase(song).isDifferentTo(albumSong);
-		LoggerUtils.logDebug(log, () -> String.format("Item Title[%s] match with Song[%s] = %s", albumSong, song, songMatch));
+		String cleanAlbumSong = albumSong != null ? removeBracketsInfo(albumSong) : "";
+		boolean songMatch = exists(cleanAlbumSong) && !PhraseCalculator.phrase(song).isDifferentTo(cleanAlbumSong);
+		LoggerUtils.logDebug(log, () -> String.format("Item Title[%s] match with Song[%s] = %s", cleanAlbumSong, song, songMatch));
 		
 		// Sometimes no artist is provided by the radio station that is playing.
 		// Just return the result of a song match
@@ -171,8 +174,9 @@ public class AmazonAlbumFinder implements AlbumFindable {
 		
 		// Check Artist
 		String albumArtist = a.getArtistName();
-		boolean artistMatch = StringUtils.exists(albumArtist) && !PhraseCalculator.phrase(artist).isDifferentTo(albumArtist);
-		LoggerUtils.logDebug(log, () ->  String.format("Item Artist[%s] match with Artist[%s] = %s", albumArtist, artist, artistMatch));
+		String cleanAlbumArtist = albumArtist != null ? removeBracketsInfo(albumArtist) : "";
+		boolean artistMatch = exists(cleanAlbumArtist) && !PhraseCalculator.phrase(artist).isDifferentTo(cleanAlbumArtist);
+		LoggerUtils.logDebug(log, () ->  String.format("Item Artist[%s] match with Artist[%s] = %s", cleanAlbumArtist, artist, artistMatch));
 		
 		if(!isSwapped && (!songMatch || !artistMatch)) {
 			return matchSongArtist(artist, song, a, true);

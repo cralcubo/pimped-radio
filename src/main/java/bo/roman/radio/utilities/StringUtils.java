@@ -11,7 +11,9 @@ public interface StringUtils {
 	final static String LINE_SEPARATOR = System.getProperty("line.separator");
 	final static String NOCAMELCASE_REGEX = "(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])";
 	static final String PERC2LETTER_REGEX = "%(?![0-9a-fA-F]{2})";
+	
 	static final String BRACKETS_REGEX = "(?<=.)[\\(|\\[].*[\\)|\\]].*";
+	static final String FEATURING_REGEX = "(?i)(?<=.)(\\s+(ft\\.|ft|feat\\.|feat|featuring|feature|f/|f\\.).*)";
 	
 	static boolean exists(String val) {
 		return val != null && !val.trim().isEmpty();
@@ -28,8 +30,12 @@ public interface StringUtils {
 		return val;
 	}
 	
-	static String removeBrackets(String val) {
+	static String removeBracketsInfo(String val) {
 		return val.replaceAll(BRACKETS_REGEX, "").trim();
+	}
+	
+	static String removeFeatureInfo(String val) {
+		return val.replaceAll(FEATURING_REGEX, "").trim();
 	}
 
 	/**

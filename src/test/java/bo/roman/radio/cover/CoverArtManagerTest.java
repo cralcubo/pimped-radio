@@ -114,7 +114,6 @@ public class CoverArtManagerTest {
 		
 		CoverArt squareCover = new CoverArt.Builder().maxHeight(500).maxWidth(500).largeUri("http://square.uri").build();
 		Album a2 = new Album.Builder().artistName(testArtist).songName(testSong + "(Remix 95)").name(testAlbum).coverArt(Optional.of(squareCover)).build();
-		
 		Album a3 = new Album.Builder().artistName(testArtist + " ft. DMX").songName(testSong).name(testAlbum).coverArt(Optional.of(squareCover)).build();
 		Album a4 = new Album.Builder().artistName(testArtist).songName(testSong + " (Remix)").name(testAlbum).coverArt(Optional.of(rectangularCover)).build();
 		
@@ -125,7 +124,7 @@ public class CoverArtManagerTest {
 		
 		Optional<Album> oAlbum = manager.getAlbumWithCover(testSong, testArtist);
 		
-		assertThat(oAlbum.get(), is(a2));
+		assertThat(oAlbum.get(), is(a3));
 	}
 	
 	@Test
