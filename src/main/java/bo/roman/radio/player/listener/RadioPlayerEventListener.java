@@ -1,16 +1,21 @@
 package bo.roman.radio.player.listener;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import bo.roman.radio.cover.model.Radio;
 import bo.roman.radio.cover.model.Song;
 import bo.roman.radio.player.codec.CodecCalculator;
 import bo.roman.radio.player.model.CodecInformation;
 import bo.roman.radio.player.model.ErrorInformation;
 import bo.roman.radio.player.model.RadioPlayerEntity;
+import bo.roman.radio.utilities.ExecutorUtils;
 import bo.roman.radio.utilities.LoggerUtils;
 import bo.roman.radio.utilities.MediaMetaUtils;
 import uk.co.caprica.vlcj.player.MediaMeta;
@@ -52,17 +57,32 @@ public class RadioPlayerEventListener extends MediaPlayerEventAdapter {
 			log.info("Changed MediaMeta. Radio[{}] and Song[{}]", oRadioName, oSong);
 			meta.release();
 			
-			// Find the new RadioPlayer Info and update with
-			// a RadioPlayerEntity
-			RadioPlayerEntity rpe = radioInfoFinder.find(oRadioName, oSong);
-			radioEntitySubject.notifyObservers(rpe);
+			Executor executor = ExecutorUtils.fixedThreadPoolFactory(2);
+			final CompletableFuture<RadioPlayerEntity> futureRpe = CompletableFuture.supplyAsync(() -> radioInfoFinder.find(oRadioName, oSong), executor);
+			final CompletableFuture<Optional<CodecInformation>> futureCodec = CompletableFuture.supplyAsync(() -> CodecCalculator.calculate(mediaPlayer), executor);
+			CompletableFuture<?>[] futures = Arrays.asList(futureRpe, futureCodec).stream()
+																				.map(cf -> cf.thenAccept((o) -> {
+																					if(o instanceof RadioPlayerEntity) {
+																						RadioPlayerEntity rpe = (RadioPlayerEntity) o;
+																						// Set the stream url in the Radio object
+																						setStreamUrl(rpe, mediaPlayer.mrl());
+																						// Notify registered observers
+																						radioEntitySubject.notifyObservers(rpe);
+																					} else if (o instanceof Optional) {
+																						Optional<?> oCodecInfo = (Optional<?>) o;
+																						oCodecInfo.ifPresent(ci -> {
+																							if(ci instanceof CodecInformation) {
+																								codecSubject.notifyObservers((CodecInformation)ci);
+																							}
+																						});
+																					}
+																				}))
+																				.toArray(s -> new CompletableFuture[s]);
 			
-			// Update Codec info
-			Optional<CodecInformation> oCodecInfo = CodecCalculator.calculate(mediaPlayer);
-			oCodecInfo.ifPresent(ci -> codecSubject.notifyObservers(ci));
+			CompletableFuture.allOf(futures).join();
 		}
 	}
-	
+
 	@Override
 	public void error(MediaPlayer mediaPlayer) {
 		String streamName = "";
@@ -72,6 +92,15 @@ public class RadioPlayerEventListener extends MediaPlayerEventAdapter {
 		
 		log.error("There was an error trying to play the stream [{}]", streamName);
 		errorSubject.notifyObservers(new ErrorInformation("Error playing stream.", streamName));
+	}
+	
+	private void setStreamUrl(RadioPlayerEntity rpe, String streamUrl) {
+		Optional<Radio> oRadio = rpe.getRadio();
+		if(oRadio.isPresent()) {
+			LoggerUtils.logDebug(log, () -> "Radio object is present, setting Radio StreamUrl:" + streamUrl);
+			Radio r = oRadio.get();
+			r.setStreamUrl(streamUrl);
+		}
 	}
 
 }

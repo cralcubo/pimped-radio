@@ -17,6 +17,7 @@ public class Radio {
 	private String name;
 	private String id;
 	private String category;
+	private String streamUrl;
 	private Picture picture;
 	private Optional<URI> logoUri;
 	
@@ -29,6 +30,9 @@ public class Radio {
 		name = b.name;
 		id = b.id;
 		category = b.category;
+		streamUrl = b.streamUrl;
+		picture = b.picture;
+		logoUri = b.logoUri;
 	}
 
 	public String getName() {
@@ -41,6 +45,10 @@ public class Radio {
 
 	public String getCategory() {
 		return category;
+	}
+	
+	public String getStreamUrl() {
+		return streamUrl;
 	}
 	
 	/**
@@ -94,9 +102,13 @@ public class Radio {
 		this.picture = picture;
 	}
 	
+	public void setStreamUrl(String streamUrl) {
+		this.streamUrl = streamUrl;
+	}
+	
 	@Override
 	public String toString() {
-		return "Radio [name=" + name + ", id=" + id + ", category=" + category + ", logoUrl=" + getLogoUri() + "]";
+		return "Radio [name=" + name + ", id=" + id + ", category=" + category + ", logoUrl=" + getLogoUri() + ", streamUrl=" + streamUrl + "]";
 	}
 		
 	@Override
@@ -128,6 +140,24 @@ public class Radio {
 		private String name;
 		private String id;
 		private String category;
+		private String streamUrl;
+		private Picture picture;
+		private Optional<URI> logoUri;
+		
+		public Builder logoUri(Optional<URI> val) {
+			this.logoUri = val;
+			return this;
+		}
+		
+		public Builder picture(Picture val) {
+			this.picture = val;
+			return this;
+		}
+		
+		public Builder streamUrl(String val) {
+			this.streamUrl = nullIsEmpty(val);
+			return this;
+		}
 		
 		public Builder name(String val) {
 			name = nullIsEmpty(val);
