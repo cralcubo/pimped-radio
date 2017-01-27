@@ -2,7 +2,7 @@ package bo.roman.radio.player.listener;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,22 +30,23 @@ public class RadioInformationFinder {
 	public RadioPlayerEntity find(Optional<String> oRadioName, Optional<Song> oSong) {
 		log.info("Changed MediaMeta. Radio[{}] and Song[{}]", oRadioName, oSong);
 		
-		Executor executor = ExecutorUtils.fixedThreadPoolFactory(2);
-		
-		/* Do an async call to find information about the Radio and the Song */
+		ExecutorService executor = ExecutorUtils.fixedThreadPoolFactory(2);
+
+		/*
+		 * Do an async call to find information about the Radio and the Song
+		 */
 		// Find the radio
 		String radioName = oRadioName.orElse("");
 		final CompletableFuture<Optional<Radio>> futureRadio = CompletableFuture.supplyAsync(() -> coverManager.getRadioWithLogo(radioName), executor);
-		
+
 		// Find the Album of the Song
 		Song song = oSong.orElseGet(() -> new Song.Builder().build());
 		final CompletableFuture<Optional<Album>> futureAlbum = CompletableFuture.supplyAsync(() -> coverManager.getAlbumWithCover(song.getName(), song.getArtist()), executor);
-		
+
 		// Get the info found
 		final Optional<Radio> oRadio = futureRadio.join();
 		final Optional<Album> oAlbum = futureAlbum.join();
-		
+
 		return new RadioPlayerEntity(oRadio, oSong, oAlbum);
 	}
-	
 }

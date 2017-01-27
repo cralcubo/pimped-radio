@@ -17,6 +17,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import bo.roman.radio.cover.model.Radio;
@@ -24,6 +25,7 @@ import bo.roman.radio.utilities.ReflectionUtils;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(FacebookUtil.class)
+@SuppressStaticInitializationFor("bo.roman.radio.cover.station.FacebookUtil")
 public class FacebookStationFinderTest {
 	/* Pages JSON Mock */
 	private static final String RESOURCES_PATH = "src/test/resources/radio/";

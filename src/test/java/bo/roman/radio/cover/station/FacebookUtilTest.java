@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.hamcrest.MatcherAssert.*;
@@ -16,14 +17,18 @@ import static org.hamcrest.Matchers.*;
 
 import bo.roman.radio.utilities.HttpUtils;
 import bo.roman.radio.utilities.ReflectionUtils;
+import bo.roman.radio.utilities.SecretFileProperties;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(HttpUtils.class)
+@PrepareForTest({HttpUtils.class, SecretFileProperties.class})
+@SuppressStaticInitializationFor("bo.roman.radio.utilities.SecretFileProperties")
 public class FacebookUtilTest {
 	private final String GETQUERY_TEMPLATE;
-	private static final String ACCESS_TOKEN = FacebookUtil.getAccessToken();
+	private static final String ACCESS_TOKEN = "aToken";
 	
 	public FacebookUtilTest() throws Exception {
+		PowerMockito.mockStatic(SecretFileProperties.class);
+		PowerMockito.when(SecretFileProperties.get("facebook.token")).thenReturn(ACCESS_TOKEN);
 		GETQUERY_TEMPLATE = (String) ReflectionUtils.getPrivateConstant(new FacebookUtil(), "GETQUERY_TEMPLATE");
 	}
 

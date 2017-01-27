@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import bo.roman.radio.cover.model.Album;
@@ -21,6 +22,7 @@ import bo.roman.radio.utilities.SecretFileProperties;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(SecretFileProperties.class)
 @PowerMockIgnore("javax.crypto.*") 
+@SuppressStaticInitializationFor("bo.roman.radio.utilities.SecretFileProperties")
 public class AmazonConnectionUtilTest {
 	private static final String PARAMETERSREGEX_TMPL = "(?<=%s=)('.+?'|[^&]+)";
 	
