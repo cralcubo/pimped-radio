@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +14,6 @@ import bo.roman.radio.player.codec.CodecCalculator;
 import bo.roman.radio.player.model.CodecInformation;
 import bo.roman.radio.player.model.ErrorInformation;
 import bo.roman.radio.player.model.RadioPlayerEntity;
-import bo.roman.radio.utilities.ExecutorUtils;
 import bo.roman.radio.utilities.LoggerUtils;
 import bo.roman.radio.utilities.MediaMetaUtils;
 import uk.co.caprica.vlcj.player.MediaMeta;
@@ -57,9 +55,8 @@ public class RadioPlayerEventListener extends MediaPlayerEventAdapter {
 			log.info("Changed MediaMeta. Radio[{}] and Song[{}]", oRadioName, oSong);
 			meta.release();
 			
-			Executor executor = ExecutorUtils.fixedThreadPoolFactory(2);
-			final CompletableFuture<RadioPlayerEntity> futureRpe = CompletableFuture.supplyAsync(() -> radioInfoFinder.find(oRadioName, oSong), executor);
-			final CompletableFuture<Optional<CodecInformation>> futureCodec = CompletableFuture.supplyAsync(() -> CodecCalculator.calculate(mediaPlayer), executor);
+			final CompletableFuture<RadioPlayerEntity> futureRpe = CompletableFuture.supplyAsync(() -> radioInfoFinder.find(oRadioName, oSong));
+			final CompletableFuture<Optional<CodecInformation>> futureCodec = CompletableFuture.supplyAsync(() -> CodecCalculator.calculate(mediaPlayer));
 			CompletableFuture<?>[] futures = Arrays.asList(futureRpe, futureCodec).stream()
 																				.map(cf -> cf.thenAccept((o) -> {
 																					if(o instanceof RadioPlayerEntity) {
