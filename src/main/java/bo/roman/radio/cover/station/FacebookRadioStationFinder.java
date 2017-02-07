@@ -25,8 +25,6 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 	
 	private static final String SEARCHPAGE_TEMPLATE = "q='%s'&type=page&fields=id,name,category,picture";
 	
-	private static final String RADIOSTATION_CATEGORY = "Radio Station";
-	
 	private final Gson gsonParser;
 	
 	public FacebookRadioStationFinder() {
@@ -47,11 +45,14 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 	}
 	
 	/**
-	 * Retrieve all the albums doing a request to 
+	 * Retrieve all the radio stations sending a request to 
 	 * Facebook.
-	 * All the radios that have a Page in Facebook
-	 * that matches the name sent to it and which category
-	 * is 'Radio Station' will be returned. 
+	 * Radio stations to be considered will be all the stations
+	 * that match the name of the radio name and which categories are:
+	 * - Radio Station
+	 * - News
+	 * - Media
+	 * - Broadcasting
 	 * 
 	 * @param radioName
 	 * @return
@@ -66,7 +67,7 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 			
 			// Return all the pages which category is 'Radio Station'.
 			List<Radio> radiosFound = parsedRadios.getData().stream()
-					.filter(r -> RADIOSTATION_CATEGORY.equals(r.getCategory()))
+					.filter(r -> isValidCategory(r))
 					.filter(Radio::hasLogo)
 					.peek(r -> r.setName(StringEscapeUtils.unescapeJava(r.getName())))
 					.collect(Collectors.toList());
@@ -95,7 +96,7 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 		// Group all the radios by the similarity that their name have
 		// with the radioName used to searched them.
 		Map<PhraseMatch, List<Radio>> radioGroups = radios.stream()
-				.collect(Collectors.groupingBy(r -> PhraseCalculator.phrase(radioName).calculateSimilarityTo(r.getName())));
+															.collect(Collectors.groupingBy(r -> PhraseCalculator.phrase(radioName).calculateSimilarityTo(r.getName())));
 		LoggerUtils.logDebug(log, () -> radioGroups.toString());
 		
 		Optional<Radio> exactMatch = findRadioByMatch(radioGroups, PhraseMatch.EXACT);
@@ -126,6 +127,25 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 		}
 		
 		return Optional.empty();
+	}
+	
+	/**
+	 * Is a valid category if the Radio.Category is similar to:
+	 * - Radio Station
+	 * - News
+	 * - Media
+	 * - Broadcasting
+	 * 
+	 * @return true if it matches the mentioned categories.
+	 */
+	private boolean isValidCategory(Radio r) {
+		if (r.getCategory() == null) {
+			return false;
+		}
+		
+		PhraseCalculator pc = PhraseCalculator.phrase(r.getCategory());
+		return pc.atLeastContains("Radio") || pc.atLeastContains("Station") || pc.atLeastContains("Broadcast")
+				|| pc.atLeastContains("News") || pc.atLeastContains("Media");
 	}
 
 }
