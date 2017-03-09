@@ -15,7 +15,7 @@ Technologies to be used
 * Java 8
 * JUnit/Hamcrest [Testing]
 * Amazon [Find CoverArt and Album]
-* JVLC [The actual music player]
+* vlcj [The actual music player]
 * ORM Lite for the persistence of a radio stations (More info: https://github.com/cralcubo/pimped-radio-tuner)
 * Java FX for the UI (More info: https://github.com/cralcubo/pimped-radio-ui)
 
