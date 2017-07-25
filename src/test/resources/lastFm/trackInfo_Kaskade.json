@@ -1,0 +1,89 @@
+{
+	"track": 
+	{
+		"name": "I Remember",
+		"mbid": "e41a6007-5a6d-4ccf-961c-2f14566c2f1d",
+		"url": "https://www.last.fm/music/Kaskade/_/I+Remember",
+		"duration": "282000",
+		"streamable": 
+		{
+			"#text": "0",
+			"fulltrack": "0"
+		},
+
+		"listeners": "21719",
+		"playcount": "105761",
+		"artist": 
+		{
+			"name": "Kaskade",
+			"mbid": "29ed4a49-fb99-4a5c-8713-609cabe6f34a",
+			"url": "https://www.last.fm/music/Kaskade"
+		},
+
+		"album": 
+		{
+			"artist": "Kaskade",
+			"title": "Strobelite Seduction",
+			"mbid": "36d9158c-4854-36f9-8bde-b86ae0cf5db6",
+			"url": "https://www.last.fm/music/Kaskade/Strobelite+Seduction",
+			"image": 
+			[
+				{
+					"#text": "",
+					"size": "small"
+				},
+
+				{
+					"#text": "",
+					"size": "medium"
+				},
+
+				{
+					"#text": "",
+					"size": "large"
+				},
+
+				{
+					"#text": "",
+					"size": "extralarge"
+				}
+			],
+
+			"@attr": 
+			{
+				"position": "6"
+			}
+		},
+
+		"toptags": 
+		{
+			"tag": 
+			[
+				{
+					"name": "labores somnium",
+					"url": "https://www.last.fm/tag/labores+somnium"
+				},
+
+				{
+					"name": "trance",
+					"url": "https://www.last.fm/tag/trance"
+				},
+
+				{
+					"name": "dance",
+					"url": "https://www.last.fm/tag/dance"
+				},
+
+				{
+					"name": "electronic",
+					"url": "https://www.last.fm/tag/electronic"
+				},
+
+				{
+					"name": "electro",
+					"url": "https://www.last.fm/tag/electro"
+				}
+			]
+		}
+	}
+}

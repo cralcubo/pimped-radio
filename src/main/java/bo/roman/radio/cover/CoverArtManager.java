@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import bo.roman.radio.cover.album.AlbumComparator;
 import bo.roman.radio.cover.album.AlbumFindable;
-import bo.roman.radio.cover.album.AmazonAlbumFinder;
+import bo.roman.radio.cover.album.last.fm.LastFmAlbumFinder;
 import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.cover.model.CoverArt;
 import bo.roman.radio.cover.model.Radio;
@@ -31,7 +31,7 @@ public class CoverArtManager implements ICoverArtManager {
 	private final RadioStationFindable radioFinder;
 	
 	public CoverArtManager() {
-		this(new AmazonAlbumFinder(), new FacebookRadioStationFinder());
+		this(new LastFmAlbumFinder(), new FacebookRadioStationFinder());
 	}
 	
 	CoverArtManager(AlbumFindable albumFinder, RadioStationFindable radioFinder) {

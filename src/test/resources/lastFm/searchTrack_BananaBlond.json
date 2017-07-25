@@ -1,0 +1,57 @@
+{
+	"results": 
+	{
+		"opensearch:Query": 
+		{
+			"#text": "",
+			"role": "request",
+			"startPage": "1"
+		},
+
+		"opensearch:totalResults": "1",
+		"opensearch:startIndex": "0",
+		"opensearch:itemsPerPage": "10",
+		"trackmatches": 
+		{
+			"track": 
+			[
+				{
+					"name": "Life of Fire",
+					"artist": "Banana Blonde",
+					"url": "https://www.last.fm/music/Banana+Blonde/_/Life+of+Fire",
+					"streamable": "FIXME",
+					"listeners": "0",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"mbid": ""
+				}
+			]
+		},
+
+		"@attr": 
+		{
+			
+		}
+	}
+}

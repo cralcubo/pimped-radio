@@ -102,5 +102,31 @@ public class StringUtilsTest {
 		String song = "sSong (test edition) ft. test";
 		assertThat(StringUtils.removeBracketsInfo(song), is(equalTo("sSong")));
 	}
+	
+	@Test
+	public void testRemoveExtraInfo4() {
+		String song = "sSong (((test edition))) ft. test";
+		assertThat(StringUtils.removeBracketsInfo(song), is(equalTo("sSong")));
+	}
+	
+	@Test
+	public void testRemoveExtraInfo5() {
+		String song = "sSong (((test edition) ft. test";
+		assertThat(StringUtils.removeBracketsInfo(song), is(equalTo("sSong")));
+	}
+	
+	@Test
+	public void testRemoveExtraInfo6() {
+		String song = "stereo 97(((test edition) ft. test";
+		assertThat(StringUtils.removeBracketsInfo(song), is(equalTo("stereo 97")));
+	}
+	
+	@Test
+	public void testRemoveExtraInfoMultipleBraces() {
+		String name = "((( WEFUNK Radio ))) . raw uncut funk . classic & underground hip-hop";
+		assertThat(StringUtils.removeBracketsInfo(name), is("((( WEFUNK Radio ))) . raw uncut funk . classic & underground hip-hop"));
+	}
+	
+	//( ( HITFORMULE ) ) 80s 90s 00s HOT TOP40 POP HITS nonstop 24/7
 
 }

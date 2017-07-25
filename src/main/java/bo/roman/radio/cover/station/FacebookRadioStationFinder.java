@@ -67,7 +67,7 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 			
 			// Return all the pages which category is 'Radio Station'.
 			List<Radio> radiosFound = parsedRadios.getData().stream()
-					.filter(r -> isValidCategory(r))
+//					.filter(r -> isValidCategory(r))
 					.filter(Radio::hasLogo)
 					.peek(r -> r.setName(StringEscapeUtils.unescapeJava(r.getName())))
 					.collect(Collectors.toList());
@@ -137,7 +137,7 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 	 * - Broadcasting
 	 * 
 	 * @return true if it matches the mentioned categories.
-	 */
+	 
 	private boolean isValidCategory(Radio r) {
 		if (r.getCategory() == null) {
 			return false;
@@ -146,6 +146,6 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 		PhraseCalculator pc = PhraseCalculator.phrase(r.getCategory());
 		return pc.atLeastContains("Radio") || pc.atLeastContains("Station") || pc.atLeastContains("Broadcast")
 				|| pc.atLeastContains("News") || pc.atLeastContains("Media");
-	}
+	}*/
 
 }

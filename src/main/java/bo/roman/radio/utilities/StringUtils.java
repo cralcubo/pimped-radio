@@ -12,7 +12,7 @@ public interface StringUtils {
 	final static String NOCAMELCASE_REGEX = "(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])";
 	static final String PERC2LETTER_REGEX = "%(?![0-9a-fA-F]{2})";
 	
-	static final String BRACKETS_REGEX = "(?<=.)[\\(|\\[].*[\\)|\\]].*";
+	static final String BRACKETS_REGEX = "(?<=[\\w\\s])[\\(|\\[].*[\\)|\\]].*";
 	static final String FEATURING_REGEX = "(?i)(?<=.)(\\s+(ft\\.|ft|feat\\.|feat|featuring|feature|f/|f\\.).*)";
 	
 	static boolean exists(String val) {

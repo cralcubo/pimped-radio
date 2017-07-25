@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,8 @@ public class CacheLogoUtil {
 
 	private static final float MINIMAGE_SIZE = 1000;
 	
+	private static final Pattern NOWORDS_REGEX = Pattern.compile("\\W");
+	private static final String NOWORD_REPLACEMENT = "_";
 	/**
 	 * Download the picture requested to the internet
 	 * and save it in the OS temp folder.
@@ -35,15 +38,17 @@ public class CacheLogoUtil {
 	 * @param radioName
 	 * @param logoUrl
 	 */
-	public static boolean cacheRadioLogo(String radioName, Optional<URI> optLogoUri) {
+	public static boolean cacheRadioLogo(final String radioName, Optional<URI> optLogoUri) {
 		if(!optLogoUri.isPresent()) {
 			log.info("There is no file URI to download.");
 			return false;
 		}
+		// Cleans the radio name from characters that might not be accepted by a file system.
+		String cleanRadioName = radioNameCleaner(radioName);
 		
-		Path toCacheLogoPath = Paths.get(String.format(CACHELOGOPATH_TEMPL, CACHEFOLDER_PATH, radioName));
+		Path toCacheLogoPath = Paths.get(String.format(CACHELOGOPATH_TEMPL, CACHEFOLDER_PATH, cleanRadioName));
 		URI logoUri = optLogoUri.get();
-		if(isCached(radioName)) {
+		if(isCached(cleanRadioName)) {
 			log.info("The file [{}] is already cached.", toCacheLogoPath);
 			return true;
 		}
@@ -93,7 +98,7 @@ public class CacheLogoUtil {
 	 * @return
 	 */
 	public static boolean isCached(String radioName) {
-		return Files.exists(getCachedLogoPath(radioName));
+		return Files.exists(getCachedLogoPath(radioNameCleaner(radioName)));
 	}
 	
 	/**
@@ -104,7 +109,11 @@ public class CacheLogoUtil {
 	 * @return
 	 */
 	public static Path getCachedLogoPath(String radioName) {
-		return Paths.get(String.format(CACHELOGOPATH_TEMPL, CACHEFOLDER_PATH, radioName));
+		return Paths.get(String.format(CACHELOGOPATH_TEMPL, CACHEFOLDER_PATH, radioNameCleaner(radioName)));
 	}
+	
+	private static String radioNameCleaner(String radioName) {
+		return NOWORDS_REGEX.matcher(radioName).replaceAll(NOWORD_REPLACEMENT);
+	} 
 
 }

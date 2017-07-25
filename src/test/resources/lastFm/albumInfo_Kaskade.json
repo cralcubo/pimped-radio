@@ -1,0 +1,305 @@
+{
+	"album": 
+	{
+		"name": "Strobelite Seduction",
+		"artist": "Kaskade",
+		"mbid": "36d9158c-4854-36f9-8bde-b86ae0cf5db6",
+		"url": "https://www.last.fm/music/Kaskade/Strobelite+Seduction",
+		"image": 
+		[
+			{
+				"#text": "https://lastfm-img2.akamaized.net/i/u/34s/4438e5c7fbb34790982e2c9c1d8ab31b.png",
+				"size": "small"
+			},
+
+			{
+				"#text": "https://lastfm-img2.akamaized.net/i/u/64s/4438e5c7fbb34790982e2c9c1d8ab31b.png",
+				"size": "medium"
+			},
+
+			{
+				"#text": "https://lastfm-img2.akamaized.net/i/u/174s/4438e5c7fbb34790982e2c9c1d8ab31b.png",
+				"size": "large"
+			},
+
+			{
+				"#text": "https://lastfm-img2.akamaized.net/i/u/300x300/4438e5c7fbb34790982e2c9c1d8ab31b.png",
+				"size": "extralarge"
+			},
+
+			{
+				"#text": "https://lastfm-img2.akamaized.net/i/u/4438e5c7fbb34790982e2c9c1d8ab31b.png",
+				"size": "mega"
+			},
+
+			{
+				"#text": "https://lastfm-img2.akamaized.net/i/u/arQ/4438e5c7fbb34790982e2c9c1d8ab31b.png",
+				"size": ""
+			}
+		],
+
+		"listeners": "88355",
+		"playcount": "1391754",
+		"tracks": 
+		{
+			"track": 
+			[
+				{
+					"name": "Move For Me",
+					"url": "https://www.last.fm/music/Kaskade/_/Move+For+Me",
+					"duration": "176",
+					"@attr": 
+					{
+						"rank": "1"
+					},
+
+					"streamable": 
+					{
+						"#text": "0",
+						"fulltrack": "0"
+					},
+
+					"artist": 
+					{
+						"name": "Kaskade",
+						"mbid": "29ed4a49-fb99-4a5c-8713-609cabe6f34a",
+						"url": "https://www.last.fm/music/Kaskade"
+					}
+				},
+
+				{
+					"name": "Angel On My Shoulder",
+					"url": "https://www.last.fm/music/Kaskade/_/Angel+On+My+Shoulder",
+					"duration": "227",
+					"@attr": 
+					{
+						"rank": "2"
+					},
+
+					"streamable": 
+					{
+						"#text": "0",
+						"fulltrack": "0"
+					},
+
+					"artist": 
+					{
+						"name": "Kaskade",
+						"mbid": "29ed4a49-fb99-4a5c-8713-609cabe6f34a",
+						"url": "https://www.last.fm/music/Kaskade"
+					}
+				},
+
+				{
+					"name": "Back On You",
+					"url": "https://www.last.fm/music/Kaskade/_/Back+On+You",
+					"duration": "222",
+					"@attr": 
+					{
+						"rank": "3"
+					},
+
+					"streamable": 
+					{
+						"#text": "0",
+						"fulltrack": "0"
+					},
+
+					"artist": 
+					{
+						"name": "Kaskade",
+						"mbid": "29ed4a49-fb99-4a5c-8713-609cabe6f34a",
+						"url": "https://www.last.fm/music/Kaskade"
+					}
+				},
+
+				{
+					"name": "Step One Two",
+					"url": "https://www.last.fm/music/Kaskade/_/Step+One+Two",
+					"duration": "200",
+					"@attr": 
+					{
+						"rank": "4"
+					},
+
+					"streamable": 
+					{
+						"#text": "0",
+						"fulltrack": "0"
+					},
+
+					"artist": 
+					{
+						"name": "Kaskade",
+						"mbid": "29ed4a49-fb99-4a5c-8713-609cabe6f34a",
+						"url": "https://www.last.fm/music/Kaskade"
+					}
+				},
+
+				{
+					"name": "Pose",
+					"url": "https://www.last.fm/music/Kaskade/_/Pose",
+					"duration": "214",
+					"@attr": 
+					{
+						"rank": "5"
+					},
+
+					"streamable": 
+					{
+						"#text": "0",
+						"fulltrack": "0"
+					},
+
+					"artist": 
+					{
+						"name": "Kaskade",
+						"mbid": "29ed4a49-fb99-4a5c-8713-609cabe6f34a",
+						"url": "https://www.last.fm/music/Kaskade"
+					}
+				},
+
+				{
+					"name": "I Remember (Strobelite Edit)",
+					"url": "https://www.last.fm/music/Kaskade/_/I+Remember+(Strobelite+Edit)",
+					"duration": "283",
+					"@attr": 
+					{
+						"rank": "6"
+					},
+
+					"streamable": 
+					{
+						"#text": "0",
+						"fulltrack": "0"
+					},
+
+					"artist": 
+					{
+						"name": "Kaskade",
+						"mbid": "29ed4a49-fb99-4a5c-8713-609cabe6f34a",
+						"url": "https://www.last.fm/music/Kaskade"
+					}
+				},
+
+				{
+					"name": "Borrowed Theme",
+					"url": "https://www.last.fm/music/Kaskade/_/Borrowed+Theme",
+					"duration": "224",
+					"@attr": 
+					{
+						"rank": "7"
+					},
+
+					"streamable": 
+					{
+						"#text": "0",
+						"fulltrack": "0"
+					},
+
+					"artist": 
+					{
+						"name": "Kaskade",
+						"mbid": "29ed4a49-fb99-4a5c-8713-609cabe6f34a",
+						"url": "https://www.last.fm/music/Kaskade"
+					}
+				},
+
+				{
+					"name": "I'll Never Dream",
+					"url": "https://www.last.fm/music/Kaskade/_/I%27ll+Never+Dream",
+					"duration": "227",
+					"@attr": 
+					{
+						"rank": "8"
+					},
+
+					"streamable": 
+					{
+						"#text": "0",
+						"fulltrack": "0"
+					},
+
+					"artist": 
+					{
+						"name": "Kaskade",
+						"mbid": "29ed4a49-fb99-4a5c-8713-609cabe6f34a",
+						"url": "https://www.last.fm/music/Kaskade"
+					}
+				},
+
+				{
+					"name": "One Heart",
+					"url": "https://www.last.fm/music/Kaskade/_/One+Heart",
+					"duration": "240",
+					"@attr": 
+					{
+						"rank": "9"
+					},
+
+					"streamable": 
+					{
+						"#text": "0",
+						"fulltrack": "0"
+					},
+
+					"artist": 
+					{
+						"name": "Kaskade",
+						"mbid": "29ed4a49-fb99-4a5c-8713-609cabe6f34a",
+						"url": "https://www.last.fm/music/Kaskade"
+					}
+				},
+
+				{
+					"name": "Your Love Is Black",
+					"url": "https://www.last.fm/music/Kaskade/_/Your+Love+Is+Black",
+					"duration": "272",
+					"@attr": 
+					{
+						"rank": "10"
+					},
+
+					"streamable": 
+					{
+						"#text": "0",
+						"fulltrack": "0"
+					},
+
+					"artist": 
+					{
+						"name": "Kaskade",
+						"mbid": "29ed4a49-fb99-4a5c-8713-609cabe6f34a",
+						"url": "https://www.last.fm/music/Kaskade"
+					}
+				}
+			]
+		},
+
+		"tags": 
+		{
+			"tag": 
+			[
+				{
+					"name": "2009",
+					"url": "https://www.last.fm/tag/2009"
+				},
+
+				{
+					"name": "dance",
+					"url": "https://www.last.fm/tag/dance"
+				},
+
+				{
+					"name": "House",
+					"url": "https://www.last.fm/tag/House"
+				},
+
+				{
+					"name": "faves of the year",
+					"url": "https://www.last.fm/tag/faves+of+the+year"
+				}
+			]
+		}
+	}
+}

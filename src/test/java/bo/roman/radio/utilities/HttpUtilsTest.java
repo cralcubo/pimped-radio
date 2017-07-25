@@ -4,9 +4,26 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor;
+import org.powermock.modules.junit4.PowerMockRunner;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(SecretFileProperties.class)
+@SuppressStaticInitializationFor("bo.roman.radio.utilities.SecretFileProperties")
 public class HttpUtilsTest {
+	
+	@Before
+	public void setUp() {
+		PowerMockito.mockStatic(SecretFileProperties.class);
+		PowerMockito.when(SecretFileProperties.get("app.name")).thenReturn("aName");
+		PowerMockito.when(SecretFileProperties.get("app.version")).thenReturn("aVersion");
+		PowerMockito.when(SecretFileProperties.get("app.contact")).thenReturn("aContact");
+	}
 	
 	@Test
 	public void testParametersEncoding() {

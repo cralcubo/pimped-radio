@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import bo.roman.radio.cover.model.Album;
@@ -21,7 +22,7 @@ import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.RelatedI
 import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.Tracks;
 import bo.roman.radio.cover.model.mapping.AmazonItems.ItemsWrapper.Item.Tracks.Disc;
 
-
+@Ignore("Amazon is not used anymore")
 public class AmazonUtilTest {
 	
 	@Test

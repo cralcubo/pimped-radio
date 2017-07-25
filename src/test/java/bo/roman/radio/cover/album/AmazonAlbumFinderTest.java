@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -21,6 +22,7 @@ import bo.roman.radio.utilities.HttpUtils;
 import bo.roman.radio.utilities.PhraseCalculator;
 import bo.roman.radio.utilities.ReflectionUtils;
 
+@Ignore("Amazon is not used anymore")
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ HttpUtils.class, AmazonConnectionUtil.class })
 public class AmazonAlbumFinderTest {

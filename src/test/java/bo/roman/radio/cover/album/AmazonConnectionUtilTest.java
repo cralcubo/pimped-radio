@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import org.hamcrest.text.IsEmptyString;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
@@ -19,6 +20,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.utilities.SecretFileProperties;
 
+@Ignore("Amazon is not used anymore")
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(SecretFileProperties.class)
 @PowerMockIgnore("javax.crypto.*") 

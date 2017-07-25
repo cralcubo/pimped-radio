@@ -1,0 +1,81 @@
+{
+	"album": 
+	{
+		"name": "boN aPpéTIt",
+		"artist": "Katy Perry",
+		"url": "https://www.last.fm/music/Katy+Perry/boN+aPp%C3%A9TIt",
+		"image": 
+		[
+			{
+				"#text": "https://lastfm-img2.akamaized.net/i/u/34s/fd7203f71f88d640f5d5af2fcd739a43.png",
+				"size": "small"
+			},
+
+			{
+				"#text": "https://lastfm-img2.akamaized.net/i/u/64s/fd7203f71f88d640f5d5af2fcd739a43.png",
+				"size": "medium"
+			},
+
+			{
+				"#text": "https://lastfm-img2.akamaized.net/i/u/174s/fd7203f71f88d640f5d5af2fcd739a43.png",
+				"size": "large"
+			},
+
+			{
+				"#text": "https://lastfm-img2.akamaized.net/i/u/300x300/fd7203f71f88d640f5d5af2fcd739a43.png",
+				"size": "extralarge"
+			},
+
+			{
+				"#text": "https://lastfm-img2.akamaized.net/i/u/fd7203f71f88d640f5d5af2fcd739a43.png",
+				"size": "mega"
+			},
+
+			{
+				"#text": "https://lastfm-img2.akamaized.net/i/u/arQ/fd7203f71f88d640f5d5af2fcd739a43.png",
+				"size": ""
+			}
+		],
+
+		"listeners": "50383",
+		"playcount": "476034",
+		"tracks": 
+		{
+			"track": 
+			[
+				
+			]
+		},
+
+		"tags": 
+		{
+			"tag": 
+			[
+				{
+					"name": "FLOP",
+					"url": "https://www.last.fm/tag/FLOP"
+				},
+
+				{
+					"name": "worst of 2017",
+					"url": "https://www.last.fm/tag/worst+of+2017"
+				},
+
+				{
+					"name": "worse than akiko shikata",
+					"url": "https://www.last.fm/tag/worse+than+akiko+shikata"
+				},
+
+				{
+					"name": "pretentious",
+					"url": "https://www.last.fm/tag/pretentious"
+				},
+
+				{
+					"name": "garbage",
+					"url": "https://www.last.fm/tag/garbage"
+				}
+			]
+		}
+	}
+}

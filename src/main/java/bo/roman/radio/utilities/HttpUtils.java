@@ -5,6 +5,7 @@ import static bo.roman.radio.utilities.LoggerUtils.logDebug;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,27 +20,32 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;;
 
+
 public class HttpUtils {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(HttpUtils.class);
 	
-	public static final String UTF_8 = "UTF-8";
+	public static final String UTF_8 = StandardCharsets.UTF_8.name();
+	
+	private static final String USER_AGENT = SecretFileProperties.get("app.name") + "/"// 
+											+ SecretFileProperties.get("app.version");
 	
 	private static final String PARAMETERS_REGEX = "(?<==)('.+?'|[^&]+)(?=&)";
 
 	public static String doGet(String url) throws IOException {
 		final String encodedUrl = encodeParameters(url);
-		
-		CloseableHttpClient httpClient = HttpClients.createDefault();
+
+		logDebug(LOGGER, () -> "Creating custom HttpClient with User-Agent:" + USER_AGENT);
+		CloseableHttpClient httpClient = HttpClients.custom().setUserAgent(USER_AGENT).build();
 		try {
 			logDebug(LOGGER, () -> "Sending request to=" + encodedUrl);
-			
+
 			HttpGet get = new HttpGet(encodedUrl);
 			logDebug(LOGGER, () -> "Excecuting request" + get.getRequestLine());
-			
+
 			String response = httpClient.execute(get, new MyResponseHandler());
 			logDebug(LOGGER, () -> "Response:" + response);
-			
+
 			return response;
 		} finally {
 			httpClient.close();
@@ -55,7 +61,7 @@ public class HttpUtils {
 			
 			if(status >= 200 && status < 300) {
 				HttpEntity entity = response.getEntity();
-				return entity != null ? EntityUtils.toString(entity) : "";
+				return entity != null ? EntityUtils.toString(entity, StandardCharsets.UTF_8) : "";
 			}
 			else {
 				throw new ClientProtocolException("Unexpected status=" + status);
