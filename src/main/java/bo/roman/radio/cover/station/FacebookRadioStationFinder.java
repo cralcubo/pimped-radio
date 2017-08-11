@@ -27,20 +27,35 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 	
 	private final Gson gsonParser;
 	
+	private Optional<Radio> cachedRadio = Optional.empty();
+	
 	public FacebookRadioStationFinder() {
 		gsonParser = new Gson();
 	}
 
 	@Override
 	public Optional<Radio> findRadioStation(String radioName) {
-		// First find all the radios that match the radio name
-		List<Radio> radios = findAllRadioPages(radioName);
-		
-		// Sort and select the most relevant radio
-		Optional<Radio> oRadio = findBestRadio(radios, radioName);
-		
-		log.info("Radio page found in Facebook: {}", oRadio);
-		
+		Optional<Radio> oRadio;
+		switch (StationFinderRequestValidator.validate(radioName)) {
+		case VALID:
+			List<Radio> radios = findAllRadioPages(radioName);
+			oRadio = findBestRadio(radios, radioName);
+			log.info("Radio page found in Facebook: {}", oRadio);
+			break;
+		case REPEATED:
+			// Return cached radio
+			LoggerUtils.logDebug(log, () -> "Request was repeated, returning cached radio:" + cachedRadio);
+			oRadio = cachedRadio;
+			break;
+		default:
+			// No valid request
+			LoggerUtils.logDebug(log, () -> "Invalid radio name provided:" + radioName);
+			oRadio = Optional.empty();
+		}
+
+		// Cache radio found
+		cachedRadio = oRadio;
+
 		return oRadio;
 	}
 	
@@ -119,10 +134,32 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 		return cotainsMatch;
 	}
 	
+	/**
+	 * Find radio by match category and give priority
+	 * to the face pages that correspond to the categories listed in:
+	 * - Radio Station
+	 * - News
+	 * - Media
+	 * - Broadcasting
+	 * 
+	 * @param radioGroup
+	 * @param match
+	 * @return
+	 */
 	private Optional<Radio> findRadioByMatch(Map<PhraseMatch, List<Radio>> radioGroup, PhraseMatch match) {
 		
 		if(radioGroup.containsKey(match) && !radioGroup.get(match).isEmpty()) {
-			Optional<Radio> aMatch = radioGroup.get(match).stream().findAny();
+			Optional<Radio> aMatch = radioGroup.get(match).stream()
+														  .sorted((r1, r2) -> {
+																	if (!isValidCategory(r1) && isValidCategory(r2)) {
+																		return 1;
+																	}
+																	if (isValidCategory(r1) && !isValidCategory(r2)) {
+																		return -1;
+																	}
+																	return 0;
+														  })
+														  .findFirst();
 			return aMatch;
 		}
 		
@@ -137,7 +174,8 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 	 * - Broadcasting
 	 * 
 	 * @return true if it matches the mentioned categories.
-	 
+	 */
+	
 	private boolean isValidCategory(Radio r) {
 		if (r.getCategory() == null) {
 			return false;
@@ -146,6 +184,6 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 		PhraseCalculator pc = PhraseCalculator.phrase(r.getCategory());
 		return pc.atLeastContains("Radio") || pc.atLeastContains("Station") || pc.atLeastContains("Broadcast")
 				|| pc.atLeastContains("News") || pc.atLeastContains("Media");
-	}*/
+	}
 
 }

@@ -14,11 +14,11 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import bo.roman.radio.cover.album.last.fm.AlbumRequestValidator.RequestStatus;
 import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.cover.model.CoverArt;
 import bo.roman.radio.utilities.HttpUtils;
 import bo.roman.radio.utilities.ReflectionUtils;
+import bo.roman.radio.utilities.RequestValidator.RequestStatus;
 import bo.roman.radio.utilities.SecretFileProperties;
 import bo.roman.radio.utilities.StringUtils;
 

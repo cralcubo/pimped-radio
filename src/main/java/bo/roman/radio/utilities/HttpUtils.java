@@ -12,10 +12,11 @@ import java.util.regex.Pattern;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;;
@@ -30,26 +31,30 @@ public class HttpUtils {
 	private static final String USER_AGENT = SecretFileProperties.get("app.name") + "/"// 
 											+ SecretFileProperties.get("app.version");
 	
-	private static final String PARAMETERS_REGEX = "(?<==)('.+?'|[^&]+)(?=&)";
-
+	private static final int CONNECTION_TIMEOUT_MS = 5 * 1000;
+	
+	private static final Pattern PARAMETERS_PATTERN = Pattern.compile("(?<==).+?(?=&\\w+=)");
+	
+	
 	public static String doGet(String url) throws IOException {
 		final String encodedUrl = encodeParameters(url);
 
 		logDebug(LOGGER, () -> "Creating custom HttpClient with User-Agent:" + USER_AGENT);
-		CloseableHttpClient httpClient = HttpClients.custom().setUserAgent(USER_AGENT).build();
-		try {
-			logDebug(LOGGER, () -> "Sending request to=" + encodedUrl);
+		HttpClient httpClient = HttpClientBuilder.create().setUserAgent(USER_AGENT).build();
+		// Timeout configurations
+		RequestConfig requestConfig = RequestConfig.custom()
+												   .setConnectionRequestTimeout(CONNECTION_TIMEOUT_MS) //
+												   .setConnectTimeout(CONNECTION_TIMEOUT_MS) //
+												   .setSocketTimeout(CONNECTION_TIMEOUT_MS) //
+												   .build();
+		HttpGet get = new HttpGet(encodedUrl);
+		get.setConfig(requestConfig);
+		logDebug(LOGGER, () -> String.format("Executing request: %s", httpClient, get.getRequestLine()));
 
-			HttpGet get = new HttpGet(encodedUrl);
-			logDebug(LOGGER, () -> "Excecuting request" + get.getRequestLine());
+		String response = httpClient.execute(get, new MyResponseHandler());
+		logDebug(LOGGER, () -> "Response:" + response);
 
-			String response = httpClient.execute(get, new MyResponseHandler());
-			logDebug(LOGGER, () -> "Response:" + response);
-
-			return response;
-		} finally {
-			httpClient.close();
-		}
+		return response;
 	}
 
 	private static class MyResponseHandler implements ResponseHandler<String> {
@@ -70,7 +75,7 @@ public class HttpUtils {
 	}
 	
 	public static String encodeParameters(String url) {
-		Matcher m = Pattern.compile(PARAMETERS_REGEX).matcher(url + '&');
+		Matcher m = PARAMETERS_PATTERN.matcher(url + "&end=");
 		// UTF-8 encoding chartset
 		while(m.find()) {
 			try {

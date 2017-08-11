@@ -29,7 +29,9 @@ public class HttpUtilsTest {
 	public void testParametersEncoding() {
 		String url = "http://www.website.com/search"
 				+ "?name='peace & love'"
+				+ "&amp=peace & love"
 				+ "&apos='I don't know what's the prob'"
+				+ "&amp2=I don't know & what's the prob"
 				+ "&t='#type hashtag'"
 				+ "&val=123|ABC"
 				+ "&key=123=ABC"
@@ -38,7 +40,9 @@ public class HttpUtilsTest {
 		String encodedUrl = HttpUtils.encodeParameters(url);
 		String expectedUrl = "http://www.website.com/search"
 				+ "?name=%27peace%20%26%20love%27"
+				+ "&amp=peace%20%26%20love"
 				+ "&apos=%27I%20don%27t%20know%20what%27s%20the%20prob%27"
+				+ "&amp2=I%20don%27t%20know%20%26%20what%27s%20the%20prob"
 				+ "&t=%27%23type%20hashtag%27"
 				+ "&val=123%7CABC"
 				+ "&key=123%3DABC"

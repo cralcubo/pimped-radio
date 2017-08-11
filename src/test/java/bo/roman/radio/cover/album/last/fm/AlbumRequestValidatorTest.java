@@ -4,9 +4,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import bo.roman.radio.cover.album.last.fm.AlbumRequestValidator.RequestStatus;
+import bo.roman.radio.utilities.RequestValidator.RequestStatus;
 
-public class RepeatedRequestCheckerTest {
+public class AlbumRequestValidatorTest {
 	
 	@Before
 	public void setUp() {
@@ -58,7 +58,23 @@ public class RepeatedRequestCheckerTest {
 	
 	@Test
 	public void testNullSongArtist() {
-		Assert.assertEquals(AlbumRequestValidator.getRequestStatus(null, ""), RequestStatus.INVALID);
+		Assert.assertEquals(RequestStatus.INVALID, AlbumRequestValidator.getRequestStatus(null, null));
 	}
+	
+	@Test
+	public void testEmptySongArtist() {
+		Assert.assertEquals(RequestStatus.INVALID, AlbumRequestValidator.getRequestStatus("  ", ""));
+	}
+	
+	@Test
+	public void testOnlySong() {
+		Assert.assertEquals(RequestStatus.INVALID, AlbumRequestValidator.getRequestStatus("testSong", ""));
+	}
+	
+	@Test
+	public void testOnlyArtist() {
+		Assert.assertEquals(RequestStatus.INVALID, AlbumRequestValidator.getRequestStatus("", "testSong"));
+	}
+	
 
 }

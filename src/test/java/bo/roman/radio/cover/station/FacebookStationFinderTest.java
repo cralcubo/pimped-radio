@@ -63,11 +63,11 @@ public class FacebookStationFinderTest {
 		// Assert
 		assertThat(oRadioFound.isPresent(), is(true));
 		
-		String expectedId = "342061115975871";
+		String expectedId = "25316021579";
 		Radio expectedRadio = new Radio.Builder().id(expectedId).build();
 		Radio radioFound = oRadioFound.get();
 		
-		assertThat(radioFound, is(equalTo(expectedRadio)));
+		assertThat(expectedRadio, is(equalTo(radioFound)));
 		assertThat(radioFound.getName(), is(radioName));
 		URL logoUrl = radioFound.getLogoUri().get().toURL();
 		URL expectedUrl = new URL(String.format(PAGELOGO_TEMPLATE, expectedId));

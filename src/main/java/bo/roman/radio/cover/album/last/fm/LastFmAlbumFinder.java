@@ -60,10 +60,12 @@ public class LastFmAlbumFinder implements AlbumFindable {
 			foundAlbums = doSearchAlbums(track, artist);
 			break;
 		case REPEATED:
+			LoggerUtils.logDebug(log, () -> "Request repeated, returning cached albums:" + cachedAlbums);
 			foundAlbums = cachedAlbums;
 			break;
 		default:
-			foundAlbums = Collections.emptyList();
+			// Invalid request, return empty
+			return Collections.emptyList();
 		}
 
 		// Cache Albums found
@@ -200,8 +202,8 @@ public class LastFmAlbumFinder implements AlbumFindable {
 	}
 	
 	private void setCachedAlbums(List<Album> foundAlbums) {
+		LoggerUtils.logDebug(log, () -> "Caching albums:" + foundAlbums);
 		cachedAlbums = foundAlbums;
-		
 	}
 
 }
