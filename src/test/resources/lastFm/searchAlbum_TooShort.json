@@ -1,0 +1,1359 @@
+{
+	"results": 
+	{
+		"opensearch:Query": 
+		{
+			"#text": "",
+			"role": "request",
+			"searchTerms": "Life Is...Too Short",
+			"startPage": "1"
+		},
+
+		"opensearch:totalResults": "44",
+		"opensearch:startIndex": "0",
+		"opensearch:itemsPerPage": "50",
+		"albummatches": 
+		{
+			"album": 
+			[
+				{
+					"name": "Life Is ... Too Short",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/Life+Is+...+Too+Short",
+					"image": 
+					[
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/34s/22c60736db26b9e19ca899947cef0b5a.png",
+							"size": "small"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/64s/22c60736db26b9e19ca899947cef0b5a.png",
+							"size": "medium"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/174s/22c60736db26b9e19ca899947cef0b5a.png",
+							"size": "large"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/300x300/22c60736db26b9e19ca899947cef0b5a.png",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is...Too Short",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/Life+Is...Too+Short",
+					"image": 
+					[
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/34s/24a0256543fa2e5d672831c44cd0bc51.png",
+							"size": "small"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/64s/24a0256543fa2e5d672831c44cd0bc51.png",
+							"size": "medium"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/174s/24a0256543fa2e5d672831c44cd0bc51.png",
+							"size": "large"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/300x300/24a0256543fa2e5d672831c44cd0bc51.png",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is...Too Short (Explicit)",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/Life+Is...Too+Short+(Explicit)",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is...Too Short [Clean]",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/Life+Is...Too+Short+%5BClean%5D",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is... Too Short",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/Life+Is...+Too+Short",
+					"image": 
+					[
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/34s/5d2ff404096f4fdb8b6a4b90e1dd7997.png",
+							"size": "small"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/64s/5d2ff404096f4fdb8b6a4b90e1dd7997.png",
+							"size": "medium"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/174s/5d2ff404096f4fdb8b6a4b90e1dd7997.png",
+							"size": "large"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/300x300/5d2ff404096f4fdb8b6a4b90e1dd7997.png",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is... Too Short (1988)",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/Life+Is...+Too+Short+(1988)",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is...Too Short (Parental Advisory)",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/Life+Is...Too+Short+(Parental+Advisory)",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is...Too Short-",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/Life+Is...Too+Short-",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "life is ...too short",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/life+is+...too+short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is ... Too Short [FIG DJ]",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/Life+Is+...+Too+Short+%5BFIG+DJ%5D",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is... Too Short 12\"",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/Life+Is...+Too+Short+12%22",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life is...Too Short",
+					"artist": "ALP vs Outwork",
+					"url": "https://www.last.fm/music/ALP+vs+Outwork/Life+is...Too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Live Is...Too Short",
+					"artist": "Too Short - Life Is Too Short [1989]",
+					"url": "https://www.last.fm/music/Too+Short+-+Life+Is+Too+Short+%5B1989%5D/Live+Is...Too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is...Too Short",
+					"artist": "[unknown]",
+					"url": "https://www.last.fm/music/%5Bunknown%5D/Life+Is...Too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "1989 - Life Is...Too Short",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/1989+-+Life+Is...Too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is...Too Short",
+					"artist": "Too Short & Lil Kim",
+					"url": "https://www.last.fm/music/Too+Short+&+Lil+Kim/Life+Is...Too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "89 : Life Is ... Too Short",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/89+:+Life+Is+...+Too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "1990 - Life Is...Too Short",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/1990+-+Life+Is...Too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is ... Too Short (1988)",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/Life+Is+...+Too+Short+(1988)",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is...too Short",
+					"artist": "Too Short & Lil Kim - Life Is...too Short",
+					"url": "https://www.last.fm/music/Too+Short+&+Lil+Kim+-+Life+Is...too+Short/Life+Is...too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is ... Too Short",
+					"artist": "Too $hort爀",
+					"url": "https://www.last.fm/music/Too+$hort%E7%88%80/Life+Is+...+Too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is... Too Short (Clean Version)",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/Life+Is...+Too+Short+(Clean+Version)",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "1988 - Life Is...Too Short",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/1988+-+Life+Is...Too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is...Too Short",
+					"artist": "UGK & Too Short",
+					"url": "https://www.last.fm/music/UGK+&+Too+Short/Life+Is...Too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is...Too Short",
+					"artist": "Too $hort feat Rappin' 4 Tay",
+					"url": "https://www.last.fm/music/Too+$hort+feat+Rappin%27+4+Tay/Life+Is...Too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is... Too Short",
+					"artist": "[unknown]",
+					"url": "https://www.last.fm/music/%5Bunknown%5D/Life+Is...+Too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "05 - Life Is...Too Short",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/05+-+Life+Is...Too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is...Too Short",
+					"artist": "05 Oakland",
+					"url": "https://www.last.fm/music/05+Oakland/Life+Is...Too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is... Too Short (VLS)",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/Life+Is...+Too+Short+(VLS)",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is ... Too short - TOO SHORT",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/Life+Is+...+Too+short+-+TOO+SHORT",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Too $hort - 01 Life Is...Too Short",
+					"artist": "[unknown]",
+					"url": "https://www.last.fm/music/%5Bunknown%5D/Too+$hort+-+01+Life+Is...Too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is...Too Short",
+					"artist": "Ice-T",
+					"url": "https://www.last.fm/music/Ice-T/Life+Is...Too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is...Too Short",
+					"artist": "TOO SHORT - (1988) - Life Is...Too Short - 08",
+					"url": "https://www.last.fm/music/TOO+SHORT+-+(1988)+-+Life+Is...Too+Short+-+08/Life+Is...Too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is...Too Short [Explicit]",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/Life+Is...Too+Short+%5BExplicit%5D",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is...Too Short (1988)",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/Life+Is...Too+Short+(1988)",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "01 Life Is...Too Short",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/01+Life+Is...Too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "12\" / Life Is...Too Short",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/12%22+%2F+Life+Is...Too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "1988 - Life Is...Too Short <MP3>",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/1988+-+Life+Is...Too+Short+%3CMP3%3E",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is...Too Short",
+					"artist": "1",
+					"url": "https://www.last.fm/music/1/Life+Is...Too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "(1990) Life Is...Too Short",
+					"artist": "Too $hort",
+					"url": "https://www.last.fm/music/Too+$hort/(1990)+Life+Is...Too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is...Too Short",
+					"artist": "Eminem",
+					"url": "https://www.last.fm/music/Eminem/Life+Is...Too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is...Too Short",
+					"artist": "TO0 SH0RT",
+					"url": "https://www.last.fm/music/TO0+SH0RT/Life+Is...Too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Life Is...Too Short",
+					"artist": "Too Short",
+					"url": "https://www.last.fm/music/Too+Short/Life+Is...Too+Short",
+					"image": 
+					[
+						{
+							"#text": "",
+							"size": "small"
+						},
+
+						{
+							"#text": "",
+							"size": "medium"
+						},
+
+						{
+							"#text": "",
+							"size": "large"
+						},
+
+						{
+							"#text": "",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				}
+			]
+		},
+
+		"@attr": 
+		{
+			"for": "Life Is...Too Short"
+		}
+	}
+}

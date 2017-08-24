@@ -1,6 +1,5 @@
 package bo.roman.radio.player.listener;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -55,28 +54,19 @@ public class RadioPlayerEventListener extends MediaPlayerEventAdapter {
 			log.info("Changed MediaMeta. Radio[{}] and Song[{}]", oRadioName, oSong);
 			meta.release();
 			
-			final CompletableFuture<RadioPlayerEntity> futureRpe = CompletableFuture.supplyAsync(() -> radioInfoFinder.find(oRadioName, oSong));
-			final CompletableFuture<Optional<CodecInformation>> futureCodec = CompletableFuture.supplyAsync(() -> CodecCalculator.calculate(mediaPlayer));
-			CompletableFuture<?>[] futures = Arrays.asList(futureRpe, futureCodec).stream()
-																				.map(cf -> cf.thenAccept((o) -> {
-																					if(o instanceof RadioPlayerEntity) {
-																						RadioPlayerEntity rpe = (RadioPlayerEntity) o;
-																						// Set the stream url in the Radio object
-																						setStreamUrl(rpe, mediaPlayer.mrl());
-																						// Notify registered observers
-																						radioEntitySubject.notifyObservers(rpe);
-																					} else if (o instanceof Optional) {
-																						Optional<?> oCodecInfo = (Optional<?>) o;
-																						oCodecInfo.ifPresent(ci -> {
-																							if(ci instanceof CodecInformation) {
-																								codecSubject.notifyObservers((CodecInformation)ci);
-																							}
-																						});
-																					}
-																				}))
-																				.toArray(s -> new CompletableFuture[s]);
+			CompletableFuture<Void> futureRpe = CompletableFuture.runAsync(() -> {
+				RadioPlayerEntity rpe = radioInfoFinder.find(oRadioName, oSong);
+				setStreamUrl(rpe, mediaPlayer.mrl());
+				radioEntitySubject.notifyObservers(rpe);
+			});
 			
-			CompletableFuture.allOf(futures).join();
+			CompletableFuture<Void> futureCodec = CompletableFuture.runAsync(() -> {
+				Optional<CodecInformation> oci = CodecCalculator.calculate(mediaPlayer);
+				oci.ifPresent(codecSubject::notifyObservers);
+			});
+			
+			futureRpe.join();
+			futureCodec.join();
 		}
 	}
 

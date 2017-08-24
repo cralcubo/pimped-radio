@@ -16,6 +16,8 @@ import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.cover.model.CoverArt;
 import bo.roman.radio.utilities.HttpUtils;
 import bo.roman.radio.utilities.LoggerUtils;
+import bo.roman.radio.utilities.PhraseCalculator;
+import bo.roman.radio.utilities.PhraseCalculator.PhraseMatch;
 import bo.roman.radio.utilities.SecretFileProperties;
 import bo.roman.radio.utilities.StringUtils;
 
@@ -40,11 +42,9 @@ public class LastFmAlbumFinder implements AlbumFindable {
 													+ "&format=json"
 													+ "&api_key=" + LASTFM_KEY;
 	
-	private static final String SEARCHTRACK_QUERY = "http://ws.audioscrobbler.com/2.0/"//
-													+ "?method=track.search"//
-													+ "&limit=10"
-													+ "&track=%s"//
-													+ "&artist=%s"//
+	private static final String SEARCHALBUM_QUERY = "http://ws.audioscrobbler.com/2.0/"//
+													+ "?method=album.search"//
+													+ "&album=%s"//
 													+ "&format=json"
 													+ "&api_key=" + LASTFM_KEY;
 	
@@ -92,7 +92,7 @@ public class LastFmAlbumFinder implements AlbumFindable {
 			 * call: album.getInfo 
 			 */
 			Album songAlbum = getValidAlbumBySongName(cleanTrack, cleanArtist);
-			if(songAlbum != null) {
+			if(isValidAlbum(songAlbum)) {
 				return Arrays.asList(songAlbum);
 			}
 			
@@ -100,15 +100,15 @@ public class LastFmAlbumFinder implements AlbumFindable {
 			 *  Find by track.getInfo
 			 */
 			Album trackAlbum = getValidAlbumByTrackInfo(cleanTrack, cleanArtist);
-			if(trackAlbum != null) {
+			if(isValidAlbum(trackAlbum)) {
 				return Arrays.asList(trackAlbum);
 			}
 			
 			/*
 			 * Last resort:
-			 * Find by track.search
+			 * Find by album.search
 			 */
-			return getValidAlbumsByTrackSearch(cleanTrack, cleanArtist);
+			return getValidAlbumByAlbumSearch(trackAlbum, cleanArtist, cleanTrack);
 			
 		} catch (IOException | IllegalStateException e) {
 			log.error("There was an error querying last.fm", e);
@@ -125,7 +125,7 @@ public class LastFmAlbumFinder implements AlbumFindable {
 		String requestQuery = String.format(ALBUMINFO_QUERY, albumName, artist);
 		Album album = LastFmParser.parseAlbumInfo(doHttpRequest(requestQuery));
 
-		if (!hasAlbumName(album) || !hasValidCoverArt(album)) {
+		if (!isValidAlbum(album)) {
 			return null;
 		}
 
@@ -143,7 +143,7 @@ public class LastFmAlbumFinder implements AlbumFindable {
 		Album trackAlbum = LastFmParser.parseTrackInfo(doHttpRequest(requestQuery));
 
 		// Does the album has a name and a cover art?
-		if (hasAlbumName(trackAlbum) && hasValidCoverArt(trackAlbum)) {
+		if (isValidAlbum(trackAlbum)) {
 			LoggerUtils.logDebug(log, () -> "Album found throug track.getInfo call.");
 			return trackAlbum;
 		}
@@ -153,27 +153,41 @@ public class LastFmAlbumFinder implements AlbumFindable {
 			/*
 			 * Find by album.getInfo
 			 */
-			return getValidAlbumByAlbumInfo(trackAlbum.getAlbumName(), trackAlbum.getArtistName(), Optional.of(trackAlbum.getSongName()));
+			Album a = getValidAlbumByAlbumInfo(trackAlbum.getAlbumName(), trackAlbum.getArtistName(), Optional.of(trackAlbum.getSongName()));
+			if(isValidAlbum(a)) {
+				return a;
+			}
+			
+			// Empty album with the name found
+			return new Album.Builder().name(trackAlbum.getAlbumName()).build();
 		}
-
+		
 		return null;
 	}
 	
-	private List<Album> getValidAlbumsByTrackSearch(String track, String artist) throws IOException {
-		String requestQuery = String.format(SEARCHTRACK_QUERY, track, artist);
-		List<Album> allAlbums = LastFmParser.parseSearchTrack(doHttpRequest(requestQuery));
+	private List<Album> getValidAlbumByAlbumSearch(Album album, String expectedArtist, String song) throws IOException {
+		String requestQuery = String.format(SEARCHALBUM_QUERY, hasAlbumName(album) ? album.getAlbumName() : song);
+		List<Album> allAlbums = LastFmParser.parseSearchAlbum(doHttpRequest(requestQuery));
 		
-		// Filter out all invalid albums
-		List<Album> albums = allAlbums.stream()
-				.filter(this::hasAlbumName)//
-				.filter(this::hasValidCoverArt)//
-				.collect(Collectors.toList());//
+		// A valid album will have the expected artist
+		List<Album> validAlbums =  allAlbums.stream()
+										.filter(a -> PhraseCalculator.phrase(a.getArtistName()).calculateSimilarityTo(expectedArtist) != PhraseMatch.DIFFERENT)
+										.filter(this::isValidAlbum)
+										.map(a -> new Album.Builder()
+														   .artistName(a.getArtistName())
+														   .songName(song)
+														   .name(a.getAlbumName())
+														   .coverArt(a.getCoverArt())
+														   .build()
+												)
+										.collect(Collectors.toList());
 		
-		if (log.isDebugEnabled() && !albums.isEmpty()) {
-			log.debug("Albums found throug track.search call.");
+		if (log.isDebugEnabled() && !validAlbums.isEmpty()) {
+			log.debug("Albums found throug album.search call.");
 		}
 		
-		return albums;
+		return validAlbums;
+		
 	}
 	
 	private String doHttpRequest(String request) throws IOException {
@@ -199,6 +213,10 @@ public class LastFmAlbumFinder implements AlbumFindable {
 	private boolean hasValidCoverArt(Album a) {
 		return a!= null &&  a.getCoverArt().isPresent() 
 				&& StringUtils.exists(a.getCoverArt().flatMap(CoverArt::getLargeUri).map(URI::toString));
+	}
+	
+	private boolean isValidAlbum(Album a) {
+		return a != null && hasAlbumName(a) && hasValidCoverArt(a);
 	}
 	
 	private void setCachedAlbums(List<Album> foundAlbums) {

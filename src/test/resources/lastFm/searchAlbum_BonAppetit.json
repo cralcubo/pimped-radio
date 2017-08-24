@@ -1,0 +1,336 @@
+{
+	"results": 
+	{
+		"opensearch:Query": 
+		{
+			"#text": "",
+			"role": "request",
+			"searchTerms": "Bon Appétit",
+			"startPage": "1"
+		},
+
+		"opensearch:totalResults": "415",
+		"opensearch:startIndex": "0",
+		"opensearch:itemsPerPage": "10",
+		"albummatches": 
+		{
+			"album": 
+			[
+				{
+					"name": "boN aPpéTIt",
+					"artist": "Katy Perry",
+					"url": "https://www.last.fm/music/Katy+Perry/boN+aPp%C3%A9TIt",
+					"image": 
+					[
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/34s/fd7203f71f88d640f5d5af2fcd739a43.png",
+							"size": "small"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/64s/fd7203f71f88d640f5d5af2fcd739a43.png",
+							"size": "medium"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/174s/fd7203f71f88d640f5d5af2fcd739a43.png",
+							"size": "large"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/300x300/fd7203f71f88d640f5d5af2fcd739a43.png",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Bon Appétit (feat. Migos) - Single",
+					"artist": "Katy Perry",
+					"url": "https://www.last.fm/music/Katy+Perry/Bon+App%C3%A9tit+(feat.+Migos)+-+Single",
+					"image": 
+					[
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/34s/a93a964bc5de20d9c1e1c731205fbb63.png",
+							"size": "small"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/64s/a93a964bc5de20d9c1e1c731205fbb63.png",
+							"size": "medium"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/174s/a93a964bc5de20d9c1e1c731205fbb63.png",
+							"size": "large"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/300x300/a93a964bc5de20d9c1e1c731205fbb63.png",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Bon Appétit (3LAU Remix)",
+					"artist": "Katy Perry",
+					"url": "https://www.last.fm/music/Katy+Perry/Bon+App%C3%A9tit+(3LAU+Remix)",
+					"image": 
+					[
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/34s/f6173406395c546d2c8299a3def0ac41.png",
+							"size": "small"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/64s/f6173406395c546d2c8299a3def0ac41.png",
+							"size": "medium"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/174s/f6173406395c546d2c8299a3def0ac41.png",
+							"size": "large"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/300x300/f6173406395c546d2c8299a3def0ac41.png",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Bon Appétit (Solo Version) - Single",
+					"artist": "Katy Perry",
+					"url": "https://www.last.fm/music/Katy+Perry/Bon+App%C3%A9tit+(Solo+Version)+-+Single",
+					"image": 
+					[
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/34s/0fab40f8d3143c23d57a73e7e99f284f.png",
+							"size": "small"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/64s/0fab40f8d3143c23d57a73e7e99f284f.png",
+							"size": "medium"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/174s/0fab40f8d3143c23d57a73e7e99f284f.png",
+							"size": "large"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/300x300/0fab40f8d3143c23d57a73e7e99f284f.png",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Bon Appétit (MUNA Remix)",
+					"artist": "Katy Perry",
+					"url": "https://www.last.fm/music/Katy+Perry/Bon+App%C3%A9tit+(MUNA+Remix)",
+					"image": 
+					[
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/34s/7323ae3d3c5ffd3361e86ce01f6ab52c.png",
+							"size": "small"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/64s/7323ae3d3c5ffd3361e86ce01f6ab52c.png",
+							"size": "medium"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/174s/7323ae3d3c5ffd3361e86ce01f6ab52c.png",
+							"size": "large"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/300x300/7323ae3d3c5ffd3361e86ce01f6ab52c.png",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Bon Appétit - Single",
+					"artist": "Katy Perry",
+					"url": "https://www.last.fm/music/Katy+Perry/Bon+App%C3%A9tit+-+Single",
+					"image": 
+					[
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/34s/6f52784addbd6979044975a3b681b374.png",
+							"size": "small"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/64s/6f52784addbd6979044975a3b681b374.png",
+							"size": "medium"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/174s/6f52784addbd6979044975a3b681b374.png",
+							"size": "large"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/300x300/6f52784addbd6979044975a3b681b374.png",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Bon Appétit (Martin Jensen Remix)",
+					"artist": "Katy Perry",
+					"url": "https://www.last.fm/music/Katy+Perry/Bon+App%C3%A9tit+(Martin+Jensen+Remix)",
+					"image": 
+					[
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/34s/35a5409e5fe8201744df7cb50031d7c4.png",
+							"size": "small"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/64s/35a5409e5fe8201744df7cb50031d7c4.png",
+							"size": "medium"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/174s/35a5409e5fe8201744df7cb50031d7c4.png",
+							"size": "large"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/300x300/35a5409e5fe8201744df7cb50031d7c4.png",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Bon Appétit",
+					"artist": "Katy Perry, Migos",
+					"url": "https://www.last.fm/music/Katy+Perry,+Migos/Bon+App%C3%A9tit",
+					"image": 
+					[
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/34s/ae61241c294bb39d8ee3242103ced443.png",
+							"size": "small"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/64s/ae61241c294bb39d8ee3242103ced443.png",
+							"size": "medium"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/174s/ae61241c294bb39d8ee3242103ced443.png",
+							"size": "large"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/300x300/ae61241c294bb39d8ee3242103ced443.png",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "Bon Appétit (feat. Migos)",
+					"artist": "Katy Perry",
+					"url": "https://www.last.fm/music/Katy+Perry/Bon+App%C3%A9tit+(feat.+Migos)",
+					"image": 
+					[
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/34s/3f0937ff3351e7312929ca66c7cda389.png",
+							"size": "small"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/64s/3f0937ff3351e7312929ca66c7cda389.png",
+							"size": "medium"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/174s/3f0937ff3351e7312929ca66c7cda389.png",
+							"size": "large"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/300x300/3f0937ff3351e7312929ca66c7cda389.png",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				},
+
+				{
+					"name": "France And French Cafe Accordion Music",
+					"artist": "Bon Appétit Musique",
+					"url": "https://www.last.fm/music/Bon+App%C3%A9tit+Musique/France+And+French+Cafe+Accordion+Music",
+					"image": 
+					[
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/34s/8bf8553c053989bf6d24202e48c9a3d9.png",
+							"size": "small"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/64s/8bf8553c053989bf6d24202e48c9a3d9.png",
+							"size": "medium"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/174s/8bf8553c053989bf6d24202e48c9a3d9.png",
+							"size": "large"
+						},
+
+						{
+							"#text": "https://lastfm-img2.akamaized.net/i/u/300x300/8bf8553c053989bf6d24202e48c9a3d9.png",
+							"size": "extralarge"
+						}
+					],
+
+					"streamable": "0",
+					"mbid": ""
+				}
+			]
+		},
+
+		"@attr": 
+		{
+			"for": "Bon Appétit"
+		}
+	}
+}

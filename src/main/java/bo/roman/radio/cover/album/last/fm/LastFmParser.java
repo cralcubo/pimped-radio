@@ -13,7 +13,9 @@ import com.google.gson.Gson;
 import bo.roman.radio.cover.model.Album;
 import bo.roman.radio.cover.model.CoverArt;
 import bo.roman.radio.cover.model.mapping.last.fm.AlbumInfoMapping;
+import bo.roman.radio.cover.model.mapping.last.fm.LastFmAlbum;
 import bo.roman.radio.cover.model.mapping.last.fm.LastFmImage;
+import bo.roman.radio.cover.model.mapping.last.fm.SearchAlbumMapping;
 import bo.roman.radio.cover.model.mapping.last.fm.SearchTrackMapping;
 import bo.roman.radio.cover.model.mapping.last.fm.TrackInfoMapping;
 import bo.roman.radio.utilities.LoggerUtils;
@@ -53,6 +55,21 @@ public class LastFmParser {
 					 .map(LastFmParser::convertTrackToAlbum)
 					 .collect(Collectors.toList());
 	}
+	
+	public static List<Album> parseSearchAlbum(String jsonResponse) {
+		LoggerUtils.logDebug(log, () -> "Parsing album.search request.");
+		LoggerUtils.logDebug(log, () -> jsonResponse);
+		SearchAlbumMapping mappingResults = gsonParser.fromJson(jsonResponse, SearchAlbumMapping.class);
+		List<LastFmAlbum> albums = Optional.ofNullable(mappingResults.results)
+														.map(r -> r.albummatches)
+														.map(am -> am.album)
+														.orElseGet(() -> Collections.emptyList());
+		
+		
+		return albums.stream()
+					 .map(LastFmParser::convertLastFmAlbumToAlbum)
+					 .collect(Collectors.toList());
+	}
 
 	public static Album parseTrackInfo(String jsonResponse) {
 		LoggerUtils.logDebug(log, () -> "Parsing track.getInfo request.");
@@ -80,7 +97,7 @@ public class LastFmParser {
 	 * Utilities
 	 */
 	
-	private static Album convertLastFmAlbumToAlbum(AlbumInfoMapping.Album album) {
+	private static Album convertLastFmAlbumToAlbum(LastFmAlbum album) {
 		if(album == null) {
 			return null;
 		}

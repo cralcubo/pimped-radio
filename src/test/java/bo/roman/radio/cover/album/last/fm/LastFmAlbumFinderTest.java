@@ -26,20 +26,24 @@ import bo.roman.radio.utilities.StringUtils;
 @PrepareForTest({ HttpUtils.class, SecretFileProperties.class, LastFmRequestsManager.class, AlbumRequestValidator.class })
 @SuppressStaticInitializationFor("bo.roman.radio.utilities.SecretFileProperties")
 public class LastFmAlbumFinderTest {
-	private static final String ST_INBLOOM = LastFmTestsUtils.RESOURCES_PATH + "searchTrack_InBloom.json";
-	private static final String ST_BONAPPETIT = LastFmTestsUtils.RESOURCES_PATH + "searchTrack_BonAppetit.json";
 
+	private static final String TI_INBLOOM_NOCOVER = LastFmTestsUtils.RESOURCES_PATH + "trackInfo_InBloomNoCover.json";
 	private final static String TI_INBLOOM = LastFmTestsUtils.RESOURCES_PATH + "trackInfo_InBloom.json";
 	private static final String TI_KASKADE = LastFmTestsUtils.RESOURCES_PATH + "trackInfo_Kaskade.json";
 	private static final String TI_BONAPPETIT = LastFmTestsUtils.RESOURCES_PATH + "trackInfo_BonAppetit.json";
 
+	private static final String SA_BONAPPETIT = LastFmTestsUtils.RESOURCES_PATH + "searchAlbum_BonAppetit.json";
+	private static final String SA_INBLOOM = LastFmTestsUtils.RESOURCES_PATH + "searchAlbum_InBloom.json";
+	private static final String SA_TOOSHORT = LastFmTestsUtils.RESOURCES_PATH + "searchAlbum_TooShort.json";
+	private static final String SA_NEVERMIND = LastFmTestsUtils.RESOURCES_PATH + "searchAlbum_Nevermind.json";
+	
 	private static final String AI_KASKADE = LastFmTestsUtils.RESOURCES_PATH + "albumInfo_Kaskade.json";
-
 	private static final String AISONG_BONAPPETIT = LastFmTestsUtils.RESOURCES_PATH + "albumInfo_SongBonAppetit.json";
+	private static final String AI_NEVERMIND_NOCOVER = LastFmTestsUtils.RESOURCES_PATH + "albumInfo_NevermindNoCover.json";
 
 	private static final String LASTFM_ERROR = LastFmTestsUtils.RESOURCES_PATH + "lastFmError.json";
 
-	private final String SEARCHTRACK_QUERY;
+	private final String SEARCHALBUM_QUERY;
 	private final String TRACKINFO_QUERY;
 	private final String ALBUMINFO_QUERY;
 
@@ -50,9 +54,9 @@ public class LastFmAlbumFinderTest {
 		PowerMockito.when(SecretFileProperties.get("lastfm.apiKey")).thenReturn("aKey");
 
 		finder = new LastFmAlbumFinder();
-		SEARCHTRACK_QUERY = (String) ReflectionUtils.getPrivateConstant(finder, "SEARCHTRACK_QUERY");
 		TRACKINFO_QUERY = (String) ReflectionUtils.getPrivateConstant(finder, "TRACKINFO_QUERY");
 		ALBUMINFO_QUERY = (String) ReflectionUtils.getPrivateConstant(finder, "ALBUMINFO_QUERY");
+		SEARCHALBUM_QUERY = (String) ReflectionUtils.getPrivateConstant(finder, "SEARCHALBUM_QUERY");
 	}
 
 	@Before
@@ -123,20 +127,84 @@ public class LastFmAlbumFinderTest {
 	}
 
 	@Test
-	public void testNoAlbumMultipleTracks() throws IOException {
+	public void testNoAlbumSearchAlbums() throws IOException {
 		String song = "Bon Appétit";
 		String artist = "Katy Perry";
 
 		PowerMockito.when(AlbumRequestValidator.getRequestStatus(song, artist)).thenReturn(RequestStatus.VALID);
 		String trackInfoQuery = String.format(TRACKINFO_QUERY, song, artist);
 		mockRequest(trackInfoQuery, TI_BONAPPETIT);
-		String searchTrackQuery = String.format(SEARCHTRACK_QUERY, song, artist);
-		mockRequest(searchTrackQuery, ST_BONAPPETIT);
-
+		
+		String searchAlbumsQuery = String.format(SEARCHALBUM_QUERY, song);
+		mockRequest(searchAlbumsQuery, SA_BONAPPETIT);
 		List<Album> albums = finder.findAlbums(song, artist);
 
 		// Assert
-		Assert.assertEquals("The number of albums expected failed.", 10, albums.size());
+		Assert.assertEquals("The number of albums expected failed.", 9, albums.size());
+		albums.forEach(this::assertIsValidAlbum);
+	}
+	
+	@Test
+	public void testNoAlbumSearchAlbumsSize() throws IOException {
+		String song = "Life Is...Too Short";
+		String artist = "Too Short";
+
+		PowerMockito.when(AlbumRequestValidator.getRequestStatus(song, artist)).thenReturn(RequestStatus.VALID);
+		String albumInfoRequest = String.format(ALBUMINFO_QUERY, song, artist);
+		mockRequest(albumInfoRequest, LASTFM_ERROR);
+		String songInfoReq = String.format(TRACKINFO_QUERY, song, artist);
+		mockRequest(songInfoReq, LASTFM_ERROR);
+		
+		String searchAlbumsQuery = String.format(SEARCHALBUM_QUERY, song);
+		mockRequest(searchAlbumsQuery, SA_TOOSHORT);
+		List<Album> albums = finder.findAlbums(song, artist);
+
+		// Assert
+		Assert.assertEquals("The number of albums expected failed.", 3, albums.size());
+		albums.forEach(this::assertIsValidAlbum);
+	}
+	
+	@Test
+	public void testAlbumNameSearchAlbums() throws IOException{
+		String song = "In Bloom";
+		String artist = "Nirvana";
+		String album = "Nevermind";
+		
+		PowerMockito.when(AlbumRequestValidator.getRequestStatus(song, artist)).thenReturn(RequestStatus.VALID);
+		String albumInfoRequest = String.format(ALBUMINFO_QUERY, song, artist);
+		mockRequest(albumInfoRequest, LASTFM_ERROR);
+		String songInfoReq = String.format(TRACKINFO_QUERY, song, artist);
+		mockRequest(songInfoReq, TI_INBLOOM_NOCOVER);
+		String albumInfoRequest2 = String.format(ALBUMINFO_QUERY, song, artist);
+		mockRequest(albumInfoRequest2, LASTFM_ERROR);
+		String searchAlbumsQuery = String.format(SEARCHALBUM_QUERY, album);
+		mockRequest(searchAlbumsQuery, SA_NEVERMIND);
+		List<Album> albums = finder.findAlbums(song, artist);
+		
+		// Assert
+		Assert.assertEquals("The number of albums expected failed.", 9, albums.size());
+		albums.forEach(this::assertIsValidAlbum);
+	}
+	
+	@Test
+	public void testAlbumNameSearchAlbums_AlbumInfoName() throws IOException{
+		String song = "In Bloom";
+		String artist = "Nirvana";
+		String album = "Nevermind";
+		
+		PowerMockito.when(AlbumRequestValidator.getRequestStatus(song, artist)).thenReturn(RequestStatus.VALID);
+		String albumInfoRequest = String.format(ALBUMINFO_QUERY, song, artist);
+		mockRequest(albumInfoRequest, LASTFM_ERROR);
+		String songInfoReq = String.format(TRACKINFO_QUERY, song, artist);
+		mockRequest(songInfoReq, TI_INBLOOM_NOCOVER);
+		String albumInfoRequest2 = String.format(ALBUMINFO_QUERY, song, artist);
+		mockRequest(albumInfoRequest2, AI_NEVERMIND_NOCOVER);
+		String searchAlbumsQuery = String.format(SEARCHALBUM_QUERY, album);
+		mockRequest(searchAlbumsQuery, SA_NEVERMIND);
+		List<Album> albums = finder.findAlbums(song, artist);
+		
+		// Assert
+		Assert.assertEquals("The number of albums expected failed.", 9, albums.size());
 		albums.forEach(this::assertIsValidAlbum);
 	}
 
@@ -166,8 +234,8 @@ public class LastFmAlbumFinderTest {
 		mockRequest(albumInfoRequest, LASTFM_ERROR);
 		String songInfoReq = String.format(TRACKINFO_QUERY, song, artist);
 		mockRequest(songInfoReq, LASTFM_ERROR);
-		String searchSongReq = String.format(SEARCHTRACK_QUERY, song, artist);
-		mockRequest(searchSongReq, LASTFM_ERROR);
+		String searchAlbumReq = String.format(SEARCHALBUM_QUERY, song, artist);
+		mockRequest(searchAlbumReq, LASTFM_ERROR);
 
 		List<Album> albums = finder.findAlbums(song, artist);
 
@@ -186,13 +254,13 @@ public class LastFmAlbumFinderTest {
 		String songInfoReq = String.format(TRACKINFO_QUERY, song, artist);
 		mockRequest(songInfoReq, LASTFM_ERROR);
 
-		String searchSongReq = String.format(SEARCHTRACK_QUERY, song, artist);
-		mockRequest(searchSongReq, ST_INBLOOM);
+		String searchSongReq = String.format(SEARCHALBUM_QUERY, song, artist);
+		mockRequest(searchSongReq, SA_INBLOOM);
 
 		List<Album> albums = finder.findAlbums(song, artist);
 
 		// Assertions
-		Assert.assertEquals(8, albums.size());
+		Assert.assertEquals(2, albums.size());
 		albums.forEach(a -> assertIsValidAlbum(a));
 	}
 

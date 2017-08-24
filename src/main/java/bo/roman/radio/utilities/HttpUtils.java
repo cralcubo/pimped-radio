@@ -49,7 +49,7 @@ public class HttpUtils {
 												   .build();
 		HttpGet get = new HttpGet(encodedUrl);
 		get.setConfig(requestConfig);
-		logDebug(LOGGER, () -> String.format("Executing request: %s", httpClient, get.getRequestLine()));
+		logDebug(LOGGER, () -> String.format("Executing request: %s", get.getRequestLine()));
 
 		String response = httpClient.execute(get, new MyResponseHandler());
 		logDebug(LOGGER, () -> "Response:" + response);
