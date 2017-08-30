@@ -166,7 +166,7 @@ public class LastFmAlbumFinder implements AlbumFindable {
 	}
 	
 	private List<Album> getValidAlbumByAlbumSearch(Album album, String expectedArtist, String song) throws IOException {
-		String requestQuery = String.format(SEARCHALBUM_QUERY, hasAlbumName(album) ? album.getAlbumName() : song);
+		String requestQuery = String.format(SEARCHALBUM_QUERY, hasAlbumName(album) ? album.getAlbumName() : song + " " + expectedArtist);
 		List<Album> allAlbums = LastFmParser.parseSearchAlbum(doHttpRequest(requestQuery));
 		
 		// A valid album will have the expected artist
