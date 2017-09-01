@@ -170,24 +170,37 @@ public class LastFmAlbumFinder implements AlbumFindable {
 		List<Album> allAlbums = LastFmParser.parseSearchAlbum(doHttpRequest(requestQuery));
 		
 		// A valid album will have the expected artist
-		List<Album> validAlbums =  allAlbums.stream()
-										.filter(a -> PhraseCalculator.phrase(a.getArtistName()).calculateSimilarityTo(expectedArtist) != PhraseMatch.DIFFERENT)
-										.filter(this::isValidAlbum)
-										.map(a -> new Album.Builder()
-														   .artistName(a.getArtistName())
-														   .songName(song)
-														   .name(a.getAlbumName())
-														   .coverArt(a.getCoverArt())
-														   .build()
-												)
-										.collect(Collectors.toList());
+		List<Album> validAlbums = allAlbums.stream()
+								.filter(a -> PhraseCalculator.phrase(a.getArtistName()).calculateSimilarityTo(expectedArtist) != PhraseMatch.DIFFERENT)
+								.filter(this::isValidAlbum)
+								  .map(a -> new Album.Builder()
+										   .artistName(a.getArtistName())
+										   .songName(song)
+										   .name(a.getAlbumName())
+										   .coverArt(a.getCoverArt())
+										   .build())
+								 .collect(Collectors.toList());
+		
+		if(validAlbums.isEmpty()) {
+			// Maybe we got swapped information song <-> artist from the music stream
+			validAlbums = allAlbums.stream()
+						  .filter(a -> PhraseCalculator.phrase(a.getArtistName()).calculateSimilarityTo(song) != PhraseMatch.DIFFERENT)
+						  .filter(this::isValidAlbum)
+						  .map(a -> new Album.Builder()
+										   .artistName(a.getArtistName())
+										   .songName(expectedArtist)
+										   .name(a.getAlbumName())
+										   .coverArt(a.getCoverArt())
+										   .build())
+						  .collect(Collectors.toList());
+		}
+		
 		
 		if (log.isDebugEnabled() && !validAlbums.isEmpty()) {
 			log.debug("Albums found throug album.search call.");
 		}
 		
 		return validAlbums;
-		
 	}
 	
 	private String doHttpRequest(String request) throws IOException {
