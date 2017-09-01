@@ -50,7 +50,6 @@ public class LastFmParser {
 														.map(r -> r.trackmatches)
 														.map(tm -> tm.track)
 														.orElseGet(() -> Collections.emptyList());
-		
 		return tracks.stream()
 					 .map(LastFmParser::convertTrackToAlbum)
 					 .collect(Collectors.toList());
@@ -64,11 +63,16 @@ public class LastFmParser {
 														.map(r -> r.albummatches)
 														.map(am -> am.album)
 														.orElseGet(() -> Collections.emptyList());
+		List<Album> allAlbums = albums.stream()
+									  .map(LastFmParser::convertLastFmAlbumToAlbum)
+									  .collect(Collectors.toList());
 		
+		LoggerUtils.logDebug(log, () -> allAlbums.size() + " found.");
+		if(log.isDebugEnabled()) {
+			allAlbums.forEach(a -> log.debug(a.toString()));
+		}
 		
-		return albums.stream()
-					 .map(LastFmParser::convertLastFmAlbumToAlbum)
-					 .collect(Collectors.toList());
+		return allAlbums;
 	}
 
 	public static Album parseTrackInfo(String jsonResponse) {
