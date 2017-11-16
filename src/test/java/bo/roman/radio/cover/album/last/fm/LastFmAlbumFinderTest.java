@@ -135,7 +135,7 @@ public class LastFmAlbumFinderTest {
 		String trackInfoQuery = String.format(TRACKINFO_QUERY, song, artist);
 		mockRequest(trackInfoQuery, TI_BONAPPETIT);
 		
-		String searchAlbumsQuery = String.format(SEARCHALBUM_QUERY, song);
+		String searchAlbumsQuery = String.format(SEARCHALBUM_QUERY, song + " " + artist);
 		mockRequest(searchAlbumsQuery, SA_BONAPPETIT);
 		List<Album> albums = finder.findAlbums(song, artist);
 
@@ -155,7 +155,7 @@ public class LastFmAlbumFinderTest {
 		String songInfoReq = String.format(TRACKINFO_QUERY, song, artist);
 		mockRequest(songInfoReq, LASTFM_ERROR);
 		
-		String searchAlbumsQuery = String.format(SEARCHALBUM_QUERY, song);
+		String searchAlbumsQuery = String.format(SEARCHALBUM_QUERY, song + " " + artist);
 		mockRequest(searchAlbumsQuery, SA_TOOSHORT);
 		List<Album> albums = finder.findAlbums(song, artist);
 
@@ -234,7 +234,7 @@ public class LastFmAlbumFinderTest {
 		mockRequest(albumInfoRequest, LASTFM_ERROR);
 		String songInfoReq = String.format(TRACKINFO_QUERY, song, artist);
 		mockRequest(songInfoReq, LASTFM_ERROR);
-		String searchAlbumReq = String.format(SEARCHALBUM_QUERY, song, artist);
+		String searchAlbumReq = String.format(SEARCHALBUM_QUERY, song + " " + artist);
 		mockRequest(searchAlbumReq, LASTFM_ERROR);
 
 		List<Album> albums = finder.findAlbums(song, artist);
@@ -254,7 +254,7 @@ public class LastFmAlbumFinderTest {
 		String songInfoReq = String.format(TRACKINFO_QUERY, song, artist);
 		mockRequest(songInfoReq, LASTFM_ERROR);
 
-		String searchSongReq = String.format(SEARCHALBUM_QUERY, song, artist);
+		String searchSongReq = String.format(SEARCHALBUM_QUERY, song + " " + artist);
 		mockRequest(searchSongReq, SA_INBLOOM);
 
 		List<Album> albums = finder.findAlbums(song, artist);
