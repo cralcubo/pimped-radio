@@ -39,11 +39,13 @@ public interface StringUtils {
 	}
 
 	/**
-	 * - Replace line.separator to space
-	 * - If val is URL encoded, decode it.
-	 * - If val is HTML encoded, decode it.
-	 * - If val has accents, remove them.
-	 * - Trim the val. 
+	 * <ul>
+	 * <li> Replace line.separator to space</li>
+	 * <li> If val is URL encoded, decode it.</li>
+	 * <li> If val is HTML encoded, decode it.</li>
+	 * <li> If val has accents, remove them.</li>
+	 * <li> Trim the val.
+	 * </ul> 
 	 * 
 	 * @param val
 	 * @return

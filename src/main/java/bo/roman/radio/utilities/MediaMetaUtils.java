@@ -13,8 +13,11 @@ import uk.co.caprica.vlcj.player.MediaMeta;
 public class MediaMetaUtils {
 	private final static Logger logger = LoggerFactory.getLogger(MediaMetaUtils.class);
 	
-	private static final String FROMSPACEDASH_REGEX = "(?<=-)\\s+.+$";
-	private static final String TILSPACEDASH_REGEX = "^.+?\\s+(?=-)";
+	private static final Pattern BEFOREDASH_PATTERN_SINGLE = Pattern.compile("^.+?\\s*(?=-)");
+	private static final Pattern AFTERDASH_PATTERN_SINGLE = Pattern.compile("(?<=-)\\s*.+$");
+	
+	private static final Pattern BEFOREDASH_PATTERN_MULTIPLE = Pattern.compile("^.+?\\s+(?=-)");
+	private static final Pattern AFTERDASH_PATTERN_MULTIPLE = Pattern.compile("(?<=-)\\s+.+$");
 	
 	/**
 	 * Get the information from the MetaData
@@ -52,9 +55,12 @@ public class MediaMetaUtils {
 	}
 
 	private static Optional<Song> parseNowPlaying(String nowPlaying) {
+		boolean multipleDash = nowPlaying.split("-").length > 2;
+		Pattern before = multipleDash ? BEFOREDASH_PATTERN_MULTIPLE : BEFOREDASH_PATTERN_SINGLE;
+		Pattern after = multipleDash ? AFTERDASH_PATTERN_MULTIPLE : AFTERDASH_PATTERN_SINGLE;
 		// Using regex to get the song and artist name
-		Matcher songMatcher = Pattern.compile(TILSPACEDASH_REGEX).matcher(nowPlaying);
-		Matcher artistMatcher = Pattern.compile(FROMSPACEDASH_REGEX).matcher(nowPlaying);
+		Matcher songMatcher = before.matcher(nowPlaying);
+		Matcher artistMatcher = after.matcher(nowPlaying);
 		if(songMatcher.find() && artistMatcher.find()) {
 			String artistName = songMatcher.group();
 			String songName = artistMatcher.group();
@@ -117,7 +123,9 @@ public class MediaMetaUtils {
 		String parsedRadioName = StringUtils.cleanIt(radioName);
 		
 		// Separate the radio name if there is in the middle a '-'
-		Matcher m = Pattern.compile(TILSPACEDASH_REGEX).matcher(parsedRadioName);
+		boolean multipleDashes = parsedRadioName.split("-").length > 2;
+		Pattern before = multipleDashes ? BEFOREDASH_PATTERN_MULTIPLE : BEFOREDASH_PATTERN_SINGLE;
+		Matcher m = before.matcher(parsedRadioName);
 		if(m.find()) {
 			parsedRadioName = m.group().trim();
 		}

@@ -30,6 +30,14 @@ public class MediaMetaUtilsTest {
 	}
 	
 	@Test
+	public void testNowPlayingNoSpaces() {
+		String song = "Escape me";
+		String artist = "Tiësto";
+		String nowPlaying = String.format("%s-%s", artist, song);
+		doTestNowPlaying(nowPlaying, song, "Tiesto");
+	}
+	
+	@Test
 	public void testNoArtist() {
 		String song = "a big song title without aritst";
 		String nowPlaying = song;
