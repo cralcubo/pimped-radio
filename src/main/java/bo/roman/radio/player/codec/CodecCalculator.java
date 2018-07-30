@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import bo.roman.radio.cover.model.Codec;
 import bo.roman.radio.player.model.CodecInformation;
 import bo.roman.radio.utilities.LoggerUtils;
 import uk.co.caprica.vlcj.binding.internal.libvlc_media_stats_t;
@@ -20,6 +21,43 @@ public class CodecCalculator {
 	private static final int ONE_KB = 8000;
 	
 	private static final float ERROR_MARGIN = 0.05f;
+	
+	public static Optional<Codec> calculateCodec(MediaPlayer mediaPlayer) {
+		if(mediaPlayer == null) {
+			log.error("There is no mediaPlayer to retrieve codec information.");
+			return Optional.empty();
+		}
+		
+		log.info("Retrieving CodecInformation.");
+		List<TrackInfo> trackInfos = mediaPlayer.getTrackInfo(TrackType.AUDIO);
+		if(trackInfos.isEmpty() || !(trackInfos.get(0) instanceof AudioTrackInfo)) {
+			log.info("There is no AudioTrackInfo to retrieve codec information.");
+			return Optional.empty();
+		}
+		AudioTrackInfo audioInfo = (AudioTrackInfo) trackInfos.get(0);
+		LoggerUtils.logDebug(log, () -> audioInfo.toString());
+		
+		String codecName = audioInfo.codecName();
+		float bitRate = audioInfo.bitRate() * 1.0f / 1000;
+		int channels = audioInfo.channels();
+		float sampleRate = audioInfo.rate() * 1.0f/ 1000;
+		
+		// If there is no bitrate we proceed to calculate it
+		// using the MediaStatistics provided by the MediaPlayer
+		if(bitRate <= 0) {
+			bitRate = calculateAverageBitRate(mediaPlayer);
+		}
+		
+		Codec codecInfo = new Codec.Builder()
+				.bitRate(bitRate)
+				.channels(channels)
+				.codec(codecName)
+				.sampleRate(sampleRate)
+				.build(); 
+		
+		log.info("Returning {}", codecInfo);
+		return Optional.of(codecInfo);
+	}
 	
 	public static Optional<CodecInformation> calculate(MediaPlayer mediaPlayer) {
 		if(mediaPlayer == null) {
