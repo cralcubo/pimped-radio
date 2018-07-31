@@ -38,12 +38,12 @@ public class ReactiveMediaEventListener extends MediaPlayerEventAdapter
 			logDebug(log, () -> "MediaMeta changed=" + meta);
 			final Optional<String> oRadioName = MediaMetaUtils.findRadioName(meta);
 			final Optional<Song> oSong = MediaMetaUtils.buildSong(meta);
-			final Optional<Codec> oCodec = CodecCalculator.calculateCodec(mediaPlayer);
+//			final Optional<Codec> oCodec = CodecCalculator.calculateCodec(mediaPlayer);
 			log.info("Changed MediaMeta. Radio[{}] and Song[{}]", oRadioName, oSong);
 			meta.release();
 
 			// Convert all the parsed info to MediaPlayerInformation an notify it
-			emitter.onNext(new MediaPlayerInformation(oCodec, oSong, oRadioName));
+			emitter.onNext(new MediaPlayerInformation(Optional.empty(), oSong, oRadioName));
 		}
 	}
 
