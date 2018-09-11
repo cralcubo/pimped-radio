@@ -36,7 +36,7 @@ public class MediaMetaUtils {
 	 * @param meta
 	 * @return
 	 */
-	public static Optional<Song> buildSong(MediaMeta meta) {
+	public static Optional<Song> parseBuildSong(MediaMeta meta) {
 		// Get the song artist
 		String songName = meta.getTitle();
 		String artistName = meta.getArtist();
@@ -112,7 +112,7 @@ public class MediaMetaUtils {
 	 * @param meta
 	 * @return
 	 */
-	public static Optional<String> findRadioName(MediaMeta meta) {
+	public static Optional<String> parseRadioName(MediaMeta meta) {
 		LoggerUtils.logDebug(logger, () -> "Parsing MetaTitle=" + meta.getTitle());
 		String radioName = meta.getTitle();
 		if(!StringUtils.exists(radioName)) {

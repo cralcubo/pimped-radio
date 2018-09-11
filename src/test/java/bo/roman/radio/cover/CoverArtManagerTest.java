@@ -19,6 +19,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import bo.roman.radio.cover.album.AlbumFindable;
@@ -28,9 +29,11 @@ import bo.roman.radio.cover.model.Radio;
 import bo.roman.radio.cover.station.CacheLogoUtil;
 import bo.roman.radio.cover.station.RadioStationFindable;
 import bo.roman.radio.utilities.ReflectionUtils;
+import bo.roman.radio.utilities.SecretFileProperties;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(CacheLogoUtil.class)
+@PrepareForTest({CacheLogoUtil.class, SecretFileProperties.class})
+@SuppressStaticInitializationFor("bo.roman.radio.utilities.SecretFileProperties")
 public class CoverArtManagerTest {
 	private ICoverArtManager manager;
 	
@@ -51,6 +54,8 @@ public class CoverArtManagerTest {
 	public void setUp() throws Exception {
 		manager = new CoverArtManager(albumFinder, radioFinder);
 		PowerMockito.mockStatic(CacheLogoUtil.class);
+		PowerMockito.mockStatic(SecretFileProperties.class);
+		when(SecretFileProperties.get("lastfm.apiKey")).thenReturn("aKey");
 	}
 	
 	@Test

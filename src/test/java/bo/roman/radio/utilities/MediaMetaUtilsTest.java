@@ -87,7 +87,7 @@ public class MediaMetaUtilsTest {
 		String artist = "&lt;Fran&ccedil;ais&gt;";
 		when(mediaMeta.getTitle()).thenReturn(song);
 		when(mediaMeta.getArtist()).thenReturn(artist);
-		Optional<Song> optSong = MediaMetaUtils.buildSong(mediaMeta);
+		Optional<Song> optSong = MediaMetaUtils.parseBuildSong(mediaMeta);
 		
 		assertThat(optSong.isPresent(), is(true));
 		Song songObj = optSong.get();
@@ -137,7 +137,7 @@ public class MediaMetaUtilsTest {
 		// Prepare Mock
 		when(mediaMeta.getTitle()).thenReturn(radioName);
 		// Run method to test
-		Optional<String> nameParsed = MediaMetaUtils.findRadioName(mediaMeta);
+		Optional<String> nameParsed = MediaMetaUtils.parseRadioName(mediaMeta);
 		// Asserts
 		assertThat(nameParsed, is(equalTo(radioNameExpected)));
 	}
@@ -146,7 +146,7 @@ public class MediaMetaUtilsTest {
 		when(mediaMeta.getTitle()).thenReturn(song);
 		when(mediaMeta.getArtist()).thenReturn(artist);
 		
-		Optional<Song> optSong = MediaMetaUtils.buildSong(mediaMeta);
+		Optional<Song> optSong = MediaMetaUtils.parseBuildSong(mediaMeta);
 		
 		assertThat(optSong.get().getName(), is(equalTo(song.trim())));
 		assertThat(optSong.get().getArtist(), is(equalTo(artist.trim())));
@@ -158,7 +158,7 @@ public class MediaMetaUtilsTest {
 		
 		when(mediaMeta.getNowPlaying()).thenReturn(nowPlaying);
 		
-		Optional<Song> optSong = MediaMetaUtils.buildSong(mediaMeta);
+		Optional<Song> optSong = MediaMetaUtils.parseBuildSong(mediaMeta);
 		
 		assertThat(optSong.get().getName(), is(equalTo(expectedSong.trim())));
 		assertThat(optSong.get().getArtist(), is(equalTo(expectedArtist.trim())));

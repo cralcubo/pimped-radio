@@ -1,35 +1,54 @@
 package bo.roman.radio.player.model;
 
-import java.util.Optional;
-
-import bo.roman.radio.cover.model.Codec;
-import bo.roman.radio.cover.model.Song;
+import static bo.roman.radio.utilities.StringUtils.nullIsEmpty;
 
 public class MediaPlayerInformation {
-	private final Optional<Codec> oCodec;
-	private final Optional<Song> oSong;
-	private final Optional<String> oRadioName;
-	
-	public MediaPlayerInformation(Optional<Codec> oCodec, Optional<Song> oSong, Optional<String> oRadioName) {
-		this.oCodec = oCodec;
-		this.oSong = oSong;
-		this.oRadioName = oRadioName;
-	}
-	
-	public Optional<Codec> getoCodec() {
-		return oCodec;
-	}
-	
-	public Optional<Song> getoSong() {
-		return oSong;
-	}
-	
-	public Optional<String> getoRadioName() {
-		return oRadioName;
+	private final String song;
+	private final String artist;
+	private final String radioName;
+
+	private MediaPlayerInformation(String song, String artist, String radioName) {
+		this.song = song;
+		this.artist = artist;
+		this.radioName = radioName;
 	}
 
-	@Override
-	public String toString() {
-		return "MediaPlayerInformation [oCodec=" + oCodec + ", oSong=" + oSong + ", oRadioName=" + oRadioName + "]";
+	public String getSong() {
+		return song;
 	}
+
+	public String getArtist() {
+		return artist;
+	}
+
+	public String getRadio() {
+		return radioName;
+	}
+
+	public static class Builder {
+		private String song;
+		private String artist;
+		private String radioName;
+
+		public Builder song(String val) {
+			song = nullIsEmpty(val);
+			return this;
+		}
+
+		public Builder artist(String val) {
+			artist = nullIsEmpty(val);
+			return this;
+		}
+
+		public Builder radioName(String val) {
+			radioName = nullIsEmpty(val);
+			return this;
+		}
+
+		public MediaPlayerInformation build() {
+			return new MediaPlayerInformation(song, artist, radioName);
+		}
+
+	}
+
 }

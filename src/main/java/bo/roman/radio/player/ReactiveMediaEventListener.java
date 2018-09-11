@@ -1,18 +1,18 @@
-package bo.roman.radio.player.listener;
+package bo.roman.radio.player;
 
 import static bo.roman.radio.utilities.LoggerUtils.logDebug;
+import static bo.roman.radio.utilities.MediaMetaUtils.parseBuildSong;
+import static bo.roman.radio.utilities.MediaMetaUtils.parseRadioName;
 
 import java.util.Optional;
+import java.util.function.Function;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import bo.roman.radio.cover.model.Codec;
 import bo.roman.radio.cover.model.Song;
-import bo.roman.radio.player.codec.CodecCalculator;
-import bo.roman.radio.player.exception.RadioStopException;
+import bo.roman.radio.player.exception.RadioStopedException;
 import bo.roman.radio.player.model.MediaPlayerInformation;
-import bo.roman.radio.utilities.MediaMetaUtils;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import uk.co.caprica.vlcj.player.MediaMeta;
@@ -36,28 +36,30 @@ public class ReactiveMediaEventListener extends MediaPlayerEventAdapter
 		if (metaType == METATYPE_NOWPLAYING) { // 12 -> Changed NowPlying
 			MediaMeta meta = mediaPlayer.getMediaMeta();
 			logDebug(log, () -> "MediaMeta changed=" + meta);
-			final Optional<String> oRadioName = MediaMetaUtils.findRadioName(meta);
-			final Optional<Song> oSong = MediaMetaUtils.buildSong(meta);
-//			final Optional<Codec> oCodec = CodecCalculator.calculateCodec(mediaPlayer);
-			log.info("Changed MediaMeta. Radio[{}] and Song[{}]", oRadioName, oSong);
+			Optional<Song> oSong = parseBuildSong(meta);
+			Optional<String> oRadioName = parseRadioName(meta);
 			meta.release();
 
-			// Convert all the parsed info to MediaPlayerInformation an notify it
-			emitter.onNext(new MediaPlayerInformation(Optional.empty(), oSong, oRadioName));
+			Function<Optional<String>, String> orNull = o -> o.orElse(null);
+			String song = orNull.apply(oSong.map(Song::getName));
+			String artist = orNull.apply(oSong.map(Song::getArtist));
+			String radio = orNull.apply(oRadioName);
+
+			emitter.onNext(new MediaPlayerInformation.Builder()//
+					.artist(artist)//
+					.song(song)//
+					.radioName(radio)//
+					.build());
 		}
 	}
 
 	@Override
 	public void error(MediaPlayer mediaPlayer) {
 		log.info("Error detected while playing the radio.");
-		final Optional<String> streamUrl = Optional.ofNullable(mediaPlayer.getMediaMeta())//
-				.map(MediaMeta::getTitle);
-		
-		final Optional<String> radio = MediaMetaUtils.findRadioName(mediaPlayer.getMediaMeta());
-
-		emitter.onError(new RadioStopException(streamUrl, radio));
+		emitter.onError(
+				new RadioStopedException(parseRadioName(mediaPlayer.getMediaMeta()).orElseGet(() -> "unknown")));
 	}
-	
+
 	@Override
 	public void stopped(MediaPlayer mediaPlayer) {
 		log.info("Radio stopped.");

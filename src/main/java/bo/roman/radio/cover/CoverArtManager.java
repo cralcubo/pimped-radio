@@ -1,13 +1,15 @@
 package bo.roman.radio.cover;
 
+import static bo.roman.radio.utilities.StringUtils.exists;
 import static bo.roman.radio.utilities.StringUtils.removeBracketsInfo;
 import static bo.roman.radio.utilities.StringUtils.removeFeatureInfo;
+import static java.util.Optional.empty;
+import static java.util.stream.Collectors.toList;
 
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,9 +24,8 @@ import bo.roman.radio.cover.station.CacheLogoUtil;
 import bo.roman.radio.cover.station.FacebookRadioStationFinder;
 import bo.roman.radio.cover.station.RadioStationFindable;
 import bo.roman.radio.utilities.LoggerUtils;
-import bo.roman.radio.utilities.StringUtils;
 
-public class CoverArtManager implements ICoverArtManager {
+class CoverArtManager implements ICoverArtManager {
 	private final static Logger log = LoggerFactory.getLogger(CoverArtManager.class);
 	
 	private final AlbumFindable albumFinder;
@@ -41,6 +42,11 @@ public class CoverArtManager implements ICoverArtManager {
 
 	@Override
 	public Optional<Album> getAlbumWithCover(String song, String artist) {
+		if (!exists(song) || !exists(artist)) {
+			// We need a song and artist to find an album
+			return empty();
+		}
+		
 		// Clean song and artist from info in brackets or featuring info
 		// to have a better Album search.
 		LoggerUtils.logDebug(log, () -> String.format("Cleaning brackets and feat. info from: [%s] - [%s]", song, artist));
@@ -50,12 +56,13 @@ public class CoverArtManager implements ICoverArtManager {
 		
 		log.info("Finding Album for [{} - {}]", cSong, cArtist);
 		
-		// Get all the albums found in Amazon and give priority to the albums name 
+		// Get all the albums found in the provider and give priority to the albums name 
 		// that have the same name as the song that was used to find it.
 		final AlbumComparator albumComparator = new AlbumComparator(song, artist);
-		List<Album> allAlbums = albumFinder.findAlbums(cSong, cArtist).stream()
-											.sorted(albumComparator)
-											.collect(Collectors.toList());
+		List<Album> allAlbums = albumFinder.findAlbums(cSong, cArtist).stream()//
+											.sorted(albumComparator)//
+											.collect(toList());
+		
 		log.info("{} albums found.", allAlbums.size());
 		if(log.isDebugEnabled()) {
 			allAlbums.forEach(a -> log.debug(a.toString()));
@@ -74,7 +81,7 @@ public class CoverArtManager implements ICoverArtManager {
 
 	@Override
 	public Optional<Radio> getRadioWithLogo(String radioName) {
-		if (!StringUtils.exists(radioName)) {
+		if (!exists(radioName)) {
 			log.info("There is no radioName to find a Radio.");
 			return Optional.empty();
 		}

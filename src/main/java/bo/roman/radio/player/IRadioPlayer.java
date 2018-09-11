@@ -1,8 +1,14 @@
 package bo.roman.radio.player;
 
-import uk.co.caprica.vlcj.player.MediaPlayerEventAdapter;
+import java.util.Optional;
+
+import bo.roman.radio.player.model.CodecInformation;
+import bo.roman.radio.player.model.MediaPlayerInformation;
+import io.reactivex.Observable;
 
 public interface IRadioPlayer {
+	// The radio player will be a singleton
+	static IRadioPlayer getInstance = new RadioPlayer();
 	
 	/**
 	 * Start playing a stream.
@@ -22,20 +28,22 @@ public interface IRadioPlayer {
 	void close();
 	
 	/**
-	 * Add events listener to 
-	 * decide what to do when the RadioPlayer is playing
-	 * is stopped, MediaMeta changed, errors, etc.
-	 * 
-	 * @param eventsAdapter
-	 */
-	void addEventsListener(MediaPlayerEventAdapter eventsAdapter);
-	
-	/**
 	 * Set the audio volume of the 
 	 * Media Player.
 	 * 
 	 * @param vol must be a number between 0 and 100
 	 */
 	void setVolume(int vol);
+	
+	/**
+	 * Calculate the codec of the media currently played.
+	 */
+	Optional<CodecInformation> calculateCodec();
+	
+	/**
+	 * Creates an observable that will stream all the mediaMeta change events
+	 * 
+	 */
+	Observable<MediaPlayerInformation> getMediaObservable();
 
 }
