@@ -2,7 +2,7 @@ package bo.roman.radio.player;
 
 import java.util.Optional;
 
-import bo.roman.radio.player.model.CodecInformation;
+import bo.roman.radio.player.model.Codec;
 import bo.roman.radio.player.model.MediaPlayerInformation;
 import io.reactivex.Observable;
 
@@ -38,7 +38,7 @@ public interface IRadioPlayer {
 	/**
 	 * Calculate the codec of the media currently played.
 	 */
-	Optional<CodecInformation> calculateCodec();
+	Optional<Codec> calculateCodec();
 	
 	/**
 	 * Creates an observable that will stream all the mediaMeta change events

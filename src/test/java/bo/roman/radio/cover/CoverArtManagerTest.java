@@ -183,12 +183,7 @@ public class CoverArtManagerTest {
 		Optional<Radio> oRadio = manager.getRadioWithLogo(testRadioName);
 		
 		// Assert
-		assertThat(oRadio.isPresent(), is(true));
-		
-		Radio expectedRadio = new Radio(testRadioName, Optional.empty());
-		Radio radioFound = oRadio.get();
-		
-		assertThat(radioFound, is(equalTo(expectedRadio)));
+		assertThat(oRadio.isPresent(), is(false));
 	}
 	
 	@Test

@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import bo.roman.radio.player.codec.CodecCalculator;
-import bo.roman.radio.player.model.CodecInformation;
+import bo.roman.radio.player.model.Codec;
 import bo.roman.radio.player.model.MediaPlayerInformation;
 import bo.roman.radio.utilities.LoggerUtils;
 import io.reactivex.Observable;
@@ -73,7 +73,7 @@ class RadioPlayer implements IRadioPlayer {
 	}
 
 	@Override
-	public Optional<CodecInformation> calculateCodec() {
+	public Optional<Codec> calculateCodec() {
 		return CodecCalculator.calculate(mediaPlayer);
 	}
 

@@ -100,9 +100,9 @@ class CoverArtManager implements ICoverArtManager {
 			return oRadio;
 		}
 
-		// Radio logo is not cached and was not found on internet
-		// return default app logo.
-		return Optional.of(new Radio(radioName, Optional.empty()));
+		// no radio found
+		log.info("No info found for radio:" + radioName);
+		return Optional.empty();
 	}
 	
 	private class CoverArtProportionsComparator implements Comparator<Album>{

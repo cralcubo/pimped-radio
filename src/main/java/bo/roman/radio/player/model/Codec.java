@@ -1,12 +1,12 @@
 package bo.roman.radio.player.model;
 
-public class CodecInformation {
+public class Codec {
 	private final String codec;
 	private final int channels;
 	private final float sampleRate;
 	private final float bitRate;
 
-	private CodecInformation(Builder b) {
+	private Codec(Builder b) {
 		codec = b.codec;
 		channels = b.channels;
 		sampleRate = b.sampleRate;
@@ -61,8 +61,8 @@ public class CodecInformation {
 			return this;
 		}
 
-		public CodecInformation build() {
-			return new CodecInformation(this);
+		public Codec build() {
+			return new Codec(this);
 		}
 
 	}

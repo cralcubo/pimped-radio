@@ -16,7 +16,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import bo.roman.radio.player.model.CodecInformation;
+import bo.roman.radio.player.model.Codec;
 import uk.co.caprica.vlcj.binding.internal.libvlc_media_stats_t;
 import uk.co.caprica.vlcj.player.AudioTrackInfo;
 import uk.co.caprica.vlcj.player.MediaPlayer;
@@ -51,11 +51,11 @@ public class CodecCalculatorTest {
 		// Prepare Mock
 		prepareAudioInfoMock(testBitRate, testCodecName, testChannels, testSampleRate);
 		
-		Optional<CodecInformation> oInfo = CodecCalculator.calculate(mediaPlayer);
+		Optional<Codec> oInfo = CodecCalculator.calculate(mediaPlayer);
 		
 		// Assertions
 		assertThat(oInfo.isPresent(), is(true));
-		CodecInformation ci = oInfo.get();
+		Codec ci = oInfo.get();
 		float bitRateExp = testBitRate / 1000;
 		assertThat(ci.getBitRate(), is(bitRateExp));
 		assertThat(ci.getCodec(), is(testCodecName));
@@ -89,12 +89,12 @@ public class CodecCalculatorTest {
 		stats3.f_demux_bitrate = 0.039846577f;
 		when(mediaPlayer.getMediaStatistics()).thenReturn(stats, stats1, stats2, stats3);
 
-		Optional<CodecInformation> oInfo = CodecCalculator.calculate(mediaPlayer);
+		Optional<Codec> oInfo = CodecCalculator.calculate(mediaPlayer);
 
 		// Assertions
 		assertThat(oInfo.isPresent(), is(true));
 		
-		CodecInformation ci = oInfo.get();
+		Codec ci = oInfo.get();
 		assertThat(ci.getBitRate() >= 310 && ci.getBitRate() <= 330, is(true));
 		
 		assertThat(ci.getCodec(), is(testCodecName));
@@ -113,7 +113,7 @@ public class CodecCalculatorTest {
 		List<TrackInfo> infos = Arrays.asList(videoInfo);
 		when(mediaPlayer.getTrackInfo(TrackType.AUDIO)).thenReturn(infos);
 		
-		Optional<CodecInformation> oInfo = CodecCalculator.calculate(mediaPlayer);
+		Optional<Codec> oInfo = CodecCalculator.calculate(mediaPlayer);
 		assertThat("No AudioTrackInfo found then no CodecInfo expected.", oInfo.isPresent(), is(false));
 	}
 	
