@@ -27,7 +27,8 @@ public class CodecCalculator {
 	
 	private static Optional<Codec> retryMechanism(Optional<Codec> codec, int counter, MediaPlayer mediaPlayer) {
 		LoggerUtils.logDebug(log, () -> "["+counter+"] Calculating codec...");
-		if(counter >= 3) {
+		if(counter >= 5) {
+			log.error("It was not possible to calculate the codec information");
 			return Optional.empty();
 		}
 		
