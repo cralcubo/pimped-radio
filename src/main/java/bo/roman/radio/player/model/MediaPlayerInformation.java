@@ -49,6 +49,43 @@ public class MediaPlayerInformation {
 			return new MediaPlayerInformation(song, artist, radioName);
 		}
 
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((artist == null) ? 0 : artist.hashCode());
+			result = prime * result + ((radioName == null) ? 0 : radioName.hashCode());
+			result = prime * result + ((song == null) ? 0 : song.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Builder other = (Builder) obj;
+			if (artist == null) {
+				if (other.artist != null)
+					return false;
+			} else if (!artist.equals(other.artist))
+				return false;
+			if (radioName == null) {
+				if (other.radioName != null)
+					return false;
+			} else if (!radioName.equals(other.radioName))
+				return false;
+			if (song == null) {
+				if (other.song != null)
+					return false;
+			} else if (!song.equals(other.song))
+				return false;
+			return true;
+		}
+
 	}
 
 }
