@@ -1,4 +1,4 @@
-package bo.roman.radio.cover.station;
+package bo.roman.radio.cover.station.facebook;
 
 import static bo.roman.radio.utilities.LoggerUtils.logDebug;
 

@@ -15,6 +15,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
+import bo.roman.radio.cover.station.facebook.FacebookUtil;
 import bo.roman.radio.utilities.HttpUtils;
 import bo.roman.radio.utilities.ReflectionUtils;
 import bo.roman.radio.utilities.SecretFileProperties;

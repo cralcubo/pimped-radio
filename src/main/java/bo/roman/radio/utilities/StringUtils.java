@@ -15,6 +15,9 @@ public interface StringUtils {
 	static final String BRACKETS_REGEX = "(?<=[\\w\\s])[\\(|\\[].*[\\)|\\]].*";
 	static final String FEATURING_REGEX = "(?i)(?<=.)(\\s+(ft\\.|ft|feat\\.|feat|featuring|feature|f/|f\\.).*)";
 	
+	/**
+	 * @return True if {@code val} is non null and non empty
+	 */
 	static boolean exists(String val) {
 		return val != null && !val.trim().isEmpty();
 	}

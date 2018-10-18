@@ -21,6 +21,8 @@ import org.powermock.core.classloader.annotations.SuppressStaticInitializationFo
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import bo.roman.radio.cover.model.Radio;
+import bo.roman.radio.cover.station.facebook.FacebookRadioStationFinder;
+import bo.roman.radio.cover.station.facebook.FacebookUtil;
 import bo.roman.radio.utilities.ReflectionUtils;
 
 @RunWith(PowerMockRunner.class)
