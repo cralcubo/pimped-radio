@@ -95,7 +95,6 @@ class CoverArtManager implements ICoverArtManager {
 		}
 
 		// Logo is not cached, send a query to retrieve it
-
 		Optional<Radio> oRadio = findRadio(radioName);
 		if (oRadio.isPresent()) {
 			// If the logo of the radio was found cache it

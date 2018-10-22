@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.apache.http.client.ClientProtocolException;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
@@ -20,6 +21,7 @@ import bo.roman.radio.utilities.HttpUtils;
 import bo.roman.radio.utilities.ReflectionUtils;
 import bo.roman.radio.utilities.SecretFileProperties;
 
+@Ignore
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({HttpUtils.class, SecretFileProperties.class})
 @SuppressStaticInitializationFor("bo.roman.radio.utilities.SecretFileProperties")

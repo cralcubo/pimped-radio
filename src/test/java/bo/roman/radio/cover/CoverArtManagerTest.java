@@ -1,8 +1,8 @@
 package bo.roman.radio.cover;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.mockito.Mockito.when;
 
 import java.net.URI;
@@ -175,12 +175,13 @@ public class CoverArtManagerTest {
 	
 	@Test
 	public void testGetRadio_notFound() throws Exception {
+		String radioName = "non_existent";
 		// Prepare Mock
-		PowerMockito.when(CacheLogoUtil.isCached(testRadioName)).thenReturn(false);
+		PowerMockito.when(CacheLogoUtil.isCached(radioName)).thenReturn(false);
 		
-		when(radioFinder.findRadioStation(testRadioName)).thenReturn(Optional.empty());
+		when(radioFinder.findRadioStation(radioName)).thenReturn(Optional.empty());
 		
-		Optional<Radio> oRadio = manager.getRadioWithLogo(testRadioName);
+		Optional<Radio> oRadio = manager.getRadioWithLogo(radioName);
 		
 		// Assert
 		assertThat(oRadio.isPresent(), is(false));

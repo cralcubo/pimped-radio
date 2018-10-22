@@ -13,6 +13,7 @@ import java.nio.file.Paths;
 import java.util.Optional;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
@@ -25,6 +26,7 @@ import bo.roman.radio.cover.station.facebook.FacebookRadioStationFinder;
 import bo.roman.radio.cover.station.facebook.FacebookUtil;
 import bo.roman.radio.utilities.ReflectionUtils;
 
+@Ignore
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(FacebookUtil.class)
 @SuppressStaticInitializationFor("bo.roman.radio.cover.station.FacebookUtil")
