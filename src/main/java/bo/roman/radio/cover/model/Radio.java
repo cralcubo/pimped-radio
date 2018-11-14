@@ -110,12 +110,14 @@ public class Radio {
 	public String toString() {
 		return "Radio [name=" + name + ", id=" + id + ", category=" + category + ", logoUrl=" + getLogoUri() + ", streamUrl=" + streamUrl + "]";
 	}
-		
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((streamUrl == null) ? 0 : streamUrl.hashCode());
 		return result;
 	}
 
@@ -133,6 +135,16 @@ public class Radio {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (streamUrl == null) {
+			if (other.streamUrl != null)
+				return false;
+		} else if (!streamUrl.equals(other.streamUrl))
+			return false;
 		return true;
 	}
 
@@ -142,7 +154,7 @@ public class Radio {
 		private String category;
 		private String streamUrl;
 		private Picture picture;
-		private Optional<URI> logoUri;
+		private Optional<URI> logoUri = Optional.empty();
 		
 		public Builder logoUri(Optional<URI> val) {
 			this.logoUri = val;

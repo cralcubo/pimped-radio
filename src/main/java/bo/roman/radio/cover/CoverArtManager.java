@@ -108,10 +108,15 @@ class CoverArtManager implements ICoverArtManager {
 	}
 
 	private Optional<Radio> findRadio(String radioName) {
+		log.info("Finding radio information for: " + radioName);
 		switch (StationFinderRequestValidator.validate(radioName)) {
 		case VALID:
-			return radioFinder.findRadioStation(radioName);
+			LoggerUtils.logDebug(log, () -> "Querying radio information");
+			 Optional<Radio> r = radioFinder.findRadioStation(radioName);
+			 radioFinder.setCacheRadio(r);
+			 return r;
 		case REPEATED:
+			LoggerUtils.logDebug(log, () -> "Retrieving cached radio because of repeated request");
 			return radioFinder.getCachedRadio();
 		default:
 			// No valid request

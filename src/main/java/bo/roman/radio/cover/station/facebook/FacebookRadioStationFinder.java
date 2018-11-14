@@ -38,6 +38,11 @@ public class FacebookRadioStationFinder implements RadioStationFindable {
 	public Optional<Radio> getCachedRadio() {
 		return cachedRadio;
 	}
+	
+	@Override
+	public void setCacheRadio(Optional<Radio> radio) {
+		this.cachedRadio = radio;
+	}
 
 	@Override
 	public Optional<Radio> findRadioStation(String radioName) {

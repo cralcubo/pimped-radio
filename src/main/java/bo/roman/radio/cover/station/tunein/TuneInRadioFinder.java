@@ -1,7 +1,6 @@
 package bo.roman.radio.cover.station.tunein;
 
 import static bo.roman.radio.utilities.StringUtils.exists;
-import static java.util.Optional.empty;
 import static java.util.stream.Collectors.groupingBy;
 
 import java.io.IOException;
@@ -43,24 +42,25 @@ public class TuneInRadioFinder implements RadioStationFindable {
 	public Optional<Radio> getCachedRadio() {
 		return cachedRadio;
 	}
+	
+	@Override
+	public void setCacheRadio(Optional<Radio> radio) {
+		this.cachedRadio = radio;
+	}
 
 	@Override
 	public Optional<Radio> findRadioStation(String radioName) {
-		Optional<Radio> radio;
 		// Do a HttpRequest to TuneIn
 		try {
 			TuneInStations stations = parseResponse(HttpUtils.doGet(TUNEIN_URL + radioName));
 			// Find the best radio retrieved from TuneIn
-			radio = findBestRadio(stations, radioName);
+			return findBestRadio(stations, radioName);
 		} catch (IOException e) {
 			log.error("There was an error sending a radio request to TuneIn");
-			radio = empty();
 		} catch (NoJsonException e) {
 			log.warn("No JSON content was found querying for the radio: " + radioName);
-			radio = empty();
 		}
-		cachedRadio = radio;
-		return radio;
+		return Optional.empty();
 	}
 
 	private Optional<Radio> findBestRadio(TuneInStations tuneinData, String radioName) {

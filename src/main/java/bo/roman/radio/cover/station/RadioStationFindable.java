@@ -9,5 +9,7 @@ public interface RadioStationFindable {
 	Optional<Radio> findRadioStation(String radioName);
 
 	Optional<Radio> getCachedRadio();
+	
+	void setCacheRadio(Optional<Radio> radio);
 
 }

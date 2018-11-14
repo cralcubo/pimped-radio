@@ -44,7 +44,6 @@ public class Album {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((artistName == null) ? 0 : artistName.hashCode());
-		result = prime * result + ((coverArt == null) ? 0 : coverArt.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((songName == null) ? 0 : songName.hashCode());
 		return result;
@@ -64,11 +63,6 @@ public class Album {
 				return false;
 		} else if (!artistName.equals(other.artistName))
 			return false;
-		if (coverArt == null) {
-			if (other.coverArt != null)
-				return false;
-		} else if (!coverArt.equals(other.coverArt))
-			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -81,6 +75,7 @@ public class Album {
 			return false;
 		return true;
 	}
+
 
 	public static class Builder {
 		private String artistName;
