@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,14 +36,14 @@ public class TuneInRadioFinder implements RadioStationFindable {
 	private static final String CONTAINERTYPE_STATIONS = "Stations";
 
 	private static Gson parser = new Gson();
-	
+
 	private Optional<Radio> cachedRadio = Optional.empty();
-	
+
 	@Override
 	public Optional<Radio> getCachedRadio() {
 		return cachedRadio;
 	}
-	
+
 	@Override
 	public void setCacheRadio(Optional<Radio> radio) {
 		this.cachedRadio = radio;
@@ -64,28 +65,38 @@ public class TuneInRadioFinder implements RadioStationFindable {
 	}
 
 	private Optional<Radio> findBestRadio(TuneInStations tuneinData, String radioName) {
-		Map<PhraseMatch, List<Children>> stations = tuneinData.searchResults.containerItems.stream()//
+		List<Children> allStations = tuneinData.searchResults.containerItems.stream()//
 				.filter(ci -> ci.containerType.equals(CONTAINERTYPE_STATIONS))//
 				.flatMap(ci -> ci.children.stream())//
 				.filter(c -> exists(c.image) && exists(c.title))//
+				.collect(Collectors.toList());
+		// If tuneIn returned only one station, we trust that their searching engine
+		// is way sophisticated than ours, therefore we return it as a match for the
+		// station to find
+
+		if (allStations != null && allStations.size() == 1) {
+			return toRadio(allStations.get(0));
+		}
+
+		Map<PhraseMatch, List<Children>> stations = allStations.stream()//
 				.collect(
 						groupingBy(station -> PhraseCalculator.phrase(radioName).calculateSimilarityTo(station.title)));
-		
+
 		Predicate<PhraseMatch> nonNullEmpty = pm -> stations.get(pm) != null && !stations.get(pm).isEmpty();
-		
+
 		if (nonNullEmpty.test(PhraseMatch.EXACT)) {
 			log.info("Exact match found for {}", radioName);
 			return toRadio(stations.get(PhraseMatch.EXACT).get(0));
 		}
 
-		if (nonNullEmpty.test(PhraseMatch.SIMILAR)) {
-			log.info("Similar match found for {}", radioName);
-			return toRadio(stations.get(PhraseMatch.SIMILAR).get(0));
-		}
-
 		if (nonNullEmpty.test(PhraseMatch.SAME_BEGIN)) {
 			log.info("Same begin match found for {}", radioName);
 			return toRadio(stations.get(PhraseMatch.SAME_BEGIN).get(0));
+		}
+
+		if (nonNullEmpty.test(PhraseMatch.SIMILAR)) {
+			log.info("Similar match found for {}", radioName);
+			return toRadio(stations.get(PhraseMatch.SIMILAR).get(0));
 		}
 
 		// No radio found
