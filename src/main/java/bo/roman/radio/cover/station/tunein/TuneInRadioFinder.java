@@ -1,6 +1,7 @@
 package bo.roman.radio.cover.station.tunein;
 
 import static bo.roman.radio.utilities.StringUtils.exists;
+import static bo.roman.radio.utilities.StringUtils.removeBracketsInfo;
 import static java.util.stream.Collectors.groupingBy;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ import bo.roman.radio.cover.station.tunein.TuneInStations.SearchResults.Containe
 import bo.roman.radio.utilities.HttpUtils;
 import bo.roman.radio.utilities.PhraseCalculator;
 import bo.roman.radio.utilities.PhraseCalculator.PhraseMatch;
+import bo.roman.radio.utilities.StringUtils;
 
 public class TuneInRadioFinder implements RadioStationFindable {
 	private static final Logger log = LoggerFactory.getLogger(TuneInRadioFinder.class);
@@ -51,6 +53,8 @@ public class TuneInRadioFinder implements RadioStationFindable {
 
 	@Override
 	public Optional<Radio> findRadioStation(String radioName) {
+		// clean extra information added on brackets or parenthesis
+		radioName = removeBracketsInfo(radioName);
 		// Do a HttpRequest to TuneIn
 		try {
 			TuneInStations stations = parseResponse(HttpUtils.doGet(TUNEIN_URL + radioName));

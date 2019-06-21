@@ -1,5 +1,6 @@
 package bo.roman.radio.cover.station.tunein;
 
+import static bo.roman.radio.utilities.StringUtils.removeBracketsInfo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertTrue;
@@ -21,6 +22,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import bo.roman.radio.cover.model.Radio;
 import bo.roman.radio.utilities.HttpUtils;
 import bo.roman.radio.utilities.SecretFileProperties;
+import bo.roman.radio.utilities.StringUtils;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ HttpUtils.class, SecretFileProperties.class })
@@ -64,6 +66,22 @@ public class TuneInRadioFinderTest {
 		assertTrue(found.isPresent());
 		Radio r = found.get();
 		assertThat(r.getName(), is(radioName));
+		URI expectedUri = new URI("https:\u002F\u002Fcdn-radiotime-logos.tunein.com\u002Fs13606q.png");
+		assertThat(r.getLogoUri().get().toString(), is(expectedUri.toString()));
+	}
+	
+	@Test
+	public void findStationBrackets() throws Exception {
+		String radioName = "Radio Paradise (320Kbps)";
+		// we expect a removal of useless information before sending a request to tuneIn
+		PowerMockito.when(HttpUtils.doGet(TUNEIN_URL + removeBracketsInfo(radioName))).thenReturn(readFile(radioParadise));
+
+		Optional<Radio> found = finder.findRadioStation(radioName);
+
+		// Assertions
+		assertTrue(found.isPresent());
+		Radio r = found.get();
+		assertThat(r.getName(), is("Radio Paradise"));
 		URI expectedUri = new URI("https:\u002F\u002Fcdn-radiotime-logos.tunein.com\u002Fs13606q.png");
 		assertThat(r.getLogoUri().get().toString(), is(expectedUri.toString()));
 	}
@@ -138,7 +156,7 @@ public class TuneInRadioFinderTest {
 
 	@Test
 	public void findStationSameBeginMatch() throws IOException {
-		String radioName = "Radio para";
+		String radioName = "Radio Paradise 1";
 
 		PowerMockito.when(HttpUtils.doGet(TUNEIN_URL + radioName)).thenReturn(readFile(radioParadise));
 
@@ -147,8 +165,8 @@ public class TuneInRadioFinderTest {
 		// Assertions
 		assertTrue(found.isPresent());
 		Radio r = found.get();
-		assertThat(r.getName(), is("Radio Paradise"));
-		URI expectedUri = new URI("https:\u002F\u002Fcdn-radiotime-logos.tunein.com\u002Fs13606q.png");
+		assertThat(r.getName(), is("Radio Paradise 105.1 FM"));
+		URI expectedUri = new URI("https:\u002F\u002Fcdn-radiotime-logos.tunein.com\u002Fs288334q.png");
 		assertThat(r.getLogoUri().get().toString(), is(expectedUri.toString()));
 	}
 
