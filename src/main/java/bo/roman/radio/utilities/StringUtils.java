@@ -14,7 +14,8 @@ public interface StringUtils {
 	
 	static final String BRACKETS_REGEX = "(?<=[\\w\\s])[\\(|\\[].*[\\)|\\]].*";
 	static final String FEATURING_REGEX = "(?i)(?<=.)(\\s+(ft\\.|ft|feat\\.|feat|featuring|feature|f/|f\\.).*)";
-	
+	static final String AFTERTOKEN_REGEX = "[\\*+-\\/~\\|\\\\].*";
+
 	/**
 	 * @return True if {@code val} is non null and non empty
 	 */
@@ -39,6 +40,18 @@ public interface StringUtils {
 	
 	static String removeFeatureInfo(String val) {
 		return val.replaceAll(FEATURING_REGEX, "").trim();
+	}
+
+	/**
+	 * Removes extra information provided in the string, such as:
+	 * usefulText * uselessText
+	 * usefulText / uselessText
+	 *
+	 * Everything that is after the 'token' characters: *, +, -, /, \, |, ~
+	 * will be deleted.
+	 */
+	static String removeExtraInfo(String val) {
+		return val.replaceAll(AFTERTOKEN_REGEX, "").trim();
 	}
 
 	/**
@@ -67,9 +80,6 @@ public interface StringUtils {
 	 * Decode a URL encoded String, taking into account that the characters
 	 * present in the String to decode got a replacement for the characters %
 	 * and +. Those characters are replaced by: %2B (+) and %25 (%)
-	 * 
-	 * @param val
-	 * @return
 	 */
 	static String decodeUrl(String data) {
 		String utf8 = CharEncoding.UTF_8;

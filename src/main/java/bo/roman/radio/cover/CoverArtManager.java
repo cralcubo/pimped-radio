@@ -1,8 +1,6 @@
 package bo.roman.radio.cover;
 
-import static bo.roman.radio.utilities.StringUtils.exists;
-import static bo.roman.radio.utilities.StringUtils.removeBracketsInfo;
-import static bo.roman.radio.utilities.StringUtils.removeFeatureInfo;
+import static bo.roman.radio.utilities.StringUtils.*;
 import static java.util.Optional.empty;
 import static java.util.stream.Collectors.toList;
 
@@ -52,8 +50,8 @@ class CoverArtManager implements ICoverArtManager {
 		// to have a better Album search.
 		LoggerUtils.logDebug(log,
 				() -> String.format("Cleaning brackets and feat. info from: [%s] - [%s]", song, artist));
-		String cSong = removeFeatureInfo(removeBracketsInfo(song));
-		String cArtist = removeFeatureInfo(removeBracketsInfo(artist));
+		String cSong = removeExtraInfo(removeFeatureInfo(removeBracketsInfo(song)));
+		String cArtist = removeExtraInfo(removeFeatureInfo(removeBracketsInfo(artist)));
 		LoggerUtils.logDebug(log, () -> String.format("Clean info: [%s] - [%s]", cSong, cArtist));
 
 		log.info("Finding Album for [{} - {}]", cSong, cArtist);

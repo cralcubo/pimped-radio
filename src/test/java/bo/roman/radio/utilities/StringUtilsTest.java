@@ -41,7 +41,20 @@ public class StringUtilsTest {
 		String expected = "Et ca sera sa moitie. by Cesaria Evora #song by Tiesto";
 		assertThat(StringUtils.cleanIt(toTest), is(expected));
 	}
-	
+
+	@Test
+	public void removeAfterPlus() {
+		String val = "Everybody's Changing+www.ipmusic.ch";
+		assertThat(StringUtils.removeExtraInfo(val), is("Everybody's Changing"));
+	}
+
+	@Test
+	public void removeAfterAsterisks() {
+		String val = "Everybody's Changing *** www.ipmusic.ch";
+		assertThat(StringUtils.removeExtraInfo(val), is("Everybody's Changing"));
+	}
+
+
 	@Test
 	public void testRemoveFeaturing1() {
 		String song = "aSong ft. anArtist";
