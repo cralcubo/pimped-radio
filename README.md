@@ -1,5 +1,9 @@
 # Pimped Radio
 
+Stable brach
+------------
+The 'reactive' branch is the branch with the latest modifications, therefore can be considered the code in this branch as the Release Candidate.
+
 What is it?
 -----------
 This project will implement an internet radio player to be used in a computer (PC, Linux, Mac).
